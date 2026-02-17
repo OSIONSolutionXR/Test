@@ -49,7 +49,6 @@
       align-items:center;
       justify-content:center;
       padding:46px 18px;
-      /* Handy: unten genug Luft + Safe-Area */
       padding-bottom: calc(46px + env(safe-area-inset-bottom, 0px));
     }
 
@@ -194,7 +193,6 @@
         radial-gradient(900px 340px at 10% 30%, rgba(107,44,255,.10), transparent 55%),
         radial-gradient(900px 340px at 90% 40%, rgba(179,0,60,.10), transparent 55%),
         linear-gradient(180deg, rgba(0,0,0,.55), rgba(0,0,0,.60));
-      /* Ergebnisbereich: unten genug Luft + Safe-Area */
       padding-bottom: calc(18px + env(safe-area-inset-bottom, 0px));
     }
 
@@ -247,7 +245,6 @@
       .grid.cols-3{ grid-template-columns: repeat(2, minmax(0, 1fr)); }
     }
 
-    /* MOBILE: nur Header-Fix (Desktop bleibt unverändert) */
     @media (max-width: 680px){
       .grid.cols-2, .grid.cols-3{ grid-template-columns: 1fr; }
 
@@ -435,7 +432,6 @@
       border: 1px solid rgba(255,255,255,.14);
       background: rgba(255,255,255,.06);
       padding:16px 16px;
-      /* Handy: Ergebnis nicht an den Rand pressen */
       margin-bottom: calc(10px + env(safe-area-inset-bottom, 0px));
     }
     .resultHead{
@@ -900,12 +896,6 @@
                     Kostenlose Vor-Ort-Einschätzung anfragen
                     <span aria-hidden="true">↗</span>
                   </button>
-
-                  <!-- Optionaler Link bleibt verfügbar, ohne den Flow zu stören -->
-                  <a class="btn" id="ctaLink" href="https://elitebau-hamburg.de/kontakt" target="_blank" rel="noopener">
-                    Kontaktseite öffnen
-                    <span aria-hidden="true">↗</span>
-                  </a>
                 </div>
 
                 <div class="note">
@@ -1287,9 +1277,9 @@
       consumption:   0.04,
       buildingShape: 0.05,
       area:          0.18,
-      emitters:      0.08,   // nur Bestand
+      emitters:      0.08,
       flowTemp:      0.10,
-      surfacesNew:   0.08,   // Neubau ersetzt emitters
+      surfacesNew:   0.08,
       surfacesRetro: 0.10,
       source:        0.06,
       airSetup:      0.04,
@@ -1326,9 +1316,6 @@
     const elCJaz       = document.getElementById("cJaz");
     const elCKwh       = document.getElementById("cKwh");
     const elCCost      = document.getElementById("cCost");
-
-    const elCtaLink    = document.getElementById("ctaLink");
-    elCtaLink.href = CTA_URL;
 
     const elCtaOpen    = document.getElementById("ctaOpen");
 
@@ -1421,7 +1408,6 @@
       return state.answers.elecNew || state.answers.elecRetro || null;
     }
     function getEmitterAnswer(){
-      // Neubau: Heizflächen-Konzept liefert jazBase (statt emitters)
       if (state.answers.projectType?.value === "new") return state.answers.surfacesNew || null;
       return state.answers.emitters || null;
     }
@@ -1491,10 +1477,8 @@
       let jaz = jazBase + srcJazAdj + ventJazAdj + flowJazAdj + surfJazAdj + jazBuildingAdj + jazRegionAdj + jazEmitterAdj + backupJazAdj;
       jaz = Math.max(2.4, Math.min(4.6, jaz));
 
-      // Heizleistung
       let kw = (area * baseWm2 * insFactor * heightFactor * designAdj * shapeFactor) / 1000;
 
-      // Bestand: Verbrauchs-Shortcut
       const cons = state.answers.consumption;
       const consHeat = (mode === "retro") ? (cons?.heatThKwh ?? null) : null;
       let heat_th;
@@ -1507,7 +1491,6 @@
         heat_th = kw * hlh;
       }
 
-      // Lüftung WRG: senkt Bedarf (Neubau)
       heat_th = heat_th * ventHeatFactor;
 
       const dhw = state.answers.dhw?.dhw === true;
@@ -1572,20 +1555,16 @@
         if (typeof ans.add === "number") add += ans.add;
       }
 
-      // Elektro (aus Neubau oder Bestand)
       const elecAns = getElecAnswer();
       add += (elecAns?.elecAdd ?? 0);
 
-      // System-Add-ons
-      add += (state.answers.emitters?.sysAdd ?? 0);     // nur Bestand
+      add += (state.answers.emitters?.sysAdd ?? 0);
       add += (state.answers.flowTemp?.sysAdd ?? 0);
-      add += (getSurfacesAnswer()?.sysAdd ?? 0);        // Neubau + Bestand (Konzept / Anpassungsbedarf)
+      add += (getSurfacesAnswer()?.sysAdd ?? 0);
 
-      // Bestand-Pauschale
       const isRetro = (state.answers.projectType?.retrofit === true);
       if (isRetro) add += 650;
 
-      // Preis-Skalierung nach kW (Sizing-kW, nicht reine kW)
       const kw = tech.kwSizing ?? tech.kw;
       const kwRef = 8.0;
       const kwFactor = Math.max(0.90, Math.min(1.14, 1 + ((kw - kwRef) / 40)));
@@ -1604,7 +1583,6 @@
       if (e === "unknown")  elecShare = 0.08;
       if (e === "upgrade")  elecShare = 0.10;
 
-      // Neubau-Optionen: planned/more/unk
       if (e === "planned") elecShare = 0.06;
       if (e === "more")    elecShare = 0.09;
       if (e === "unk")     elecShare = 0.08;
@@ -1662,7 +1640,6 @@
 
     function triggerFade(el){
       el.classList.remove("fadeIn");
-      // reflow
       void el.offsetWidth;
       el.classList.add("fadeIn");
     }
@@ -1675,6 +1652,33 @@
         const ans = state.answers[stepId];
         if (ans && v && (ans.value + "") === (v + "")) btn.classList.add("isSelected");
       });
+    }
+
+    function animateNumber(el, target, formatFn){
+      const prefersReduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if (prefersReduce){
+        el.textContent = formatFn(target);
+        return;
+      }
+
+      const startText = el.getAttribute("data-last");
+      const start = (startText !== null && startText !== "") ? parseFloat(startText) : (isFinite(target) ? target : 0);
+      const end = isFinite(target) ? target : 0;
+      const diff = end - start;
+
+      const dur = 520;
+      const t0 = performance.now();
+
+      function tick(t){
+        const p = Math.min(1, (t - t0) / dur);
+        const eased = 1 - Math.pow(1 - p, 3);
+        const val = start + diff * eased;
+        el.textContent = formatFn(val);
+        if (p < 1) requestAnimationFrame(tick);
+        else el.setAttribute("data-last", String(end));
+      }
+
+      requestAnimationFrame(tick);
     }
 
     function render(){
@@ -1707,7 +1711,6 @@
         const { total, tech } = computeTotal();
         const b = breakdown(total, tech);
 
-        // Count-up Animation (ohne Layout-Änderung)
         animateNumber(elTotalOut, total, (v)=> euro(v));
         animateNumber(elCDevice,  b.device, (v)=> euro(v));
         animateNumber(elCInstall, b.install, (v)=> euro(v));
@@ -1753,12 +1756,10 @@
         btn.appendChild(chev);
 
         btn.addEventListener("click", ()=>{
-          // Click pulse for whole calculator feel
           elOptions.classList.remove("pulse");
           void elOptions.offsetWidth;
           elOptions.classList.add("pulse");
 
-          // Projektart: Antworten auf den jeweils anderen Pfad löschen
           if (step.id === "projectType"){
             state.answers.projectType = opt;
 
@@ -1779,7 +1780,6 @@
             return;
           }
 
-          // Quelle: airSetup nur bei Luft/Wasser
           if (step.id === "source"){
             state.answers.source = opt;
             if (opt.value !== "air") delete state.answers.airSetup;
@@ -1787,7 +1787,6 @@
             return;
           }
 
-          // Warmwasser: occupants nur wenn Ja
           if (step.id === "dhw"){
             state.answers.dhw = opt;
             if (opt.dhw !== true) delete state.answers.occupants;
@@ -1795,7 +1794,6 @@
             return;
           }
 
-          // Fläche
           if (step.id === "area"){
             state.answers.area = {
               value: opt.value,
@@ -1808,7 +1806,6 @@
             return;
           }
 
-          // Standard speichern
           state.answers[step.id] = opt;
           goNext();
         });
@@ -1816,7 +1813,6 @@
         elOptions.appendChild(btn);
       });
 
-      // Selected highlight for current step if already answered
       setSelectedUI(step.id);
       triggerFade(elOptions);
     }
@@ -1837,7 +1833,6 @@
     elBack.addEventListener("click", goBack);
 
     elApplyAreaBtn.addEventListener("click", ()=>{
-      // pulse on apply
       elAreaCustomWrap.classList.remove("pulse");
       void elAreaCustomWrap.offsetWidth;
       elAreaCustomWrap.classList.add("pulse");
@@ -1870,9 +1865,7 @@
       document.body.style.overflow = "";
     }
 
-    elCtaOpen.addEventListener("click", ()=>{
-      openModal();
-    });
+    elCtaOpen.addEventListener("click", ()=>{ openModal(); });
     elModalClose.addEventListener("click", closeModal);
     elModalCancel.addEventListener("click", closeModal);
     elModalOverlay.addEventListener("click", (e)=>{
@@ -1969,40 +1962,10 @@
       }
       elLeadError.classList.remove("isOpen");
 
-      // Sicherheit: nur senden, wenn Ergebnis erreichbar ist
-      // (wenn User Modal irgendwie früher öffnet, rechnen wir trotzdem sauber)
       const link = buildMailto(name, email, phone);
       closeModal();
       window.location.href = link;
     });
-
-    // Count-up helper (leicht, ohne Layout-Änderungen)
-    function animateNumber(el, target, formatFn){
-      const prefersReduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      if (prefersReduce){
-        el.textContent = formatFn(target);
-        return;
-      }
-
-      const startText = el.getAttribute("data-last");
-      const start = (startText !== null && startText !== "") ? parseFloat(startText) : (isFinite(target) ? target : 0);
-      const end = isFinite(target) ? target : 0;
-      const diff = end - start;
-
-      const dur = 520;
-      const t0 = performance.now();
-
-      function tick(t){
-        const p = Math.min(1, (t - t0) / dur);
-        const eased = 1 - Math.pow(1 - p, 3);
-        const val = start + diff * eased;
-        el.textContent = formatFn(val);
-        if (p < 1) requestAnimationFrame(tick);
-        else el.setAttribute("data-last", String(end));
-      }
-
-      requestAnimationFrame(tick);
-    }
 
     // Initial
     setRangeFill(elAreaRange);
