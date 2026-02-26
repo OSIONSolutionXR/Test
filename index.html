@@ -2,1563 +2,971 @@
 <html lang="de">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-  <title>Interaktiver Bad-Budgetrechner | Powered by OSION Solution XR</title>
-
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Unified Dating Signal Calculator (Frame / Invest / Compliance / Risk)</title>
   <style>
     :root{
-      --bg0:#06060a;
-      --bg1:#0b0b12;
-      --card:#0f1017cc;
-      --stroke:#ffffff1a;
-      --stroke2:#ffffff2a;
-      --text:#f3f4f6;
-      --muted:#c7cad1;
-      --muted2:#a9afba;
-      --shadow: 0 30px 80px rgba(0,0,0,.55);
-      --shadow2: 0 12px 40px rgba(0,0,0,.5);
-      --radius: 26px;
-      --radius2: 20px;
-      --accent1:#b3003c;
-      --accent2:#6b2cff;
-      --accentGlow: 0 0 0 2px rgba(179,0,60,.35), 0 0 40px rgba(107,44,255,.25), 0 0 90px rgba(179,0,60,.18);
-
-      --easeOut: cubic-bezier(.2,.9,.2,1);
-      --pressScale: .985;
+      --bg:#0b0c10;
+      --card:#121420;
+      --muted:#9aa3b2;
+      --text:#e9edf5;
+      --line:#23263a;
+      --good:#37d67a;
+      --warn:#f7c948;
+      --bad:#ff5c5c;
+      --accent1:#ff2d55;
+      --accent2:#7c3aed;
+      --radius:16px;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
     }
-
-    *{ box-sizing:border-box; }
-    html,body{ height:100%; }
+    *{box-sizing:border-box}
     body{
       margin:0;
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      background: radial-gradient(1200px 700px at 15% 10%, rgba(124,58,237,.25), transparent 60%),
+                  radial-gradient(900px 600px at 80% 20%, rgba(255,45,85,.18), transparent 55%),
+                  var(--bg);
       color:var(--text);
-      background:
-        radial-gradient(1200px 700px at 10% 20%, rgba(107,44,255,.24), transparent 60%),
-        radial-gradient(900px 700px at 90% 10%, rgba(179,0,60,.22), transparent 55%),
-        radial-gradient(900px 700px at 80% 90%, rgba(107,44,255,.18), transparent 58%),
-        linear-gradient(180deg, var(--bg0), var(--bg1));
-      overflow-x:hidden;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      line-height:1.35;
     }
-
-    .wrap{
-      min-height:100%;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      padding:46px 18px;
-      padding-bottom: calc(46px + env(safe-area-inset-bottom, 0px));
+    header{
+      padding:28px 18px 10px;
+      max-width: 1100px;
+      margin: 0 auto;
     }
-
-    .shell{
-      width:min(1180px, 100%);
-      border-radius: calc(var(--radius) + 8px);
-      background: linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.03));
-      box-shadow: var(--shadow);
-      border: 1px solid rgba(255,255,255,.10);
-      overflow:hidden;
-      position:relative;
-    }
-
-    /* HEADER */
-    .hero{
-      position:relative;
-      padding:22px 26px 18px 26px;
-      background:
-        linear-gradient(180deg, rgba(0,0,0,.35), rgba(0,0,0,.55)),
-        url("osion-header.png") center 18% / cover no-repeat;
-      border-bottom: 1px solid rgba(255,255,255,.10);
-      min-height: 150px;
-    }
-
-    .brandRow{
-      display:flex;
-      align-items:center;
-      gap:18px;
-      width:100%;
-    }
-
-    .brandBadge{
-      display:flex;
-      align-items:center;
-      gap:16px;
-      padding:14px 16px;
-      border-radius: 999px;
-      background: rgba(0,0,0,.35);
-      border: 1px solid rgba(255,255,255,.14);
-      backdrop-filter: blur(10px);
-      box-shadow: var(--shadow2);
-      max-width:100%;
-      min-width:0;
-    }
-
-    .brandBadge img{
-      width:72px;
-      height:72px;
-      border-radius: 14px;
-      background: rgba(255,255,255,.08);
-      border: 1px solid rgba(255,255,255,.16);
-      padding:6px;
-      object-fit:contain;
-      flex:0 0 auto;
-    }
-
-    .brandText{
-      display:flex;
-      flex-direction:column;
-      gap:6px;
-      min-width:0;
-    }
-    .kicker{
-      font-size:12px;
-      letter-spacing:.18em;
-      text-transform:uppercase;
-      color: rgba(255,255,255,.78);
-      white-space:nowrap;
-    }
-    .title{
-      font-size:28px;
+    h1{
+      margin:0 0 8px;
+      font-size: clamp(22px, 3.2vw, 34px);
       font-weight:800;
-      line-height:1.05;
-      text-shadow: 0 6px 30px rgba(0,0,0,.5);
-      white-space:nowrap;
-      overflow:hidden;
-      text-overflow:ellipsis;
+      letter-spacing:.2px;
     }
-
-    .pill{
-      margin-left:auto;
-      display:flex;
-      align-items:center;
-      gap:10px;
-      padding:10px 14px;
-      border-radius:999px;
-      background: rgba(0,0,0,.35);
-      border: 1px solid rgba(255,255,255,.14);
-      backdrop-filter: blur(10px);
-      font-weight:700;
-      color: rgba(255,255,255,.90);
-      white-space:nowrap;
+    .sub{
+      color:var(--muted);
+      max-width: 70ch;
+      margin:0;
     }
-    .dot{
-      width:10px;height:10px;border-radius:50%;
-      background: var(--accent1);
-      box-shadow: 0 0 0 4px rgba(179,0,60,.18);
-    }
-
-    .subRow{
-      margin-top:14px;
-      display:flex;
-      align-items:center;
+    .wrap{
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 14px 18px 34px;
+      display:grid;
+      grid-template-columns: 1.1fr .9fr;
       gap:16px;
-      flex-wrap:wrap;
     }
-    .subText{
-      color: rgba(255,255,255,.84);
-      font-size:14px;
+    @media (max-width: 980px){
+      .wrap{grid-template-columns: 1fr}
     }
-    .progressWrap{
-      margin-left:auto;
+    .card{
+      background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.01));
+      border:1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+    .card .hd{
+      padding:16px 16px 10px;
+      border-bottom:1px solid var(--line);
       display:flex;
       align-items:center;
-      gap:12px;
-      min-width: 260px;
-      flex: 1 1 260px;
-      justify-content:flex-end;
+      justify-content:space-between;
+      gap:10px;
     }
-    .progressBar{
-      width:min(420px, 100%);
-      height:10px;
-      border-radius:999px;
-      background: rgba(255,255,255,.14);
-      overflow:hidden;
-      border: 1px solid rgba(255,255,255,.14);
+    .card .hd h2{
+      margin:0;
+      font-size: 16px;
+      letter-spacing:.2px;
     }
-    .progressFill{
-      height:100%;
-      width:0%;
-      background: linear-gradient(90deg, rgba(107,44,255,.95), rgba(179,0,60,.95));
-      box-shadow: 0 0 30px rgba(179,0,60,.25);
-      transition: width 420ms var(--easeOut);
-    }
-    .stepLabel{
-      font-size:12px;
-      color: rgba(255,255,255,.80);
-      font-weight:700;
+    .pill{
+      padding:6px 10px;
+      border-radius: 999px;
+      border:1px solid var(--line);
+      color: var(--muted);
+      font-size: 12px;
+      background: rgba(255,255,255,.02);
+      user-select:none;
       white-space:nowrap;
     }
-
-    /* CONTENT */
-    .content{
-      padding: 22px 26px 18px 26px;
-      background:
-        radial-gradient(900px 340px at 10% 30%, rgba(107,44,255,.10), transparent 55%),
-        radial-gradient(900px 340px at 90% 40%, rgba(179,0,60,.10), transparent 55%),
-        linear-gradient(180deg, rgba(0,0,0,.55), rgba(0,0,0,.60));
-      padding-bottom: calc(18px + env(safe-area-inset-bottom, 0px));
-    }
-
-    .panel{
-      border-radius: var(--radius);
-      border: 1px solid rgba(255,255,255,.12);
-      background: rgba(10,10,14,.55);
-      box-shadow: var(--shadow2);
-      overflow:hidden;
-    }
-
-    .panelHead{
-      padding:18px 18px 12px 18px;
-      display:flex;
-      align-items:flex-start;
-      justify-content:space-between;
-      gap:12px;
-      border-bottom: 1px solid rgba(255,255,255,.10);
-      background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,0));
-    }
-
-    .qWrap{
-      display:flex;
-      flex-direction:column;
-      gap:8px;
-      min-width:0;
-    }
-    .question{
-      font-size:22px;
-      font-weight:850;
-      margin:0;
-      line-height:1.15;
-    }
-    .hint{
-      font-size:13px;
-      color: rgba(255,255,255,.72);
-      margin:0;
-    }
-
-    .panelBody{
-      padding:16px 18px 18px 18px;
-      padding-bottom: calc(18px + env(safe-area-inset-bottom, 0px));
-    }
-
-    /* OPTION GRID */
+    .card .bd{padding:14px 16px 16px}
     .grid{
       display:grid;
-      gap:14px;
+      grid-template-columns: 1fr 1fr;
+      gap:12px;
     }
-    .grid.cols-2{ grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    .grid.cols-3{ grid-template-columns: repeat(3, minmax(0, 1fr)); }
-
-    @media (max-width: 980px){
-      .grid.cols-3{ grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    }
-
-    /* Mobile: Header sauber umbrechen (wie bei deinem Screenshot) */
     @media (max-width: 680px){
-      .grid.cols-2, .grid.cols-3{ grid-template-columns: 1fr; }
-
-      .hero{ min-height: 170px; padding:18px 18px 14px 18px; }
-
-      .brandRow{
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 14px;
-      }
-      .brandBadge{
-        width: 100%;
-        border-radius: 20px;
-      }
-      .brandBadge img{
-        width:56px;
-        height:56px;
-      }
-      .kicker{
-        white-space: normal;
-        letter-spacing: .14em;
-        line-height: 1.15;
-      }
-      .title{
-        white-space: normal;
-        font-size: 20px;
-        line-height: 1.18;
-        overflow: visible;
-        text-overflow: clip;
-      }
-
-      .pill{ margin-left:0; }
-
-      .progressWrap{
-        justify-content:flex-start;
-        min-width: 0;
-        width: 100%;
-      }
-      .stepLabel{
-        white-space: normal;
-      }
+      .grid{grid-template-columns:1fr}
     }
-
-    /* Options */
-    .opt{
-      position:relative;
-      border-radius: 22px;
-      border: 1px solid rgba(255,255,255,.14);
-      background:
-        radial-gradient(800px 220px at 20% 30%, rgba(107,44,255,.22), transparent 60%),
-        radial-gradient(700px 260px at 90% 40%, rgba(179,0,60,.20), transparent 60%),
-        linear-gradient(180deg, rgba(255,255,255,.05), rgba(0,0,0,.08));
-      box-shadow: 0 18px 55px rgba(0,0,0,.35);
-      padding:18px 18px;
-      cursor:pointer;
-      transition: transform 220ms var(--easeOut), border-color 220ms var(--easeOut), box-shadow 220ms var(--easeOut), filter 220ms var(--easeOut);
-      min-height: 88px;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:14px;
-      outline:none;
-      user-select:none;
-      overflow:hidden;
-      transform: translateZ(0);
-      will-change: transform, box-shadow;
-    }
-    .opt::after{
-      content:"";
-      position:absolute;
-      inset:-2px;
-      border-radius: 24px;
-      pointer-events:none;
-      opacity:0;
-      transition: opacity 240ms var(--easeOut);
-      box-shadow: var(--accentGlow);
-    }
-    .opt:hover{
-      transform: translateY(-1px);
-      border-color: rgba(255,255,255,.22);
-      filter: brightness(1.03);
-    }
-    .opt:active{
-      transform: translateY(0) scale(var(--pressScale));
-    }
-    .opt.isSelected{
-      border-color: rgba(255,255,255,.26);
-      filter: brightness(1.05);
-    }
-    .opt.isSelected::after{ opacity:1; }
-
-    .optText{
-      display:flex;
-      flex-direction:column;
-      align-items:flex-start;
-      gap:6px;
-      min-width:0;
-      flex:1 1 auto;
-    }
-    .optMain{
-      font-size:18px;
-      font-weight:900;
-      color: rgba(255,255,255,.96);
-      line-height:1.15;
-      white-space:normal;
-      overflow-wrap:anywhere;
-      max-width:100%;
-    }
-
-    .chev{
-      width:40px;height:40px;
-      border-radius:999px;
-      display:grid;
-      place-items:center;
-      border: 1px solid rgba(255,255,255,.16);
-      background: rgba(0,0,0,.18);
-      color: rgba(255,255,255,.92);
-      flex:0 0 auto;
-      transition: transform 240ms var(--easeOut), background 240ms var(--easeOut);
-    }
-    .opt:hover .chev{ transform: translateX(1px); }
-    .chev svg{ width:18px;height:18px; opacity:.95; }
-
-    .panelFoot{
-      padding:14px 18px;
-      border-top: 1px solid rgba(255,255,255,.10);
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:12px;
-      flex-wrap:wrap;
-      background: linear-gradient(180deg, rgba(255,255,255,0), rgba(255,255,255,.03));
-    }
-
-    .btn{
-      appearance:none;
-      border:none;
-      cursor:pointer;
+    .q{
+      padding:12px;
+      border:1px solid var(--line);
       border-radius: 14px;
-      padding:12px 14px;
-      font-weight:850;
-      color: rgba(255,255,255,.95);
-      background: rgba(255,255,255,.12);
-      border: 1px solid rgba(255,255,255,.14);
-      transition: transform 220ms var(--easeOut), background 220ms var(--easeOut), border-color 220ms var(--easeOut), box-shadow 220ms var(--easeOut);
+      background: rgba(255,255,255,.02);
+    }
+    .q label{
+      display:block;
+      font-weight:650;
+      font-size: 13px;
+      margin-bottom: 10px;
+    }
+    .row{
       display:flex;
       align-items:center;
-      gap:10px;
-      transform: translateZ(0);
-      will-change: transform;
-    }
-    .btn:hover{
-      transform: translateY(-1px);
-      background: rgba(255,255,255,.14);
-      border-color: rgba(255,255,255,.20);
-    }
-    .btn:active{
-      transform: translateY(0) scale(var(--pressScale));
-    }
-    .btn:disabled{
-      opacity:.45;
-      cursor:not-allowed;
-      transform:none;
-    }
-    .btnPrimary{
-      background: linear-gradient(90deg, rgba(107,44,255,.92), rgba(179,0,60,.92));
-      border-color: rgba(255,255,255,.12);
-      box-shadow: 0 14px 40px rgba(179,0,60,.20);
-    }
-    .btnPrimary:hover{
-      background: linear-gradient(90deg, rgba(107,44,255,1), rgba(179,0,60,1));
-      box-shadow: 0 18px 55px rgba(179,0,60,.26);
-    }
-
-    .meta{
-      font-size:12px;
-      color: rgba(255,255,255,.72);
-      font-weight:700;
-      white-space:nowrap;
-    }
-
-    /* RESULT */
-    .resultBox{
-      border-radius: 22px;
-      border: 1px solid rgba(255,255,255,.14);
-      background: rgba(255,255,255,.06);
-      padding:16px 16px;
-      margin-bottom: calc(10px + env(safe-area-inset-bottom, 0px));
-    }
-    .resultHead{
-      display:flex;
-      align-items:flex-end;
       justify-content:space-between;
-      gap:12px;
-      flex-wrap:wrap;
-      margin-bottom:10px;
+      gap:10px;
     }
-    .resultTitle{
-      font-size:20px;
-      font-weight:900;
-      margin:0;
-    }
-    .resultTotal{
-      font-size:22px;
-      font-weight:950;
-      margin:0;
-      letter-spacing:.02em;
-    }
-
-    .table{
+    select, input[type="number"]{
       width:100%;
-      border-collapse:collapse;
-      margin-top:10px;
-      font-size:14px;
+      background: rgba(255,255,255,.03);
+      color: var(--text);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 10px 10px;
+      outline:none;
     }
-    .table td{
-      padding:10px 0;
-      border-top: 1px solid rgba(255,255,255,.10);
-      color: rgba(255,255,255,.88);
-    }
-    .table td:last-child{
-      text-align:right;
-      font-weight:850;
-      color: rgba(255,255,255,.95);
-      white-space:nowrap;
-      padding-left:14px;
-    }
-
-    .note{
-      font-size:12px;
-      color: rgba(255,255,255,.70);
-      margin-top:12px;
-      line-height:1.35;
-    }
-
-    .footer{
-      text-align:center;
-      padding: 12px 10px 18px;
-      font-size:12px;
-      color: rgba(255,255,255,.62);
-      padding-bottom: calc(18px + env(safe-area-inset-bottom, 0px));
-    }
-
-    /* ===== AREA CUSTOM (Slider-Block) ===== */
-    .customBox{
-      margin-top:14px;
-      border-radius: 22px;
-      border: 1px solid rgba(255,255,255,.14);
-      background:
-        radial-gradient(700px 220px at 10% 30%, rgba(107,44,255,.14), transparent 58%),
-        radial-gradient(700px 220px at 90% 40%, rgba(179,0,60,.12), transparent 58%),
-        rgba(0,0,0,.18);
-      padding:14px 14px;
-    }
-
-    .customTitleRow{
-      display:flex;
-      align-items:flex-end;
-      justify-content:space-between;
-      gap:12px;
-      flex-wrap:wrap;
-      margin-bottom:10px;
-    }
-    .customTitle{
-      font-size:16px;
-      font-weight:900;
-      margin:0;
-    }
-    .customLive{
-      font-size:14px;
-      font-weight:900;
-      margin:0;
-      color: rgba(255,255,255,.92);
-      white-space:nowrap;
-    }
-
-    .sliders{
-      display:grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap:14px;
-      margin-top:10px;
-    }
-    @media (max-width: 980px){
-      .sliders{ grid-template-columns: 1fr; }
-    }
-
-    .sItem{
-      border-radius: 18px;
-      border: 1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.04);
-      padding:12px 12px;
-      transition: transform 220ms var(--easeOut), border-color 220ms var(--easeOut), box-shadow 220ms var(--easeOut);
-    }
-    .sItem:focus-within{
-      border-color: rgba(255,255,255,.22);
-      box-shadow: 0 0 0 2px rgba(255,255,255,.10), 0 18px 55px rgba(0,0,0,.28);
-      transform: translateY(-1px);
-    }
-    .sLabel{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:10px;
-      font-size:13px;
-      color: rgba(255,255,255,.82);
-      font-weight:850;
-      margin-bottom:8px;
-    }
-    .sValue{
-      color: rgba(255,255,255,.95);
-      font-weight:950;
-      white-space:nowrap;
-      transition: transform 220ms var(--easeOut);
-    }
-    .sItem.isAdjusting .sValue{ transform: scale(1.03); }
-
     input[type="range"]{
       width:100%;
-      -webkit-appearance: none;
-      appearance: none;
-      height: 8px;
-      border-radius: 999px;
-      outline: none;
-      background:
-        linear-gradient(90deg, rgba(107,44,255,.95), rgba(179,0,60,.95)) 0/ var(--fill, 50%) 100% no-repeat,
-        rgba(255,255,255,.14);
-      border: 1px solid rgba(255,255,255,.14);
-      transition: background-size 240ms var(--easeOut), filter 240ms var(--easeOut);
-    }
-    input[type="range"]:hover{ filter: brightness(1.04); }
-    input[type="range"]::-webkit-slider-thumb{
-      -webkit-appearance: none;
-      appearance: none;
-      width: 18px;
-      height: 18px;
-      border-radius: 50%;
-      background: rgba(255,255,255,.92);
-      border: 2px solid rgba(0,0,0,.25);
-      box-shadow: 0 10px 30px rgba(0,0,0,.35);
-      transition: transform 180ms var(--easeOut), box-shadow 180ms var(--easeOut);
-    }
-    input[type="range"]:active::-webkit-slider-thumb{
-      transform: scale(1.12);
-      box-shadow: 0 14px 44px rgba(0,0,0,.45);
-    }
-    input[type="range"]::-moz-range-thumb{
-      width: 18px;
-      height: 18px;
-      border-radius: 50%;
-      background: rgba(255,255,255,.92);
-      border: 2px solid rgba(0,0,0,.25);
-      box-shadow: 0 10px 30px rgba(0,0,0,.35);
-      transition: transform 180ms var(--easeOut), box-shadow 180ms var(--easeOut);
-    }
-    input[type="range"]:active::-moz-range-thumb{
-      transform: scale(1.12);
-      box-shadow: 0 14px 44px rgba(0,0,0,.45);
-    }
-
-    .applyRow{
-      display:flex;
-      gap:12px;
-      flex-wrap:wrap;
-      margin-top:12px;
-      align-items:center;
-      justify-content:flex-end;
-    }
-
-    /* Step / Content Animations */
-    .fadeIn{ animation: fadeInUp 380ms var(--easeOut) both; }
-    @keyframes fadeInUp{ from{ opacity:0; transform: translateY(8px);} to{ opacity:1; transform: translateY(0);} }
-    .pulse{ animation: pulseGlow 520ms var(--easeOut) both; }
-    @keyframes pulseGlow{
-      0%{ transform: translateY(0); filter: brightness(1); }
-      45%{ transform: translateY(-1px); filter: brightness(1.06); }
-      100%{ transform: translateY(0); filter: brightness(1); }
-    }
-
-    /* Modal */
-    .modalOverlay{
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,.62);
-      backdrop-filter: blur(10px);
-      display:none;
-      align-items:center;
-      justify-content:center;
-      padding: 22px 16px;
-      z-index: 9999;
-    }
-    .modalOverlay.isOpen{ display:flex; }
-
-    .modalCard{
-      width: min(760px, 100%);
-      border-radius: 26px;
-      border: 1px solid rgba(255,255,255,.16);
-      background:
-        radial-gradient(900px 420px at 10% 20%, rgba(107,44,255,.16), transparent 60%),
-        radial-gradient(900px 420px at 90% 20%, rgba(179,0,60,.14), transparent 60%),
-        rgba(10,10,14,.88);
-      box-shadow: 0 40px 120px rgba(0,0,0,.65);
-      overflow:hidden;
-      transform: translateY(8px) scale(.98);
-      opacity:0;
-      animation: modalIn 360ms var(--easeOut) forwards;
-    }
-    @keyframes modalIn{ to{ transform: translateY(0) scale(1); opacity:1; } }
-
-    .modalHead{
-      padding:18px 18px 12px 18px;
-      border-bottom: 1px solid rgba(255,255,255,.10);
-      display:flex;
-      align-items:flex-start;
-      justify-content:space-between;
-      gap:12px;
-    }
-    .modalTitle{
-      margin:0;
-      font-size:18px;
-      font-weight:950;
-      line-height:1.2;
-    }
-    .modalSub{
-      margin:6px 0 0 0;
-      color: rgba(255,255,255,.76);
-      font-size:13px;
-      line-height:1.35;
-    }
-    .modalClose{
-      width:40px;height:40px;
-      border-radius:999px;
-      display:grid;
-      place-items:center;
-      border: 1px solid rgba(255,255,255,.16);
-      background: rgba(0,0,0,.18);
-      color: rgba(255,255,255,.92);
-    }
-
-    .modalBody{ padding: 14px 18px 18px 18px; }
-
-    .formGrid{
-      display:grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap:12px;
-    }
-    @media (max-width: 680px){
-      .formGrid{ grid-template-columns: 1fr; }
-    }
-    .field{ display:flex; flex-direction:column; gap:8px; }
-    .label{
-      font-size:12px;
-      font-weight:850;
-      color: rgba(255,255,255,.84);
-    }
-    .input{
-      width:100%;
-      border-radius: 14px;
-      padding: 12px 12px;
-      color: rgba(255,255,255,.94);
-      background: rgba(255,255,255,.06);
-      border: 1px solid rgba(255,255,255,.14);
-      outline:none;
-      transition: border-color 220ms var(--easeOut), box-shadow 220ms var(--easeOut), transform 220ms var(--easeOut);
-    }
-    .input:focus{
-      border-color: rgba(255,255,255,.22);
-      box-shadow: 0 0 0 2px rgba(255,255,255,.10), 0 0 0 6px rgba(179,0,60,.10);
-      transform: translateY(-1px);
-    }
-
-    .checkRow{
-      margin-top:12px;
-      display:flex;
-      gap:10px;
-      align-items:flex-start;
-      color: rgba(255,255,255,.82);
-      font-size:12px;
-      line-height:1.35;
-    }
-    .checkRow input{
-      margin-top:3px;
-      width:18px;height:18px;
       accent-color: var(--accent2);
     }
-
-    .formFoot{
-      margin-top:14px;
+    .val{
+      min-width: 36px;
+      text-align:right;
+      font-variant-numeric: tabular-nums;
+      color: var(--muted);
+    }
+    .small{
+      margin:10px 0 0;
+      color: var(--muted);
+      font-size: 12px;
+    }
+    .btnbar{
       display:flex;
       gap:10px;
       flex-wrap:wrap;
-      justify-content:flex-end;
-      align-items:center;
+      margin-top:12px;
     }
-
-    .errorText{
-      font-size:12px;
-      color: rgba(255,107,107,.95);
-      font-weight:850;
-      display:none;
+    button{
+      cursor:pointer;
+      border:none;
+      border-radius: 14px;
+      padding: 11px 14px;
+      font-weight: 750;
+      color: var(--text);
+      background: linear-gradient(90deg, rgba(255,45,85,.9), rgba(124,58,237,.9));
+      box-shadow: 0 10px 25px rgba(124,58,237,.18);
+    }
+    button.secondary{
+      background: rgba(255,255,255,.05);
+      border:1px solid var(--line);
+      box-shadow:none;
+      color: var(--text);
+    }
+    .scores{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:12px;
+    }
+    .score{
+      padding:14px;
+      border-radius: 14px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.02);
+    }
+    .score .k{
+      color: var(--muted);
+      font-size: 12px;
+      letter-spacing:.2px;
+      margin-bottom: 4px;
+    }
+    .score .v{
+      font-size: 28px;
+      font-weight: 900;
+      font-variant-numeric: tabular-nums;
+    }
+    .meter{
+      height:10px;
+      border-radius:999px;
+      background: rgba(255,255,255,.06);
+      overflow:hidden;
+      border:1px solid var(--line);
       margin-top:10px;
     }
-    .errorText.isOpen{ display:block; }
-
-    @media (prefers-reduced-motion: reduce){
-      *{ animation:none !important; transition:none !important; scroll-behavior:auto !important; }
-      .modalCard{ opacity:1; transform:none; }
+    .meter > div{
+      height:100%;
+      width:0%;
+      background: linear-gradient(90deg, var(--accent1), var(--accent2));
     }
+    .status{
+      margin-top:12px;
+      padding:12px;
+      border-radius: 14px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.02);
+    }
+    .status .tag{
+      display:inline-block;
+      padding:6px 10px;
+      border-radius:999px;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing:.3px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.03);
+      margin-bottom:8px;
+    }
+    .tag.good{color:var(--good)}
+    .tag.warn{color:var(--warn)}
+    .tag.bad{color:var(--bad)}
+    .rec h3{
+      margin:10px 0 6px;
+      font-size: 14px;
+    }
+    .rec p{
+      margin:0 0 8px;
+      color: var(--text);
+    }
+    .tmpl{
+      margin-top:10px;
+      border-top:1px dashed rgba(255,255,255,.12);
+      padding-top:10px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+    .tmpl code{
+      display:block;
+      white-space:pre-wrap;
+      background: rgba(0,0,0,.25);
+      border:1px solid rgba(255,255,255,.08);
+      padding:10px;
+      border-radius: 12px;
+      margin-top:8px;
+      color: var(--text);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size: 12.5px;
+    }
+    .footer{
+      margin-top:12px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.45;
+    }
+    .toggle{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      user-select:none;
+      color:var(--muted);
+      font-size: 12px;
+    }
+    .toggle input{transform: scale(1.05)}
   </style>
 </head>
-
 <body>
-  <div class="wrap">
-    <div class="shell">
+<header>
+  <h1>Unified Dating Signal Calculator</h1>
+  <p class="sub">
+    4 Scores: <b>INVEST</b>, <b>COMPLIANCE</b>, <b>FRAME/RESPECT</b>, <b>RISK</b> (inkl. Red Flags).
+    Output: Klasse + Handlung + 3 Message-Templates.
+  </p>
+</header>
 
-      <header class="hero">
-        <div class="brandRow">
-          <div class="brandBadge">
-            <img src="MGU-0015%20Logo%20OSION%20Solution%20XR.png" alt="OSION Solution XR" />
-            <div class="brandText">
-              <div class="kicker">Powered by OSION Solution XR</div>
-              <div class="title">Interaktiver Bad-Budgetrechner</div>
-            </div>
-          </div>
-
-          <div class="pill" title="Unverbindliche Kostenschätzung">
-            <span class="dot"></span>
-            Unverbindlich
-          </div>
-        </div>
-
-        <div class="subRow">
-          <div class="subText">
-            Unverbindliche Kostenschätzung auf Basis der Auswahl. Keine Preisgarantie.
-          </div>
-          <div class="progressWrap">
-            <div class="progressBar" aria-hidden="true">
-              <div class="progressFill" id="progressFill"></div>
-            </div>
-            <div class="stepLabel" id="stepLabel">Schritt 1 von …</div>
-          </div>
-        </div>
-      </header>
-
-      <main class="content">
-        <section class="panel" aria-live="polite">
-          <div class="panelHead">
-            <div class="qWrap">
-              <h2 class="question" id="question">…</h2>
-              <p class="hint" id="hint">Bitte eine Option wählen.</p>
-            </div>
-            <div class="meta" id="metaRight"> </div>
-          </div>
-
-          <div class="panelBody">
-            <div class="grid cols-2" id="options"></div>
-
-            <!-- Custom-Block: nur im Flächen-Schritt sichtbar -->
-            <div id="areaCustomWrap" style="display:none;">
-              <div class="customBox">
-                <div class="customTitleRow">
-                  <p class="customTitle">Individuell</p>
-                  <p class="customLive" id="areaLive">–</p>
-                </div>
-
-                <p class="hint" style="margin:0; color:rgba(255,255,255,.78);">
-                  Wenn die Maße bekannt sind: Länge, Breite und Höhe einstellen. Danach übernehmen.
-                </p>
-
-                <div class="sliders">
-                  <div class="sItem" id="lenItem">
-                    <div class="sLabel">
-                      <span>Länge</span>
-                      <span class="sValue" id="lenVal">3,0 m</span>
-                    </div>
-                    <input id="lenRange" type="range" min="1.0" max="6.0" step="0.1" value="3.0" />
-                  </div>
-
-                  <div class="sItem" id="widItem">
-                    <div class="sLabel">
-                      <span>Breite</span>
-                      <span class="sValue" id="widVal">2,0 m</span>
-                    </div>
-                    <input id="widRange" type="range" min="1.0" max="5.0" step="0.1" value="2.0" />
-                  </div>
-
-                  <div class="sItem" id="heiItem">
-                    <div class="sLabel">
-                      <span>Höhe</span>
-                      <span class="sValue" id="heiVal">2,4 m</span>
-                    </div>
-                    <input id="heiRange" type="range" min="2.0" max="3.2" step="0.1" value="2.4" />
-                  </div>
-                </div>
-
-                <div class="applyRow">
-                  <button class="btn btnPrimary" type="button" id="applyAreaBtn">
-                    Maße übernehmen
-                    <span aria-hidden="true">→</span>
-                  </button>
-                </div>
-
-                <p class="note" style="margin-top:10px">
-                  Hinweis: Unverbindliche Kostenschätzung. Abweichungen durch Zustand vor Ort möglich.
-                </p>
-              </div>
-            </div>
-
-            <!-- Ergebnis -->
-            <div id="result" style="display:none; margin-top:16px;">
-              <div class="resultBox">
-                <div class="resultHead">
-                  <p class="resultTitle">Preisinformation</p>
-                  <p class="resultTotal" id="totalOut">–</p>
-                </div>
-
-                <p class="hint" style="margin:0 0 8px 0; color:rgba(255,255,255,.78);">
-                  Orientierung auf Basis der Auswahl. Ergebnis ersetzt keine Vor-Ort-Besichtigung.
-                </p>
-
-                <table class="table" aria-label="Kostenaufteilung">
-                  <tbody>
-                    <tr><td>Demontage / Montage / Installation</td><td id="cInstall">–</td></tr>
-                    <tr><td>Fliesenarbeiten</td><td id="cTiles">–</td></tr>
-                    <tr><td>Malerarbeiten</td><td id="cPaint">–</td></tr>
-                    <tr><td>Elektroarbeiten</td><td id="cElec">–</td></tr>
-                    <tr><td>Ausstattung</td><td id="cEquip">–</td></tr>
-                  </tbody>
-                </table>
-
-                <div style="display:flex; gap:12px; flex-wrap:wrap; margin-top:14px;">
-                  <button class="btn btnPrimary" id="ctaOpen" type="button">
-                    Kostenlose Vor-Ort-Einschätzung anfragen
-                    <span aria-hidden="true">↗</span>
-                  </button>
-                </div>
-
-                <div class="note">
-                  Unverbindliche Kostenschätzung. Keine Preisgarantie. Abweichungen sind durch Leitungen, Untergrund, Elektro und Umfang möglich.
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="panelFoot">
-            <button class="btn" id="backBtn" type="button">
-              <span aria-hidden="true">←</span> Zurück
-            </button>
-
-            <div class="meta" id="footerMeta"> </div>
-          </div>
-        </section>
-
-        <div class="footer">
-          © OSION Solution XR – Unverbindliche Kostenschätzung. Keine Preisgarantie.
-        </div>
-      </main>
+<div class="wrap">
+  <section class="card" id="inputsCard">
+    <div class="hd">
+      <h2>Inputs</h2>
+      <div class="pill" id="presetPill">Preset: Balanced</div>
     </div>
-  </div>
+    <div class="bd">
 
-  <!-- Modal (Kontaktaufnahme) -->
-  <div class="modalOverlay" id="modalOverlay" aria-hidden="true">
-    <div class="modalCard" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-      <div class="modalHead">
-        <div>
-          <h3 class="modalTitle" id="modalTitle">Anfrage für eine Vor-Ort-Einschätzung</h3>
-          <p class="modalSub">
-            Angaben werden in eine vorbefüllte E-Mail übernommen – inklusive Ergebnis und Auswahlübersicht.
-          </p>
-        </div>
-        <button class="modalClose btn" type="button" id="modalClose" aria-label="Schließen">✕</button>
+      <div class="q">
+        <label>Preset (Gewichte)</label>
+        <select id="preset">
+          <option value="balanced">Balanced (Allround)</option>
+          <option value="fast_date">Fast-Date Filter (Zeitverschwendung minimieren)</option>
+          <option value="relationship">Relationship Selection (Vorauswahl)</option>
+        </select>
+        <p class="small">Preset ändert nur Gewichte. Werte bleiben identisch.</p>
       </div>
 
-      <div class="modalBody">
-        <div class="formGrid">
-          <div class="field">
-            <div class="label">Name*</div>
-            <input class="input" id="leadName" type="text" autocomplete="name" placeholder="Vor- und Nachname" />
-          </div>
-          <div class="field">
-            <div class="label">E-Mail*</div>
-            <input class="input" id="leadEmail" type="email" autocomplete="email" placeholder="name@beispiel.de" />
-          </div>
-          <div class="field" style="grid-column: 1 / -1;">
-            <div class="label">Telefon (optional)</div>
-            <input class="input" id="leadPhone" type="tel" autocomplete="tel" placeholder="+49 …" />
+      <div class="grid">
+
+        <!-- INVEST -->
+        <div class="q">
+          <label>INVEST 1: Antwortzeit-Konsistenz (0–3)</label>
+          <div class="row">
+            <input type="range" min="0" max="3" step="1" value="1" data-key="inv_reply_consistency" />
+            <div class="val" data-val="inv_reply_consistency">1</div>
           </div>
         </div>
 
-        <div class="checkRow">
-          <input id="leadConsent" type="checkbox" />
-          <label for="leadConsent">
-            Einwilligung zur Verarbeitung der Angaben zum Zweck der Kontaktaufnahme.*
-          </label>
+        <div class="q">
+          <label>INVEST 2: Initiative (startet Kontakt) (0–3)</label>
+          <div class="row">
+            <input type="range" min="0" max="3" step="1" value="1" data-key="inv_initiative" />
+            <div class="val" data-val="inv_initiative">1</div>
+          </div>
         </div>
 
-        <div class="errorText" id="leadError">Bitte Name, E-Mail und Einwilligung vollständig angeben.</div>
-
-        <div class="formFoot">
-          <button class="btn" type="button" id="modalCancel">Abbrechen</button>
-          <button class="btn btnPrimary" type="button" id="leadSend">
-            Anfrage vorbereiten
-            <span aria-hidden="true">→</span>
-          </button>
+        <div class="q">
+          <label>INVEST 3: Echte Fragen an dich (0–3)</label>
+          <div class="row">
+            <input type="range" min="0" max="3" step="1" value="1" data-key="inv_questions" />
+            <div class="val" data-val="inv_questions">1</div>
+          </div>
         </div>
+
+        <div class="q">
+          <label>INVEST 4: Antwortlänge (0–3)</label>
+          <select data-key="inv_reply_length">
+            <option value="0">0 – Ein-Wort / kalt</option>
+            <option value="1" selected>1 – normal</option>
+            <option value="2">2 – ausführlich</option>
+            <option value="3">3 – sehr ausführlich + Details</option>
+          </select>
+        </div>
+
+        <div class="q">
+          <label>INVEST 5: Spiegeln (Style/Wording) (0–3)</label>
+          <div class="row">
+            <input type="range" min="0" max="3" step="1" value="1" data-key="inv_mirroring" />
+            <div class="val" data-val="inv_mirroring">1</div>
+          </div>
+        </div>
+
+        <div class="q">
+          <label>INVEST 6: Emojis/Smilies als Signal (0–3)</label>
+          <select data-key="inv_emojis_signal">
+            <option value="0">0 – gar nicht / trocken</option>
+            <option value="1" selected>1 – normal</option>
+            <option value="2">2 – sehr viele</option>
+            <option value="3">3 – extrem viele / auffällig</option>
+          </select>
+        </div>
+
+        <!-- COMPLIANCE -->
+        <div class="q">
+          <label>COMPLIANCE 1: Date zugesagt (0–3)</label>
+          <div class="row">
+            <input type="range" min="0" max="3" step="1" value="1" data-key="com_date_yes" />
+            <div class="val" data-val="com_date_yes">1</div>
+          </div>
+        </div>
+
+        <div class="q">
+          <label>COMPLIANCE 2: Alternativen bei Terminkonflikt (0–3)</label>
+          <div class="row">
+            <input type="range" min="0" max="3" step="1" value="1" data-key="com_alternatives" />
+            <div class="val" data-val="com_alternatives">1</div>
+          </div>
+        </div>
+
+        <div class="q">
+          <label>COMPLIANCE 3: Konkretheit Zeit/Ort (0–3)</label>
+          <div class="row">
+            <input type="range" min="0" max="3" step="1" value="1" data-key="com_specificity" />
+            <div class="val" data-val="com_specificity">1</div>
+          </div>
+        </div>
+
+        <div class="q">
+          <label>COMPLIANCE 4: „Vielleicht/Schauen wir mal“ (0–3)</label>
+          <select data-key="com_maybe_words">
+            <option value="0">0 – praktisch nie</option>
+            <option value="1" selected>1 – selten</option>
+            <option value="2">2 – häufig</option>
+            <option value="3">3 – dauernd</option>
+          </select>
+          <p class="small">Wird als Negativsignal gewertet.</p>
+        </div>
+
+        <div class="q">
+          <label>COMPLIANCE 5: Verschieben/Absagen kurzfristig (0–3)</label>
+          <select data-key="com_flake">
+            <option value="0" selected>0 – nie</option>
+            <option value="1">1 – einmal</option>
+            <option value="2">2 – mehrmals</option>
+            <option value="3">3 – Muster</option>
+          </select>
+          <p class="small">Wird als Negativsignal gewertet.</p>
+        </div>
+
+        <div class="q">
+          <label>COMPLIANCE 6: Treffen nur spät/nachts/bei ihr/bei dir (0–3)</label>
+          <select data-key="com_only_late">
+            <option value="0" selected>0 – normales Date</option>
+            <option value="1">1 – gemischt</option>
+            <option value="2">2 – überwiegend spät/nachts</option>
+            <option value="3">3 – nur spät/nachts</option>
+          </select>
+          <p class="small">Je nach Ziel kann das anders bewertet werden (Preset).</p>
+        </div>
+
+        <!-- FRAME / RESPECT -->
+        <div class="q">
+          <label>FRAME 1: Respektvoller Ton (0–3)</label>
+          <div class="row">
+            <input type="range" min="0" max="3" step="1" value="2" data-key="frm_respect" />
+            <div class="val" data-val="frm_respect">2</div>
+          </div>
+        </div>
+
+        <div class="q">
+          <label>FRAME 2: Shit Tests / Provokation (0–3)</label>
+          <select data-key="frm_shit_tests">
+            <option value="0" selected>0 – keine</option>
+            <option value="1">1 – leicht</option>
+            <option value="2">2 – regelmäßig</option>
+            <option value="3">3 – stark</option>
+          </select>
+          <p class="small">Wird als Negativsignal gewertet, kann aber auch „Stress-Test“ sein.</p>
+        </div>
+
+        <div class="q">
+          <label>FRAME 3: Eifersucht-Trigger / Triangulation (0–3)</label>
+          <select data-key="frm_jealousy">
+            <option value="0" selected>0 – keine</option>
+            <option value="1">1 – gelegentlich</option>
+            <option value="2">2 – häufig</option>
+            <option value="3">3 – ständig</option>
+          </select>
+        </div>
+
+        <div class="q">
+          <label>FRAME 4: Reaktion auf Grenzen (0–3)</label>
+          <select data-key="frm_boundaries">
+            <option value="0">0 – diskutiert/ignoriert</option>
+            <option value="1">1 – widerwillig</option>
+            <option value="2" selected>2 – akzeptiert</option>
+            <option value="3">3 – respektiert aktiv</option>
+          </select>
+        </div>
+
+        <!-- RISK / RED FLAGS -->
+        <div class="q">
+          <label>RISK 1: Drama/Ex-Themen dominieren (0–3)</label>
+          <select data-key="risk_drama">
+            <option value="0" selected>0 – kaum</option>
+            <option value="1">1 – ab und zu</option>
+            <option value="2">2 – häufig</option>
+            <option value="3">3 – ständig</option>
+          </select>
+        </div>
+
+        <div class="q">
+          <label>RISK 2: Social-Media/Aufmerksamkeit stark (0–3)</label>
+          <select data-key="risk_attention">
+            <option value="0" selected>0 – normal</option>
+            <option value="1">1 – merklich</option>
+            <option value="2">2 – stark</option>
+            <option value="3">3 – extrem</option>
+          </select>
+        </div>
+
+        <div class="q">
+          <label>RISK 3: Tattoos (Red Flag Level)</label>
+          <select data-key="risk_tattoos">
+            <option value="0" selected>0 – keine / wenige</option>
+            <option value="6">6 – mehrere sichtbar</option>
+            <option value="12">12 – sehr viele / großflächig</option>
+            <option value="20">20 – extrem viele / dominanter Look</option>
+          </select>
+          <p class="small">Als Overlay: soll Entscheidung verschärfen, nicht „Grün“ erzeugen.</p>
+        </div>
+
+        <div class="q">
+          <label>RISK 4: Bunte Haare (Red Flag Level)</label>
+          <select data-key="risk_hair">
+            <option value="0" selected>0 – natürlich</option>
+            <option value="6">6 – gefärbt, dezent</option>
+            <option value="12">12 – auffällig</option>
+            <option value="18">18 – extrem auffällig</option>
+          </select>
+        </div>
+
+      </div>
+
+      <div class="btnbar">
+        <button id="calcBtn" type="button">Berechnen</button>
+        <button class="secondary" id="resetBtn" type="button">Reset</button>
+        <label class="toggle">
+          <input type="checkbox" id="showDebug" />
+          Debug (Gewichte + Rohwerte anzeigen)
+        </label>
+      </div>
+
+      <div class="footer">
+        Hinweis: Das ist ein Signal- und Strategie-Tool. Es bewertet Verhalten/Signale und liefert Next Steps.
+        Red-Flag-Overlay ist bewusst getrennt, damit Chat-Verhalten (Invest/Compliance/Frame) den Kern bildet.
       </div>
     </div>
-  </div>
+  </section>
 
-  <script>
-    // Empfängeradresse anpassen
-    const LEAD_TO_EMAIL = "info@elitebau-hamburg.de";
+  <aside class="card" id="outputCard">
+    <div class="hd">
+      <h2>Output</h2>
+      <div class="pill" id="classPill">—</div>
+    </div>
+    <div class="bd">
 
-    // =========================
-    // Schritte (Ownership entfernt)
-    // =========================
-    const steps = [
-      {
-        id: "projectType",
-        question: "Planen Sie eine Badezimmersanierung oder einen Neubau?",
-        hint: "Bitte eine Option wählen.",
-        grid: "cols-2",
-        options: [
-          { value: "renovation", label: "Sanierung", score: 0.00 },
-          { value: "newBuild",   label: "Neubau",    score: 0.22 }
-        ]
-      },
-      {
-        id: "persons",
-        question: "Wie viele Personen leben im Haushalt?",
-        hint: "Bitte eine Option wählen.",
-        grid: "cols-2",
-        options: [
-          { value: 1, label: "1 Person", score: 0.00 },
-          { value: 2, label: "2 Personen", score: 0.08 },
-          { value: 3, label: "3 Personen", score: 0.14 },
-          { value: 4, label: "4 Personen", score: 0.18 }
-        ]
-      },
-      {
-        id: "quality",
-        question: "In welcher Qualität soll das Bad ausgestattet werden?",
-        hint: "Bitte eine Option wählen.",
-        grid: "cols-3",
-        options: [
-          { value: "basic",   label: "Basic",   score: 0.00 },
-          { value: "comfort", label: "Komfort", score: 0.22 },
-          { value: "luxury",  label: "Luxus",   score: 0.42 }
-        ]
-      },
-      {
-        id: "area",
-        question: "Wie groß ist die Grundfläche des Bades?",
-        hint: "Größe wählen oder individuell einstellen.",
-        grid: "cols-3",
-        options: [
-          { value: "small", label: "Klein (ca. 5 qm)",   scoreNorm: 0.12, add: 0, dims: { area: 5.0,  height: 2.4 } },
-          { value: "mid",   label: "Mittel (ca. 8 qm)",  scoreNorm: 0.44, add: 0, dims: { area: 8.0,  height: 2.4 } },
-          { value: "large", label: "Groß (ca. 13 qm)",   scoreNorm: 1.00, add: 0, dims: { area: 13.0, height: 2.4 } }
-        ]
-      },
-      {
-        id: "showerBath",
-        question: "Soll das Bad eine Dusche und/oder eine Badewanne enthalten?",
-        hint: "Bitte eine Option wählen.",
-        grid: "cols-3",
-        options: [
-          { value: "shower", label: "Dusche", score: 0.00 },
-          { value: "bath",   label: "Badewanne", score: 0.10 },
-          { value: "both",   label: "Dusche und Badewanne", score: 0.18 }
-        ]
-      },
-      {
-        id: "floor",
-        question: "Welcher Bodenbelag ist geplant?",
-        hint: "Bitte eine Option wählen.",
-        grid: "cols-3",
-        options: [
-          { value: "tile",  label: "Fliese",    score: 0.20, add: 1200 },
-          { value: "vinyl", label: "Vinyl",     score: 0.10, add: 650  },
-          { value: "wood",  label: "Holzoptik", score: 0.16, add: 900  }
-        ]
-      },
-      {
-        id: "walls",
-        question: "Wie sollen die Wände ausgeführt werden?",
-        hint: "Bitte eine Option wählen.",
-        grid: "cols-3",
-        options: [
-          { value: "paint",    label: "Gestrichen",    score: 0.05, add: 250  },
-          { value: "partTile", label: "Teil gefliest", score: 0.18, add: 1300 },
-          { value: "fullTile", label: "Gefliest",      score: 0.28, add: 2400 }
-        ]
-      },
-      {
-        id: "wcType",
-        question: "Welcher WC-Typ ist geplant?",
-        hint: "Bitte eine Option wählen.",
-        grid: "cols-2",
-        options: [
-          { value: "standard", label: "WC",       score: 0.10, add: 450  },
-          { value: "showerwc", label: "Dusch-WC", score: 0.28, add: 2100 }
-        ]
-      },
-      {
-        id: "washplace",
-        question: "Welche Waschplatz-Lösung ist geplant?",
-        hint: "Bitte eine Option wählen.",
-        grid: "cols-3",
-        options: [
-          { value: "small",  label: "Handwaschbecken",  score: 0.06, add: 350  },
-          { value: "single", label: "Waschtisch",       score: 0.14, add: 950  },
-          { value: "double", label: "Doppelwaschtisch", score: 0.26, add: 1850 }
-        ]
-      },
-      {
-        id: "heating",
-        question: "Welche Heizlösung ist geplant?",
-        hint: "Bitte eine Option wählen.",
-        grid: "cols-3",
-        options: [
-          { value: "radiator", label: "Heizkörper",      score: 0.10, add: 550  },
-          { value: "ufh",      label: "Fußbodenheizung", score: 0.26, add: 2400 },
-          { value: "both",     label: "Beides",          score: 0.30, add: 2900 }
-        ]
-      },
-      {
-        id: "lighting",
-        question: "Welche Beleuchtung ist geplant?",
-        hint: "Bitte eine Option wählen.",
-        grid: "cols-3",
-        options: [
-          { value: "ceiling", label: "Deckenlicht",     score: 0.08, add: 250  },
-          { value: "spots",   label: "LED-Spots",       score: 0.16, add: 650  },
-          { value: "ambient", label: "Ambient + Spots", score: 0.22, add: 1100 }
-        ]
-      },
-      {
-        id: "timing",
-        question: "Zeitpunkt der Ausführung?",
-        hint: "Bitte eine Option wählen.",
-        grid: "cols-3",
-        options: [
-          { value: "1-3",   label: "1–3 Monate", score: 0.26 },
-          { value: "3-6",   label: "3–6 Monate", score: 0.14 },
-          { value: "later", label: "Später",     score: 0.00 }
-        ]
-      },
-      { id:"result", question:"Preisinformation", hint:"Hier steht das Ergebnis.", grid:"cols-2", options:[] }
-    ];
+      <div class="scores">
+        <div class="score">
+          <div class="k">INVEST</div>
+          <div class="v" id="outInvest">0</div>
+          <div class="meter"><div id="barInvest"></div></div>
+        </div>
+        <div class="score">
+          <div class="k">COMPLIANCE</div>
+          <div class="v" id="outCompliance">0</div>
+          <div class="meter"><div id="barCompliance"></div></div>
+        </div>
+        <div class="score">
+          <div class="k">FRAME/RESPECT</div>
+          <div class="v" id="outFrame">0</div>
+          <div class="meter"><div id="barFrame"></div></div>
+        </div>
+        <div class="score">
+          <div class="k">RISK (Overlay)</div>
+          <div class="v" id="outRisk">0</div>
+          <div class="meter"><div id="barRisk"></div></div>
+        </div>
+      </div>
 
-    // =========================
-    // Preislogik (deine Werte)
-    // =========================
-    const PRICE_MIN = 15664.54;
-    const PRICE_MAX = 39032.94;
+      <div class="status" id="statusBox">
+        <div class="tag warn" id="statusTag">—</div>
+        <div class="rec" id="recBox"></div>
 
-    const weights = {
-      projectType: 0.14,
-      persons:     0.09,
-      quality:     0.20,
-      area:        0.18,
-      showerBath:  0.06,
-      floor:       0.06,
-      walls:       0.08,
-      wcType:      0.05,
-      washplace:   0.06,
-      heating:     0.04,
-      lighting:    0.02,
-      timing:      0.06
-    };
+        <div class="tmpl" id="tmplBox" style="display:none">
+          <div><b>Templates</b> (3 Varianten)</div>
+          <code id="tmpl1"></code>
+          <code id="tmpl2"></code>
+          <code id="tmpl3"></code>
+        </div>
 
-    const split = { install:0.23, tiles:0.16, paint:0.08, elec:0.07, equip:0.46 };
+        <div class="tmpl" id="debugBox" style="display:none">
+          <div><b>Debug</b></div>
+          <code id="debugText"></code>
+        </div>
+      </div>
 
-    const AREA_MIN = 4.0;
-    const AREA_MAX = 13.0;
-    const HEIGHT_REF = 2.4;
+    </div>
+  </aside>
+</div>
 
-    // =========================
-    // State / UI
-    // =========================
-    const state = { stepIndex:0, answers:{} };
+<script>
+/**
+ * Unified Dating Signal Calculator
+ * - 3 Kernscores (INVEST / COMPLIANCE / FRAME) + RISK Overlay
+ * - Presets ändern Gewichte, nicht Inputs
+ * - RISK kann Ampel verschärfen, nicht „Grün“ erzeugen
+ */
 
-    const elQuestion   = document.getElementById("question");
-    const elHint       = document.getElementById("hint");
-    const elOptions    = document.getElementById("options");
-    const elBack       = document.getElementById("backBtn");
-    const elProgress   = document.getElementById("progressFill");
-    const elStepLabel  = document.getElementById("stepLabel");
-    const elFooterMeta = document.getElementById("footerMeta");
-    const elMetaRight  = document.getElementById("metaRight");
+const PRESETS = {
+  balanced: {
+    name: "Balanced",
+    weights: {
+      // INVEST
+      inv_reply_consistency: 1.1,
+      inv_initiative: 1.2,
+      inv_questions: 1.2,
+      inv_reply_length: 1.0,
+      inv_mirroring: 0.9,
+      inv_emojis_signal: 0.4,
 
-    const elResultWrap = document.getElementById("result");
-    const elTotalOut   = document.getElementById("totalOut");
-    const elCInstall   = document.getElementById("cInstall");
-    const elCTiles     = document.getElementById("cTiles");
-    const elCPaint     = document.getElementById("cPaint");
-    const elCElec      = document.getElementById("cElec");
-    const elCEquip     = document.getElementById("cEquip");
-    const elCtaOpen    = document.getElementById("ctaOpen");
+      // COMPLIANCE
+      com_date_yes: 1.4,
+      com_alternatives: 1.2,
+      com_specificity: 1.2,
+      com_maybe_words: -1.1,
+      com_flake: -1.4,
+      com_only_late: -0.5,
 
-    // Area custom
-    const elAreaCustomWrap = document.getElementById("areaCustomWrap");
-    const elLen = document.getElementById("lenRange");
-    const elWid = document.getElementById("widRange");
-    const elHei = document.getElementById("heiRange");
-    const elLenVal = document.getElementById("lenVal");
-    const elWidVal = document.getElementById("widVal");
-    const elHeiVal = document.getElementById("heiVal");
-    const elAreaLive = document.getElementById("areaLive");
-    const elApplyAreaBtn = document.getElementById("applyAreaBtn");
+      // FRAME/RESPECT
+      frm_respect: 1.4,
+      frm_shit_tests: -1.1,
+      frm_jealousy: -1.2,
+      frm_boundaries: 1.3,
 
-    const elLenItem = document.getElementById("lenItem");
-    const elWidItem = document.getElementById("widItem");
-    const elHeiItem = document.getElementById("heiItem");
-
-    // Modal
-    const elModalOverlay = document.getElementById("modalOverlay");
-    const elModalClose   = document.getElementById("modalClose");
-    const elModalCancel  = document.getElementById("modalCancel");
-    const elLeadName     = document.getElementById("leadName");
-    const elLeadEmail    = document.getElementById("leadEmail");
-    const elLeadPhone    = document.getElementById("leadPhone");
-    const elLeadConsent  = document.getElementById("leadConsent");
-    const elLeadSend     = document.getElementById("leadSend");
-    const elLeadError    = document.getElementById("leadError");
-
-    function euro(n){ return new Intl.NumberFormat("de-DE",{style:"currency",currency:"EUR"}).format(n); }
-    function clamp01(x){ return Math.min(1, Math.max(0, x)); }
-    function to1(n){ return Math.round(n * 10) / 10; }
-    function to2(n){ return Math.round(n * 100) / 100; }
-
-    function triggerFade(el){
-      el.classList.remove("fadeIn");
-      void el.offsetWidth;
-      el.classList.add("fadeIn");
+      // RISK
+      risk_drama: 1.2,
+      risk_attention: 1.0,
+      risk_tattoos: 1.0, // already absolute points
+      risk_hair: 1.0     // already absolute points
     }
+  },
 
-    function setRangeFill(range){
-      const min = parseFloat(range.min || "0");
-      const max = parseFloat(range.max || "100");
-      const val = parseFloat(range.value || "0");
-      const pct = ((val - min) / (max - min)) * 100;
-      range.style.setProperty("--fill", `${Math.max(0, Math.min(100, pct))}%`);
+  fast_date: {
+    name: "Fast-Date Filter",
+    weights: {
+      // INVEST
+      inv_reply_consistency: 0.9,
+      inv_initiative: 0.9,
+      inv_questions: 0.8,
+      inv_reply_length: 0.6,
+      inv_mirroring: 0.5,
+      inv_emojis_signal: 0.2,
+
+      // COMPLIANCE (dominant)
+      com_date_yes: 1.7,
+      com_alternatives: 1.4,
+      com_specificity: 1.4,
+      com_maybe_words: -1.3,
+      com_flake: -1.6,
+      com_only_late: -0.2, // weniger hart bewertet
+
+      // FRAME/RESPECT
+      frm_respect: 1.3,
+      frm_shit_tests: -1.0,
+      frm_jealousy: -1.2,
+      frm_boundaries: 1.1,
+
+      // RISK
+      risk_drama: 1.4,
+      risk_attention: 1.2,
+      risk_tattoos: 1.0,
+      risk_hair: 1.0
     }
+  },
 
-    function markAdjusting(itemEl){
-      itemEl.classList.add("isAdjusting");
-      window.clearTimeout(itemEl.__t);
-      itemEl.__t = window.setTimeout(()=> itemEl.classList.remove("isAdjusting"), 220);
+  relationship: {
+    name: "Relationship Selection",
+    weights: {
+      // INVEST
+      inv_reply_consistency: 1.3,
+      inv_initiative: 1.2,
+      inv_questions: 1.3,
+      inv_reply_length: 1.2,
+      inv_mirroring: 0.9,
+      inv_emojis_signal: 0.3,
+
+      // COMPLIANCE
+      com_date_yes: 1.4,
+      com_alternatives: 1.2,
+      com_specificity: 1.3,
+      com_maybe_words: -1.2,
+      com_flake: -1.5,
+      com_only_late: -0.9, // härter bewertet
+
+      // FRAME/RESPECT
+      frm_respect: 1.6,
+      frm_shit_tests: -1.2,
+      frm_jealousy: -1.4,
+      frm_boundaries: 1.5,
+
+      // RISK (stärker)
+      risk_drama: 1.6,
+      risk_attention: 1.3,
+      risk_tattoos: 1.0,
+      risk_hair: 1.0
     }
+  }
+};
 
-    function areaNormFromQm(qm){
-      const norm = (qm - AREA_MIN) / (AREA_MAX - AREA_MIN);
-      return clamp01(norm);
+const INPUT_KEYS = [
+  "inv_reply_consistency","inv_initiative","inv_questions","inv_reply_length","inv_mirroring","inv_emojis_signal",
+  "com_date_yes","com_alternatives","com_specificity","com_maybe_words","com_flake","com_only_late",
+  "frm_respect","frm_shit_tests","frm_jealousy","frm_boundaries",
+  "risk_drama","risk_attention","risk_tattoos","risk_hair"
+];
+
+// Normalisierung: 0–3 Inputs -> 0..100 Skalenbasis je Kategorie
+function clamp(n, a, b){ return Math.max(a, Math.min(b, n)); }
+function round(n){ return Math.round(n); }
+
+function readInputs(){
+  const values = {};
+  // Range inputs
+  document.querySelectorAll('input[type="range"][data-key]').forEach(el=>{
+    values[el.dataset.key] = Number(el.value);
+  });
+  // Select inputs
+  document.querySelectorAll('select[data-key]').forEach(el=>{
+    values[el.dataset.key] = Number(el.value);
+  });
+  return values;
+}
+
+function setValBadges(){
+  document.querySelectorAll('input[type="range"][data-key]').forEach(el=>{
+    const key = el.dataset.key;
+    const badge = document.querySelector(`[data-val="${key}"]`);
+    if(badge) badge.textContent = el.value;
+  });
+}
+
+function calcCategoryScore(rawValues, weights, categoryKeys){
+  // Weighted sum over 0–3 values, then map to 0–100
+  // We do:
+  //   sum = Σ(value * weight)
+  // Then transform with a reasonable min/max per category based on weights.
+  let sum = 0;
+  let min = 0;
+  let max = 0;
+
+  for(const k of categoryKeys){
+    const w = weights[k] ?? 0;
+    const v = rawValues[k] ?? 0;
+    sum += v * w;
+
+    // bounds: v in [0,3]
+    const lo = 0 * w;
+    const hi = 3 * w;
+    min += Math.min(lo, hi);
+    max += Math.max(lo, hi);
+  }
+
+  // Avoid division by 0
+  if (max === min) return 0;
+
+  // normalize to 0..100
+  const norm = (sum - min) / (max - min);
+  return clamp(norm * 100, 0, 100);
+}
+
+function calcRisk(rawValues, weights){
+  // risk_drama/risk_attention are 0..3 with weights
+  // tattoos/hair are already absolute points (0..20 / 0..18). We bring them to 0..100 scale.
+  const drama = rawValues.risk_drama * (weights.risk_drama ?? 0);
+  const attn  = rawValues.risk_attention * (weights.risk_attention ?? 0);
+
+  const tattoos = rawValues.risk_tattoos; // absolute points
+  const hair    = rawValues.risk_hair;    // absolute points
+
+  // Base risk points:
+  // drama: 0..(3*~1.6)=4.8
+  // attn : 0..(3*~1.3)=3.9
+  // tattoos: 0..20
+  // hair: 0..18
+  // Total typical max around 46–50; scale to 0..100 with cap
+  const points = drama + attn + tattoos + hair;
+
+  const scaleMax = 50; // tune if you add more red flags
+  return clamp((points / scaleMax) * 100, 0, 100);
+}
+
+function classify(invest, compliance, frame, risk){
+  // Rules:
+  // - "Green" requires all 3 core scores high + risk not too high
+  // - "Red" triggers when compliance or frame are low OR risk very high
+  if (compliance < 45 || frame < 45 || risk > 70) return "RED";
+  if (invest >= 65 && compliance >= 65 && frame >= 60 && risk <= 45) return "GREEN";
+  return "YELLOW";
+}
+
+function pickArchetype(invest, compliance, frame, risk){
+  // 6 Klassen (A1..D1) based on pattern
+  const cls = classify(invest, compliance, frame, risk);
+
+  if (cls === "GREEN"){
+    return { code:"A1", label:"Green – Lead", tagClass:"good" };
+  }
+
+  // Yellow splits
+  if (cls === "YELLOW"){
+    if (compliance >= 60 && frame >= 55 && invest < 60) return { code:"B1", label:"Yellow – Ball to them", tagClass:"warn" };
+    if (compliance >= 55 && frame >= 50 && risk >= 55) return { code:"B2", label:"Yellow – Meet only", tagClass:"warn" };
+    if (frame < 55) return { code:"C1", label:"Orange – Boundary check (Frame)", tagClass:"warn" };
+    return { code:"B1", label:"Yellow – Ball to them", tagClass:"warn" };
+  }
+
+  // Red splits
+  if (cls === "RED"){
+    if (frame < 45) return { code:"D1", label:"Red – Exit (Frame broken)", tagClass:"bad" };
+    if (compliance < 45) return { code:"D1", label:"Red – Exit (No compliance)", tagClass:"bad" };
+    return { code:"D1", label:"Red – Exit (Risk overload)", tagClass:"bad" };
+  }
+
+  return { code:"—", label:"—", tagClass:"warn" };
+}
+
+function templatesFor(code){
+  // Keep terms in original form (Frame, Shit Test, Compliance).
+  const map = {
+    A1: {
+      title: "Next Step: Date fixieren (führen)",
+      bullets: [
+        "2 Optionen anbieten (Tag + Uhrzeit + Ort), Ende.",
+        "Nicht in Text-Schleifen investieren.",
+        "Leicht, entspannt, Führung."
+      ],
+      t: [
+        "Ich hab Bock. Donnerstag 19:00 in der Bar X oder Samstag 16:00 Kaffee Y – was passt dir besser?",
+        "Lass uns das nicht zerreden. Mittwoch 18:30 Spaziergang am Z + danach Drink – passt?",
+        "Du wirkst nice. Ich hol dich raus aus dem Chat: Freitag 19:00 Location X. Deal?"
+      ]
+    },
+    B1: {
+      title: "Next Step: Ball to them (Investment runter)",
+      bullets: [
+        "Einmal sauber führen, dann Pause.",
+        "Kein Erklären, keine Diskussion.",
+        "Compliance testen: reagiert sie auf Konkretes?"
+      ],
+      t: [
+        "Sag an, wann du real Zeit hast: Donnerstag oder Sonntag?",
+        "Meld dich, wenn du einen konkreten Slot hast – dann machen wir was.",
+        "Ich bin diese Woche flexibel. Schick mir einen Tag + Uhrzeit, dann fixen wir das."
+      ]
+    },
+    B2: {
+      title: "Next Step: Meet only (Chat = minimal)",
+      bullets: [
+        "Kein großer Chat-Flow, nur Logistik.",
+        "Wenn sie ausweicht: Exit.",
+        "Risk overlay hoch: kein deep investment."
+      ],
+      t: [
+        "Lass uns einfach treffen statt tippen. Freitag 19:00 – passt?",
+        "Ich bin nicht der Text-Buddy. Wir sehen uns Samstag 17:00, dann reden wir live.",
+        "Wenn du willst: Mittwoch 18:30. Wenn nicht, alles gut."
+      ]
+    },
+    C1: {
+      title: "Next Step: Boundary check (Frame halten)",
+      bullets: [
+        "Shit Test nicht emotional beantworten.",
+        "Grenze setzen, locker bleiben.",
+        "Danach: reagiert sie mit Respekt oder Push?"
+      ],
+      t: [
+        "So reden wir nicht. Wenn du normal bist, machen wir weiter.",
+        "Ich mag locker. Drama hab ich nicht auf dem Zettel.",
+        "Wenn du testen willst: mach das. Ich bleib entspannt – wir können auch einfach treffen."
+      ]
+    },
+    D1: {
+      title: "Next Step: Exit (sauber, ohne Theater)",
+      bullets: [
+        "Keine Diskussion, kein Rechtfertigen.",
+        "Kontakt beenden oder komplett einfrieren.",
+        "Frame bleibt bei dir."
+      ],
+      t: [
+        "Ich glaub, das passt nicht. Alles Gute dir.",
+        "Ich bin raus. Mach’s gut.",
+        "Das ist mir zu anstrengend. Ich wünsch dir was."
+      ]
     }
+  };
+  return map[code] ?? map.B1;
+}
 
-    function getAreaHeightFactor(){
-      const a = state.answers.area;
-      const h = a?.dims?.height ?? HEIGHT_REF;
-      return Math.max(0.85, Math.min(1.35, h / HEIGHT_REF));
+function renderBars(invest, compliance, frame, risk){
+  document.getElementById("barInvest").style.width = invest + "%";
+  document.getElementById("barCompliance").style.width = compliance + "%";
+  document.getElementById("barFrame").style.width = frame + "%";
+  document.getElementById("barRisk").style.width = risk + "%";
+}
+
+function setText(id, txt){ document.getElementById(id).textContent = txt; }
+
+function runCalc(){
+  const presetKey = document.getElementById("preset").value;
+  const preset = PRESETS[presetKey] ?? PRESETS.balanced;
+  const weights = preset.weights;
+
+  const raw = readInputs();
+
+  // Category keys
+  const investKeys = ["inv_reply_consistency","inv_initiative","inv_questions","inv_reply_length","inv_mirroring","inv_emojis_signal"];
+  const complianceKeys = ["com_date_yes","com_alternatives","com_specificity","com_maybe_words","com_flake","com_only_late"];
+  const frameKeys = ["frm_respect","frm_shit_tests","frm_jealousy","frm_boundaries"];
+
+  const invest = round(calcCategoryScore(raw, weights, investKeys));
+  const compliance = round(calcCategoryScore(raw, weights, complianceKeys));
+  const frame = round(calcCategoryScore(raw, weights, frameKeys));
+  const risk = round(calcRisk(raw, weights));
+
+  // Archetype
+  const arche = pickArchetype(invest, compliance, frame, risk);
+  const kit = templatesFor(arche.code);
+
+  // Header pill
+  setText("presetPill", "Preset: " + preset.name);
+  const classPill = document.getElementById("classPill");
+  classPill.textContent = arche.code + " · " + arche.label;
+
+  // Scores
+  setText("outInvest", invest);
+  setText("outCompliance", compliance);
+  setText("outFrame", frame);
+  setText("outRisk", risk);
+  renderBars(invest, compliance, frame, risk);
+
+  // Status
+  const statusTag = document.getElementById("statusTag");
+  statusTag.textContent = arche.code + " · " + arche.label;
+  statusTag.classList.remove("good","warn","bad");
+  statusTag.classList.add(arche.tagClass);
+
+  // Recommendation box
+  const recBox = document.getElementById("recBox");
+  recBox.innerHTML = `
+    <h3>${kit.title}</h3>
+    <p>${kit.bullets.map(b=>"• " + b).join("<br>")}</p>
+  `;
+
+  // Templates
+  document.getElementById("tmplBox").style.display = "block";
+  setText("tmpl1", kit.t[0]);
+  setText("tmpl2", kit.t[1]);
+  setText("tmpl3", kit.t[2]);
+
+  // Debug
+  const dbg = document.getElementById("showDebug").checked;
+  const debugBox = document.getElementById("debugBox");
+  debugBox.style.display = dbg ? "block" : "none";
+  if(dbg){
+    const lines = [];
+    lines.push("RAW INPUTS:");
+    for(const k of INPUT_KEYS){
+      lines.push(`- ${k}: ${raw[k]}`);
     }
-
-    function computeTotal(){
-      let s = 0;
-      let addons = 0;
-      const heightFactor = getAreaHeightFactor();
-
-      for (const step of steps){
-        const ans = state.answers[step.id];
-        if (!ans) continue;
-
-        if (typeof ans.add === "number"){
-          if (step.id === "walls") addons += ans.add * heightFactor;
-          else addons += ans.add;
-        }
-
-        const w = weights[step.id];
-        if (!w) continue;
-
-        if (step.id === "area"){
-          const norm = typeof ans.scoreNorm === "number" ? ans.scoreNorm : 0;
-          s += w * clamp01(norm);
-          continue;
-        }
-
-        const maxScore = (step.options && step.options.length)
-          ? Math.max(...step.options.map(o => o.score ?? 0))
-          : 0;
-
-        const norm = maxScore === 0 ? 0 : ((ans.score ?? 0) / maxScore);
-        s += w * clamp01(norm);
-      }
-
-      s = clamp01(s);
-      const base = PRICE_MIN + s * (PRICE_MAX - PRICE_MIN);
-      const total = base + addons;
-      return Math.round(total * 100) / 100;
+    lines.push("");
+    lines.push("WEIGHTS (Preset):");
+    for(const [k,v] of Object.entries(weights)){
+      lines.push(`- ${k}: ${v}`);
     }
+    lines.push("");
+    lines.push(`SCORES: INVEST=${invest}, COMPLIANCE=${compliance}, FRAME=${frame}, RISK=${risk}`);
+    lines.push(`CLASS: ${arche.code} (${arche.label})`);
+    document.getElementById("debugText").textContent = lines.join("\n");
+  }
+}
 
-    function breakdown(total){
-      const raw = {
-        install: total * split.install,
-        tiles:   total * split.tiles,
-        paint:   total * split.paint,
-        elec:    total * split.elec,
-        equip:   total * split.equip
-      };
+function resetAll(){
+  // reset ranges to defaults (initial values in HTML)
+  document.querySelectorAll('input[type="range"][data-key]').forEach(el=>{
+    el.value = el.getAttribute("value") ?? "0";
+  });
+  // reset selects to initial selected
+  document.querySelectorAll('select[data-key]').forEach(el=>{
+    // restore to first selected option in markup
+    const sel = Array.from(el.options).find(o=>o.defaultSelected) ?? el.options[0];
+    el.value = sel.value;
+  });
+  document.getElementById("preset").value = "balanced";
+  document.getElementById("showDebug").checked = false;
+  setValBadges();
+  runCalc();
+}
 
-      const out = {
-        install: Math.round(raw.install * 100) / 100,
-        tiles:   Math.round(raw.tiles   * 100) / 100,
-        paint:   Math.round(raw.paint   * 100) / 100,
-        elec:    Math.round(raw.elec    * 100) / 100,
-        equip:   0
-      };
-      const sum4 = out.install + out.tiles + out.paint + out.elec;
-      out.equip = Math.round((total - sum4) * 100) / 100;
-      return out;
-    }
+// Wire up UI
+document.querySelectorAll('input[type="range"][data-key]').forEach(el=>{
+  el.addEventListener("input", ()=>{
+    setValBadges();
+  });
+});
 
-    function setProgress(){
-      const current = state.stepIndex + 1;
-      const totalSteps = steps.length;
-      const pct = totalSteps <= 1 ? 100 : ((current - 1) / (totalSteps - 1)) * 100;
-      elProgress.style.width = pct + "%";
-      elStepLabel.textContent = `Schritt ${current} von ${totalSteps}`;
-      elMetaRight.textContent = `Schritt ${current} von ${totalSteps}`;
-      elFooterMeta.textContent = `Schritt ${current} von ${totalSteps}`;
-    }
+document.getElementById("calcBtn").addEventListener("click", runCalc);
+document.getElementById("resetBtn").addEventListener("click", resetAll);
+document.getElementById("preset").addEventListener("change", ()=>{
+  runCalc();
+});
+document.getElementById("showDebug").addEventListener("change", ()=>{
+  runCalc();
+});
 
-    function setSelectedUI(stepId){
-      const opts = elOptions.querySelectorAll(".opt");
-      opts.forEach(btn=>{
-        btn.classList.remove("isSelected");
-        const v = btn.getAttribute("data-value");
-        const ans = state.answers[stepId];
-        if (ans && v && (ans.value + "") === (v + "")) btn.classList.add("isSelected");
-      });
-    }
-
-    function updateAreaLive(){
-      const L = parseFloat(elLen.value);
-      const W = parseFloat(elWid.value);
-      const H = parseFloat(elHei.value);
-
-      elLenVal.textContent = `${to1(L).toFixed(1).replace(".",",")} m`;
-      elWidVal.textContent = `${to1(W).toFixed(1).replace(".",",")} m`;
-      elHeiVal.textContent = `${to1(H).toFixed(1).replace(".",",")} m`;
-
-      const qm = to2(L * W);
-      const norm = areaNormFromQm(qm);
-
-      elAreaLive.textContent = `Grundfläche: ${qm.toFixed(2).replace(".",",")} qm · Höhe: ${to1(H).toFixed(1).replace(".",",")} m`;
-      return { L, W, H, qm, norm };
-    }
-
-    function render(){
-      const step = steps[state.stepIndex];
-      setProgress();
-
-      elQuestion.textContent = step.question;
-      elHint.textContent = step.hint;
-
-      triggerFade(elQuestion);
-      triggerFade(elHint);
-
-      elOptions.className = `grid ${step.grid || "cols-2"}`;
-      elOptions.innerHTML = "";
-      elResultWrap.style.display = "none";
-
-      elAreaCustomWrap.style.display = (step.id === "area") ? "block" : "none";
-      if (step.id === "area"){
-        setRangeFill(elLen); setRangeFill(elWid); setRangeFill(elHei);
-        updateAreaLive();
-        triggerFade(elAreaCustomWrap);
-      }
-
-      elBack.disabled = state.stepIndex === 0;
-
-      if (step.id === "result"){
-        const total = computeTotal();
-        const b = breakdown(total);
-
-        elTotalOut.textContent = euro(total);
-        elCInstall.textContent = euro(b.install);
-        elCTiles.textContent   = euro(b.tiles);
-        elCPaint.textContent   = euro(b.paint);
-        elCElec.textContent    = euro(b.elec);
-        elCEquip.textContent   = euro(b.equip);
-
-        elResultWrap.style.display = "block";
-        triggerFade(elResultWrap);
-        return;
-      }
-
-      step.options.forEach(opt=>{
-        const btn = document.createElement("button");
-        btn.type="button";
-        btn.className="opt";
-        btn.setAttribute("data-value", opt.value);
-
-        const text = document.createElement("div");
-        text.className="optText";
-
-        const main = document.createElement("div");
-        main.className="optMain";
-        main.textContent = opt.label;
-
-        text.appendChild(main);
-
-        const chev = document.createElement("div");
-        chev.className="chev";
-        chev.innerHTML = `
-          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        `;
-
-        btn.appendChild(text);
-        btn.appendChild(chev);
-
-        btn.addEventListener("click", ()=>{
-          elOptions.classList.remove("pulse");
-          void elOptions.offsetWidth;
-          elOptions.classList.add("pulse");
-
-          if (step.id === "area"){
-            state.answers.area = {
-              value: opt.value,
-              label: opt.label,
-              scoreNorm: opt.scoreNorm ?? 0,
-              add: opt.add ?? 0,
-              dims: opt.dims ?? { area: null, height: HEIGHT_REF }
-            };
-            goNext();
-            return;
-          }
-
-          state.answers[step.id] = opt;
-          goNext();
-        });
-
-        elOptions.appendChild(btn);
-      });
-
-      setSelectedUI(step.id);
-      triggerFade(elOptions);
-    }
-
-    function goNext(){
-      if (state.stepIndex < steps.length - 1){
-        state.stepIndex++;
-        render();
-      }
-    }
-    function goBack(){
-      if (state.stepIndex > 0){
-        state.stepIndex--;
-        render();
-      }
-    }
-    elBack.addEventListener("click", goBack);
-
-    // Slider listeners
-    ["input","change"].forEach(evt=>{
-      elLen.addEventListener(evt, ()=>{
-        setRangeFill(elLen);
-        updateAreaLive();
-        markAdjusting(elLenItem);
-      });
-      elWid.addEventListener(evt, ()=>{
-        setRangeFill(elWid);
-        updateAreaLive();
-        markAdjusting(elWidItem);
-      });
-      elHei.addEventListener(evt, ()=>{
-        setRangeFill(elHei);
-        updateAreaLive();
-        markAdjusting(elHeiItem);
-      });
-    });
-
-    elApplyAreaBtn.addEventListener("click", ()=>{
-      elAreaCustomWrap.classList.remove("pulse");
-      void elAreaCustomWrap.offsetWidth;
-      elAreaCustomWrap.classList.add("pulse");
-
-      const { L, W, H, qm, norm } = updateAreaLive();
-      state.answers.area = {
-        value: "custom",
-        label: `Individuell (${qm.toFixed(2).replace(".",",")} qm)`,
-        scoreNorm: norm,
-        add: 0,
-        dims: { length: to1(L), width: to1(W), height: to1(H), area: qm }
-      };
-      goNext();
-    });
-
-    // =========================
-    // Kontakt-Modal + Mailto
-    // =========================
-    function openModal(){
-      elLeadError.classList.remove("isOpen");
-      elModalOverlay.classList.add("isOpen");
-      elModalOverlay.setAttribute("aria-hidden", "false");
-      document.body.style.overflow = "hidden";
-      setTimeout(()=> elLeadName.focus(), 60);
-    }
-    function closeModal(){
-      elModalOverlay.classList.remove("isOpen");
-      elModalOverlay.setAttribute("aria-hidden", "true");
-      document.body.style.overflow = "";
-    }
-
-    elCtaOpen.addEventListener("click", openModal);
-    elModalClose.addEventListener("click", closeModal);
-    elModalCancel.addEventListener("click", closeModal);
-    elModalOverlay.addEventListener("click", (e)=>{ if (e.target === elModalOverlay) closeModal(); });
-    window.addEventListener("keydown", (e)=>{ if (e.key === "Escape" && elModalOverlay.classList.contains("isOpen")) closeModal(); });
-
-    function isValidEmail(s){
-      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(s || "").trim());
-    }
-
-    function buildAnswerSummary(){
-      const lines = [];
-      for (const step of steps){
-        if (step.id === "result") continue;
-        const ans = state.answers[step.id];
-        if (!ans) continue;
-
-        let valueText = ans.label ?? "";
-        if (step.id === "area" && ans.dims){
-          const a = ans.dims.area;
-          const h = ans.dims.height;
-          if (a && h) valueText = `${ans.label} | Grundfläche: ${String(a).replace(".",",")} qm | Höhe: ${String(h).replace(".",",")} m`;
-          if (ans.value === "custom" && ans.dims.length){
-            valueText = `${ans.label} | Länge: ${String(ans.dims.length).replace(".",",")} m | Breite: ${String(ans.dims.width).replace(".",",")} m | Höhe: ${String(ans.dims.height).replace(".",",")} m`;
-          }
-        }
-        lines.push(`- ${step.question}: ${valueText}`);
-      }
-      return lines.join("\n");
-    }
-
-    function buildResultSummary(){
-      const total = computeTotal();
-      const b = breakdown(total);
-      return [
-        "ERGEBNIS (Bad-Budgetrechner)",
-        `Gesamtkosten (unverbindlich): ${euro(total)}`,
-        "",
-        "Kostenaufteilung:",
-        `- Demontage / Montage / Installation: ${euro(b.install)}`,
-        `- Fliesenarbeiten: ${euro(b.tiles)}`,
-        `- Malerarbeiten: ${euro(b.paint)}`,
-        `- Elektroarbeiten: ${euro(b.elec)}`,
-        `- Ausstattung: ${euro(b.equip)}`,
-      ].join("\n");
-    }
-
-    function buildMailto(name, email, phone){
-      const ts = new Date().toLocaleString("de-DE");
-      const subject = `Bad-Anfrage – Ergebnis aus Budgetrechner (${name})`;
-      const body = [
-        "Hallo EliteBau Hamburg,",
-        "",
-        "ich habe den Bad-Budgetrechner genutzt und möchte eine Vor-Ort-Einschätzung bzw. ein Angebot anfragen.",
-        "",
-        "Kontaktdaten:",
-        `- Name: ${name}`,
-        `- E-Mail: ${email}`,
-        phone ? `- Telefon: ${phone}` : "- Telefon: (nicht angegeben)",
-        "",
-        buildResultSummary(),
-        "",
-        "Auswahl im Rechner:",
-        buildAnswerSummary(),
-        "",
-        `Zeitpunkt der Anfrage: ${ts}`,
-        "",
-        "Hinweis: Das Ergebnis ist unverbindlich und dient als Orientierung.",
-      ].join("\n");
-
-      return `mailto:${encodeURIComponent(LEAD_TO_EMAIL)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-    }
-
-    elLeadSend.addEventListener("click", ()=>{
-      const name = String(elLeadName.value || "").trim();
-      const email = String(elLeadEmail.value || "").trim();
-      const phone = String(elLeadPhone.value || "").trim();
-      const consent = elLeadConsent.checked === true;
-
-      if (!name || !isValidEmail(email) || !consent){
-        elLeadError.classList.add("isOpen");
-        return;
-      }
-      elLeadError.classList.remove("isOpen");
-
-      const link = buildMailto(name, email, phone);
-      closeModal();
-      window.location.href = link;
-    });
-
-    // Init
-    setRangeFill(elLen); setRangeFill(elWid); setRangeFill(elHei);
-    render();
-  </script>
+// Init
+setValBadges();
+runCalc();
+</script>
 </body>
 </html>
