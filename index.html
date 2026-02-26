@@ -2,971 +2,1744 @@
 <html lang="de">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Unified Dating Signal Calculator (Frame / Invest / Compliance / Risk)</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>Interaktiver Dating-Signal-Calculator | Powered by Frame</title>
+
   <style>
     :root{
-      --bg:#0b0c10;
-      --card:#121420;
-      --muted:#9aa3b2;
-      --text:#e9edf5;
-      --line:#23263a;
-      --good:#37d67a;
-      --warn:#f7c948;
-      --bad:#ff5c5c;
-      --accent1:#ff2d55;
-      --accent2:#7c3aed;
-      --radius:16px;
-      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --bg0:#06060a;
+      --bg1:#0b0b12;
+      --card:#0f1017cc;
+      --stroke:#ffffff1a;
+      --stroke2:#ffffff2a;
+      --text:#f3f4f6;
+      --muted:#c7cad1;
+      --muted2:#a9afba;
+      --shadow: 0 30px 80px rgba(0,0,0,.55);
+      --shadow2: 0 12px 40px rgba(0,0,0,.5);
+      --radius: 26px;
+      --radius2: 20px;
+      --accent1:#b3003c;
+      --accent2:#6b2cff;
+      --accentGlow: 0 0 0 2px rgba(179,0,60,.35), 0 0 40px rgba(107,44,255,.25), 0 0 90px rgba(179,0,60,.18);
+
+      --easeOut: cubic-bezier(.2,.9,.2,1);
+      --pressScale: .985;
     }
-    *{box-sizing:border-box}
+
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
     body{
       margin:0;
-      background: radial-gradient(1200px 700px at 15% 10%, rgba(124,58,237,.25), transparent 60%),
-                  radial-gradient(900px 600px at 80% 20%, rgba(255,45,85,.18), transparent 55%),
-                  var(--bg);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
       color:var(--text);
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
-      line-height:1.35;
+      background:
+        radial-gradient(1200px 700px at 10% 20%, rgba(107,44,255,.24), transparent 60%),
+        radial-gradient(900px 700px at 90% 10%, rgba(179,0,60,.22), transparent 55%),
+        radial-gradient(900px 700px at 80% 90%, rgba(107,44,255,.18), transparent 58%),
+        linear-gradient(180deg, var(--bg0), var(--bg1));
+      overflow-x:hidden;
     }
-    header{
-      padding:28px 18px 10px;
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-    h1{
-      margin:0 0 8px;
-      font-size: clamp(22px, 3.2vw, 34px);
-      font-weight:800;
-      letter-spacing:.2px;
-    }
-    .sub{
-      color:var(--muted);
-      max-width: 70ch;
-      margin:0;
-    }
+
     .wrap{
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 14px 18px 34px;
-      display:grid;
-      grid-template-columns: 1.1fr .9fr;
-      gap:16px;
+      min-height:100%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:46px 18px;
+      padding-bottom: calc(46px + env(safe-area-inset-bottom, 0px));
     }
-    @media (max-width: 980px){
-      .wrap{grid-template-columns: 1fr}
-    }
-    .card{
-      background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.01));
-      border:1px solid var(--line);
-      border-radius: var(--radius);
+
+    .shell{
+      width:min(1180px, 100%);
+      border-radius: calc(var(--radius) + 8px);
+      background: linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.03));
       box-shadow: var(--shadow);
+      border: 1px solid rgba(255,255,255,.10);
+      overflow:hidden;
+      position:relative;
+    }
+
+    /* HEADER */
+    .hero{
+      position:relative;
+      padding:22px 26px 18px 26px;
+      background:
+        linear-gradient(180deg, rgba(0,0,0,.35), rgba(0,0,0,.55)),
+        radial-gradient(900px 420px at 20% 10%, rgba(107,44,255,.22), transparent 58%),
+        radial-gradient(900px 420px at 80% 20%, rgba(179,0,60,.18), transparent 60%),
+        rgba(0,0,0,.25);
+      border-bottom: 1px solid rgba(255,255,255,.10);
+      min-height: 150px;
+    }
+
+    .brandRow{
+      display:flex;
+      align-items:center;
+      gap:18px;
+      width:100%;
+    }
+
+    .brandBadge{
+      display:flex;
+      align-items:center;
+      gap:16px;
+      padding:14px 16px;
+      border-radius: 999px;
+      background: rgba(0,0,0,.35);
+      border: 1px solid rgba(255,255,255,.14);
+      backdrop-filter: blur(10px);
+      box-shadow: var(--shadow2);
+      max-width:100%;
+      min-width:0;
+    }
+
+    .brandBadge img{
+      width:72px;
+      height:72px;
+      border-radius: 14px;
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.16);
+      padding:6px;
+      object-fit:contain;
+      flex:0 0 auto;
+    }
+
+    .brandText{
+      display:flex;
+      flex-direction:column;
+      gap:6px;
+      min-width:0;
+    }
+    .kicker{
+      font-size:12px;
+      letter-spacing:.18em;
+      text-transform:uppercase;
+      color: rgba(255,255,255,.78);
+      white-space:nowrap;
+    }
+    .title{
+      font-size:28px;
+      font-weight:800;
+      line-height:1.05;
+      text-shadow: 0 6px 30px rgba(0,0,0,.5);
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+
+    .pill{
+      margin-left:auto;
+      display:flex;
+      align-items:center;
+      gap:10px;
+      padding:10px 14px;
+      border-radius:999px;
+      background: rgba(0,0,0,.35);
+      border: 1px solid rgba(255,255,255,.14);
+      backdrop-filter: blur(10px);
+      font-weight:700;
+      color: rgba(255,255,255,.90);
+      white-space:nowrap;
+    }
+    .dot{
+      width:10px;height:10px;border-radius:50%;
+      background: var(--accent1);
+      box-shadow: 0 0 0 4px rgba(179,0,60,.18);
+    }
+
+    .subRow{
+      margin-top:14px;
+      display:flex;
+      align-items:center;
+      gap:16px;
+      flex-wrap:wrap;
+    }
+    .subText{
+      color: rgba(255,255,255,.84);
+      font-size:14px;
+    }
+    .progressWrap{
+      margin-left:auto;
+      display:flex;
+      align-items:center;
+      gap:12px;
+      min-width: 260px;
+      flex: 1 1 260px;
+      justify-content:flex-end;
+    }
+    .progressBar{
+      width:min(420px, 100%);
+      height:10px;
+      border-radius:999px;
+      background: rgba(255,255,255,.14);
+      overflow:hidden;
+      border: 1px solid rgba(255,255,255,.14);
+    }
+    .progressFill{
+      height:100%;
+      width:0%;
+      background: linear-gradient(90deg, rgba(107,44,255,.95), rgba(179,0,60,.95));
+      box-shadow: 0 0 30px rgba(179,0,60,.25);
+      transition: width 420ms var(--easeOut);
+    }
+    .stepLabel{
+      font-size:12px;
+      color: rgba(255,255,255,.80);
+      font-weight:700;
+      white-space:nowrap;
+    }
+
+    /* CONTENT */
+    .content{
+      padding: 22px 26px 18px 26px;
+      background:
+        radial-gradient(900px 340px at 10% 30%, rgba(107,44,255,.10), transparent 55%),
+        radial-gradient(900px 340px at 90% 40%, rgba(179,0,60,.10), transparent 55%),
+        linear-gradient(180deg, rgba(0,0,0,.55), rgba(0,0,0,.60));
+      padding-bottom: calc(18px + env(safe-area-inset-bottom, 0px));
+    }
+
+    .panel{
+      border-radius: var(--radius);
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(10,10,14,.55);
+      box-shadow: var(--shadow2);
       overflow:hidden;
     }
-    .card .hd{
-      padding:16px 16px 10px;
-      border-bottom:1px solid var(--line);
+
+    .panelHead{
+      padding:18px 18px 12px 18px;
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:12px;
+      border-bottom: 1px solid rgba(255,255,255,.10);
+      background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,0));
+    }
+
+    .qWrap{
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+      min-width:0;
+    }
+    .question{
+      font-size:22px;
+      font-weight:850;
+      margin:0;
+      line-height:1.15;
+    }
+    .hint{
+      font-size:13px;
+      color: rgba(255,255,255,.72);
+      margin:0;
+    }
+
+    .panelBody{
+      padding:16px 18px 18px 18px;
+      padding-bottom: calc(18px + env(safe-area-inset-bottom, 0px));
+    }
+
+    /* OPTION GRID */
+    .grid{
+      display:grid;
+      gap:14px;
+    }
+    .grid.cols-2{ grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .grid.cols-3{ grid-template-columns: repeat(3, minmax(0, 1fr)); }
+
+    @media (max-width: 980px){
+      .grid.cols-3{ grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    @media (max-width: 680px){
+      .grid.cols-2, .grid.cols-3{ grid-template-columns: 1fr; }
+
+      .hero{ min-height: 170px; padding:18px 18px 14px 18px; }
+
+      .brandRow{
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 14px;
+      }
+      .brandBadge{
+        width: 100%;
+        border-radius: 20px;
+      }
+      .brandBadge img{
+        width:56px;
+        height:56px;
+      }
+      .kicker{
+        white-space: normal;
+        letter-spacing: .14em;
+        line-height: 1.15;
+      }
+      .title{
+        white-space: normal;
+        font-size: 20px;
+        line-height: 1.18;
+        overflow: visible;
+        text-overflow: clip;
+      }
+
+      .pill{ margin-left:0; }
+
+      .progressWrap{
+        justify-content:flex-start;
+        min-width: 0;
+        width: 100%;
+      }
+      .stepLabel{
+        white-space: normal;
+      }
+    }
+
+    /* Options */
+    .opt{
+      position:relative;
+      border-radius: 22px;
+      border: 1px solid rgba(255,255,255,.14);
+      background:
+        radial-gradient(800px 220px at 20% 30%, rgba(107,44,255,.22), transparent 60%),
+        radial-gradient(700px 260px at 90% 40%, rgba(179,0,60,.20), transparent 60%),
+        linear-gradient(180deg, rgba(255,255,255,.05), rgba(0,0,0,.08));
+      box-shadow: 0 18px 55px rgba(0,0,0,.35);
+      padding:18px 18px;
+      cursor:pointer;
+      transition: transform 220ms var(--easeOut), border-color 220ms var(--easeOut), box-shadow 220ms var(--easeOut), filter 220ms var(--easeOut);
+      min-height: 88px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:14px;
+      outline:none;
+      user-select:none;
+      overflow:hidden;
+      transform: translateZ(0);
+      will-change: transform, box-shadow;
+    }
+    .opt::after{
+      content:"";
+      position:absolute;
+      inset:-2px;
+      border-radius: 24px;
+      pointer-events:none;
+      opacity:0;
+      transition: opacity 240ms var(--easeOut);
+      box-shadow: var(--accentGlow);
+    }
+    .opt:hover{
+      transform: translateY(-1px);
+      border-color: rgba(255,255,255,.22);
+      filter: brightness(1.03);
+    }
+    .opt:active{
+      transform: translateY(0) scale(var(--pressScale));
+    }
+    .opt.isSelected{
+      border-color: rgba(255,255,255,.26);
+      filter: brightness(1.05);
+    }
+    .opt.isSelected::after{ opacity:1; }
+
+    .optText{
+      display:flex;
+      flex-direction:column;
+      align-items:flex-start;
+      gap:6px;
+      min-width:0;
+      flex:1 1 auto;
+    }
+    .optMain{
+      font-size:18px;
+      font-weight:900;
+      color: rgba(255,255,255,.96);
+      line-height:1.15;
+      white-space:normal;
+      overflow-wrap:anywhere;
+      max-width:100%;
+    }
+    .optSub{
+      font-size:12px;
+      color: rgba(255,255,255,.78);
+      line-height:1.25;
+    }
+
+    .chev{
+      width:40px;height:40px;
+      border-radius:999px;
+      display:grid;
+      place-items:center;
+      border: 1px solid rgba(255,255,255,.16);
+      background: rgba(0,0,0,.18);
+      color: rgba(255,255,255,.92);
+      flex:0 0 auto;
+      transition: transform 240ms var(--easeOut), background 240ms var(--easeOut);
+    }
+    .opt:hover .chev{ transform: translateX(1px); }
+    .chev svg{ width:18px;height:18px; opacity:.95; }
+
+    .panelFoot{
+      padding:14px 18px;
+      border-top: 1px solid rgba(255,255,255,.10);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      flex-wrap:wrap;
+      background: linear-gradient(180deg, rgba(255,255,255,0), rgba(255,255,255,.03));
+    }
+
+    .btn{
+      appearance:none;
+      border:none;
+      cursor:pointer;
+      border-radius: 14px;
+      padding:12px 14px;
+      font-weight:850;
+      color: rgba(255,255,255,.95);
+      background: rgba(255,255,255,.12);
+      border: 1px solid rgba(255,255,255,.14);
+      transition: transform 220ms var(--easeOut), background 220ms var(--easeOut), border-color 220ms var(--easeOut), box-shadow 220ms var(--easeOut);
+      display:flex;
+      align-items:center;
+      gap:10px;
+      transform: translateZ(0);
+      will-change: transform;
+    }
+    .btn:hover{
+      transform: translateY(-1px);
+      background: rgba(255,255,255,.14);
+      border-color: rgba(255,255,255,.20);
+    }
+    .btn:active{
+      transform: translateY(0) scale(var(--pressScale));
+    }
+    .btn:disabled{
+      opacity:.45;
+      cursor:not-allowed;
+      transform:none;
+    }
+    .btnPrimary{
+      background: linear-gradient(90deg, rgba(107,44,255,.92), rgba(179,0,60,.92));
+      border-color: rgba(255,255,255,.12);
+      box-shadow: 0 14px 40px rgba(179,0,60,.20);
+    }
+    .btnPrimary:hover{
+      background: linear-gradient(90deg, rgba(107,44,255,1), rgba(179,0,60,1));
+      box-shadow: 0 18px 55px rgba(179,0,60,.26);
+    }
+
+    .meta{
+      font-size:12px;
+      color: rgba(255,255,255,.72);
+      font-weight:700;
+      white-space:nowrap;
+    }
+
+    /* RESULT */
+    .resultBox{
+      border-radius: 22px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+      padding:16px 16px;
+      margin-bottom: calc(10px + env(safe-area-inset-bottom, 0px));
+    }
+    .resultHead{
+      display:flex;
+      align-items:flex-end;
+      justify-content:space-between;
+      gap:12px;
+      flex-wrap:wrap;
+      margin-bottom:10px;
+    }
+    .resultTitle{
+      font-size:20px;
+      font-weight:900;
+      margin:0;
+    }
+    .resultTotal{
+      font-size:22px;
+      font-weight:950;
+      margin:0;
+      letter-spacing:.02em;
+    }
+
+    .table{
+      width:100%;
+      border-collapse:collapse;
+      margin-top:10px;
+      font-size:14px;
+    }
+    .table td{
+      padding:10px 0;
+      border-top: 1px solid rgba(255,255,255,.10);
+      color: rgba(255,255,255,.88);
+      vertical-align:top;
+    }
+    .table td:last-child{
+      text-align:right;
+      font-weight:850;
+      color: rgba(255,255,255,.95);
+      white-space:nowrap;
+      padding-left:14px;
+    }
+
+    .note{
+      font-size:12px;
+      color: rgba(255,255,255,.70);
+      margin-top:12px;
+      line-height:1.35;
+    }
+
+    .footer{
+      text-align:center;
+      padding: 12px 10px 18px;
+      font-size:12px;
+      color: rgba(255,255,255,.62);
+      padding-bottom: calc(18px + env(safe-area-inset-bottom, 0px));
+    }
+
+    /* ===== CUSTOM (Sliders + Toggles) ===== */
+    .customBox{
+      margin-top:14px;
+      border-radius: 22px;
+      border: 1px solid rgba(255,255,255,.14);
+      background:
+        radial-gradient(700px 220px at 10% 30%, rgba(107,44,255,.14), transparent 58%),
+        radial-gradient(700px 220px at 90% 40%, rgba(179,0,60,.12), transparent 58%),
+        rgba(0,0,0,.18);
+      padding:14px 14px;
+    }
+
+    .customTitleRow{
+      display:flex;
+      align-items:flex-end;
+      justify-content:space-between;
+      gap:12px;
+      flex-wrap:wrap;
+      margin-bottom:10px;
+    }
+    .customTitle{
+      font-size:16px;
+      font-weight:900;
+      margin:0;
+    }
+    .customLive{
+      font-size:14px;
+      font-weight:900;
+      margin:0;
+      color: rgba(255,255,255,.92);
+      white-space:nowrap;
+    }
+
+    .sliders{
+      display:grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap:14px;
+      margin-top:10px;
+    }
+    @media (max-width: 980px){
+      .sliders{ grid-template-columns: 1fr; }
+    }
+
+    .sItem{
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.04);
+      padding:12px 12px;
+      transition: transform 220ms var(--easeOut), border-color 220ms var(--easeOut), box-shadow 220ms var(--easeOut);
+    }
+    .sItem:focus-within{
+      border-color: rgba(255,255,255,.22);
+      box-shadow: 0 0 0 2px rgba(255,255,255,.10), 0 18px 55px rgba(0,0,0,.28);
+      transform: translateY(-1px);
+    }
+    .sLabel{
       display:flex;
       align-items:center;
       justify-content:space-between;
       gap:10px;
+      font-size:13px;
+      color: rgba(255,255,255,.82);
+      font-weight:850;
+      margin-bottom:8px;
     }
-    .card .hd h2{
-      margin:0;
-      font-size: 16px;
-      letter-spacing:.2px;
+    .sValue{
+      color: rgba(255,255,255,.95);
+      font-weight:950;
+      white-space:nowrap;
+      transition: transform 220ms var(--easeOut);
     }
-    .pill{
-      padding:6px 10px;
+    .sItem.isAdjusting .sValue{ transform: scale(1.03); }
+
+    input[type="range"]{
+      width:100%;
+      -webkit-appearance: none;
+      appearance: none;
+      height: 8px;
       border-radius: 999px;
-      border:1px solid var(--line);
-      color: var(--muted);
-      font-size: 12px;
-      background: rgba(255,255,255,.02);
+      outline: none;
+      background:
+        linear-gradient(90deg, rgba(107,44,255,.95), rgba(179,0,60,.95)) 0/ var(--fill, 50%) 100% no-repeat,
+        rgba(255,255,255,.14);
+      border: 1px solid rgba(255,255,255,.14);
+      transition: background-size 240ms var(--easeOut), filter 240ms var(--easeOut);
+    }
+    input[type="range"]:hover{ filter: brightness(1.04); }
+    input[type="range"]::-webkit-slider-thumb{
+      -webkit-appearance: none;
+      appearance: none;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: rgba(255,255,255,.92);
+      border: 2px solid rgba(0,0,0,.25);
+      box-shadow: 0 10px 30px rgba(0,0,0,.35);
+      transition: transform 180ms var(--easeOut), box-shadow 180ms var(--easeOut);
+    }
+    input[type="range"]:active::-webkit-slider-thumb{
+      transform: scale(1.12);
+      box-shadow: 0 14px 44px rgba(0,0,0,.45);
+    }
+    input[type="range"]::-moz-range-thumb{
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: rgba(255,255,255,.92);
+      border: 2px solid rgba(0,0,0,.25);
+      box-shadow: 0 10px 30px rgba(0,0,0,.35);
+      transition: transform 180ms var(--easeOut), box-shadow 180ms var(--easeOut);
+    }
+    input[type="range"]:active::-moz-range-thumb{
+      transform: scale(1.12);
+      box-shadow: 0 14px 44px rgba(0,0,0,.45);
+    }
+
+    .applyRow{
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+      margin-top:12px;
+      align-items:center;
+      justify-content:flex-end;
+    }
+
+    .rfList{
+      margin-top:10px;
+      display:grid;
+      gap:12px;
+    }
+
+    .rfItem{
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.04);
+      padding:12px 12px;
+    }
+    .rfTop{
+      display:flex;
+      gap:10px;
+      align-items:flex-start;
+      justify-content:space-between;
+    }
+    .rfName{
+      font-weight:950;
+      margin:0;
+      font-size:14px;
+    }
+    .rfDesc{
+      margin:6px 0 0 0;
+      color: rgba(255,255,255,.74);
+      font-size:12px;
+      line-height:1.35;
+    }
+    .rfToggle{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      color: rgba(255,255,255,.78);
+      font-size:12px;
+      font-weight:850;
       user-select:none;
       white-space:nowrap;
     }
-    .card .bd{padding:14px 16px 16px}
-    .grid{
+    .rfToggle input{ width:18px;height:18px; accent-color: var(--accent2); margin-top:2px; }
+
+    .rfGrid{
+      margin-top:10px;
       display:grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
       gap:12px;
     }
-    @media (max-width: 680px){
-      .grid{grid-template-columns:1fr}
+    @media (max-width: 680px){ .rfGrid{ grid-template-columns: 1fr; } }
+
+    /* Step / Content Animations */
+    .fadeIn{ animation: fadeInUp 380ms var(--easeOut) both; }
+    @keyframes fadeInUp{ from{ opacity:0; transform: translateY(8px);} to{ opacity:1; transform: translateY(0);} }
+    .pulse{ animation: pulseGlow 520ms var(--easeOut) both; }
+    @keyframes pulseGlow{
+      0%{ transform: translateY(0); filter: brightness(1); }
+      45%{ transform: translateY(-1px); filter: brightness(1.06); }
+      100%{ transform: translateY(0); filter: brightness(1); }
     }
-    .q{
-      padding:12px;
-      border:1px solid var(--line);
-      border-radius: 14px;
-      background: rgba(255,255,255,.02);
-    }
-    .q label{
-      display:block;
-      font-weight:650;
-      font-size: 13px;
-      margin-bottom: 10px;
-    }
-    .row{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:10px;
-    }
-    select, input[type="number"]{
-      width:100%;
-      background: rgba(255,255,255,.03);
-      color: var(--text);
-      border: 1px solid var(--line);
-      border-radius: 12px;
-      padding: 10px 10px;
-      outline:none;
-    }
-    input[type="range"]{
-      width:100%;
-      accent-color: var(--accent2);
-    }
-    .val{
-      min-width: 36px;
-      text-align:right;
-      font-variant-numeric: tabular-nums;
-      color: var(--muted);
-    }
-    .small{
-      margin:10px 0 0;
-      color: var(--muted);
-      font-size: 12px;
-    }
-    .btnbar{
+
+    .scorePills{
       display:flex;
       gap:10px;
       flex-wrap:wrap;
       margin-top:12px;
     }
-    button{
-      cursor:pointer;
-      border:none;
-      border-radius: 14px;
-      padding: 11px 14px;
-      font-weight: 750;
-      color: var(--text);
-      background: linear-gradient(90deg, rgba(255,45,85,.9), rgba(124,58,237,.9));
-      box-shadow: 0 10px 25px rgba(124,58,237,.18);
+    .scorePill{
+      padding:10px 12px;
+      border-radius: 999px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.20);
+      font-weight:950;
+      color: rgba(255,255,255,.92);
+      white-space:nowrap;
     }
-    button.secondary{
-      background: rgba(255,255,255,.05);
-      border:1px solid var(--line);
-      box-shadow:none;
-      color: var(--text);
+    .scorePill span{
+      color: rgba(255,255,255,.76);
+      font-weight:800;
+      margin-right:8px;
     }
-    .scores{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap:12px;
+
+    .badgeGood{ color: rgba(55,214,122,.98) !important; }
+    .badgeWarn{ color: rgba(247,201,72,.98) !important; }
+    .badgeBad{  color: rgba(255,92,92,.98) !important; }
+
+    @media (prefers-reduced-motion: reduce){
+      *{ animation:none !important; transition:none !important; scroll-behavior:auto !important; }
     }
-    .score{
-      padding:14px;
-      border-radius: 14px;
-      border:1px solid var(--line);
-      background: rgba(255,255,255,.02);
-    }
-    .score .k{
-      color: var(--muted);
-      font-size: 12px;
-      letter-spacing:.2px;
-      margin-bottom: 4px;
-    }
-    .score .v{
-      font-size: 28px;
-      font-weight: 900;
-      font-variant-numeric: tabular-nums;
-    }
-    .meter{
-      height:10px;
-      border-radius:999px;
-      background: rgba(255,255,255,.06);
-      overflow:hidden;
-      border:1px solid var(--line);
-      margin-top:10px;
-    }
-    .meter > div{
-      height:100%;
-      width:0%;
-      background: linear-gradient(90deg, var(--accent1), var(--accent2));
-    }
-    .status{
-      margin-top:12px;
-      padding:12px;
-      border-radius: 14px;
-      border:1px solid var(--line);
-      background: rgba(255,255,255,.02);
-    }
-    .status .tag{
-      display:inline-block;
-      padding:6px 10px;
-      border-radius:999px;
-      font-size: 12px;
-      font-weight: 800;
-      letter-spacing:.3px;
-      border:1px solid var(--line);
-      background: rgba(255,255,255,.03);
-      margin-bottom:8px;
-    }
-    .tag.good{color:var(--good)}
-    .tag.warn{color:var(--warn)}
-    .tag.bad{color:var(--bad)}
-    .rec h3{
-      margin:10px 0 6px;
-      font-size: 14px;
-    }
-    .rec p{
-      margin:0 0 8px;
-      color: var(--text);
-    }
-    .tmpl{
-      margin-top:10px;
-      border-top:1px dashed rgba(255,255,255,.12);
-      padding-top:10px;
-      color: var(--muted);
-      font-size: 13px;
-    }
-    .tmpl code{
-      display:block;
-      white-space:pre-wrap;
-      background: rgba(0,0,0,.25);
-      border:1px solid rgba(255,255,255,.08);
-      padding:10px;
-      border-radius: 12px;
-      margin-top:8px;
-      color: var(--text);
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-      font-size: 12.5px;
-    }
-    .footer{
-      margin-top:12px;
-      color: var(--muted);
-      font-size: 12px;
-      line-height: 1.45;
-    }
-    .toggle{
-      display:flex;
-      align-items:center;
-      gap:10px;
-      user-select:none;
-      color:var(--muted);
-      font-size: 12px;
-    }
-    .toggle input{transform: scale(1.05)}
   </style>
 </head>
+
 <body>
-<header>
-  <h1>Unified Dating Signal Calculator</h1>
-  <p class="sub">
-    4 Scores: <b>INVEST</b>, <b>COMPLIANCE</b>, <b>FRAME/RESPECT</b>, <b>RISK</b> (inkl. Red Flags).
-    Output: Klasse + Handlung + 3 Message-Templates.
-  </p>
-</header>
+  <div class="wrap">
+    <div class="shell">
 
-<div class="wrap">
-  <section class="card" id="inputsCard">
-    <div class="hd">
-      <h2>Inputs</h2>
-      <div class="pill" id="presetPill">Preset: Balanced</div>
+      <header class="hero">
+        <div class="brandRow">
+          <div class="brandBadge">
+            <!-- Optional: Logo-Datei ersetzen -->
+            <img src="MGU-0015%20Logo%20OSION%20Solution%20XR.png" alt="OSION Solution XR" />
+            <div class="brandText">
+              <div class="kicker">Powered by OSION Solution XR</div>
+              <div class="title">Interaktiver Dating-Signal-Calculator</div>
+            </div>
+          </div>
+
+          <div class="pill" title="Signal-Check">
+            <span class="dot"></span>
+            Frame · Invest · Compliance · Risk
+          </div>
+        </div>
+
+        <div class="subRow">
+          <div class="subText">
+            Schritt für Schritt durch die Signale. Ergebnis: Scores, Klasse, Next Steps, Templates.
+          </div>
+          <div class="progressWrap">
+            <div class="progressBar" aria-hidden="true">
+              <div class="progressFill" id="progressFill"></div>
+            </div>
+            <div class="stepLabel" id="stepLabel">Schritt 1 von …</div>
+          </div>
+        </div>
+      </header>
+
+      <main class="content">
+        <section class="panel" aria-live="polite">
+          <div class="panelHead">
+            <div class="qWrap">
+              <h2 class="question" id="question">…</h2>
+              <p class="hint" id="hint">Bitte eine Option wählen.</p>
+            </div>
+            <div class="meta" id="metaRight"> </div>
+          </div>
+
+          <div class="panelBody">
+            <div class="grid cols-2" id="options"></div>
+
+            <!-- Custom-Block: Preset + Red-Flag-Katalog -->
+            <div id="customWrap" style="display:none;">
+              <div class="customBox">
+                <div class="customTitleRow">
+                  <p class="customTitle" id="customTitle">Konfiguration</p>
+                  <p class="customLive" id="customLive">–</p>
+                </div>
+
+                <p class="hint" id="customHint" style="margin:0; color:rgba(255,255,255,.78);">
+                  Einstellungen anpassen, dann übernehmen.
+                </p>
+
+                <div class="rfGrid" id="presetGrid" style="margin-top:12px;">
+                  <!-- Filled by JS -->
+                </div>
+
+                <div class="sliders" id="rfGlobalSliders" style="margin-top:12px;">
+                  <div class="sItem" id="sensItem">
+                    <div class="sLabel">
+                      <span>Red-Flag-Sensitivität</span>
+                      <span class="sValue" id="sensVal">1,0</span>
+                    </div>
+                    <input id="sensRange" type="range" min="0.5" max="1.5" step="0.1" value="1.0" />
+                  </div>
+
+                  <div class="sItem" id="rfCapItem">
+                    <div class="sLabel">
+                      <span>Risk-Cap (Skalierung)</span>
+                      <span class="sValue" id="rfCapVal">Standard</span>
+                    </div>
+                    <input id="rfCapRange" type="range" min="50" max="120" step="5" value="80" />
+                  </div>
+
+                  <div class="sItem" id="rfTuningItem">
+                    <div class="sLabel">
+                      <span>Risk-Härte</span>
+                      <span class="sValue" id="rfHardVal">Normal</span>
+                    </div>
+                    <input id="rfHardRange" type="range" min="0.8" max="1.3" step="0.05" value="1.0" />
+                  </div>
+                </div>
+
+                <div id="rfCatalogWrap" style="margin-top:14px;">
+                  <div class="rfList" id="rfList"></div>
+                </div>
+
+                <div class="applyRow">
+                  <button class="btn btnPrimary" type="button" id="applyCustomBtn">
+                    Übernehmen
+                    <span aria-hidden="true">→</span>
+                  </button>
+                </div>
+
+                <p class="note" style="margin-top:10px">
+                  Hinweis: Das Tool bewertet Signale und Muster. Es ersetzt keine reale Einschätzung im direkten Kontakt.
+                </p>
+              </div>
+            </div>
+
+            <!-- Ergebnis -->
+            <div id="result" style="display:none; margin-top:16px;">
+              <div class="resultBox">
+                <div class="resultHead">
+                  <p class="resultTitle">Ergebnis</p>
+                  <p class="resultTotal" id="classOut">–</p>
+                </div>
+
+                <p class="hint" style="margin:0 0 10px 0; color:rgba(255,255,255,.78);" id="recOut">
+                  –
+                </p>
+
+                <div class="scorePills" id="pillRow">
+                  <div class="scorePill"><span>INVEST</span><b id="invOut">0</b></div>
+                  <div class="scorePill"><span>COMPLIANCE</span><b id="comOut">0</b></div>
+                  <div class="scorePill"><span>FRAME</span><b id="frmOut">0</b></div>
+                  <div class="scorePill"><span>RISK</span><b id="rskOut">0</b></div>
+                </div>
+
+                <table class="table" aria-label="Details">
+                  <tbody>
+                    <tr><td>Next Step</td><td id="nextOut">–</td></tr>
+                    <tr><td>Template 1</td><td id="t1Out">–</td></tr>
+                    <tr><td>Template 2</td><td id="t2Out">–</td></tr>
+                    <tr><td>Template 3</td><td id="t3Out">–</td></tr>
+                  </tbody>
+                </table>
+
+                <div class="note" id="debugNote" style="display:none;">
+                  Debug: –
+                </div>
+
+                <div style="display:flex; gap:12px; flex-wrap:wrap; margin-top:14px;">
+                  <button class="btn btnPrimary" id="restartBtn" type="button">
+                    Neuer Run
+                    <span aria-hidden="true">↻</span>
+                  </button>
+                  <button class="btn" id="toggleDebugBtn" type="button">
+                    Debug anzeigen
+                    <span aria-hidden="true">⚙</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="panelFoot">
+            <button class="btn" id="backBtn" type="button">
+              <span aria-hidden="true">←</span> Zurück
+            </button>
+
+            <div class="meta" id="footerMeta"> </div>
+          </div>
+        </section>
+
+        <div class="footer">
+          © OSION Solution XR – Signal-Calculator. Frame bleibt bei dir.
+        </div>
+      </main>
     </div>
-    <div class="bd">
+  </div>
 
-      <div class="q">
-        <label>Preset (Gewichte)</label>
-        <select id="preset">
-          <option value="balanced">Balanced (Allround)</option>
-          <option value="fast_date">Fast-Date Filter (Zeitverschwendung minimieren)</option>
-          <option value="relationship">Relationship Selection (Vorauswahl)</option>
-        </select>
-        <p class="small">Preset ändert nur Gewichte. Werte bleiben identisch.</p>
-      </div>
+  <script>
+    // =========================
+    // Presets (Gewichte)
+    // =========================
+    const PRESETS = {
+      balanced: {
+        name: "Balanced",
+        weights: {
+          inv_reply_consistency: 1.1,
+          inv_initiative: 1.2,
+          inv_questions: 1.2,
+          inv_reply_length: 1.0,
+          inv_mirroring: 0.9,
+          inv_emojis_signal: 0.4,
 
-      <div class="grid">
+          com_date_yes: 1.4,
+          com_alternatives: 1.2,
+          com_specificity: 1.2,
+          com_maybe_words: -1.1,
+          com_flake: -1.4,
+          com_only_late: -0.5,
 
-        <!-- INVEST -->
-        <div class="q">
-          <label>INVEST 1: Antwortzeit-Konsistenz (0–3)</label>
-          <div class="row">
-            <input type="range" min="0" max="3" step="1" value="1" data-key="inv_reply_consistency" />
-            <div class="val" data-val="inv_reply_consistency">1</div>
-          </div>
-        </div>
+          frm_respect: 1.4,
+          frm_shit_tests: -1.1,
+          frm_jealousy: -1.2,
+          frm_boundaries: 1.3,
 
-        <div class="q">
-          <label>INVEST 2: Initiative (startet Kontakt) (0–3)</label>
-          <div class="row">
-            <input type="range" min="0" max="3" step="1" value="1" data-key="inv_initiative" />
-            <div class="val" data-val="inv_initiative">1</div>
-          </div>
-        </div>
+          risk_drama: 1.2,
+          risk_attention: 1.0
+        }
+      },
+      fast_date: {
+        name: "Fast-Date Filter",
+        weights: {
+          inv_reply_consistency: 0.9,
+          inv_initiative: 0.9,
+          inv_questions: 0.8,
+          inv_reply_length: 0.6,
+          inv_mirroring: 0.5,
+          inv_emojis_signal: 0.2,
 
-        <div class="q">
-          <label>INVEST 3: Echte Fragen an dich (0–3)</label>
-          <div class="row">
-            <input type="range" min="0" max="3" step="1" value="1" data-key="inv_questions" />
-            <div class="val" data-val="inv_questions">1</div>
-          </div>
-        </div>
+          com_date_yes: 1.7,
+          com_alternatives: 1.4,
+          com_specificity: 1.4,
+          com_maybe_words: -1.3,
+          com_flake: -1.6,
+          com_only_late: -0.2,
 
-        <div class="q">
-          <label>INVEST 4: Antwortlänge (0–3)</label>
-          <select data-key="inv_reply_length">
-            <option value="0">0 – Ein-Wort / kalt</option>
-            <option value="1" selected>1 – normal</option>
-            <option value="2">2 – ausführlich</option>
-            <option value="3">3 – sehr ausführlich + Details</option>
-          </select>
-        </div>
+          frm_respect: 1.3,
+          frm_shit_tests: -1.0,
+          frm_jealousy: -1.2,
+          frm_boundaries: 1.1,
 
-        <div class="q">
-          <label>INVEST 5: Spiegeln (Style/Wording) (0–3)</label>
-          <div class="row">
-            <input type="range" min="0" max="3" step="1" value="1" data-key="inv_mirroring" />
-            <div class="val" data-val="inv_mirroring">1</div>
-          </div>
-        </div>
+          risk_drama: 1.4,
+          risk_attention: 1.2
+        }
+      },
+      relationship: {
+        name: "Relationship Selection",
+        weights: {
+          inv_reply_consistency: 1.3,
+          inv_initiative: 1.2,
+          inv_questions: 1.3,
+          inv_reply_length: 1.2,
+          inv_mirroring: 0.9,
+          inv_emojis_signal: 0.3,
 
-        <div class="q">
-          <label>INVEST 6: Emojis/Smilies als Signal (0–3)</label>
-          <select data-key="inv_emojis_signal">
-            <option value="0">0 – gar nicht / trocken</option>
-            <option value="1" selected>1 – normal</option>
-            <option value="2">2 – sehr viele</option>
-            <option value="3">3 – extrem viele / auffällig</option>
-          </select>
-        </div>
+          com_date_yes: 1.4,
+          com_alternatives: 1.2,
+          com_specificity: 1.3,
+          com_maybe_words: -1.2,
+          com_flake: -1.5,
+          com_only_late: -0.9,
 
-        <!-- COMPLIANCE -->
-        <div class="q">
-          <label>COMPLIANCE 1: Date zugesagt (0–3)</label>
-          <div class="row">
-            <input type="range" min="0" max="3" step="1" value="1" data-key="com_date_yes" />
-            <div class="val" data-val="com_date_yes">1</div>
-          </div>
-        </div>
+          frm_respect: 1.6,
+          frm_shit_tests: -1.2,
+          frm_jealousy: -1.4,
+          frm_boundaries: 1.5,
 
-        <div class="q">
-          <label>COMPLIANCE 2: Alternativen bei Terminkonflikt (0–3)</label>
-          <div class="row">
-            <input type="range" min="0" max="3" step="1" value="1" data-key="com_alternatives" />
-            <div class="val" data-val="com_alternatives">1</div>
-          </div>
-        </div>
+          risk_drama: 1.6,
+          risk_attention: 1.3
+        }
+      }
+    };
 
-        <div class="q">
-          <label>COMPLIANCE 3: Konkretheit Zeit/Ort (0–3)</label>
-          <div class="row">
-            <input type="range" min="0" max="3" step="1" value="1" data-key="com_specificity" />
-            <div class="val" data-val="com_specificity">1</div>
-          </div>
-        </div>
+    // =========================
+    // Modularer Red-Flag-Katalog
+    // =========================
+    const RED_FLAGS = [
+      { id:"rf_bodycount",        name:"Bodycount-Statements",           desc:"Wird aktiv thematisiert oder als Signal genutzt.", baseMaxPoints:12 },
+      { id:"rf_onlyfans",         name:"OnlyFans / Pay-Content",         desc:"Promo-Verhalten, Links, Monetarisierung über Erotik-Pay-Content.", baseMaxPoints:18 },
+      { id:"rf_party",            name:"Party jedes Wochenende",         desc:"Wochenenden dauerhaft Party/Clubs/Festival, wenig Struktur.", baseMaxPoints:12 },
+      { id:"rf_therapy_overload", name:"Therapie/Diagnose-Overload",     desc:"Diagnosen/Trauma als Identität, wenig Eigenverantwortung im Konflikt.", baseMaxPoints:18 },
+      { id:"rf_ex_present",       name:"Ex ständig präsent",             desc:"Ex-Drama, On/Off, Dreiecke, ständiges Erwähnen.", baseMaxPoints:16 },
+      { id:"rf_disrespect_staff", name:"Respektlosigkeit (Service)",     desc:"Unfreundlich, entitled, herablassend im Alltag.", baseMaxPoints:18 },
+      { id:"rf_financial_chaos",  name:"Finanzchaos",                    desc:"Impuls-Ausgaben, Schulden-Storys, Unzuverlässigkeit.", baseMaxPoints:14 }
+    ];
 
-        <div class="q">
-          <label>COMPLIANCE 4: „Vielleicht/Schauen wir mal“ (0–3)</label>
-          <select data-key="com_maybe_words">
-            <option value="0">0 – praktisch nie</option>
-            <option value="1" selected>1 – selten</option>
-            <option value="2">2 – häufig</option>
-            <option value="3">3 – dauernd</option>
-          </select>
-          <p class="small">Wird als Negativsignal gewertet.</p>
-        </div>
+    // =========================
+    // Schritte (Wizard)
+    // =========================
+    const steps = [
+      {
+        id:"preset",
+        question:"Welches Preset soll genutzt werden?",
+        hint:"Preset steuert die Gewichtung der Scores.",
+        grid:"cols-3",
+        options:[
+          { value:"balanced",     label:"Balanced", sub:"Allround" },
+          { value:"fast_date",    label:"Fast-Date Filter", sub:"Zeitverschwendung minimieren" },
+          { value:"relationship", label:"Relationship Selection", sub:"Vorauswahl" }
+        ]
+      },
 
-        <div class="q">
-          <label>COMPLIANCE 5: Verschieben/Absagen kurzfristig (0–3)</label>
-          <select data-key="com_flake">
-            <option value="0" selected>0 – nie</option>
-            <option value="1">1 – einmal</option>
-            <option value="2">2 – mehrmals</option>
-            <option value="3">3 – Muster</option>
-          </select>
-          <p class="small">Wird als Negativsignal gewertet.</p>
-        </div>
-
-        <div class="q">
-          <label>COMPLIANCE 6: Treffen nur spät/nachts/bei ihr/bei dir (0–3)</label>
-          <select data-key="com_only_late">
-            <option value="0" selected>0 – normales Date</option>
-            <option value="1">1 – gemischt</option>
-            <option value="2">2 – überwiegend spät/nachts</option>
-            <option value="3">3 – nur spät/nachts</option>
-          </select>
-          <p class="small">Je nach Ziel kann das anders bewertet werden (Preset).</p>
-        </div>
-
-        <!-- FRAME / RESPECT -->
-        <div class="q">
-          <label>FRAME 1: Respektvoller Ton (0–3)</label>
-          <div class="row">
-            <input type="range" min="0" max="3" step="1" value="2" data-key="frm_respect" />
-            <div class="val" data-val="frm_respect">2</div>
-          </div>
-        </div>
-
-        <div class="q">
-          <label>FRAME 2: Shit Tests / Provokation (0–3)</label>
-          <select data-key="frm_shit_tests">
-            <option value="0" selected>0 – keine</option>
-            <option value="1">1 – leicht</option>
-            <option value="2">2 – regelmäßig</option>
-            <option value="3">3 – stark</option>
-          </select>
-          <p class="small">Wird als Negativsignal gewertet, kann aber auch „Stress-Test“ sein.</p>
-        </div>
-
-        <div class="q">
-          <label>FRAME 3: Eifersucht-Trigger / Triangulation (0–3)</label>
-          <select data-key="frm_jealousy">
-            <option value="0" selected>0 – keine</option>
-            <option value="1">1 – gelegentlich</option>
-            <option value="2">2 – häufig</option>
-            <option value="3">3 – ständig</option>
-          </select>
-        </div>
-
-        <div class="q">
-          <label>FRAME 4: Reaktion auf Grenzen (0–3)</label>
-          <select data-key="frm_boundaries">
-            <option value="0">0 – diskutiert/ignoriert</option>
-            <option value="1">1 – widerwillig</option>
-            <option value="2" selected>2 – akzeptiert</option>
-            <option value="3">3 – respektiert aktiv</option>
-          </select>
-        </div>
-
-        <!-- RISK / RED FLAGS -->
-        <div class="q">
-          <label>RISK 1: Drama/Ex-Themen dominieren (0–3)</label>
-          <select data-key="risk_drama">
-            <option value="0" selected>0 – kaum</option>
-            <option value="1">1 – ab und zu</option>
-            <option value="2">2 – häufig</option>
-            <option value="3">3 – ständig</option>
-          </select>
-        </div>
-
-        <div class="q">
-          <label>RISK 2: Social-Media/Aufmerksamkeit stark (0–3)</label>
-          <select data-key="risk_attention">
-            <option value="0" selected>0 – normal</option>
-            <option value="1">1 – merklich</option>
-            <option value="2">2 – stark</option>
-            <option value="3">3 – extrem</option>
-          </select>
-        </div>
-
-        <div class="q">
-          <label>RISK 3: Tattoos (Red Flag Level)</label>
-          <select data-key="risk_tattoos">
-            <option value="0" selected>0 – keine / wenige</option>
-            <option value="6">6 – mehrere sichtbar</option>
-            <option value="12">12 – sehr viele / großflächig</option>
-            <option value="20">20 – extrem viele / dominanter Look</option>
-          </select>
-          <p class="small">Als Overlay: soll Entscheidung verschärfen, nicht „Grün“ erzeugen.</p>
-        </div>
-
-        <div class="q">
-          <label>RISK 4: Bunte Haare (Red Flag Level)</label>
-          <select data-key="risk_hair">
-            <option value="0" selected>0 – natürlich</option>
-            <option value="6">6 – gefärbt, dezent</option>
-            <option value="12">12 – auffällig</option>
-            <option value="18">18 – extrem auffällig</option>
-          </select>
-        </div>
-
-      </div>
-
-      <div class="btnbar">
-        <button id="calcBtn" type="button">Berechnen</button>
-        <button class="secondary" id="resetBtn" type="button">Reset</button>
-        <label class="toggle">
-          <input type="checkbox" id="showDebug" />
-          Debug (Gewichte + Rohwerte anzeigen)
-        </label>
-      </div>
-
-      <div class="footer">
-        Hinweis: Das ist ein Signal- und Strategie-Tool. Es bewertet Verhalten/Signale und liefert Next Steps.
-        Red-Flag-Overlay ist bewusst getrennt, damit Chat-Verhalten (Invest/Compliance/Frame) den Kern bildet.
-      </div>
-    </div>
-  </section>
-
-  <aside class="card" id="outputCard">
-    <div class="hd">
-      <h2>Output</h2>
-      <div class="pill" id="classPill">—</div>
-    </div>
-    <div class="bd">
-
-      <div class="scores">
-        <div class="score">
-          <div class="k">INVEST</div>
-          <div class="v" id="outInvest">0</div>
-          <div class="meter"><div id="barInvest"></div></div>
-        </div>
-        <div class="score">
-          <div class="k">COMPLIANCE</div>
-          <div class="v" id="outCompliance">0</div>
-          <div class="meter"><div id="barCompliance"></div></div>
-        </div>
-        <div class="score">
-          <div class="k">FRAME/RESPECT</div>
-          <div class="v" id="outFrame">0</div>
-          <div class="meter"><div id="barFrame"></div></div>
-        </div>
-        <div class="score">
-          <div class="k">RISK (Overlay)</div>
-          <div class="v" id="outRisk">0</div>
-          <div class="meter"><div id="barRisk"></div></div>
-        </div>
-      </div>
-
-      <div class="status" id="statusBox">
-        <div class="tag warn" id="statusTag">—</div>
-        <div class="rec" id="recBox"></div>
-
-        <div class="tmpl" id="tmplBox" style="display:none">
-          <div><b>Templates</b> (3 Varianten)</div>
-          <code id="tmpl1"></code>
-          <code id="tmpl2"></code>
-          <code id="tmpl3"></code>
-        </div>
-
-        <div class="tmpl" id="debugBox" style="display:none">
-          <div><b>Debug</b></div>
-          <code id="debugText"></code>
-        </div>
-      </div>
-
-    </div>
-  </aside>
-</div>
-
-<script>
-/**
- * Unified Dating Signal Calculator
- * - 3 Kernscores (INVEST / COMPLIANCE / FRAME) + RISK Overlay
- * - Presets ändern Gewichte, nicht Inputs
- * - RISK kann Ampel verschärfen, nicht „Grün“ erzeugen
- */
-
-const PRESETS = {
-  balanced: {
-    name: "Balanced",
-    weights: {
       // INVEST
-      inv_reply_consistency: 1.1,
-      inv_initiative: 1.2,
-      inv_questions: 1.2,
-      inv_reply_length: 1.0,
-      inv_mirroring: 0.9,
-      inv_emojis_signal: 0.4,
+      mkStep("inv_reply_consistency", "INVEST: Antwortzeit-Konsistenz", "Wie konstant ist die Antwortzeit?", 0,3),
+      mkStep("inv_initiative",        "INVEST: Initiative",            "Startet sie Kontakt von sich aus?", 0,3),
+      mkStep("inv_questions",         "INVEST: Echte Fragen",          "Stellt sie echte Fragen an dich?", 0,3),
+      mkStep("inv_reply_length",      "INVEST: Antwortlänge",          "Wie viel Inhalt kommt zurück?", 0,3, [
+        {v:0,l:"Ein Wort / kalt"},
+        {v:1,l:"Normal"},
+        {v:2,l:"Ausführlich"},
+        {v:3,l:"Sehr ausführlich + Details"}
+      ]),
+      mkStep("inv_mirroring",         "INVEST: Mirroring",             "Spiegelt sie Stil/Wording/Tempo?", 0,3),
+      mkStep("inv_emojis_signal",     "INVEST: Emojis",                "Emojis/Smilies als Signal", 0,3, [
+        {v:0,l:"Keine / trocken"},
+        {v:1,l:"Normal"},
+        {v:2,l:"Sehr viele"},
+        {v:3,l:"Extrem viele"}
+      ]),
 
       // COMPLIANCE
-      com_date_yes: 1.4,
-      com_alternatives: 1.2,
-      com_specificity: 1.2,
-      com_maybe_words: -1.1,
-      com_flake: -1.4,
-      com_only_late: -0.5,
+      mkStep("com_date_yes",     "COMPLIANCE: Date zugesagt",              "Wie klar ist die Zusage?", 0,3, [
+        {v:0,l:"Nein / weicht aus"},
+        {v:1,l:"Vage"},
+        {v:2,l:"Ja"},
+        {v:3,l:"Ja + freut sich"}
+      ]),
+      mkStep("com_alternatives", "COMPLIANCE: Alternativen",               "Bringt sie Alternativen, wenn es nicht passt?", 0,3),
+      mkStep("com_specificity",  "COMPLIANCE: Zeit/Ort konkret",           "Wie konkret sind Zeit und Ort?", 0,3),
+      mkStep("com_maybe_words",  "COMPLIANCE: Vielleicht-Sprache",         "Wie oft kommt „vielleicht / schauen wir mal“?", 0,3, [
+        {v:0,l:"Nie"},
+        {v:1,l:"Selten"},
+        {v:2,l:"Häufig"},
+        {v:3,l:"Dauernd"}
+      ], {negative:true}),
+      mkStep("com_flake",        "COMPLIANCE: Flake",                      "Verschieben/Absagen kurzfristig?", 0,3, [
+        {v:0,l:"Nie"},
+        {v:1,l:"Einmal"},
+        {v:2,l:"Mehrmals"},
+        {v:3,l:"Muster"}
+      ], {negative:true}),
+      mkStep("com_only_late",    "COMPLIANCE: Nur spät/nachts",            "Geht es fast nur um spät/nachts?", 0,3, [
+        {v:0,l:"Normales Date"},
+        {v:1,l:"Gemischt"},
+        {v:2,l:"Meist spät/nachts"},
+        {v:3,l:"Nur spät/nachts"}
+      ], {negative:true}),
 
-      // FRAME/RESPECT
-      frm_respect: 1.4,
-      frm_shit_tests: -1.1,
-      frm_jealousy: -1.2,
-      frm_boundaries: 1.3,
+      // FRAME
+      mkStep("frm_respect",     "FRAME: Respekt",                  "Wie respektvoll ist der Ton?", 0,3),
+      mkStep("frm_shit_tests",  "FRAME: Shit Tests",               "Wie stark sind Shit Tests / Provokationen?", 0,3, [
+        {v:0,l:"Keine"},
+        {v:1,l:"Leicht"},
+        {v:2,l:"Regelmäßig"},
+        {v:3,l:"Stark"}
+      ], {negative:true}),
+      mkStep("frm_jealousy",    "FRAME: Triangulation",            "Eifersucht-Trigger / Triangulation?", 0,3, [
+        {v:0,l:"Keine"},
+        {v:1,l:"Gelegentlich"},
+        {v:2,l:"Häufig"},
+        {v:3,l:"Ständig"}
+      ], {negative:true}),
+      mkStep("frm_boundaries",  "FRAME: Grenzen",                  "Reaktion auf Grenzen?", 0,3, [
+        {v:0,l:"Ignoriert/Diskutiert"},
+        {v:1,l:"Widerwillig"},
+        {v:2,l:"Akzeptiert"},
+        {v:3,l:"Respektiert aktiv"}
+      ]),
 
-      // RISK
-      risk_drama: 1.2,
-      risk_attention: 1.0,
-      risk_tattoos: 1.0, // already absolute points
-      risk_hair: 1.0     // already absolute points
+      // RISK base + style flags
+      mkStep("risk_drama",     "RISK: Drama/Ex",          "Dominieren Drama/Ex-Themen?", 0,3),
+      mkStep("risk_attention", "RISK: Aufmerksamkeit",    "Social-Media/Aufmerksamkeit sehr stark?", 0,3),
+      mkStep("risk_tattoos",   "RISK: Tattoos",           "Tattoos (Red Flag Level)", 0,20, [
+        {v:0,l:"Keine / wenige"},
+        {v:6,l:"Mehrere sichtbar"},
+        {v:12,l:"Sehr viele / großflächig"},
+        {v:20,l:"Extrem viele / dominanter Look"}
+      ], {absolute:true}),
+      mkStep("risk_hair",      "RISK: Bunte Haare",       "Bunte Haare (Red Flag Level)", 0,18, [
+        {v:0,l:"Natürlich"},
+        {v:6,l:"Dezent gefärbt"},
+        {v:12,l:"Auffällig"},
+        {v:18,l:"Extrem auffällig"}
+      ], {absolute:true}),
+
+      // Custom step: Red-Flag Katalog + Sensitivität + Cap
+      {
+        id:"rf_catalog",
+        question:"Red-Flag-Katalog (Toggle + Intensität + Gewicht)",
+        hint:"Optional: Aktivieren, Intensität setzen, Gewicht anpassen. Danach übernehmen.",
+        grid:"cols-2",
+        options: [
+          { value:"open", label:"Einstellungen öffnen", sub:"Red Flags konfigurieren" }
+        ],
+        custom:true
+      },
+
+      { id:"result", question:"Ergebnis", hint:"Hier steht die Auswertung.", grid:"cols-2", options:[] }
+    ];
+
+    function mkStep(id, title, hint, min, max, customOptions=null, meta=null){
+      const defaultOpts = [
+        {v:0,l:"0 – niedrig"},
+        {v:1,l:"1 – eher niedrig"},
+        {v:2,l:"2 – eher hoch"},
+        {v:3,l:"3 – hoch"}
+      ];
+      const options = (customOptions || defaultOpts).map(o=>({
+        value: o.v, label: o.l, sub: title
+      }));
+      return {
+        id,
+        question: title,
+        hint,
+        grid: options.length >= 3 ? "cols-3" : "cols-2",
+        options,
+        meta: meta || {}
+      };
     }
-  },
 
-  fast_date: {
-    name: "Fast-Date Filter",
-    weights: {
-      // INVEST
-      inv_reply_consistency: 0.9,
-      inv_initiative: 0.9,
-      inv_questions: 0.8,
-      inv_reply_length: 0.6,
-      inv_mirroring: 0.5,
-      inv_emojis_signal: 0.2,
+    // =========================
+    // State / UI
+    // =========================
+    const state = {
+      stepIndex: 0,
+      answers: {},
+      presetKey: "balanced",
+      rf: {
+        enabled: true,
+        sensitivity: 1.0,
+        riskCap: 80,
+        riskHard: 1.0,
+        items: {}
+      },
+      debugOpen: false
+    };
 
-      // COMPLIANCE (dominant)
-      com_date_yes: 1.7,
-      com_alternatives: 1.4,
-      com_specificity: 1.4,
-      com_maybe_words: -1.3,
-      com_flake: -1.6,
-      com_only_late: -0.2, // weniger hart bewertet
+    const elQuestion   = document.getElementById("question");
+    const elHint       = document.getElementById("hint");
+    const elOptions    = document.getElementById("options");
+    const elBack       = document.getElementById("backBtn");
+    const elProgress   = document.getElementById("progressFill");
+    const elStepLabel  = document.getElementById("stepLabel");
+    const elFooterMeta = document.getElementById("footerMeta");
+    const elMetaRight  = document.getElementById("metaRight");
 
-      // FRAME/RESPECT
-      frm_respect: 1.3,
-      frm_shit_tests: -1.0,
-      frm_jealousy: -1.2,
-      frm_boundaries: 1.1,
+    const elCustomWrap   = document.getElementById("customWrap");
+    const elCustomTitle  = document.getElementById("customTitle");
+    const elCustomLive   = document.getElementById("customLive");
+    const elCustomHint   = document.getElementById("customHint");
+    const elApplyCustom  = document.getElementById("applyCustomBtn");
+    const elPresetGrid   = document.getElementById("presetGrid");
+    const elRfList       = document.getElementById("rfList");
 
-      // RISK
-      risk_drama: 1.4,
-      risk_attention: 1.2,
-      risk_tattoos: 1.0,
-      risk_hair: 1.0
+    const elSensRange = document.getElementById("sensRange");
+    const elSensVal   = document.getElementById("sensVal");
+    const elCapRange  = document.getElementById("rfCapRange");
+    const elCapVal    = document.getElementById("rfCapVal");
+    const elHardRange = document.getElementById("rfHardRange");
+    const elHardVal   = document.getElementById("rfHardVal");
+    const elSensItem  = document.getElementById("sensItem");
+    const elCapItem   = document.getElementById("rfCapItem");
+    const elHardItem  = document.getElementById("rfTuningItem");
+
+    const elResultWrap = document.getElementById("result");
+    const elClassOut   = document.getElementById("classOut");
+    const elRecOut     = document.getElementById("recOut");
+    const elInvOut     = document.getElementById("invOut");
+    const elComOut     = document.getElementById("comOut");
+    const elFrmOut     = document.getElementById("frmOut");
+    const elRskOut     = document.getElementById("rskOut");
+    const elNextOut    = document.getElementById("nextOut");
+    const elT1Out      = document.getElementById("t1Out");
+    const elT2Out      = document.getElementById("t2Out");
+    const elT3Out      = document.getElementById("t3Out");
+    const elRestartBtn = document.getElementById("restartBtn");
+    const elToggleDbg  = document.getElementById("toggleDebugBtn");
+    const elDebugNote  = document.getElementById("debugNote");
+
+    function clamp(n,a,b){ return Math.max(a, Math.min(b, n)); }
+    function clamp01(x){ return Math.min(1, Math.max(0, x)); }
+    function round(n){ return Math.round(n); }
+    function to1(n){ return Math.round(n * 10) / 10; }
+
+    function triggerFade(el){
+      el.classList.remove("fadeIn");
+      void el.offsetWidth;
+      el.classList.add("fadeIn");
     }
-  },
-
-  relationship: {
-    name: "Relationship Selection",
-    weights: {
-      // INVEST
-      inv_reply_consistency: 1.3,
-      inv_initiative: 1.2,
-      inv_questions: 1.3,
-      inv_reply_length: 1.2,
-      inv_mirroring: 0.9,
-      inv_emojis_signal: 0.3,
-
-      // COMPLIANCE
-      com_date_yes: 1.4,
-      com_alternatives: 1.2,
-      com_specificity: 1.3,
-      com_maybe_words: -1.2,
-      com_flake: -1.5,
-      com_only_late: -0.9, // härter bewertet
-
-      // FRAME/RESPECT
-      frm_respect: 1.6,
-      frm_shit_tests: -1.2,
-      frm_jealousy: -1.4,
-      frm_boundaries: 1.5,
-
-      // RISK (stärker)
-      risk_drama: 1.6,
-      risk_attention: 1.3,
-      risk_tattoos: 1.0,
-      risk_hair: 1.0
+    function pulse(el){
+      el.classList.remove("pulse");
+      void el.offsetWidth;
+      el.classList.add("pulse");
     }
-  }
-};
 
-const INPUT_KEYS = [
-  "inv_reply_consistency","inv_initiative","inv_questions","inv_reply_length","inv_mirroring","inv_emojis_signal",
-  "com_date_yes","com_alternatives","com_specificity","com_maybe_words","com_flake","com_only_late",
-  "frm_respect","frm_shit_tests","frm_jealousy","frm_boundaries",
-  "risk_drama","risk_attention","risk_tattoos","risk_hair"
-];
-
-// Normalisierung: 0–3 Inputs -> 0..100 Skalenbasis je Kategorie
-function clamp(n, a, b){ return Math.max(a, Math.min(b, n)); }
-function round(n){ return Math.round(n); }
-
-function readInputs(){
-  const values = {};
-  // Range inputs
-  document.querySelectorAll('input[type="range"][data-key]').forEach(el=>{
-    values[el.dataset.key] = Number(el.value);
-  });
-  // Select inputs
-  document.querySelectorAll('select[data-key]').forEach(el=>{
-    values[el.dataset.key] = Number(el.value);
-  });
-  return values;
-}
-
-function setValBadges(){
-  document.querySelectorAll('input[type="range"][data-key]').forEach(el=>{
-    const key = el.dataset.key;
-    const badge = document.querySelector(`[data-val="${key}"]`);
-    if(badge) badge.textContent = el.value;
-  });
-}
-
-function calcCategoryScore(rawValues, weights, categoryKeys){
-  // Weighted sum over 0–3 values, then map to 0–100
-  // We do:
-  //   sum = Σ(value * weight)
-  // Then transform with a reasonable min/max per category based on weights.
-  let sum = 0;
-  let min = 0;
-  let max = 0;
-
-  for(const k of categoryKeys){
-    const w = weights[k] ?? 0;
-    const v = rawValues[k] ?? 0;
-    sum += v * w;
-
-    // bounds: v in [0,3]
-    const lo = 0 * w;
-    const hi = 3 * w;
-    min += Math.min(lo, hi);
-    max += Math.max(lo, hi);
-  }
-
-  // Avoid division by 0
-  if (max === min) return 0;
-
-  // normalize to 0..100
-  const norm = (sum - min) / (max - min);
-  return clamp(norm * 100, 0, 100);
-}
-
-function calcRisk(rawValues, weights){
-  // risk_drama/risk_attention are 0..3 with weights
-  // tattoos/hair are already absolute points (0..20 / 0..18). We bring them to 0..100 scale.
-  const drama = rawValues.risk_drama * (weights.risk_drama ?? 0);
-  const attn  = rawValues.risk_attention * (weights.risk_attention ?? 0);
-
-  const tattoos = rawValues.risk_tattoos; // absolute points
-  const hair    = rawValues.risk_hair;    // absolute points
-
-  // Base risk points:
-  // drama: 0..(3*~1.6)=4.8
-  // attn : 0..(3*~1.3)=3.9
-  // tattoos: 0..20
-  // hair: 0..18
-  // Total typical max around 46–50; scale to 0..100 with cap
-  const points = drama + attn + tattoos + hair;
-
-  const scaleMax = 50; // tune if you add more red flags
-  return clamp((points / scaleMax) * 100, 0, 100);
-}
-
-function classify(invest, compliance, frame, risk){
-  // Rules:
-  // - "Green" requires all 3 core scores high + risk not too high
-  // - "Red" triggers when compliance or frame are low OR risk very high
-  if (compliance < 45 || frame < 45 || risk > 70) return "RED";
-  if (invest >= 65 && compliance >= 65 && frame >= 60 && risk <= 45) return "GREEN";
-  return "YELLOW";
-}
-
-function pickArchetype(invest, compliance, frame, risk){
-  // 6 Klassen (A1..D1) based on pattern
-  const cls = classify(invest, compliance, frame, risk);
-
-  if (cls === "GREEN"){
-    return { code:"A1", label:"Green – Lead", tagClass:"good" };
-  }
-
-  // Yellow splits
-  if (cls === "YELLOW"){
-    if (compliance >= 60 && frame >= 55 && invest < 60) return { code:"B1", label:"Yellow – Ball to them", tagClass:"warn" };
-    if (compliance >= 55 && frame >= 50 && risk >= 55) return { code:"B2", label:"Yellow – Meet only", tagClass:"warn" };
-    if (frame < 55) return { code:"C1", label:"Orange – Boundary check (Frame)", tagClass:"warn" };
-    return { code:"B1", label:"Yellow – Ball to them", tagClass:"warn" };
-  }
-
-  // Red splits
-  if (cls === "RED"){
-    if (frame < 45) return { code:"D1", label:"Red – Exit (Frame broken)", tagClass:"bad" };
-    if (compliance < 45) return { code:"D1", label:"Red – Exit (No compliance)", tagClass:"bad" };
-    return { code:"D1", label:"Red – Exit (Risk overload)", tagClass:"bad" };
-  }
-
-  return { code:"—", label:"—", tagClass:"warn" };
-}
-
-function templatesFor(code){
-  // Keep terms in original form (Frame, Shit Test, Compliance).
-  const map = {
-    A1: {
-      title: "Next Step: Date fixieren (führen)",
-      bullets: [
-        "2 Optionen anbieten (Tag + Uhrzeit + Ort), Ende.",
-        "Nicht in Text-Schleifen investieren.",
-        "Leicht, entspannt, Führung."
-      ],
-      t: [
-        "Ich hab Bock. Donnerstag 19:00 in der Bar X oder Samstag 16:00 Kaffee Y – was passt dir besser?",
-        "Lass uns das nicht zerreden. Mittwoch 18:30 Spaziergang am Z + danach Drink – passt?",
-        "Du wirkst nice. Ich hol dich raus aus dem Chat: Freitag 19:00 Location X. Deal?"
-      ]
-    },
-    B1: {
-      title: "Next Step: Ball to them (Investment runter)",
-      bullets: [
-        "Einmal sauber führen, dann Pause.",
-        "Kein Erklären, keine Diskussion.",
-        "Compliance testen: reagiert sie auf Konkretes?"
-      ],
-      t: [
-        "Sag an, wann du real Zeit hast: Donnerstag oder Sonntag?",
-        "Meld dich, wenn du einen konkreten Slot hast – dann machen wir was.",
-        "Ich bin diese Woche flexibel. Schick mir einen Tag + Uhrzeit, dann fixen wir das."
-      ]
-    },
-    B2: {
-      title: "Next Step: Meet only (Chat = minimal)",
-      bullets: [
-        "Kein großer Chat-Flow, nur Logistik.",
-        "Wenn sie ausweicht: Exit.",
-        "Risk overlay hoch: kein deep investment."
-      ],
-      t: [
-        "Lass uns einfach treffen statt tippen. Freitag 19:00 – passt?",
-        "Ich bin nicht der Text-Buddy. Wir sehen uns Samstag 17:00, dann reden wir live.",
-        "Wenn du willst: Mittwoch 18:30. Wenn nicht, alles gut."
-      ]
-    },
-    C1: {
-      title: "Next Step: Boundary check (Frame halten)",
-      bullets: [
-        "Shit Test nicht emotional beantworten.",
-        "Grenze setzen, locker bleiben.",
-        "Danach: reagiert sie mit Respekt oder Push?"
-      ],
-      t: [
-        "So reden wir nicht. Wenn du normal bist, machen wir weiter.",
-        "Ich mag locker. Drama hab ich nicht auf dem Zettel.",
-        "Wenn du testen willst: mach das. Ich bleib entspannt – wir können auch einfach treffen."
-      ]
-    },
-    D1: {
-      title: "Next Step: Exit (sauber, ohne Theater)",
-      bullets: [
-        "Keine Diskussion, kein Rechtfertigen.",
-        "Kontakt beenden oder komplett einfrieren.",
-        "Frame bleibt bei dir."
-      ],
-      t: [
-        "Ich glaub, das passt nicht. Alles Gute dir.",
-        "Ich bin raus. Mach’s gut.",
-        "Das ist mir zu anstrengend. Ich wünsch dir was."
-      ]
+    function setRangeFill(range){
+      const min = parseFloat(range.min || "0");
+      const max = parseFloat(range.max || "100");
+      const val = parseFloat(range.value || "0");
+      const pct = ((val - min) / (max - min)) * 100;
+      range.style.setProperty("--fill", `${Math.max(0, Math.min(100, pct))}%`);
     }
-  };
-  return map[code] ?? map.B1;
-}
-
-function renderBars(invest, compliance, frame, risk){
-  document.getElementById("barInvest").style.width = invest + "%";
-  document.getElementById("barCompliance").style.width = compliance + "%";
-  document.getElementById("barFrame").style.width = frame + "%";
-  document.getElementById("barRisk").style.width = risk + "%";
-}
-
-function setText(id, txt){ document.getElementById(id).textContent = txt; }
-
-function runCalc(){
-  const presetKey = document.getElementById("preset").value;
-  const preset = PRESETS[presetKey] ?? PRESETS.balanced;
-  const weights = preset.weights;
-
-  const raw = readInputs();
-
-  // Category keys
-  const investKeys = ["inv_reply_consistency","inv_initiative","inv_questions","inv_reply_length","inv_mirroring","inv_emojis_signal"];
-  const complianceKeys = ["com_date_yes","com_alternatives","com_specificity","com_maybe_words","com_flake","com_only_late"];
-  const frameKeys = ["frm_respect","frm_shit_tests","frm_jealousy","frm_boundaries"];
-
-  const invest = round(calcCategoryScore(raw, weights, investKeys));
-  const compliance = round(calcCategoryScore(raw, weights, complianceKeys));
-  const frame = round(calcCategoryScore(raw, weights, frameKeys));
-  const risk = round(calcRisk(raw, weights));
-
-  // Archetype
-  const arche = pickArchetype(invest, compliance, frame, risk);
-  const kit = templatesFor(arche.code);
-
-  // Header pill
-  setText("presetPill", "Preset: " + preset.name);
-  const classPill = document.getElementById("classPill");
-  classPill.textContent = arche.code + " · " + arche.label;
-
-  // Scores
-  setText("outInvest", invest);
-  setText("outCompliance", compliance);
-  setText("outFrame", frame);
-  setText("outRisk", risk);
-  renderBars(invest, compliance, frame, risk);
-
-  // Status
-  const statusTag = document.getElementById("statusTag");
-  statusTag.textContent = arche.code + " · " + arche.label;
-  statusTag.classList.remove("good","warn","bad");
-  statusTag.classList.add(arche.tagClass);
-
-  // Recommendation box
-  const recBox = document.getElementById("recBox");
-  recBox.innerHTML = `
-    <h3>${kit.title}</h3>
-    <p>${kit.bullets.map(b=>"• " + b).join("<br>")}</p>
-  `;
-
-  // Templates
-  document.getElementById("tmplBox").style.display = "block";
-  setText("tmpl1", kit.t[0]);
-  setText("tmpl2", kit.t[1]);
-  setText("tmpl3", kit.t[2]);
-
-  // Debug
-  const dbg = document.getElementById("showDebug").checked;
-  const debugBox = document.getElementById("debugBox");
-  debugBox.style.display = dbg ? "block" : "none";
-  if(dbg){
-    const lines = [];
-    lines.push("RAW INPUTS:");
-    for(const k of INPUT_KEYS){
-      lines.push(`- ${k}: ${raw[k]}`);
+    function markAdjusting(itemEl){
+      itemEl.classList.add("isAdjusting");
+      window.clearTimeout(itemEl.__t);
+      itemEl.__t = window.setTimeout(()=> itemEl.classList.remove("isAdjusting"), 220);
     }
-    lines.push("");
-    lines.push("WEIGHTS (Preset):");
-    for(const [k,v] of Object.entries(weights)){
-      lines.push(`- ${k}: ${v}`);
+
+    function setProgress(){
+      const current = state.stepIndex + 1;
+      const totalSteps = steps.length;
+      const pct = totalSteps <= 1 ? 100 : ((current - 1) / (totalSteps - 1)) * 100;
+      elProgress.style.width = pct + "%";
+      elStepLabel.textContent = `Schritt ${current} von ${totalSteps}`;
+      elMetaRight.textContent = `Schritt ${current} von ${totalSteps}`;
+      elFooterMeta.textContent = `Schritt ${current} von ${totalSteps}`;
     }
-    lines.push("");
-    lines.push(`SCORES: INVEST=${invest}, COMPLIANCE=${compliance}, FRAME=${frame}, RISK=${risk}`);
-    lines.push(`CLASS: ${arche.code} (${arche.label})`);
-    document.getElementById("debugText").textContent = lines.join("\n");
-  }
-}
 
-function resetAll(){
-  // reset ranges to defaults (initial values in HTML)
-  document.querySelectorAll('input[type="range"][data-key]').forEach(el=>{
-    el.value = el.getAttribute("value") ?? "0";
-  });
-  // reset selects to initial selected
-  document.querySelectorAll('select[data-key]').forEach(el=>{
-    // restore to first selected option in markup
-    const sel = Array.from(el.options).find(o=>o.defaultSelected) ?? el.options[0];
-    el.value = sel.value;
-  });
-  document.getElementById("preset").value = "balanced";
-  document.getElementById("showDebug").checked = false;
-  setValBadges();
-  runCalc();
-}
+    function setSelectedUI(stepId){
+      const opts = elOptions.querySelectorAll(".opt");
+      opts.forEach(btn=>{
+        btn.classList.remove("isSelected");
+        const v = btn.getAttribute("data-value");
+        const ans = state.answers[stepId];
+        if (ans && v != null && String(ans.value) === String(v)) btn.classList.add("isSelected");
+      });
+    }
 
-// Wire up UI
-document.querySelectorAll('input[type="range"][data-key]').forEach(el=>{
-  el.addEventListener("input", ()=>{
-    setValBadges();
-  });
-});
+    // -------------------------
+    // Custom UI: Presets + RFs
+    // -------------------------
+    function buildPresetGrid(){
+      elPresetGrid.innerHTML = "";
+      const cards = [
+        { key:"balanced",     title:"Balanced", sub:"Allround" },
+        { key:"fast_date",    title:"Fast-Date Filter", sub:"Zeitverschwendung minimieren" },
+        { key:"relationship", title:"Relationship Selection", sub:"Vorauswahl" }
+      ];
+      cards.forEach(c=>{
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "opt";
+        btn.style.minHeight = "78px";
+        btn.innerHTML = `
+          <div class="optText">
+            <div class="optMain">${c.title}</div>
+            <div class="optSub">${c.sub}</div>
+          </div>
+          <div class="chev" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+        `;
+        btn.addEventListener("click", ()=>{
+          state.presetKey = c.key;
+          pulse(elPresetGrid);
+          refreshCustomLive();
+          // mark selected
+          [...elPresetGrid.querySelectorAll(".opt")].forEach(x=>x.classList.remove("isSelected"));
+          btn.classList.add("isSelected");
+        });
+        if(state.presetKey === c.key) btn.classList.add("isSelected");
+        elPresetGrid.appendChild(btn);
+      });
+    }
 
-document.getElementById("calcBtn").addEventListener("click", runCalc);
-document.getElementById("resetBtn").addEventListener("click", resetAll);
-document.getElementById("preset").addEventListener("change", ()=>{
-  runCalc();
-});
-document.getElementById("showDebug").addEventListener("change", ()=>{
-  runCalc();
-});
+    function ensureRfDefaults(){
+      RED_FLAGS.forEach(rf=>{
+        if(!state.rf.items[rf.id]){
+          state.rf.items[rf.id] = { enabled:true, intensity:1, weight:1.0 };
+        }
+      });
+    }
 
-// Init
-setValBadges();
-runCalc();
-</script>
+    function buildRfList(){
+      ensureRfDefaults();
+      elRfList.innerHTML = "";
+
+      RED_FLAGS.forEach(rf=>{
+        const cfg = state.rf.items[rf.id];
+
+        const wrap = document.createElement("div");
+        wrap.className = "rfItem";
+        wrap.innerHTML = `
+          <div class="rfTop">
+            <div style="min-width:0;">
+              <p class="rfName">${rf.name}</p>
+              <p class="rfDesc">${rf.desc}</p>
+            </div>
+            <label class="rfToggle">
+              <input type="checkbox" ${cfg.enabled ? "checked":""} data-rf-en="${rf.id}" />
+              aktiv
+            </label>
+          </div>
+
+          <div class="rfGrid">
+            <div class="sItem" data-rf-item="${rf.id}-int">
+              <div class="sLabel">
+                <span>Intensität</span>
+                <span class="sValue" data-rf-int-val="${rf.id}">${cfg.intensity}</span>
+              </div>
+              <input type="range" min="0" max="3" step="1" value="${cfg.intensity}" data-rf-int="${rf.id}" />
+            </div>
+
+            <div class="sItem" data-rf-item="${rf.id}-w">
+              <div class="sLabel">
+                <span>Gewicht</span>
+                <span class="sValue" data-rf-w-val="${rf.id}">${cfg.weight.toFixed(1).replace(".",",")}</span>
+              </div>
+              <input type="range" min="0" max="2" step="0.1" value="${cfg.weight}" data-rf-w="${rf.id}" />
+            </div>
+          </div>
+        `;
+
+        elRfList.appendChild(wrap);
+      });
+
+      // listeners
+      elRfList.querySelectorAll("[data-rf-en]").forEach(ch=>{
+        ch.addEventListener("change", ()=>{
+          const id = ch.getAttribute("data-rf-en");
+          state.rf.items[id].enabled = ch.checked;
+          refreshCustomLive();
+          pulse(elRfList);
+        });
+      });
+
+      elRfList.querySelectorAll("[data-rf-int]").forEach(r=>{
+        r.addEventListener("input", ()=>{
+          const id = r.getAttribute("data-rf-int");
+          state.rf.items[id].intensity = Number(r.value);
+          const valEl = elRfList.querySelector(`[data-rf-int-val="${id}"]`);
+          if(valEl) valEl.textContent = r.value;
+          setRangeFill(r);
+          markAdjusting(elRfList.querySelector(`[data-rf-item="${id}-int"]`));
+          refreshCustomLive();
+        });
+      });
+
+      elRfList.querySelectorAll("[data-rf-w]").forEach(r=>{
+        r.addEventListener("input", ()=>{
+          const id = r.getAttribute("data-rf-w");
+          state.rf.items[id].weight = Number(r.value);
+          const valEl = elRfList.querySelector(`[data-rf-w-val="${id}"]`);
+          if(valEl) valEl.textContent = Number(r.value).toFixed(1).replace(".",",");
+          setRangeFill(r);
+          markAdjusting(elRfList.querySelector(`[data-rf-item="${id}-w"]`));
+          refreshCustomLive();
+        });
+      });
+
+      // set fills
+      elRfList.querySelectorAll('input[type="range"]').forEach(setRangeFill);
+    }
+
+    function refreshCustomLive(){
+      const p = PRESETS[state.presetKey]?.name || "Balanced";
+      const sens = to1(state.rf.sensitivity).toFixed(1).replace(".",",");
+      const cap = state.rf.riskCap;
+      const hard = to1(state.rf.riskHard).toFixed(2).replace(".",",");
+
+      let enabledCount = 0;
+      let maxP = 0;
+      ensureRfDefaults();
+      RED_FLAGS.forEach(rf=>{
+        const it = state.rf.items[rf.id];
+        if(it.enabled){
+          enabledCount++;
+          maxP += rf.baseMaxPoints * it.weight * state.rf.sensitivity;
+        }
+      });
+
+      elCustomLive.textContent = `Preset: ${p} · RF aktiv: ${enabledCount}/${RED_FLAGS.length} · Sens: ${sens} · Cap: ${cap} · Härte: ${hard}`;
+    }
+
+    function syncGlobalSliders(){
+      elSensRange.value = String(state.rf.sensitivity);
+      elCapRange.value = String(state.rf.riskCap);
+      elHardRange.value = String(state.rf.riskHard);
+
+      setRangeFill(elSensRange);
+      setRangeFill(elCapRange);
+      setRangeFill(elHardRange);
+
+      elSensVal.textContent = to1(state.rf.sensitivity).toFixed(1).replace(".",",");
+      elCapVal.textContent = (state.rf.riskCap === 80) ? "Standard" : String(state.rf.riskCap);
+      elHardVal.textContent = (Math.abs(state.rf.riskHard - 1.0) < 0.001) ? "Normal" : String(to1(state.rf.riskHard).toFixed(2)).replace(".",",");
+    }
+
+    ["input","change"].forEach(evt=>{
+      elSensRange.addEventListener(evt, ()=>{
+        state.rf.sensitivity = Number(elSensRange.value);
+        elSensVal.textContent = to1(state.rf.sensitivity).toFixed(1).replace(".",",");
+        setRangeFill(elSensRange);
+        markAdjusting(elSensItem);
+        refreshCustomLive();
+      });
+      elCapRange.addEventListener(evt, ()=>{
+        state.rf.riskCap = Number(elCapRange.value);
+        elCapVal.textContent = (state.rf.riskCap === 80) ? "Standard" : String(state.rf.riskCap);
+        setRangeFill(elCapRange);
+        markAdjusting(elCapItem);
+        refreshCustomLive();
+      });
+      elHardRange.addEventListener(evt, ()=>{
+        state.rf.riskHard = Number(elHardRange.value);
+        elHardVal.textContent = (Math.abs(state.rf.riskHard - 1.0) < 0.001) ? "Normal" : String(to1(state.rf.riskHard).toFixed(2)).replace(".",",");
+        setRangeFill(elHardRange);
+        markAdjusting(elHardItem);
+        refreshCustomLive();
+      });
+    });
+
+    elApplyCustom.addEventListener("click", ()=>{
+      pulse(elCustomWrap);
+      // store "answered" for rf_catalog
+      state.answers.rf_catalog = { value:"configured", label:"Konfiguriert" };
+      goNext();
+    });
+
+    // -------------------------
+    // Score Engine
+    // -------------------------
+    function calcCategoryScore(raw, weights, keys){
+      let sum = 0, min = 0, max = 0;
+      keys.forEach(k=>{
+        const w = weights[k] ?? 0;
+        const v = Number(raw[k] ?? 0);
+        sum += v * w;
+
+        const lo = 0 * w;
+        const hi = 3 * w;
+        min += Math.min(lo, hi);
+        max += Math.max(lo, hi);
+      });
+      if(max === min) return 0;
+      const norm = (sum - min) / (max - min);
+      return clamp(norm * 100, 0, 100);
+    }
+
+    function calcRisk(raw, weights){
+      // base behavior points
+      const drama = Number(raw.risk_drama ?? 0) * (weights.risk_drama ?? 0);
+      const attn  = Number(raw.risk_attention ?? 0) * (weights.risk_attention ?? 0);
+
+      // style absolute points
+      const tattoos = Number(raw.risk_tattoos ?? 0); // 0..20
+      const hair    = Number(raw.risk_hair ?? 0);    // 0..18
+
+      // modular points
+      ensureRfDefaults();
+      let modularPoints = 0;
+      let modularMax = 0;
+
+      RED_FLAGS.forEach(rf=>{
+        const it = state.rf.items[rf.id];
+        const frac = clamp01((it.intensity ?? 0) / 3);
+        if(it.enabled){
+          modularPoints += rf.baseMaxPoints * frac * (it.weight ?? 1.0) * state.rf.sensitivity;
+          modularMax    += rf.baseMaxPoints * 1   * (it.weight ?? 1.0) * state.rf.sensitivity;
+        }
+      });
+
+      // scale
+      const baseScale = 50; // baseline
+      const cap = Number(state.rf.riskCap || 80); // user knob
+      const dynamicScale = Math.max(baseScale, baseScale + modularMax);
+      const scaleMax = Math.max(dynamicScale, cap);
+
+      const points = (drama + attn + tattoos + hair + modularPoints) * (state.rf.riskHard || 1.0);
+      const riskScore = clamp((points / scaleMax) * 100, 0, 100);
+
+      return { riskScore, points, scaleMax, modularPoints, modularMax };
+    }
+
+    function classify(invest, compliance, frame, risk){
+      if (compliance < 45 || frame < 45 || risk > 70) return "RED";
+      if (invest >= 65 && compliance >= 65 && frame >= 60 && risk <= 45) return "GREEN";
+      return "YELLOW";
+    }
+
+    function pickArchetype(invest, compliance, frame, risk){
+      const cls = classify(invest, compliance, frame, risk);
+
+      if(cls === "GREEN") return { code:"A1", label:"Green – Lead", css:"badgeGood" };
+
+      if(cls === "YELLOW"){
+        if (compliance >= 60 && frame >= 55 && invest < 60) return { code:"B1", label:"Yellow – Ball to them", css:"badgeWarn" };
+        if (compliance >= 55 && frame >= 50 && risk >= 55) return { code:"B2", label:"Yellow – Meet only", css:"badgeWarn" };
+        if (frame < 55) return { code:"C1", label:"Orange – Boundary check (Frame)", css:"badgeWarn" };
+        return { code:"B1", label:"Yellow – Ball to them", css:"badgeWarn" };
+      }
+
+      return { code:"D1", label:"Red – Exit", css:"badgeBad" };
+    }
+
+    function templatesFor(code){
+      const map = {
+        A1: {
+          next:"Date fixieren (führen)",
+          rec:"2 Optionen anbieten, Ende. Kein Chat-Marathon.",
+          t:[
+            "Ich hab Bock. Donnerstag 19:00 Bar X oder Samstag 16:00 Kaffee Y – was passt besser?",
+            "Lass uns das nicht zerreden. Mittwoch 18:30 Spaziergang Z + danach Drink – passt?",
+            "Du wirkst nice. Freitag 19:00 Location X. Deal?"
+          ]
+        },
+        B1: {
+          next:"Ball to them (Investment runter)",
+          rec:"Einmal führen, dann Pause. Compliance testen.",
+          t:[
+            "Sag an, wann du real Zeit hast: Donnerstag oder Sonntag?",
+            "Meld dich, wenn du einen konkreten Slot hast – dann machen wir was.",
+            "Ich bin diese Woche flexibel. Schick Tag + Uhrzeit, dann fixen wir das."
+          ]
+        },
+        B2: {
+          next:"Meet only (Chat minimal)",
+          rec:"Nur Logistik. Wenn Ausweichen: Exit.",
+          t:[
+            "Lass uns treffen statt tippen. Freitag 19:00 – passt?",
+            "Ich bin nicht der Text-Buddy. Samstag 17:00, dann reden wir live.",
+            "Wenn du willst: Mittwoch 18:30. Wenn nicht, alles gut."
+          ]
+        },
+        C1: {
+          next:"Boundary check (Frame halten)",
+          rec:"Shit Test nicht emotional. Grenze, locker bleiben.",
+          t:[
+            "So reden wir nicht. Wenn du normal bist, machen wir weiter.",
+            "Drama hab ich nicht auf dem Zettel.",
+            "Wenn du testen willst: mach das. Ich bleib entspannt."
+          ]
+        },
+        D1: {
+          next:"Exit (sauber, ohne Theater)",
+          rec:"Keine Diskussion. Frame bleibt bei dir.",
+          t:[
+            "Ich glaub, das passt nicht. Alles Gute dir.",
+            "Ich bin raus. Mach’s gut.",
+            "Das ist mir zu anstrengend. Ich wünsch dir was."
+          ]
+        }
+      };
+      return map[code] || map.B1;
+    }
+
+    function computeAll(){
+      const preset = PRESETS[state.presetKey] || PRESETS.balanced;
+      const w = preset.weights;
+
+      const raw = {};
+      Object.keys(state.answers).forEach(k=>{
+        raw[k] = state.answers[k]?.value;
+      });
+
+      const invest = calcCategoryScore(raw, w, [
+        "inv_reply_consistency","inv_initiative","inv_questions","inv_reply_length","inv_mirroring","inv_emojis_signal"
+      ]);
+      const compliance = calcCategoryScore(raw, w, [
+        "com_date_yes","com_alternatives","com_specificity","com_maybe_words","com_flake","com_only_late"
+      ]);
+      const frame = calcCategoryScore(raw, w, [
+        "frm_respect","frm_shit_tests","frm_jealousy","frm_boundaries"
+      ]);
+
+      const riskObj = calcRisk(raw, w);
+
+      const out = {
+        presetName: preset.name,
+        invest: round(invest),
+        compliance: round(compliance),
+        frame: round(frame),
+        risk: round(riskObj.riskScore),
+        riskMeta: riskObj
+      };
+
+      out.arche = pickArchetype(out.invest, out.compliance, out.frame, out.risk);
+      out.kit = templatesFor(out.arche.code);
+      return out;
+    }
+
+    // -------------------------
+    // Render Wizard
+    // -------------------------
+    function render(){
+      const step = steps[state.stepIndex];
+      setProgress();
+
+      elQuestion.textContent = step.question;
+      elHint.textContent = step.hint;
+
+      triggerFade(elQuestion);
+      triggerFade(elHint);
+
+      elOptions.className = `grid ${step.grid || "cols-2"}`;
+      elOptions.innerHTML = "";
+      elResultWrap.style.display = "none";
+      elCustomWrap.style.display = "none";
+
+      elBack.disabled = state.stepIndex === 0;
+
+      if(step.id === "result"){
+        const r = computeAll();
+
+        elClassOut.textContent = `${r.arche.code} · ${r.arche.label}`;
+        elClassOut.classList.remove("badgeGood","badgeWarn","badgeBad");
+        elClassOut.classList.add(r.arche.css);
+
+        elRecOut.textContent = r.kit.rec;
+
+        elInvOut.textContent = r.invest;
+        elComOut.textContent = r.compliance;
+        elFrmOut.textContent = r.frame;
+        elRskOut.textContent = r.risk;
+
+        elNextOut.textContent = r.kit.next;
+        elT1Out.textContent = r.kit.t[0];
+        elT2Out.textContent = r.kit.t[1];
+        elT3Out.textContent = r.kit.t[2];
+
+        elDebugNote.style.display = state.debugOpen ? "block" : "none";
+        if(state.debugOpen){
+          elDebugNote.textContent =
+            `Debug: Preset=${r.presetName} | RiskPoints=${r.riskMeta.points.toFixed(2)} | ScaleMax=${r.riskMeta.scaleMax.toFixed(2)} | ModularPoints=${r.riskMeta.modularPoints.toFixed(2)} | ModularMax=${r.riskMeta.modularMax.toFixed(2)}`;
+        }
+
+        elResultWrap.style.display = "block";
+        triggerFade(elResultWrap);
+        return;
+      }
+
+      if(step.custom){
+        elCustomWrap.style.display = "block";
+        elCustomTitle.textContent = "Konfiguration";
+        elCustomHint.textContent = "Preset und Red Flags einstellen, dann übernehmen.";
+        buildPresetGrid();
+        buildRfList();
+        syncGlobalSliders();
+        refreshCustomLive();
+        triggerFade(elCustomWrap);
+      }
+
+      // Options
+      (step.options || []).forEach(opt=>{
+        const btn = document.createElement("button");
+        btn.type="button";
+        btn.className="opt";
+        btn.setAttribute("data-value", opt.value);
+
+        const text = document.createElement("div");
+        text.className="optText";
+
+        const main = document.createElement("div");
+        main.className="optMain";
+        main.textContent = opt.label;
+
+        const sub = document.createElement("div");
+        sub.className="optSub";
+        sub.textContent = opt.sub || "";
+
+        text.appendChild(main);
+        if(opt.sub) text.appendChild(sub);
+
+        const chev = document.createElement("div");
+        chev.className="chev";
+        chev.innerHTML = `
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        `;
+
+        btn.appendChild(text);
+        btn.appendChild(chev);
+
+        btn.addEventListener("click", ()=>{
+          pulse(elOptions);
+
+          if(step.id === "preset"){
+            state.presetKey = String(opt.value);
+            state.answers.preset = { value: state.presetKey, label: opt.label };
+            goNext();
+            return;
+          }
+
+          if(step.id === "rf_catalog"){
+            // open custom UI already visible; treat option as no-op, user clicks "Übernehmen"
+            pulse(elCustomWrap);
+            return;
+          }
+
+          // Normal answer store
+          state.answers[step.id] = { value: opt.value, label: opt.label };
+
+          goNext();
+        });
+
+        elOptions.appendChild(btn);
+      });
+
+      setSelectedUI(step.id);
+      triggerFade(elOptions);
+    }
+
+    function goNext(){
+      if (state.stepIndex < steps.length - 1){
+        state.stepIndex++;
+        render();
+      }
+    }
+    function goBack(){
+      if (state.stepIndex > 0){
+        state.stepIndex--;
+        render();
+      }
+    }
+
+    // Back button
+    document.getElementById("backBtn").addEventListener("click", goBack);
+
+    // Restart
+    elRestartBtn.addEventListener("click", ()=>{
+      state.stepIndex = 0;
+      state.answers = {};
+      state.presetKey = "balanced";
+      state.debugOpen = false;
+      // RF stays as last config; if you want hard reset, uncomment:
+      // state.rf = { enabled:true, sensitivity:1.0, riskCap:80, riskHard:1.0, items:{} };
+      render();
+    });
+
+    // Debug toggle
+    elToggleDbg.addEventListener("click", ()=>{
+      state.debugOpen = !state.debugOpen;
+      pulse(elResultWrap);
+      render();
+    });
+
+    // Init
+    ensureRfDefaults();
+    syncGlobalSliders();
+    render();
+  </script>
 </body>
 </html>
