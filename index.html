@@ -2,8 +2,8 @@
 <html lang="de">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-  <title>Frame | Interaktiver Dating-Signal-Calculator</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>OSION Energy | Entscheidungs- & Projekt-App (Demo UI)</title>
 
   <style>
     :root{
@@ -19,11 +19,15 @@
       --shadow2: 0 12px 40px rgba(0,0,0,.5);
       --radius: 26px;
       --radius2: 20px;
+
+      /* OSION Look */
       --accent1:#b3003c;
       --accent2:#6b2cff;
       --accentGlow: 0 0 0 2px rgba(179,0,60,.35), 0 0 40px rgba(107,44,255,.25), 0 0 90px rgba(179,0,60,.18);
 
+      /* Motion */
       --easeOut: cubic-bezier(.2,.9,.2,1);
+      --easeInOut: cubic-bezier(.4,0,.2,1);
       --pressScale: .985;
     }
 
@@ -60,17 +64,17 @@
       position:relative;
     }
 
-    /* HEADER (ohne Bild) */
+    /* HERO */
     .hero{
       position:relative;
       padding:22px 26px 18px 26px;
       background:
         linear-gradient(180deg, rgba(0,0,0,.35), rgba(0,0,0,.62)),
-        radial-gradient(900px 420px at 20% 10%, rgba(107,44,255,.25), transparent 58%),
-        radial-gradient(900px 420px at 80% 20%, rgba(179,0,60,.20), transparent 60%),
-        rgba(0,0,0,.25);
+        radial-gradient(900px 380px at 15% 25%, rgba(107,44,255,.25), transparent 60%),
+        radial-gradient(900px 380px at 85% 25%, rgba(179,0,60,.22), transparent 60%),
+        linear-gradient(180deg, rgba(255,255,255,.05), rgba(0,0,0,.15));
       border-bottom: 1px solid rgba(255,255,255,.10);
-      min-height: 160px;
+      min-height: 150px;
     }
 
     .brandRow{
@@ -91,25 +95,22 @@
       backdrop-filter: blur(10px);
       box-shadow: var(--shadow2);
       max-width:100%;
-      min-width:0;
     }
 
-    .brandMark{
-      width:56px;
-      height:56px;
-      border-radius: 16px;
-      border: 1px solid rgba(255,255,255,.16);
+    .logoMark{
+      width:72px;
+      height:72px;
+      border-radius: 14px;
       background:
-        radial-gradient(120px 80px at 30% 25%, rgba(107,44,255,.55), transparent 55%),
-        radial-gradient(120px 80px at 70% 65%, rgba(179,0,60,.50), transparent 55%),
-        rgba(255,255,255,.06);
-      box-shadow: 0 14px 44px rgba(0,0,0,.35);
+        radial-gradient(120px 80px at 30% 30%, rgba(255,255,255,.18), transparent 55%),
+        linear-gradient(135deg, rgba(107,44,255,.95), rgba(179,0,60,.95));
+      border: 1px solid rgba(255,255,255,.16);
       display:grid;
       place-items:center;
       font-weight:950;
-      letter-spacing:.02em;
-      color: rgba(255,255,255,.96);
-      flex:0 0 auto;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      color: rgba(255,255,255,.92);
       user-select:none;
     }
 
@@ -128,7 +129,7 @@
     }
     .title{
       font-size:28px;
-      font-weight:800;
+      font-weight:900;
       line-height:1.05;
       text-shadow: 0 6px 30px rgba(0,0,0,.5);
       white-space:nowrap;
@@ -146,7 +147,7 @@
       background: rgba(0,0,0,.35);
       border: 1px solid rgba(255,255,255,.14);
       backdrop-filter: blur(10px);
-      font-weight:700;
+      font-weight:800;
       color: rgba(255,255,255,.90);
       white-space:nowrap;
     }
@@ -166,6 +167,7 @@
     .subText{
       color: rgba(255,255,255,.84);
       font-size:14px;
+      line-height:1.35;
     }
     .progressWrap{
       margin-left:auto;
@@ -194,7 +196,7 @@
     .stepLabel{
       font-size:12px;
       color: rgba(255,255,255,.80);
-      font-weight:700;
+      font-weight:800;
       white-space:nowrap;
     }
 
@@ -234,7 +236,7 @@
     }
     .question{
       font-size:22px;
-      font-weight:850;
+      font-weight:950;
       margin:0;
       line-height:1.15;
     }
@@ -257,19 +259,20 @@
     @media (max-width: 980px){
       .grid.cols-3{ grid-template-columns: repeat(2, minmax(0, 1fr)); }
     }
-
     @media (max-width: 680px){
       .grid.cols-2, .grid.cols-3{ grid-template-columns: 1fr; }
-      .hero{ min-height: 190px; padding:18px 18px 14px 18px; }
+      .hero{ min-height: 170px; padding:18px 18px 14px 18px; }
       .brandRow{ flex-direction: column; align-items: flex-start; gap: 14px; }
       .brandBadge{ width: 100%; border-radius: 20px; }
+      .logoMark{ width:56px; height:56px; }
       .kicker{ white-space: normal; letter-spacing: .14em; line-height: 1.15; }
       .title{ white-space: normal; font-size: 20px; line-height: 1.18; overflow: visible; text-overflow: clip; }
-      .pill{ margin-left:0; white-space: normal; }
+      .pill{ margin-left:0; }
       .progressWrap{ justify-content:flex-start; min-width: 0; width: 100%; }
       .stepLabel{ white-space: normal; }
     }
 
+    /* OPTION CARD */
     .opt{
       position:relative;
       border-radius: 22px;
@@ -292,7 +295,6 @@
       overflow:hidden;
       transform: translateZ(0);
       will-change: transform, box-shadow;
-      text-align:left;
     }
     .opt::after{
       content:"";
@@ -304,14 +306,38 @@
       transition: opacity 240ms var(--easeOut);
       box-shadow: var(--accentGlow);
     }
-    .opt:hover{ transform: translateY(-1px); border-color: rgba(255,255,255,.22); filter: brightness(1.03); }
+    .opt:hover{
+      transform: translateY(-1px);
+      border-color: rgba(255,255,255,.22);
+      filter: brightness(1.03);
+    }
     .opt:active{ transform: translateY(0) scale(var(--pressScale)); }
     .opt.isSelected{ border-color: rgba(255,255,255,.26); filter: brightness(1.05); }
     .opt.isSelected::after{ opacity:1; }
 
-    .optText{ display:flex; flex-direction:column; align-items:flex-start; gap:6px; min-width:0; flex:1 1 auto; }
-    .optMain{ font-size:18px; font-weight:900; color: rgba(255,255,255,.96); line-height:1.15; white-space:normal; overflow-wrap:anywhere; max-width:100%; }
-    .optSub{ font-size:12px; color: rgba(255,255,255,.78); line-height:1.25; }
+    .optText{
+      display:flex;
+      flex-direction:column;
+      align-items:flex-start;
+      gap:6px;
+      min-width:0;
+      flex:1 1 auto;
+    }
+    .optMain{
+      font-size:18px;
+      font-weight:950;
+      color: rgba(255,255,255,.96);
+      line-height:1.15;
+      overflow-wrap:anywhere;
+      max-width:100%;
+    }
+    .optSub{
+      font-size:12px;
+      font-weight:800;
+      color: rgba(255,255,255,.70);
+      line-height:1.25;
+      overflow-wrap:anywhere;
+    }
 
     .chev{
       width:40px;height:40px;
@@ -344,7 +370,7 @@
       cursor:pointer;
       border-radius: 14px;
       padding:12px 14px;
-      font-weight:850;
+      font-weight:900;
       color: rgba(255,255,255,.95);
       background: rgba(255,255,255,.12);
       border: 1px solid rgba(255,255,255,.14);
@@ -355,9 +381,14 @@
       transform: translateZ(0);
       will-change: transform;
     }
-    .btn:hover{ transform: translateY(-1px); background: rgba(255,255,255,.14); border-color: rgba(255,255,255,.20); }
+    .btn:hover{
+      transform: translateY(-1px);
+      background: rgba(255,255,255,.14);
+      border-color: rgba(255,255,255,.20);
+    }
     .btn:active{ transform: translateY(0) scale(var(--pressScale)); }
     .btn:disabled{ opacity:.45; cursor:not-allowed; transform:none; }
+
     .btnPrimary{
       background: linear-gradient(90deg, rgba(107,44,255,.92), rgba(179,0,60,.92));
       border-color: rgba(255,255,255,.12);
@@ -368,14 +399,20 @@
       box-shadow: 0 18px 55px rgba(179,0,60,.26);
     }
 
-    .meta{ font-size:12px; color: rgba(255,255,255,.72); font-weight:700; white-space:nowrap; }
+    .meta{
+      font-size:12px;
+      color: rgba(255,255,255,.72);
+      font-weight:800;
+      white-space:nowrap;
+    }
 
+    /* RESULT DASHBOARD */
+    .resultWrap{ display:none; margin-top:16px; }
     .resultBox{
       border-radius: 22px;
       border: 1px solid rgba(255,255,255,.14);
       background: rgba(255,255,255,.06);
       padding:16px 16px;
-      margin-bottom: calc(10px + env(safe-area-inset-bottom, 0px));
     }
     .resultHead{
       display:flex;
@@ -385,10 +422,78 @@
       flex-wrap:wrap;
       margin-bottom:10px;
     }
-    .resultTitle{ font-size:20px; font-weight:900; margin:0; }
-    .resultTotal{ font-size:22px; font-weight:950; margin:0; letter-spacing:.02em; }
+    .resultTitle{
+      font-size:18px;
+      font-weight:950;
+      margin:0;
+    }
+    .resultTotal{
+      font-size:22px;
+      font-weight:950;
+      margin:0;
+      letter-spacing:.02em;
+    }
 
-    .table{ width:100%; border-collapse:collapse; margin-top:10px; font-size:14px; }
+    .kpiGrid{
+      display:grid;
+      gap:12px;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      margin-top:12px;
+    }
+    @media (max-width: 980px){
+      .kpiGrid{ grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 560px){
+      .kpiGrid{ grid-template-columns: 1fr; }
+    }
+    .kpi{
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,.12);
+      background:
+        radial-gradient(700px 220px at 10% 30%, rgba(107,44,255,.12), transparent 58%),
+        radial-gradient(700px 220px at 90% 40%, rgba(179,0,60,.10), transparent 58%),
+        rgba(0,0,0,.18);
+      padding:12px 12px;
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+      min-height: 92px;
+    }
+    .kpiLabel{
+      font-size:12px;
+      font-weight:900;
+      color: rgba(255,255,255,.76);
+      letter-spacing:.04em;
+      text-transform:uppercase;
+    }
+    .kpiValue{
+      font-size:20px;
+      font-weight:950;
+      color: rgba(255,255,255,.95);
+    }
+    .kpiSub{
+      font-size:12px;
+      font-weight:800;
+      color: rgba(255,255,255,.70);
+      line-height:1.25;
+    }
+
+    .splitGrid{
+      display:grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap:12px;
+      margin-top:12px;
+    }
+    @media (max-width: 780px){
+      .splitGrid{ grid-template-columns: 1fr; }
+    }
+
+    .table{
+      width:100%;
+      border-collapse:collapse;
+      margin-top:10px;
+      font-size:14px;
+    }
     .table td{
       padding:10px 0;
       border-top: 1px solid rgba(255,255,255,.10);
@@ -397,13 +502,171 @@
     }
     .table td:last-child{
       text-align:right;
-      font-weight:850;
+      font-weight:900;
       color: rgba(255,255,255,.95);
       white-space:nowrap;
       padding-left:14px;
     }
 
-    .note{ font-size:12px; color: rgba(255,255,255,.70); margin-top:12px; line-height:1.35; }
+    .note{
+      font-size:12px;
+      color: rgba(255,255,255,.70);
+      margin-top:12px;
+      line-height:1.35;
+    }
+
+    .pillRow{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top:12px;
+      align-items:center;
+      justify-content:flex-start;
+    }
+    .tagPill{
+      padding:8px 10px;
+      border-radius:999px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.18);
+      font-weight:850;
+      font-size:12px;
+      color: rgba(255,255,255,.86);
+    }
+
+    /* Modal */
+    .modalOverlay{
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.62);
+      backdrop-filter: blur(10px);
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding: 22px 16px;
+      z-index: 9999;
+    }
+    .modalOverlay.isOpen{ display:flex; }
+
+    .modalCard{
+      width: min(760px, 100%);
+      border-radius: 26px;
+      border: 1px solid rgba(255,255,255,.16);
+      background:
+        radial-gradient(900px 420px at 10% 20%, rgba(107,44,255,.16), transparent 60%),
+        radial-gradient(900px 420px at 90% 20%, rgba(179,0,60,.14), transparent 60%),
+        rgba(10,10,14,.88);
+      box-shadow: 0 40px 120px rgba(0,0,0,.65);
+      overflow:hidden;
+      transform: translateY(8px) scale(.98);
+      opacity:0;
+      animation: modalIn 360ms var(--easeOut) forwards;
+    }
+    @keyframes modalIn{
+      to{ transform: translateY(0) scale(1); opacity:1; }
+    }
+    .modalHead{
+      padding:18px 18px 12px 18px;
+      border-bottom: 1px solid rgba(255,255,255,.10);
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:12px;
+    }
+    .modalTitle{
+      margin:0;
+      font-size:18px;
+      font-weight:950;
+      line-height:1.2;
+    }
+    .modalSub{
+      margin:6px 0 0 0;
+      color: rgba(255,255,255,.76);
+      font-size:13px;
+      line-height:1.35;
+    }
+    .modalClose{
+      width:40px;height:40px;
+      border-radius:999px;
+      display:grid;
+      place-items:center;
+      border: 1px solid rgba(255,255,255,.16);
+      background: rgba(0,0,0,.18);
+      color: rgba(255,255,255,.92);
+    }
+    .modalBody{ padding: 14px 18px 18px 18px; }
+
+    .formGrid{
+      display:grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap:12px;
+    }
+    @media (max-width: 680px){
+      .formGrid{ grid-template-columns: 1fr; }
+    }
+    .field{ display:flex; flex-direction:column; gap:8px; }
+    .label{
+      font-size:12px;
+      font-weight:900;
+      color: rgba(255,255,255,.84);
+    }
+    .input{
+      width:100%;
+      border-radius: 14px;
+      padding: 12px 12px;
+      color: rgba(255,255,255,.94);
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.14);
+      outline:none;
+      transition: border-color 220ms var(--easeOut), box-shadow 220ms var(--easeOut), transform 220ms var(--easeOut);
+    }
+    .input:focus{
+      border-color: rgba(255,255,255,.22);
+      box-shadow: 0 0 0 2px rgba(255,255,255,.10), 0 0 0 6px rgba(179,0,60,.10);
+      transform: translateY(-1px);
+    }
+    .checkRow{
+      margin-top:12px;
+      display:flex;
+      gap:10px;
+      align-items:flex-start;
+      color: rgba(255,255,255,.82);
+      font-size:12px;
+      line-height:1.35;
+    }
+    .checkRow input{
+      margin-top:3px;
+      width:18px;height:18px;
+      accent-color: var(--accent2);
+    }
+    .formFoot{
+      margin-top:14px;
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+      align-items:center;
+    }
+    .errorText{
+      font-size:12px;
+      color: rgba(255,107,107,.95);
+      font-weight:900;
+      display:none;
+      margin-top:10px;
+    }
+    .errorText.isOpen{ display:block; }
+
+    /* Motion helpers */
+    .fadeIn{ animation: fadeInUp 380ms var(--easeOut) both; }
+    @keyframes fadeInUp{
+      from{ opacity:0; transform: translateY(8px); }
+      to{ opacity:1; transform: translateY(0); }
+    }
+    .pulse{ animation: pulseGlow 520ms var(--easeOut) both; }
+    @keyframes pulseGlow{
+      0%{ transform: translateY(0); filter: brightness(1); }
+      45%{ transform: translateY(-1px); filter: brightness(1.06); }
+      100%{ transform: translateY(0); filter: brightness(1); }
+    }
 
     .footer{
       text-align:center;
@@ -413,202 +676,9 @@
       padding-bottom: calc(18px + env(safe-area-inset-bottom, 0px));
     }
 
-    /* Collapsible config (im Red-Flag Step) */
-    .cfgWrap{ display:none; margin-top:14px; }
-    .cfgWrap.isOpen{ display:block; }
-
-    .customBox{
-      border-radius: 22px;
-      border: 1px solid rgba(255,255,255,.14);
-      background:
-        radial-gradient(700px 220px at 10% 30%, rgba(107,44,255,.14), transparent 58%),
-        radial-gradient(700px 220px at 90% 40%, rgba(179,0,60,.12), transparent 58%),
-        rgba(0,0,0,.18);
-      padding:14px 14px;
-    }
-
-    .customTitleRow{
-      display:flex;
-      align-items:flex-end;
-      justify-content:space-between;
-      gap:12px;
-      flex-wrap:wrap;
-      margin-bottom:10px;
-    }
-    .customTitle{ font-size:16px; font-weight:900; margin:0; }
-    .customLive{ font-size:14px; font-weight:900; margin:0; color: rgba(255,255,255,.92); white-space:nowrap; }
-
-    .sliders{
-      display:grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap:14px;
-      margin-top:10px;
-    }
-    @media (max-width: 980px){ .sliders{ grid-template-columns: 1fr; } }
-
-    .sItem{
-      border-radius: 18px;
-      border: 1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.04);
-      padding:12px 12px;
-      transition: transform 220ms var(--easeOut), border-color 220ms var(--easeOut), box-shadow 220ms var(--easeOut);
-    }
-    .sItem:focus-within{
-      border-color: rgba(255,255,255,.22);
-      box-shadow: 0 0 0 2px rgba(255,255,255,.10), 0 18px 55px rgba(0,0,0,.28);
-      transform: translateY(-1px);
-    }
-    .sLabel{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:10px;
-      font-size:13px;
-      color: rgba(255,255,255,.82);
-      font-weight:850;
-      margin-bottom:8px;
-    }
-    .sValue{ color: rgba(255,255,255,.95); font-weight:950; white-space:nowrap; transition: transform 220ms var(--easeOut); }
-    .sItem.isAdjusting .sValue{ transform: scale(1.03); }
-
-    input[type="range"]{
-      width:100%;
-      -webkit-appearance: none;
-      appearance: none;
-      height: 8px;
-      border-radius: 999px;
-      outline: none;
-      background:
-        linear-gradient(90deg, rgba(107,44,255,.95), rgba(179,0,60,.95)) 0/ var(--fill, 50%) 100% no-repeat,
-        rgba(255,255,255,.14);
-      border: 1px solid rgba(255,255,255,.14);
-      transition: background-size 240ms var(--easeOut), filter 240ms var(--easeOut);
-    }
-    input[type="range"]:hover{ filter: brightness(1.04); }
-    input[type="range"]::-webkit-slider-thumb{
-      -webkit-appearance: none;
-      appearance: none;
-      width: 18px;
-      height: 18px;
-      border-radius: 50%;
-      background: rgba(255,255,255,.92);
-      border: 2px solid rgba(0,0,0,.25);
-      box-shadow: 0 10px 30px rgba(0,0,0,.35);
-      transition: transform 180ms var(--easeOut), box-shadow 180ms var(--easeOut);
-    }
-    input[type="range"]:active::-webkit-slider-thumb{ transform: scale(1.12); box-shadow: 0 14px 44px rgba(0,0,0,.45); }
-    input[type="range"]::-moz-range-thumb{
-      width: 18px;
-      height: 18px;
-      border-radius: 50%;
-      background: rgba(255,255,255,.92);
-      border: 2px solid rgba(0,0,0,.25);
-      box-shadow: 0 10px 30px rgba(0,0,0,.35);
-      transition: transform 180ms var(--easeOut), box-shadow 180ms var(--easeOut);
-    }
-    input[type="range"]:active::-moz-range-thumb{ transform: scale(1.12); box-shadow: 0 14px 44px rgba(0,0,0,.45); }
-
-    .applyRow{
-      display:flex;
-      gap:12px;
-      flex-wrap:wrap;
-      margin-top:12px;
-      align-items:center;
-      justify-content:flex-end;
-    }
-
-    .rfList{ margin-top:10px; display:grid; gap:12px; }
-    .rfItem{
-      border-radius: 18px;
-      border: 1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.04);
-      padding:12px 12px;
-    }
-    .rfTop{ display:flex; gap:10px; align-items:flex-start; justify-content:space-between; }
-    .rfName{ font-weight:950; margin:0; font-size:14px; }
-    .rfDesc{ margin:6px 0 0 0; color: rgba(255,255,255,.74); font-size:12px; line-height:1.35; }
-    .rfToggle{
-      display:flex;
-      align-items:center;
-      gap:10px;
-      color: rgba(255,255,255,.78);
-      font-size:12px;
-      font-weight:850;
-      user-select:none;
-      white-space:nowrap;
-    }
-    .rfToggle input{ width:18px;height:18px; accent-color: var(--accent2); margin-top:2px; }
-    .rfGrid{ margin-top:10px; display:grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap:12px; }
-    @media (max-width: 680px){ .rfGrid{ grid-template-columns: 1fr; } }
-
-    .fadeIn{ animation: fadeInUp 380ms var(--easeOut) both; }
-    @keyframes fadeInUp{ from{ opacity:0; transform: translateY(8px);} to{ opacity:1; transform: translateY(0);} }
-    .pulse{ animation: pulseGlow 520ms var(--easeOut) both; }
-    @keyframes pulseGlow{
-      0%{ transform: translateY(0); filter: brightness(1); }
-      45%{ transform: translateY(-1px); filter: brightness(1.06); }
-      100%{ transform: translateY(0); filter: brightness(1); }
-    }
-
-    .scorePills{ display:flex; gap:10px; flex-wrap:wrap; margin-top:12px; }
-    .scorePill{
-      padding:10px 12px;
-      border-radius: 999px;
-      border:1px solid rgba(255,255,255,.14);
-      background: rgba(0,0,0,.20);
-      font-weight:950;
-      color: rgba(255,255,255,.92);
-      white-space:nowrap;
-    }
-    .scorePill span{ color: rgba(255,255,255,.76); font-weight:800; margin-right:8px; }
-
-    .badgeGood{ color: rgba(55,214,122,.98) !important; }
-    .badgeWarn{ color: rgba(247,201,72,.98) !important; }
-    .badgeBad{  color: rgba(255,92,92,.98) !important; }
-
-    .whyBox{
-      margin-top:12px;
-      border-radius: 18px;
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(0,0,0,.18);
-      padding:12px 12px;
-    }
-    .whyTitle{
-      margin:0;
-      font-size:14px;
-      font-weight:950;
-      color: rgba(255,255,255,.92);
-    }
-    .whyCols{
-      display:grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap:12px;
-      margin-top:10px;
-    }
-    @media (max-width: 680px){ .whyCols{ grid-template-columns: 1fr; } }
-    .whyList{
-      margin:0;
-      padding-left:18px;
-      color: rgba(255,255,255,.86);
-      font-size:13px;
-      line-height:1.35;
-    }
-    .whyList li{ margin:6px 0; }
-    .tagSmall{
-      display:inline-block;
-      padding:3px 8px;
-      border-radius:999px;
-      border:1px solid rgba(255,255,255,.14);
-      background: rgba(255,255,255,.06);
-      color: rgba(255,255,255,.86);
-      font-size:11px;
-      font-weight:900;
-      margin-right:8px;
-      vertical-align:middle;
-    }
-
     @media (prefers-reduced-motion: reduce){
       *{ animation:none !important; transition:none !important; scroll-behavior:auto !important; }
+      .modalCard{ opacity:1; transform:none; }
     }
   </style>
 </head>
@@ -620,22 +690,22 @@
       <header class="hero">
         <div class="brandRow">
           <div class="brandBadge">
-            <div class="brandMark" aria-hidden="true">F</div>
+            <div class="logoMark" aria-hidden="true">OE</div>
             <div class="brandText">
-              <div class="kicker">Frame</div>
-              <div class="title">Interaktiver Dating-Signal-Calculator</div>
+              <div class="kicker">OSION Energy</div>
+              <div class="title">Entscheidungs- & Projekt-App (Demo UI)</div>
             </div>
           </div>
 
-          <div class="pill" title="System">
+          <div class="pill" title="Demo UI mit Beispiel-Logik">
             <span class="dot"></span>
-            Frame · Invest · Compliance · Risk
+            Demo UI
           </div>
         </div>
 
         <div class="subRow">
-          <div class="subText" id="subText">
-            Modul auswählen. Danach Schritt für Schritt durch Signale. Ergebnis: Scores, Klasse, Next Steps, Templates.
+          <div class="subText">
+            Schritt-Funnel, Ergebnis-Dashboard, Projektstatus, Wartung und Dokumentation in einer Oberfläche. Beispielwerte, Fokus: UI/UX.
           </div>
           <div class="progressWrap">
             <div class="progressBar" aria-hidden="true">
@@ -651,1103 +721,692 @@
           <div class="panelHead">
             <div class="qWrap">
               <h2 class="question" id="question">…</h2>
-              <p class="hint" id="hint">Bitte eine Option wählen.</p>
+              <p class="hint" id="hint">Bitte auswählen.</p>
             </div>
-            <div class="meta" id="metaRight"> </div>
+            <div class="meta" id="metaRight"></div>
           </div>
 
           <div class="panelBody">
             <div class="grid cols-2" id="options"></div>
 
-            <!-- Red-Flag Konfiguration: nur im Profil-Modul + Red-Flag-Step -->
-            <div class="cfgWrap" id="cfgWrap">
-              <div class="customBox">
-                <div class="customTitleRow">
-                  <p class="customTitle">Red-Flag-Katalog</p>
-                  <p class="customLive" id="customLive">–</p>
-                </div>
-
-                <p class="hint" style="margin:0; color:rgba(255,255,255,.78);">
-                  Toggle aktivieren, Intensität setzen, Gewicht anpassen. Danach übernehmen.
-                </p>
-
-                <div class="sliders" style="margin-top:12px;">
-                  <div class="sItem" id="sensItem">
-                    <div class="sLabel">
-                      <span>Sensitivität</span>
-                      <span class="sValue" id="sensVal">1,0</span>
-                    </div>
-                    <input id="sensRange" type="range" min="0.5" max="1.5" step="0.1" value="1.0" />
-                  </div>
-
-                  <div class="sItem" id="rfCapItem">
-                    <div class="sLabel">
-                      <span>Risk-Cap</span>
-                      <span class="sValue" id="rfCapVal">Standard</span>
-                    </div>
-                    <input id="rfCapRange" type="range" min="50" max="120" step="5" value="80" />
-                  </div>
-
-                  <div class="sItem" id="rfTuningItem">
-                    <div class="sLabel">
-                      <span>Risk-Härte</span>
-                      <span class="sValue" id="rfHardVal">Normal</span>
-                    </div>
-                    <input id="rfHardRange" type="range" min="0.8" max="1.3" step="0.05" value="1.0" />
-                  </div>
-                </div>
-
-                <div class="rfList" id="rfList"></div>
-
-                <div class="applyRow">
-                  <button class="btn btnPrimary" type="button" id="applyCfgBtn">
-                    Übernehmen
-                    <span aria-hidden="true">→</span>
-                  </button>
-                </div>
-
-                <p class="note" style="margin-top:10px">
-                  Hinweis: Red Flags sind ein Filter. Der Score ist eine Orientierung, keine Wahrheit.
-                </p>
-              </div>
-            </div>
-
-            <!-- Ergebnis -->
-            <div id="result" style="display:none; margin-top:16px;">
+            <!-- RESULT -->
+            <div class="resultWrap" id="resultWrap">
               <div class="resultBox">
                 <div class="resultHead">
-                  <p class="resultTitle">Ergebnis</p>
-                  <p class="resultTotal" id="classOut">–</p>
+                  <p class="resultTitle">Dashboard</p>
+                  <p class="resultTotal" id="mainKpi">–</p>
                 </div>
 
-                <p class="hint" style="margin:0 0 10px 0; color:rgba(255,255,255,.78);" id="recOut">–</p>
+                <p class="hint" id="resultHint" style="margin:0 0 6px 0; color:rgba(255,255,255,.78);">
+                  Ergebnis basiert auf Beispiel-Logik. Für belastbare Werte werden deine echten Parameter in die Rechenengine übernommen.
+                </p>
 
-                <div class="scorePills" id="pillRow">
-                  <div class="scorePill"><span>INVEST</span><b id="invOut">0</b></div>
-                  <div class="scorePill"><span>COMPLIANCE</span><b id="comOut">0</b></div>
-                  <div class="scorePill"><span>FRAME</span><b id="frmOut">0</b></div>
-                  <div class="scorePill"><span>RISK</span><b id="rskOut">0</b></div>
-                </div>
+                <div class="pillRow" id="tagRow"></div>
 
-                <div class="whyBox">
-                  <p class="whyTitle">Warum dieses Ergebnis entstanden ist</p>
-                  <div class="whyCols">
-                    <div>
-                      <div class="tagSmall">Plus</div>
-                      <ol class="whyList" id="whyPlus"></ol>
-                    </div>
-                    <div>
-                      <div class="tagSmall">Minus</div>
-                      <ol class="whyList" id="whyMinus"></ol>
-                    </div>
+                <div class="kpiGrid">
+                  <div class="kpi">
+                    <div class="kpiLabel">10-Jahres-Gesamt</div>
+                    <div class="kpiValue" id="kpi10">–</div>
+                    <div class="kpiSub" id="kpi10sub">Invest + Energie + Wartung</div>
+                  </div>
+                  <div class="kpi">
+                    <div class="kpiLabel">Break-Even</div>
+                    <div class="kpiValue" id="kpiBe">–</div>
+                    <div class="kpiSub">Zeitpunkt, ab dem System A günstiger ist</div>
+                  </div>
+                  <div class="kpi">
+                    <div class="kpiLabel">Wartung</div>
+                    <div class="kpiValue" id="kpiMaint">–</div>
+                    <div class="kpiSub">Terminlogik und Vertrag</div>
+                  </div>
+                  <div class="kpi">
+                    <div class="kpiLabel">Projektstatus</div>
+                    <div class="kpiValue" id="kpiStatus">–</div>
+                    <div class="kpiSub">Vorqualifizierung → Partner → Abschluss</div>
                   </div>
                 </div>
 
-                <table class="table" aria-label="Details">
-                  <tbody>
-                    <tr><td>Next Step</td><td id="nextOut">–</td></tr>
-                    <tr><td>Template 1</td><td id="t1Out">–</td></tr>
-                    <tr><td>Template 2</td><td id="t2Out">–</td></tr>
-                    <tr><td>Template 3</td><td id="t3Out">–</td></tr>
-                  </tbody>
-                </table>
+                <div class="splitGrid">
+                  <div class="resultBox" style="margin:0; background:rgba(0,0,0,.18);">
+                    <div class="resultHead" style="margin-bottom:6px;">
+                      <p class="resultTitle">Vergleich</p>
+                      <p class="resultTotal" id="bestPick">–</p>
+                    </div>
 
-                <div style="display:flex; gap:12px; flex-wrap:wrap; margin-top:14px;">
-                  <button class="btn btnPrimary" id="restartBtn" type="button">
-                    Neuer Run
-                    <span aria-hidden="true">↻</span>
-                  </button>
-                </div>
+                    <table class="table" aria-label="Vergleich">
+                      <tbody>
+                        <tr><td>System A (Wärmepumpe)</td><td id="rowWp">–</td></tr>
+                        <tr><td>System B (Therme+)</td><td id="rowTherm">–</td></tr>
+                        <tr><td>Delta über 10 Jahre</td><td id="rowDelta">–</td></tr>
+                      </tbody>
+                    </table>
 
-                <div class="note" id="explainNote">
-                  Hinweis: Ergebnis basiert auf dem ausgewählten Modul und den gegebenen Antworten.
+                    <div class="note" id="whyBox">
+                      Begründung: Beispiel-Transparenztext. Später wird hier die echte Herleitung aus deinen Parametern ausgegeben.
+                    </div>
+                  </div>
+
+                  <div class="resultBox" style="margin:0; background:rgba(0,0,0,.18);">
+                    <div class="resultHead" style="margin-bottom:6px;">
+                      <p class="resultTitle">Projekt & Dokumente</p>
+                      <p class="resultTotal" id="docCount">–</p>
+                    </div>
+
+                    <table class="table" aria-label="Projekt">
+                      <tbody>
+                        <tr><td>Partner</td><td id="rowPartner">–</td></tr>
+                        <tr><td>Vorlauf</td><td id="rowLead">–</td></tr>
+                        <tr><td>Dokumentation</td><td id="rowDocs">–</td></tr>
+                      </tbody>
+                    </table>
+
+                    <div style="display:flex; gap:12px; flex-wrap:wrap; margin-top:12px;">
+                      <button class="btn btnPrimary" id="ctaOpen" type="button">
+                        Anfrage vorbereiten
+                        <span aria-hidden="true">↗</span>
+                      </button>
+                      <button class="btn" id="resetBtn" type="button">
+                        Neu starten
+                      </button>
+                    </div>
+
+                    <div class="note">
+                      Hinweis: In der Live-Version wird die Partnerzuweisung über dein Netzwerk + Vertragsregeln gesteuert.
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
+
           </div>
 
           <div class="panelFoot">
             <button class="btn" id="backBtn" type="button">
               <span aria-hidden="true">←</span> Zurück
             </button>
-
-            <div class="meta" id="footerMeta"> </div>
+            <div class="meta" id="footerMeta"></div>
           </div>
         </section>
 
         <div class="footer">
-          © Frame – Signal-Calculator.
+          © OSION Energy – Demo UI. Beispielwerte. Keine Preisgarantie.
         </div>
       </main>
     </div>
   </div>
 
+  <!-- MODAL -->
+  <div class="modalOverlay" id="modalOverlay" aria-hidden="true">
+    <div class="modalCard" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div class="modalHead">
+        <div>
+          <h3 class="modalTitle" id="modalTitle">Anfrage</h3>
+          <p class="modalSub">
+            Deine Angaben werden in eine vorbefüllte E-Mail übernommen – inklusive Ergebnis und Auswahl.
+          </p>
+        </div>
+        <button class="modalClose btn" type="button" id="modalClose" aria-label="Schließen">
+          ✕
+        </button>
+      </div>
+
+      <div class="modalBody">
+        <div class="formGrid">
+          <div class="field">
+            <div class="label">Name*</div>
+            <input class="input" id="leadName" type="text" autocomplete="name" placeholder="Vor- und Nachname" />
+          </div>
+          <div class="field">
+            <div class="label">E-Mail*</div>
+            <input class="input" id="leadEmail" type="email" autocomplete="email" placeholder="name@beispiel.de" />
+          </div>
+          <div class="field" style="grid-column: 1 / -1;">
+            <div class="label">Telefon (optional)</div>
+            <input class="input" id="leadPhone" type="tel" autocomplete="tel" placeholder="+49 …" />
+          </div>
+        </div>
+
+        <div class="checkRow">
+          <input id="leadConsent" type="checkbox" />
+          <label for="leadConsent">
+            Ich bin einverstanden, dass meine Angaben zum Zweck der Kontaktaufnahme verarbeitet werden. Ein Widerruf ist jederzeit möglich.*
+          </label>
+        </div>
+
+        <div class="errorText" id="leadError">Bitte Name, E-Mail und Einwilligung vollständig angeben.</div>
+
+        <div class="formFoot">
+          <button class="btn" type="button" id="modalCancel">Abbrechen</button>
+          <button class="btn btnPrimary" type="button" id="leadSend">
+            E-Mail erstellen
+            <span aria-hidden="true">→</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <script>
-    // =========================
-    // Module (3 getrennte Kalkulatoren)
-    // =========================
-    const MODULES = {
-      chat: {
-        name: "Chat-Signale",
-        subtitle: "Tempo, Initiative, Klarheit, Date-Logistik.",
-        categories: ["INVEST","COMPLIANCE","FRAME","RISK"],
-        presets: {
-          balanced: { name:"Balanced", weights:{} },
-          fast_date: { name:"Fast-Date Filter", weights:{} },
-          relationship: { name:"Relationship Selection", weights:{} }
-        }
-      },
-      profile: {
-        name: "Profil-Check",
-        subtitle: "Red Flags + Risiko-Filter. Fokus: Risk + Frame.",
-        categories: ["RISK","FRAME","INVEST","COMPLIANCE"],
-        presets: {
-          balanced: { name:"Balanced", weights:{} },
-          hard_filter: { name:"Hard Filter", weights:{} }
-        }
-      },
-      date: {
-        name: "Real-Life / Date",
-        subtitle: "Respekt, Verhalten, Verlässlichkeit im echten Kontakt.",
-        categories: ["FRAME","COMPLIANCE","INVEST","RISK"],
-        presets: {
-          balanced: { name:"Balanced", weights:{} },
-          relationship: { name:"Relationship Selection", weights:{} }
-        }
-      }
-    };
+    // --- SETTINGS (anpassen) ---
+    const LEAD_TO_EMAIL = "info@example.com"; // Zieladresse
+    const PARTNER_DEFAULT = "Partnernetzwerk (regelbasiert)";
 
-    // =========================
-    // Preset-Weights (Modul-spezifisch)
-    // =========================
-    const PRESET_WEIGHTS = {
-      chat: {
-        balanced: {
-          inv_reply_consistency: 1.1,
-          inv_initiative: 1.2,
-          inv_questions: 1.2,
-          inv_reply_length: 1.0,
-          inv_mirroring: 0.9,
-          inv_emojis_signal: 0.4,
+    // --- STORAGE ---
+    const STORAGE_KEY = "osion_energy_demo_state_v1";
 
-          com_date_yes: 1.5,
-          com_alternatives: 1.2,
-          com_specificity: 1.3,
-          com_maybe_words: -1.1,
-          com_flake: -1.5,
-          com_only_late: -0.6,
-
-          frm_respect: 1.3,
-          frm_shit_tests: -1.0,
-          frm_boundaries: 1.2,
-
-          risk_drama: 1.2,
-          risk_attention: 1.0
-        },
-        fast_date: {
-          inv_reply_consistency: 0.9,
-          inv_initiative: 0.9,
-          inv_questions: 0.8,
-          inv_reply_length: 0.6,
-          inv_mirroring: 0.5,
-          inv_emojis_signal: 0.2,
-
-          com_date_yes: 1.8,
-          com_alternatives: 1.5,
-          com_specificity: 1.5,
-          com_maybe_words: -1.3,
-          com_flake: -1.7,
-          com_only_late: -0.3,
-
-          frm_respect: 1.2,
-          frm_shit_tests: -1.0,
-          frm_boundaries: 1.1,
-
-          risk_drama: 1.4,
-          risk_attention: 1.2
-        },
-        relationship: {
-          inv_reply_consistency: 1.3,
-          inv_initiative: 1.2,
-          inv_questions: 1.3,
-          inv_reply_length: 1.2,
-          inv_mirroring: 0.9,
-          inv_emojis_signal: 0.3,
-
-          com_date_yes: 1.5,
-          com_alternatives: 1.2,
-          com_specificity: 1.4,
-          com_maybe_words: -1.2,
-          com_flake: -1.6,
-          com_only_late: -0.9,
-
-          frm_respect: 1.5,
-          frm_shit_tests: -1.1,
-          frm_boundaries: 1.4,
-
-          risk_drama: 1.4,
-          risk_attention: 1.2
-        }
-      },
-
-      profile: {
-        balanced: {
-          frm_respect: 1.2,
-          frm_boundaries: 1.1,
-
-          risk_attention: 1.1
-        },
-        hard_filter: {
-          frm_respect: 1.3,
-          frm_boundaries: 1.2,
-          risk_attention: 1.2
-        }
-      },
-
-      date: {
-        balanced: {
-          frm_respect: 1.6,
-          frm_boundaries: 1.5,
-          frm_shit_tests: -1.0,
-
-          com_on_time: 1.5,
-          com_plans: 1.3,
-          com_accountability: 1.4,
-
-          inv_energy: 1.2,
-          inv_interest: 1.2,
-
-          risk_drama: 1.2
-        },
-        relationship: {
-          frm_respect: 1.8,
-          frm_boundaries: 1.7,
-          frm_shit_tests: -1.1,
-
-          com_on_time: 1.7,
-          com_plans: 1.5,
-          com_accountability: 1.6,
-
-          inv_energy: 1.2,
-          inv_interest: 1.3,
-
-          risk_drama: 1.4
-        }
-      }
-    };
-
-    // =========================
-    // Red Flags (nur Profil-Modul voll aktiv)
-    // =========================
-    const RED_FLAGS = [
-      { id:"rf_tattoos",          name:"Viele Tattoos",              desc:"Großflächig / sehr viele sichtbare Tattoos.", baseMaxPoints:20 },
-      { id:"rf_hair",             name:"Bunte Haare",                desc:"Auffällig bunt / extrem wechselnd.", baseMaxPoints:18 },
-      { id:"rf_onlyfans",         name:"OnlyFans / Pay-Content",     desc:"Promo-Verhalten, Links, Monetarisierung über Erotik-Pay-Content.", baseMaxPoints:18 },
-      { id:"rf_party",            name:"Party jedes Wochenende",     desc:"Wochenenden dauerhaft Party/Clubs/Festival, wenig Struktur.", baseMaxPoints:12 },
-      { id:"rf_bodycount",        name:"Bodycount-Statements",       desc:"Wird aktiv thematisiert oder als Signal genutzt.", baseMaxPoints:12 },
-      { id:"rf_therapy_overload", name:"Therapie/Diagnose-Overload", desc:"Diagnosen/Trauma als Identität, wenig Eigenverantwortung im Konflikt.", baseMaxPoints:18 },
-      { id:"rf_ex_present",       name:"Ex ständig präsent",         desc:"Ex-Drama, On/Off, Dreiecke, ständiges Erwähnen.", baseMaxPoints:16 },
-      { id:"rf_disrespect_staff", name:"Respektlosigkeit (Service)", desc:"Unfreundlich, entitled, herablassend im Alltag.", baseMaxPoints:18 },
-      { id:"rf_financial_chaos",  name:"Finanzchaos",                desc:"Impuls-Ausgaben, Schulden-Storys, Unzuverlässigkeit.", baseMaxPoints:14 }
-    ];
-
-    // =========================
-    // Step Builder
-    // =========================
-    function mkStep({id, q, hint, options, grid="cols-2", cat=null, negative=false, absolute=false}){
-      return { id, question:q, hint, options, grid, meta:{ cat, negative, absolute } };
+    // --- UTIL ---
+    function euro(n){
+      return new Intl.NumberFormat("de-DE",{style:"currency",currency:"EUR"}).format(n);
+    }
+    function clamp01(x){ return Math.min(1, Math.max(0, x)); }
+    function round2(x){ return Math.round(x*100)/100; }
+    function isValidEmail(s){
+      return /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(String(s || "").trim());
     }
 
-    function opt(v, label, sub){ return { value:v, label, sub }; }
-
-    // =========================
-    // Steps pro Modul (getrennt)
-    // =========================
-    function buildStepsForModule(moduleKey){
-      const base = [
-        mkStep({
-          id:"module",
-          q:"Welches Modul soll laufen?",
-          hint:"Jedes Modul hat eigene Fragen und eigene Logik.",
-          grid:"cols-3",
-          options:[
-            opt("chat","Chat-Signale","Chatverlauf & Date-Logistik"),
-            opt("profile","Profil-Check","Red Flags & Risiko-Filter"),
-            opt("date","Real-Life / Date","Respekt & Verlässlichkeit")
-          ]
-        }),
-        mkStep({
-          id:"preset",
-          q:"Welches Preset soll genutzt werden?",
-          hint:"Preset steuert die Gewichtung im Ergebnis.",
-          grid:"cols-3",
-          options: getPresetOptions(moduleKey)
-        })
-      ];
-
-      if(moduleKey === "chat"){
-        return base.concat([
-          mkStep({
-            id:"inv_initiative",
-            q:"Wer schreibt öfter zuerst?",
-            hint:"Initiative zeigt Invest. Wenn Initiative fast immer von einer Seite kommt, sinkt Invest.",
-            grid:"cols-3",
-            cat:"INVEST",
-            options:[
-              opt(0,"Nie / fast nie","Kein Push von der anderen Seite"),
-              opt(2,"Gemischt","Wechselnd"),
-              opt(3,"Oft","Deutlich spürbar")
-            ]
-          }),
-          mkStep({
-            id:"inv_reply_consistency",
-            q:"Wie konstant sind Antwortzeiten?",
-            hint:"Konstanz schlägt „gelegentlich schnell“. Es geht um Muster, nicht um Einzelfälle.",
-            grid:"cols-3",
-            cat:"INVEST",
-            options:[
-              opt(0,"Chaotisch","Stunden/Tage ohne erkennbares Muster"),
-              opt(1,"Wechselhaft","Mal schnell, mal sehr spät"),
-              opt(3,"Konstant","Ähnlicher Rhythmus")
-            ]
-          }),
-          mkStep({
-            id:"inv_questions",
-            q:"Kommen echte Rückfragen?",
-            hint:"Rückfragen bedeuten Interesse. Smalltalk ohne Rückfragen ist Low-Invest.",
-            grid:"cols-3",
-            cat:"INVEST",
-            options:[
-              opt(0,"Nein","Fast nur Antworten ohne Rückfragen"),
-              opt(2,"Manchmal","Gelegentlich"),
-              opt(3,"Regelmäßig","Mehrere gute Rückfragen")
-            ]
-          }),
-          mkStep({
-            id:"com_specificity",
-            q:"Wie konkret sind Zeit und Ort?",
-            hint:"Konkret bedeutet: Tag + Uhrzeit + Ort oder klare Auswahl.",
-            grid:"cols-3",
-            cat:"COMPLIANCE",
-            options:[
-              opt(0,"Unkonkret","Nur „irgendwann“"),
-              opt(2,"Teilweise","Tag ohne Uhrzeit oder umgekehrt"),
-              opt(3,"Konkret","Tag + Uhrzeit + Ort / Auswahl")
-            ]
-          }),
-          mkStep({
-            id:"com_date_yes",
-            q:"Wie deutlich ist die Zusage für ein Treffen?",
-            hint:"Eine echte Zusage ist eindeutig. Vage Zusagen zählen schwächer.",
-            grid:"cols-3",
-            cat:"COMPLIANCE",
-            options:[
-              opt(0,"Weicht aus","Kein Ja"),
-              opt(2,"Ja","Zusage vorhanden"),
-              opt(3,"Ja + Vorfreude","Energie spürbar")
-            ]
-          }),
-          mkStep({
-            id:"com_maybe_words",
-            q:"Wie oft kommt „vielleicht / mal schauen“?",
-            hint:"Viel „vielleicht“ ist Unsicherheit oder Ausweichmuster.",
-            grid:"cols-3",
-            cat:"COMPLIANCE",
-            negative:true,
-            options:[
-              opt(0,"Nie",""),
-              opt(1,"Selten",""),
-              opt(2,"Häufig",""),
-              opt(3,"Dauernd","")
-            ]
-          }),
-          mkStep({
-            id:"com_flake",
-            q:"Wurde schon kurzfristig verschoben/abgesagt?",
-            hint:"Einmal kann passieren. Wiederholt ist ein Muster.",
-            grid:"cols-3",
-            cat:"COMPLIANCE",
-            negative:true,
-            options:[
-              opt(0,"Nie",""),
-              opt(1,"Einmal",""),
-              opt(2,"Mehrmals",""),
-              opt(3,"Muster","")
-            ]
-          }),
-          mkStep({
-            id:"frm_respect",
-            q:"Wie respektvoll ist der Ton im Chat?",
-            hint:"Respekt ist Basis. Abwertung, Provokation, herablassender Ton drücken Frame.",
-            grid:"cols-3",
-            cat:"FRAME",
-            options:[
-              opt(0,"Schwach","Sticheln/Abwerten"),
-              opt(2,"Normal",""),
-              opt(3,"Stark","Respektvoll, stabil")
-            ]
-          }),
-          mkStep({
-            id:"frm_shit_tests",
-            q:"Wie oft kommen Shit Tests / Provokationen?",
-            hint:"Leichte Tests sind normal. Dauerhafte Provokation kostet Energie.",
-            grid:"cols-3",
-            cat:"FRAME",
-            negative:true,
-            options:[
-              opt(0,"Keine",""),
-              opt(1,"Leicht",""),
-              opt(2,"Regelmäßig",""),
-              opt(3,"Stark","")
-            ]
-          }),
-          mkStep({
-            id:"risk_drama",
-            q:"Wie präsent sind Drama-Themen?",
-            hint:"Drama drückt Risk nach oben. Es geht um Häufigkeit und Intensität.",
-            grid:"cols-3",
-            cat:"RISK",
-            options:[
-              opt(0,"Kaum",""),
-              opt(1,"Gelegentlich",""),
-              opt(2,"Häufig",""),
-              opt(3,"Dominant","")
-            ]
-          }),
-          mkStep({ id:"result", q:"Ergebnis", hint:"Auswertung des Moduls.", options:[] })
-        ]);
-      }
-
-      if(moduleKey === "profile"){
-        return base.concat([
-          mkStep({
-            id:"risk_attention",
-            q:"Wie stark ist Attention-/Follower-Fokus?",
-            hint:"Starker Attention-Fokus erhöht Risiko. Es geht um Priorität, nicht um Nutzung.",
-            grid:"cols-3",
-            cat:"RISK",
-            options:[
-              opt(0,"Normal",""),
-              opt(1,"Eher hoch",""),
-              opt(2,"Hoch",""),
-              opt(3,"Extrem","")
-            ]
-          }),
-          mkStep({
-            id:"frm_respect",
-            q:"Wie wirkt der Profil-Ton?",
-            hint:"Respekt/Entitlement lässt sich oft im Profiltext herauslesen.",
-            grid:"cols-3",
-            cat:"FRAME",
-            options:[
-              opt(0,"Entitled/abwertend",""),
-              opt(2,"Neutral",""),
-              opt(3,"Reif/respektvoll","")
-            ]
-          }),
-          // Red-Flag Step (mit funktionierendem Button, kein „Nachjustieren“ am Ende)
-          mkStep({
-            id:"rf_step",
-            q:"Red Flags einstellen",
-            hint:"Wenn Red Flags relevant sind: Öffnen → konfigurieren → übernehmen.",
-            grid:"cols-2",
-            options:[
-              opt("open","Einstellungen öffnen","Red-Flag-Katalog anzeigen"),
-              opt("skip","Überspringen","Ohne Red-Flag-Katalog weiter")
-            ]
-          }),
-          mkStep({ id:"result", q:"Ergebnis", hint:"Auswertung des Moduls.", options:[] })
-        ]);
-      }
-
-      if(moduleKey === "date"){
-        return base.concat([
-          mkStep({
-            id:"frm_respect",
-            q:"Wie ist der Umgang im echten Kontakt?",
-            hint:"Respekt zeigt sich im Ton, Blickkontakt, Verhalten im Alltag.",
-            grid:"cols-3",
-            cat:"FRAME",
-            options:[
-              opt(0,"Schwach","Sticheln/Abwerten/Entitlement"),
-              opt(2,"Normal",""),
-              opt(3,"Stark","Respektvoll, stabil")
-            ]
-          }),
-          mkStep({
-            id:"com_on_time",
-            q:"Pünktlichkeit / Verlässlichkeit?",
-            hint:"Verlässlichkeit ist Compliance im echten Leben.",
-            grid:"cols-3",
-            cat:"COMPLIANCE",
-            options:[
-              opt(0,"Unzuverlässig","Zu spät / kurzfristig"),
-              opt(2,"Meist verlässlich",""),
-              opt(3,"Verlässlich","Pünktlich, verbindlich")
-            ]
-          }),
-          mkStep({
-            id:"com_accountability",
-            q:"Wie wird mit Fehlern umgegangen?",
-            hint:"Accountability heißt: Verantwortung übernehmen statt ausweichen.",
-            grid:"cols-3",
-            cat:"COMPLIANCE",
-            options:[
-              opt(0,"Ausweichen","Rechtfertigen/Schuld schieben"),
-              opt(2,"Gemischt",""),
-              opt(3,"Verantwortung","Ehrlich, gerade")
-            ]
-          }),
-          mkStep({
-            id:"inv_interest",
-            q:"Interesse im Gespräch?",
-            hint:"Interesse zeigt sich durch Fragen, Zuhören, Details merken.",
-            grid:"cols-3",
-            cat:"INVEST",
-            options:[
-              opt(0,"Low","Kaum Fragen"),
-              opt(2,"Normal",""),
-              opt(3,"High","Echte Neugier")
-            ]
-          }),
-          mkStep({
-            id:"risk_drama",
-            q:"Drama-Level?",
-            hint:"Drama kostet Ruhe. Häufige Konflikte drücken Risk nach oben.",
-            grid:"cols-3",
-            cat:"RISK",
-            options:[
-              opt(0,"Kaum",""),
-              opt(1,"Gelegentlich",""),
-              opt(2,"Häufig",""),
-              opt(3,"Dominant","")
-            ]
-          }),
-          mkStep({ id:"result", q:"Ergebnis", hint:"Auswertung des Moduls.", options:[] })
-        ]);
-      }
-
-      return base.concat([ mkStep({ id:"result", q:"Ergebnis", hint:"Auswertung.", options:[] }) ]);
-    }
-
-    function getPresetOptions(moduleKey){
-      const keys = Object.keys(PRESET_WEIGHTS[moduleKey] || { balanced:{} });
-      const mapName = (k)=>{
-        if(k === "balanced") return "Balanced";
-        if(k === "fast_date") return "Fast-Date Filter";
-        if(k === "relationship") return "Relationship Selection";
-        if(k === "hard_filter") return "Hard Filter";
-        return k;
-      };
-      const mapSub = (k)=>{
-        if(k === "fast_date") return "Zeitverschwendung minimieren";
-        if(k === "relationship") return "Vorauswahl";
-        if(k === "hard_filter") return "Strenger Red-Flag-Filter";
-        return "Allround";
-      };
-      return keys.slice(0,3).map(k=>opt(k, mapName(k), mapSub(k)));
-    }
-
-    // =========================
-    // State
-    // =========================
+    // --- STATE ---
     const state = {
-      moduleKey: "chat",
-      steps: [],
       stepIndex: 0,
       answers: {},
-      presetKey: "balanced",
-      rf: {
-        sensitivity: 1.0,
-        riskCap: 80,
-        riskHard: 1.0,
-        items: {}
-      }
+      computed: null
     };
 
-    // =========================
-    // UI refs
-    // =========================
-    const elSubText    = document.getElementById("subText");
+    function saveState(){
+      try{
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+      }catch(e){}
+    }
+    function loadState(){
+      try{
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) return;
+        const parsed = JSON.parse(raw);
+        if (!parsed || typeof parsed !== "object") return;
+        state.stepIndex = parsed.stepIndex ?? 0;
+        state.answers = parsed.answers ?? {};
+        state.computed = parsed.computed ?? null;
+      }catch(e){}
+    }
+    function resetAll(){
+      state.stepIndex = 0;
+      state.answers = {};
+      state.computed = null;
+      saveState();
+      render();
+    }
+
+    // --- STEPS (UI Blueprint) ---
+    const steps = [
+      {
+        id:"mode",
+        question:"Wofür wird die App genutzt?",
+        hint:"Privat: Einzelobjekt. Verwaltung: Portfolio mit mehreren Objekten.",
+        grid:"cols-2",
+        options:[
+          { value:"private", label:"Privatkunde", sub:"Ein Objekt, Fokus: Entscheidung + Projekt + Wartung" },
+          { value:"portfolio", label:"Immobilienverwaltung", sub:"Mehrere Objekte, Fokus: Portfolio + Budgetplanung" }
+        ]
+      },
+      {
+        id:"goal",
+        question:"Was ist das Ziel?",
+        hint:"Das steuert die Ergebnisdarstellung und die Prioritäten im Dashboard.",
+        grid:"cols-3",
+        options:[
+          { value:"cost", label:"Kosten senken", sub:"Optimierung nach Jahreskosten" },
+          { value:"speed", label:"Schnelle Umsetzung", sub:"Priorität: Terminsicherheit und Vorlauf" },
+          { value:"risk", label:"Risiko minimieren", sub:"Priorität: Wartung und Planbarkeit" }
+        ]
+      },
+      {
+        id:"assetType",
+        when:(s)=> s.answers.mode?.value === "private",
+        question:"Welche Objektart trifft zu?",
+        hint:"Vereinfacht. Für exakte Werte folgt später ein Detailprofil.",
+        grid:"cols-3",
+        options:[
+          { value:"sfh", label:"Einfamilienhaus", sub:"Einheitliche Betrachtung" },
+          { value:"th",  label:"Reihenhaus", sub:"Tendenziell geringere Wärmeverluste" },
+          { value:"mfh", label:"Mehrfamilienhaus", sub:"Mehr Einheiten, größere Hebel" }
+        ]
+      },
+      {
+        id:"portfolioSize",
+        when:(s)=> s.answers.mode?.value === "portfolio",
+        question:"Wie groß ist das Portfolio?",
+        hint:"Dient der UI-Simulation der Portfolio-Kacheln.",
+        grid:"cols-3",
+        options:[
+          { value:"small", label:"10–30 Einheiten", sub:"Startumfang" },
+          { value:"mid",   label:"31–120 Einheiten", sub:"Rahmenvereinbarung realistisch" },
+          { value:"large", label:"121+ Einheiten", sub:"Portfolio-Programm" }
+        ]
+      },
+      {
+        id:"systemInterest",
+        question:"Welche Lösung steht im Fokus?",
+        hint:"Die App bleibt flexibel: Fokus ist Wirtschaftlichkeit, nicht Ideologie.",
+        grid:"cols-3",
+        options:[
+          { value:"wp", label:"Wärmepumpe", sub:"Elektrisch, abhängig von Strompreis" },
+          { value:"therme", label:"Therme+", sub:"Therme + Wartung als Paket" },
+          { value:"compare", label:"Vergleich", sub:"App entscheidet auf Basis der Parameter" }
+        ]
+      },
+      {
+        id:"urgency",
+        question:"Zeitrahmen für die Umsetzung?",
+        hint:"Einfluss auf Projektstatus-UI und Vorlauf.",
+        grid:"cols-3",
+        options:[
+          { value:"now", label:"Sofort", sub:"Terminfenster priorisiert" },
+          { value:"soon", label:"1–3 Monate", sub:"Planung + Angebot" },
+          { value:"later", label:"Später", sub:"Erst strukturieren und vergleichen" }
+        ]
+      },
+      {
+        id:"budget",
+        question:"Welcher Investitionsrahmen passt?",
+        hint:"Nur zur UI-Simulation. Die echte Engine kommt mit deinen Rechendaten.",
+        grid:"cols-3",
+        options:[
+          { value:"low",  label:"bis 12.000 €", sub:"Fokus: minimaler Eingriff" },
+          { value:"mid",  label:"12.000–25.000 €", sub:"Standardumsetzung" },
+          { value:"high", label:"25.000 €+", sub:"Umfangreich, hohe Bandbreite" }
+        ]
+      },
+      {
+        id:"result",
+        question:"Dashboard",
+        hint:"Ergebnisansicht: 1 Haupt-KPI plus Neben-KPIs und Transparenzbereich.",
+        grid:"cols-2",
+        options:[]
+      }
+    ];
+
+    function activeSteps(){
+      return steps.filter(st => !st.when || st.when(state));
+    }
+    function currentActive(){
+      const act = activeSteps();
+      if (state.stepIndex > act.length - 1) state.stepIndex = act.length - 1;
+      if (state.stepIndex < 0) state.stepIndex = 0;
+      return { act, step: act[state.stepIndex] };
+    }
+
+    // --- DOM REFS ---
     const elQuestion   = document.getElementById("question");
     const elHint       = document.getElementById("hint");
     const elOptions    = document.getElementById("options");
     const elBack       = document.getElementById("backBtn");
+
     const elProgress   = document.getElementById("progressFill");
     const elStepLabel  = document.getElementById("stepLabel");
-    const elFooterMeta = document.getElementById("footerMeta");
     const elMetaRight  = document.getElementById("metaRight");
+    const elFooterMeta = document.getElementById("footerMeta");
 
-    const elCfgWrap    = document.getElementById("cfgWrap");
-    const elCustomLive = document.getElementById("customLive");
-    const elRfList     = document.getElementById("rfList");
-    const elApplyCfg   = document.getElementById("applyCfgBtn");
+    const elResultWrap = document.getElementById("resultWrap");
+    const elMainKpi    = document.getElementById("mainKpi");
+    const elKpi10      = document.getElementById("kpi10");
+    const elKpiBe      = document.getElementById("kpiBe");
+    const elKpiMaint   = document.getElementById("kpiMaint");
+    const elKpiStatus  = document.getElementById("kpiStatus");
 
-    const elSensRange = document.getElementById("sensRange");
-    const elSensVal   = document.getElementById("sensVal");
-    const elCapRange  = document.getElementById("rfCapRange");
-    const elCapVal    = document.getElementById("rfCapVal");
-    const elHardRange = document.getElementById("rfHardRange");
-    const elHardVal   = document.getElementById("rfHardVal");
-    const elSensItem  = document.getElementById("sensItem");
-    const elCapItem   = document.getElementById("rfCapItem");
-    const elHardItem  = document.getElementById("rfTuningItem");
+    const elRowWp      = document.getElementById("rowWp");
+    const elRowTherm   = document.getElementById("rowTherm");
+    const elRowDelta   = document.getElementById("rowDelta");
+    const elBestPick   = document.getElementById("bestPick");
+    const elWhyBox     = document.getElementById("whyBox");
 
-    const elResultWrap = document.getElementById("result");
-    const elClassOut   = document.getElementById("classOut");
-    const elRecOut     = document.getElementById("recOut");
-    const elInvOut     = document.getElementById("invOut");
-    const elComOut     = document.getElementById("comOut");
-    const elFrmOut     = document.getElementById("frmOut");
-    const elRskOut     = document.getElementById("rskOut");
-    const elNextOut    = document.getElementById("nextOut");
-    const elT1Out      = document.getElementById("t1Out");
-    const elT2Out      = document.getElementById("t2Out");
-    const elT3Out      = document.getElementById("t3Out");
-    const elRestartBtn = document.getElementById("restartBtn");
+    const elDocCount   = document.getElementById("docCount");
+    const elRowPartner = document.getElementById("rowPartner");
+    const elRowLead    = document.getElementById("rowLead");
+    const elRowDocs    = document.getElementById("rowDocs");
+    const elTagRow     = document.getElementById("tagRow");
 
-    const elWhyPlus  = document.getElementById("whyPlus");
-    const elWhyMinus = document.getElementById("whyMinus");
+    const elCtaOpen    = document.getElementById("ctaOpen");
+    const elResetBtn   = document.getElementById("resetBtn");
 
-    // =========================
-    // Helpers
-    // =========================
-    function clamp(n,a,b){ return Math.max(a, Math.min(b, n)); }
-    function clamp01(x){ return Math.min(1, Math.max(0, x)); }
-    function round(n){ return Math.round(n); }
-    function to1(n){ return Math.round(n * 10) / 10; }
+    // Modal refs
+    const elModalOverlay = document.getElementById("modalOverlay");
+    const elModalClose   = document.getElementById("modalClose");
+    const elModalCancel  = document.getElementById("modalCancel");
+    const elLeadName     = document.getElementById("leadName");
+    const elLeadEmail    = document.getElementById("leadEmail");
+    const elLeadPhone    = document.getElementById("leadPhone");
+    const elLeadConsent  = document.getElementById("leadConsent");
+    const elLeadSend     = document.getElementById("leadSend");
+    const elLeadError    = document.getElementById("leadError");
 
-    function triggerFade(el){ el.classList.remove("fadeIn"); void el.offsetWidth; el.classList.add("fadeIn"); }
-    function pulse(el){ el.classList.remove("pulse"); void el.offsetWidth; el.classList.add("pulse"); }
-
-    function setRangeFill(range){
-      const min = parseFloat(range.min || "0");
-      const max = parseFloat(range.max || "100");
-      const val = parseFloat(range.value || "0");
-      const pct = ((val - min) / (max - min)) * 100;
-      range.style.setProperty("--fill", `${Math.max(0, Math.min(100, pct))}%`);
-    }
-    function markAdjusting(itemEl){
-      itemEl.classList.add("isAdjusting");
-      window.clearTimeout(itemEl.__t);
-      itemEl.__t = window.setTimeout(()=> itemEl.classList.remove("isAdjusting"), 220);
+    // --- UI HELPERS ---
+    function triggerFade(el){
+      el.classList.remove("fadeIn");
+      void el.offsetWidth;
+      el.classList.add("fadeIn");
     }
 
-    function setProgress(){
+    function setProgress(totalSteps){
       const current = state.stepIndex + 1;
-      const totalSteps = state.steps.length;
       const pct = totalSteps <= 1 ? 100 : ((current - 1) / (totalSteps - 1)) * 100;
       elProgress.style.width = pct + "%";
-      elStepLabel.textContent = `Schritt ${current} von ${totalSteps}`;
-      elMetaRight.textContent = `Schritt ${current} von ${totalSteps}`;
-      elFooterMeta.textContent = `Schritt ${current} von ${totalSteps}`;
+      const s = `Schritt ${current} von ${totalSteps}`;
+      elStepLabel.textContent = s;
+      elMetaRight.textContent = s;
+      elFooterMeta.textContent = s;
     }
 
-    // =========================
-    // RF defaults + UI
-    // =========================
-    function ensureRfDefaults(){
-      RED_FLAGS.forEach(rf=>{
-        if(!state.rf.items[rf.id]){
-          state.rf.items[rf.id] = { enabled:false, intensity:1, weight:1.0 };
-        }
-      });
-    }
-
-    function refreshCfgLive(){
-      ensureRfDefaults();
-      const enabled = RED_FLAGS.filter(rf=>state.rf.items[rf.id].enabled).length;
-      const sens = to1(state.rf.sensitivity).toFixed(1).replace(".",",");
-      const hard = to1(state.rf.riskHard).toFixed(2).replace(".",",");
-      elCustomLive.textContent = `Aktiv: ${enabled}/${RED_FLAGS.length} · Sens: ${sens} · Cap: ${state.rf.riskCap} · Härte: ${hard}`;
-    }
-
-    function buildRfList(){
-      ensureRfDefaults();
-      elRfList.innerHTML = "";
-
-      RED_FLAGS.forEach(rf=>{
-        const cfg = state.rf.items[rf.id];
-        const wrap = document.createElement("div");
-        wrap.className = "rfItem";
-        wrap.innerHTML = `
-          <div class="rfTop">
-            <div style="min-width:0;">
-              <p class="rfName">${rf.name}</p>
-              <p class="rfDesc">${rf.desc}</p>
-            </div>
-            <label class="rfToggle">
-              <input type="checkbox" ${cfg.enabled ? "checked":""} data-rf-en="${rf.id}" />
-              aktiv
-            </label>
-          </div>
-
-          <div class="rfGrid">
-            <div class="sItem" data-rf-item="${rf.id}-int">
-              <div class="sLabel">
-                <span>Intensität</span>
-                <span class="sValue" data-rf-int-val="${rf.id}">${cfg.intensity}</span>
-              </div>
-              <input type="range" min="0" max="3" step="1" value="${cfg.intensity}" data-rf-int="${rf.id}" />
-            </div>
-
-            <div class="sItem" data-rf-item="${rf.id}-w">
-              <div class="sLabel">
-                <span>Gewicht</span>
-                <span class="sValue" data-rf-w-val="${rf.id}">${cfg.weight.toFixed(1).replace(".",",")}</span>
-              </div>
-              <input type="range" min="0" max="2" step="0.1" value="${cfg.weight}" data-rf-w="${rf.id}" />
-            </div>
-          </div>
-        `;
-        elRfList.appendChild(wrap);
-      });
-
-      elRfList.querySelectorAll("[data-rf-en]").forEach(ch=>{
-        ch.addEventListener("change", ()=>{
-          const id = ch.getAttribute("data-rf-en");
-          state.rf.items[id].enabled = ch.checked;
-          refreshCfgLive();
-          pulse(elRfList);
-        });
-      });
-
-      elRfList.querySelectorAll("[data-rf-int]").forEach(r=>{
-        r.addEventListener("input", ()=>{
-          const id = r.getAttribute("data-rf-int");
-          state.rf.items[id].intensity = Number(r.value);
-          const valEl = elRfList.querySelector(`[data-rf-int-val="${id}"]`);
-          if(valEl) valEl.textContent = r.value;
-          setRangeFill(r);
-          markAdjusting(elRfList.querySelector(`[data-rf-item="${id}-int"]`));
-          refreshCfgLive();
-        });
-      });
-
-      elRfList.querySelectorAll("[data-rf-w]").forEach(r=>{
-        r.addEventListener("input", ()=>{
-          const id = r.getAttribute("data-rf-w");
-          state.rf.items[id].weight = Number(r.value);
-          const valEl = elRfList.querySelector(`[data-rf-w-val="${id}"]`);
-          if(valEl) valEl.textContent = Number(r.value).toFixed(1).replace(".",",");
-          setRangeFill(r);
-          markAdjusting(elRfList.querySelector(`[data-rf-item="${id}-w"]`));
-          refreshCfgLive();
-        });
-      });
-
-      elRfList.querySelectorAll('input[type="range"]').forEach(setRangeFill);
-    }
-
-    function syncGlobalSliders(){
-      elSensRange.value = String(state.rf.sensitivity);
-      elCapRange.value = String(state.rf.riskCap);
-      elHardRange.value = String(state.rf.riskHard);
-
-      setRangeFill(elSensRange);
-      setRangeFill(elCapRange);
-      setRangeFill(elHardRange);
-
-      elSensVal.textContent = to1(state.rf.sensitivity).toFixed(1).replace(".",",");
-      elCapVal.textContent = (state.rf.riskCap === 80) ? "Standard" : String(state.rf.riskCap);
-      elHardVal.textContent = (Math.abs(state.rf.riskHard - 1.0) < 0.001) ? "Normal" : String(to1(state.rf.riskHard).toFixed(2)).replace(".",",");
-    }
-
-    ["input","change"].forEach(evt=>{
-      elSensRange.addEventListener(evt, ()=>{
-        state.rf.sensitivity = Number(elSensRange.value);
-        elSensVal.textContent = to1(state.rf.sensitivity).toFixed(1).replace(".",",");
-        setRangeFill(elSensRange);
-        markAdjusting(elSensItem);
-        refreshCfgLive();
-      });
-      elCapRange.addEventListener(evt, ()=>{
-        state.rf.riskCap = Number(elCapRange.value);
-        elCapVal.textContent = (state.rf.riskCap === 80) ? "Standard" : String(state.rf.riskCap);
-        setRangeFill(elCapRange);
-        markAdjusting(elCapItem);
-        refreshCfgLive();
-      });
-      elHardRange.addEventListener(evt, ()=>{
-        state.rf.riskHard = Number(elHardRange.value);
-        elHardVal.textContent = (Math.abs(state.rf.riskHard - 1.0) < 0.001) ? "Normal" : String(to1(state.rf.riskHard).toFixed(2)).replace(".",",");
-        setRangeFill(elHardRange);
-        markAdjusting(elHardItem);
-        refreshCfgLive();
-      });
-    });
-
-    // Button: übernimmt Red-Flag-Konfig und geht weiter
-    elApplyCfg.addEventListener("click", ()=>{
-      pulse(elCfgWrap);
-      state.answers.rf_step = { value:"configured", label:"Konfiguriert" };
-      closeCfg();
-      goNext();
-    });
-
-    function openCfg(){
-      elCfgWrap.classList.add("isOpen");
-      buildRfList();
-      syncGlobalSliders();
-      refreshCfgLive();
-      triggerFade(elCfgWrap);
-    }
-    function closeCfg(){
-      elCfgWrap.classList.remove("isOpen");
-    }
-
-    // =========================
-    // Scoring + Explanation
-    // =========================
-    function getWeights(){
-      const w = PRESET_WEIGHTS[state.moduleKey]?.[state.presetKey] || PRESET_WEIGHTS[state.moduleKey]?.balanced || {};
-      return w;
-    }
-
-    function rawAnswers(){
-      const raw = {};
-      Object.keys(state.answers).forEach(k=>{
-        raw[k] = state.answers[k]?.value;
-      });
-      return raw;
-    }
-
-    function calcCategoryScore(raw, weights, keys, negativeKeys=new Set()){
-      // Normalisierung über min/max; negatives invertieren sauber.
-      let sum = 0, min = 0, max = 0;
-
-      keys.forEach(k=>{
-        const w = weights[k] ?? 0;
-        const v = Number(raw[k] ?? 0);
-
-        // Default range 0..3
-        const lo = 0 * w;
-        const hi = 3 * w;
-
-        min += Math.min(lo, hi);
-        max += Math.max(lo, hi);
-
-        sum += v * w;
-      });
-
-      if(max === min) return { score:0, details:[] };
-      const norm = (sum - min) / (max - min);
-      const score = clamp(norm * 100, 0, 100);
-
-      // Details: contribution per key (für „Warum“-Liste)
-      const details = keys.map(k=>{
-        const w = weights[k] ?? 0;
-        const v = Number(raw[k] ?? 0);
-        const impact = v * w; // signed
-        return { key:k, impact, value:v, weight:w };
-      });
-
-      return { score, details };
-    }
-
-    function calcRisk(raw, weights){
-      // Risk aus: risk_* questions (0..3) + Profil-Modul Red Flags
-      const drama = Number(raw.risk_drama ?? 0) * (weights.risk_drama ?? 0);
-      const attn  = Number(raw.risk_attention ?? 0) * (weights.risk_attention ?? 0);
-
-      let modularPoints = 0;
-      let modularMax = 0;
-
-      if(state.moduleKey === "profile"){
-        ensureRfDefaults();
-        RED_FLAGS.forEach(rf=>{
-          const it = state.rf.items[rf.id];
-          const frac = clamp01((it.intensity ?? 0) / 3);
-          if(it.enabled){
-            modularPoints += rf.baseMaxPoints * frac * (it.weight ?? 1.0) * state.rf.sensitivity;
-            modularMax    += rf.baseMaxPoints * 1   * (it.weight ?? 1.0) * state.rf.sensitivity;
-          }
-        });
-      }
-
-      const baseScale = 50;
-      const cap = Number(state.rf.riskCap || 80);
-      const dynamicScale = Math.max(baseScale, baseScale + modularMax);
-      const scaleMax = Math.max(dynamicScale, cap);
-
-      const points = (drama + attn + modularPoints) * (state.rf.riskHard || 1.0);
-      const riskScore = clamp((points / scaleMax) * 100, 0, 100);
-
-      return { riskScore, points, scaleMax, modularPoints, modularMax };
-    }
-
-    function classify(invest, compliance, frame, risk){
-      if (compliance < 45 || frame < 45 || risk > 70) return "RED";
-      if (invest >= 65 && compliance >= 65 && frame >= 60 && risk <= 45) return "GREEN";
-      return "YELLOW";
-    }
-
-    function pickArchetype(invest, compliance, frame, risk){
-      const cls = classify(invest, compliance, frame, risk);
-      if(cls === "GREEN") return { code:"A1", label:"Green – Lead", css:"badgeGood" };
-      if(cls === "YELLOW"){
-        if (compliance >= 60 && frame >= 55 && invest < 60) return { code:"B1", label:"Yellow – Ball to them", css:"badgeWarn" };
-        if (compliance >= 55 && frame >= 50 && risk >= 55) return { code:"B2", label:"Yellow – Meet only", css:"badgeWarn" };
-        if (frame < 55) return { code:"C1", label:"Orange – Boundary check (Frame)", css:"badgeWarn" };
-        return { code:"B1", label:"Yellow – Ball to them", css:"badgeWarn" };
-      }
-      return { code:"D1", label:"Red – Exit", css:"badgeBad" };
-    }
-
-    function templatesFor(code){
-      const map = {
-        A1: {
-          next:"Date fixieren (führen)",
-          rec:"2 Optionen anbieten, Ende. Kein Chat-Marathon.",
-          t:[
-            "Ich hab Bock. Donnerstag 19:00 Bar X oder Samstag 16:00 Kaffee Y – was passt besser?",
-            "Lass uns das nicht zerreden. Mittwoch 18:30 Spaziergang Z + danach Drink – passt?",
-            "Du wirkst nice. Freitag 19:00 Location X. Deal?"
-          ]
-        },
-        B1: {
-          next:"Ball to them (Invest runter)",
-          rec:"Einmal führen, dann Pause. Compliance testen.",
-          t:[
-            "Sag an, wann du real Zeit hast: Donnerstag oder Sonntag?",
-            "Meld dich, wenn du einen konkreten Slot hast – dann machen wir was.",
-            "Ich bin diese Woche flexibel. Schick Tag + Uhrzeit, dann fixen wir das."
-          ]
-        },
-        B2: {
-          next:"Meet only (Chat minimal)",
-          rec:"Nur Logistik. Wenn Ausweichen: Exit.",
-          t:[
-            "Lass uns treffen statt tippen. Freitag 19:00 – passt?",
-            "Ich bin nicht der Text-Buddy. Samstag 17:00, dann reden wir live.",
-            "Wenn du willst: Mittwoch 18:30. Wenn nicht, alles gut."
-          ]
-        },
-        C1: {
-          next:"Boundary check (Frame halten)",
-          rec:"Provokation nicht emotional. Grenze setzen, locker bleiben.",
-          t:[
-            "So reden wir nicht. Wenn du normal bist, machen wir weiter.",
-            "Drama hab ich nicht auf dem Zettel.",
-            "Wenn du testen willst: mach das. Ich bleib entspannt."
-          ]
-        },
-        D1: {
-          next:"Exit (sauber, ohne Theater)",
-          rec:"Keine Diskussion. Frame bleibt bei dir.",
-          t:[
-            "Ich glaub, das passt nicht. Alles Gute dir.",
-            "Ich bin raus. Mach’s gut.",
-            "Das ist mir zu anstrengend. Ich wünsch dir was."
-          ]
-        }
-      };
-      return map[code] || map.B1;
-    }
-
-    function keyToLabel(key){
-      const all = {};
-      state.steps.forEach(s=>{
-        all[s.id] = s.question;
-      });
-      return all[key] || key;
-    }
-
-    function computeAll(){
-      const w = getWeights();
-      const raw = rawAnswers();
-
-      // Modul-spezifische Keys
-      const keysInvest = ["inv_initiative","inv_reply_consistency","inv_questions","inv_reply_length","inv_mirroring","inv_emojis_signal","inv_interest","inv_energy"];
-      const keysCompliance = ["com_date_yes","com_specificity","com_alternatives","com_maybe_words","com_flake","com_only_late","com_on_time","com_plans","com_accountability"];
-      const keysFrame = ["frm_respect","frm_shit_tests","frm_boundaries"];
-      const keysRisk = ["risk_drama","risk_attention"];
-
-      const used = (arr)=>arr.filter(k=>state.answers[k] && (w[k] ?? 0) !== 0);
-
-      const investObj = calcCategoryScore(raw, w, used(keysInvest));
-      const compObj   = calcCategoryScore(raw, w, used(keysCompliance));
-      const frameObj  = calcCategoryScore(raw, w, used(keysFrame));
-
-      // Default 0..100
-      const invest = round(investObj.score);
-      const compliance = round(compObj.score);
-      const frame = round(frameObj.score);
-
-      const riskObj = calcRisk(raw, w);
-      const risk = round(riskObj.riskScore);
-
-      const arche = pickArchetype(invest, compliance, frame, risk);
-      const kit = templatesFor(arche.code);
-
-      return { invest, compliance, frame, risk, arche, kit, investObj, compObj, frameObj, riskObj };
-    }
-
-    function explainWhy(r){
-      // Heuristik: Top positive impacts (INV/COM/FRAME) + Top negative impacts (COM negative keys + FRAME negative keys) + Risk contributors
-      const plus = [];
-      const minus = [];
-
-      // Collect signed impacts from details
-      const det = []
-        .concat(r.investObj.details.map(d=>({ ...d, cat:"INVEST" })))
-        .concat(r.compObj.details.map(d=>({ ...d, cat:"COMPLIANCE" })))
-        .concat(r.frameObj.details.map(d=>({ ...d, cat:"FRAME" })));
-
-      // Normalize to comparable magnitude
-      const scored = det
-        .filter(d=>Number.isFinite(d.impact) && d.weight !== 0)
-        .map(d=>{
-          const magnitude = Math.abs(d.impact);
-          return { ...d, magnitude };
-        })
-        .sort((a,b)=>b.magnitude - a.magnitude);
-
-      for(const d of scored){
-        const text = `${keyToLabel(d.key)} → ${String(d.value)}`;
-        if(d.impact >= 0 && plus.length < 3) plus.push(text);
-        if(d.impact < 0 && minus.length < 3) minus.push(text);
-        if(plus.length >= 3 && minus.length >= 3) break;
-      }
-
-      // Risk explanation
-      if(state.moduleKey === "profile" && r.riskObj.modularPoints > 0){
-        const activeRfs = RED_FLAGS
-          .filter(x=>state.rf.items[x.id]?.enabled)
-          .map(x=>x.name);
-
-        if(activeRfs.length){
-          minus.unshift(`Red Flags aktiv: ${activeRfs.slice(0,4).join(", ")}${activeRfs.length>4 ? " …":""}`);
-          if(minus.length > 3) minus.length = 3;
-        }
-      } else if(r.risk > 55){
-        minus.unshift("Risk hoch: Drama/Attention erhöht");
-        if(minus.length > 3) minus.length = 3;
-      }
-
-      // Fallbacks
-      if(!plus.length) plus.push("Keine starken Plus-Signale im gewählten Modul");
-      if(!minus.length) minus.push("Keine starken Minus-Signale im gewählten Modul");
-
-      return { plus, minus };
-    }
-
-    // =========================
-    // Render
-    // =========================
     function setSelectedUI(stepId){
       const opts = elOptions.querySelectorAll(".opt");
       opts.forEach(btn=>{
         btn.classList.remove("isSelected");
         const v = btn.getAttribute("data-value");
         const ans = state.answers[stepId];
-        if (ans && v != null && String(ans.value) === String(v)) btn.classList.add("isSelected");
+        if (ans && v && String(ans.value) === String(v)) btn.classList.add("isSelected");
       });
     }
 
+    function animateText(el, text){
+      const prefersReduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if (prefersReduce){
+        el.textContent = text;
+        return;
+      }
+      el.style.opacity = "0";
+      el.style.transform = "translateY(4px)";
+      requestAnimationFrame(()=>{
+        el.textContent = text;
+        el.style.transition = "opacity 220ms var(--easeOut), transform 220ms var(--easeOut)";
+        el.style.opacity = "1";
+        el.style.transform = "translateY(0)";
+        setTimeout(()=>{
+          el.style.transition = "";
+        }, 260);
+      });
+    }
+
+    // --- DEMO COMPUTE (nur UI, später ersetzt du das mit deiner echten Engine) ---
+    function computeDemo(){
+      const mode = state.answers.mode?.value ?? "private";
+      const goal = state.answers.goal?.value ?? "cost";
+      const interest = state.answers.systemInterest?.value ?? "compare";
+      const urgency = state.answers.urgency?.value ?? "soon";
+      const budget = state.answers.budget?.value ?? "mid";
+
+      // Portfolio Einfluss
+      const portfolioSize = state.answers.portfolioSize?.value ?? "small";
+
+      // Grobe UI-Heuristik (nur Beispiel)
+      let baseWpYear = 2200;
+      let baseThermYear = 2600;
+
+      if (mode === "portfolio"){
+        // im Portfolio wirkt Bündelung (UI-Simulation)
+        baseWpYear -= (portfolioSize === "large") ? 220 : (portfolioSize === "mid") ? 140 : 80;
+        baseThermYear -= (portfolioSize === "large") ? 160 : (portfolioSize === "mid") ? 110 : 60;
+      }
+
+      if (budget === "low"){ baseWpYear += 180; baseThermYear += 120; }
+      if (budget === "high"){ baseWpYear -= 120; baseThermYear -= 80; }
+
+      // Ziel beeinflusst Darstellung leicht
+      let status = "Vorqualifizierung";
+      if (urgency === "now") status = "Priorisiert";
+      if (urgency === "later") status = "Planung";
+
+      const maint = (interest === "therme") ? "Wartung integriert" : "Wartung optional";
+      const lead = (urgency === "now") ? "Vorlauf: 7–21 Tage" : (urgency === "soon") ? "Vorlauf: 3–8 Wochen" : "Vorlauf: planbar";
+
+      // 10-Jahres (inkl. Invest-Platzhalter)
+      let investWp = 24000;
+      let investTherm = 13500;
+
+      if (mode === "portfolio"){
+        investWp *= 0.96;
+        investTherm *= 0.98;
+      }
+
+      if (budget === "low"){ investWp *= 0.92; investTherm *= 0.90; }
+      if (budget === "high"){ investWp *= 1.08; investTherm *= 1.10; }
+
+      // Wartung (Beispiel)
+      const maintWp10 = 10 * 220;
+      const maintTherm10 = 10 * 320;
+
+      const totalWp10 = investWp + 10 * baseWpYear + maintWp10;
+      const totalTherm10 = investTherm + 10 * baseThermYear + maintTherm10;
+
+      // Break-even (sehr grob)
+      const deltaInvest = investWp - investTherm;
+      const deltaYear = (baseThermYear - baseWpYear); // wenn positiv, WP hat weniger Jahreskosten
+      let be = "–";
+      if (deltaYear > 0){
+        const years = deltaInvest / deltaYear;
+        be = (years > 0 && years < 50) ? `${Math.round(years)} Jahre` : "spät";
+      } else {
+        be = "nicht erreicht";
+      }
+
+      // Entscheidung
+      const better = (totalWp10 < totalTherm10) ? "Wärmepumpe" : "Therme+";
+      let choose = better;
+      if (interest === "wp") choose = "Wärmepumpe (Fokus)";
+      if (interest === "therme") choose = "Therme+ (Fokus)";
+      if (interest === "compare") choose = `Empfehlung: ${better}`;
+
+      // Haupt-KPI (jährliche Heizgesamtkosten – UI-Definition)
+      // Als Hauptwert nehmen wir den günstigeren Jahreswert, wenn compare.
+      let mainYear = baseThermYear;
+      if (interest === "wp") mainYear = baseWpYear;
+      if (interest === "therme") mainYear = baseThermYear;
+      if (interest === "compare") mainYear = Math.min(baseWpYear, baseThermYear);
+
+      // Dokumentation (UI)
+      let docs = 4;
+      if (mode === "portfolio") docs = 6;
+      if (goal === "risk") docs += 1;
+
+      // Transparenztext
+      const why = [
+        "Transparenz: Beispiel-Engine nutzt Invest-Platzhalter, Jahreskostenannahmen und Wartungspauschalen.",
+        "In der Live-Version wird die Berechnung mit deinen echten Parametern und der finalen Logik ausgeführt.",
+        "Ergebnis wird inklusive Herleitung, Annahmen und Sensitivitäten dokumentiert."
+      ].join(" ");
+
+      return {
+        mode, goal, interest, urgency, budget, portfolioSize,
+        baseWpYear, baseThermYear,
+        totalWp10, totalTherm10,
+        mainYear, be,
+        status, maint, lead,
+        docs,
+        choose,
+        partner: PARTNER_DEFAULT,
+        why
+      };
+    }
+
+    function tagsFromAnswers(){
+      const tags = [];
+      const mode = state.answers.mode?.value;
+      if (mode === "private") tags.push("Einzelobjekt");
+      if (mode === "portfolio") tags.push("Portfolio");
+
+      const goal = state.answers.goal?.value;
+      if (goal === "cost") tags.push("Kostenfokus");
+      if (goal === "speed") tags.push("Umsetzung");
+      if (goal === "risk") tags.push("Risikofokus");
+
+      const interest = state.answers.systemInterest?.value;
+      if (interest === "wp") tags.push("Wärmepumpe");
+      if (interest === "therme") tags.push("Therme+");
+      if (interest === "compare") tags.push("Vergleich");
+
+      const urgency = state.answers.urgency?.value;
+      if (urgency === "now") tags.push("Sofort");
+      if (urgency === "soon") tags.push("1–3 Monate");
+      if (urgency === "later") tags.push("Später");
+
+      return tags.slice(0, 6);
+    }
+
+    function renderResult(){
+      const c = computeDemo();
+      state.computed = c;
+      saveState();
+
+      const delta10 = c.totalWp10 - c.totalTherm10;
+      const deltaTxt = (delta10 < 0) ? `Wärmepumpe spart ${euro(Math.abs(delta10))}` : `Therme+ spart ${euro(delta10)}`;
+
+      animateText(elMainKpi, `${euro(round2(c.mainYear))} / Jahr`);
+      animateText(elKpi10, euro(round2(Math.min(c.totalWp10, c.totalTherm10))));
+      animateText(elKpiBe, c.be);
+      animateText(elKpiMaint, c.maint);
+      animateText(elKpiStatus, c.status);
+
+      animateText(elRowWp, `${euro(round2(c.totalWp10))}`);
+      animateText(elRowTherm, `${euro(round2(c.totalTherm10))}`);
+      animateText(elRowDelta, deltaTxt);
+      animateText(elBestPick, c.choose);
+
+      animateText(elDocCount, `${c.docs} Dokumente`);
+      animateText(elRowPartner, c.partner);
+      animateText(elRowLead, c.lead);
+      animateText(elRowDocs, `${c.docs} Einträge`);
+
+      animateText(elWhyBox, c.why);
+
+      // Tags
+      elTagRow.innerHTML = "";
+      for (const t of tagsFromAnswers()){
+        const pill = document.createElement("div");
+        pill.className = "tagPill";
+        pill.textContent = t;
+        elTagRow.appendChild(pill);
+      }
+
+      elResultWrap.style.display = "block";
+      triggerFade(elResultWrap);
+    }
+
+    function buildAnswerSummary(){
+      const act = activeSteps();
+      const lines = [];
+      for (const step of act){
+        if (step.id === "result") continue;
+        const ans = state.answers[step.id];
+        if (!ans) continue;
+        lines.push(`- ${step.question}: ${ans.label}`);
+      }
+      return lines.join("\\n");
+    }
+
+    function buildResultSummary(){
+      const c = state.computed ?? computeDemo();
+      const lines = [
+        "ERGEBNIS (Demo UI)",
+        `Haupt-KPI (Jahreskosten): ${euro(round2(c.mainYear))} / Jahr`,
+        "",
+        "Vergleich (10 Jahre):",
+        `- Wärmepumpe: ${euro(round2(c.totalWp10))}`,
+        `- Therme+: ${euro(round2(c.totalTherm10))}`,
+        "",
+        `Empfehlung: ${c.choose}`,
+        `Break-even: ${c.be}`,
+        `Wartung: ${c.maint}`,
+        `Projektstatus: ${c.status}`,
+        "",
+        "Eingaben:",
+        buildAnswerSummary()
+      ];
+      return lines.join("\\n");
+    }
+
+    function buildMailto(name, email, phone){
+      const now = new Date();
+      const ts = now.toLocaleString("de-DE");
+      const subject = `OSION Energy Anfrage – Demo UI (${name})`;
+
+      const body = [
+        "Hallo,",
+        "",
+        "ich möchte eine Beratung bzw. ein Angebot anfragen.",
+        "",
+        "Kontaktdaten:",
+        `- Name: ${name}`,
+        `- E-Mail: ${email}`,
+        phone ? `- Telefon: ${phone}` : "- Telefon: (nicht angegeben)",
+        "",
+        buildResultSummary(),
+        "",
+        `Zeitpunkt: ${ts}`,
+        "",
+        "Hinweis: Dieses Ergebnis stammt aus einer Demo-Oberfläche."
+      ].join("\\n");
+
+      return `mailto:${encodeURIComponent(LEAD_TO_EMAIL)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    }
+
+    // --- MODAL ---
+    function openModal(){
+      elLeadError.classList.remove("isOpen");
+      elModalOverlay.classList.add("isOpen");
+      elModalOverlay.setAttribute("aria-hidden", "false");
+      document.body.style.overflow = "hidden";
+      setTimeout(()=> elLeadName.focus(), 60);
+    }
+    function closeModal(){
+      elModalOverlay.classList.remove("isOpen");
+      elModalOverlay.setAttribute("aria-hidden", "true");
+      document.body.style.overflow = "";
+    }
+
+    elCtaOpen.addEventListener("click", openModal);
+    elModalClose.addEventListener("click", closeModal);
+    elModalCancel.addEventListener("click", closeModal);
+    elModalOverlay.addEventListener("click", (e)=>{ if (e.target === elModalOverlay) closeModal(); });
+    window.addEventListener("keydown", (e)=>{ if (e.key === "Escape" && elModalOverlay.classList.contains("isOpen")) closeModal(); });
+
+    elLeadSend.addEventListener("click", ()=>{
+      const name = String(elLeadName.value || "").trim();
+      const email = String(elLeadEmail.value || "").trim();
+      const phone = String(elLeadPhone.value || "").trim();
+      const consent = elLeadConsent.checked === true;
+
+      if (!name || !isValidEmail(email) || !consent){
+        elLeadError.classList.add("isOpen");
+        return;
+      }
+      elLeadError.classList.remove("isOpen");
+      const link = buildMailto(name, email, phone);
+      closeModal();
+      window.location.href = link;
+    });
+
+    // --- NAV ---
+    function goNext(){
+      const act = activeSteps();
+      if (state.stepIndex < act.length - 1){
+        state.stepIndex++;
+        saveState();
+        render();
+      }
+    }
+    function goBack(){
+      if (state.stepIndex > 0){
+        state.stepIndex--;
+        saveState();
+        render();
+      }
+    }
+    elBack.addEventListener("click", goBack);
+    elResetBtn.addEventListener("click", resetAll);
+
+    // --- RENDER ---
     function render(){
-      const step = state.steps[state.stepIndex];
-      setProgress();
+      const { act, step } = currentActive();
+      const totalSteps = act.length;
+
+      setProgress(totalSteps);
 
       elQuestion.textContent = step.question;
       elHint.textContent = step.hint;
@@ -1759,40 +1418,10 @@
       elOptions.innerHTML = "";
       elResultWrap.style.display = "none";
 
-      // Konfig nur im Profil + rf_step offen
-      closeCfg();
-
       elBack.disabled = state.stepIndex === 0;
 
-      // Header Subtext modul-spezifisch
-      const m = MODULES[state.moduleKey];
-      elSubText.textContent = `${m.name}: ${m.subtitle}`;
-
-      if(step.id === "result"){
-        const r = computeAll();
-        const why = explainWhy(r);
-
-        elClassOut.textContent = `${r.arche.code} · ${r.arche.label}`;
-        elClassOut.classList.remove("badgeGood","badgeWarn","badgeBad");
-        elClassOut.classList.add(r.arche.css);
-
-        elRecOut.textContent = r.kit.rec;
-
-        elInvOut.textContent = r.invest;
-        elComOut.textContent = r.compliance;
-        elFrmOut.textContent = r.frame;
-        elRskOut.textContent = r.risk;
-
-        elWhyPlus.innerHTML = why.plus.map(x=>`<li>${escapeHtml(x)}</li>`).join("");
-        elWhyMinus.innerHTML = why.minus.map(x=>`<li>${escapeHtml(x)}</li>`).join("");
-
-        elNextOut.textContent = r.kit.next;
-        elT1Out.textContent = r.kit.t[0];
-        elT2Out.textContent = r.kit.t[1];
-        elT3Out.textContent = r.kit.t[2];
-
-        elResultWrap.style.display = "block";
-        triggerFade(elResultWrap);
+      if (step.id === "result"){
+        renderResult();
         return;
       }
 
@@ -1802,57 +1431,48 @@
         btn.className="opt";
         btn.setAttribute("data-value", opt.value);
 
-        btn.innerHTML = `
-          <div class="optText">
-            <div class="optMain">${escapeHtml(opt.label)}</div>
-            ${opt.sub ? `<div class="optSub">${escapeHtml(opt.sub)}</div>` : ``}
-          </div>
-          <div class="chev" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none">
-              <path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </div>
+        const text = document.createElement("div");
+        text.className="optText";
+
+        const main = document.createElement("div");
+        main.className="optMain";
+        main.textContent = opt.label;
+
+        const sub = document.createElement("div");
+        sub.className="optSub";
+        sub.textContent = opt.sub || "";
+
+        text.appendChild(main);
+        if (opt.sub) text.appendChild(sub);
+
+        const chev = document.createElement("div");
+        chev.className="chev";
+        chev.innerHTML = `
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
         `;
 
+        btn.appendChild(text);
+        btn.appendChild(chev);
+
         btn.addEventListener("click", ()=>{
-          pulse(elOptions);
+          elOptions.classList.remove("pulse");
+          void elOptions.offsetWidth;
+          elOptions.classList.add("pulse");
 
-          // Modul-Auswahl
-          if(step.id === "module"){
-            state.moduleKey = String(opt.value);
-            state.presetKey = "balanced";
-            state.answers = { module:{ value:state.moduleKey, label:opt.label } };
-            rebuildSteps();
-            goNext();
-            return;
-          }
+          state.answers[step.id] = opt;
 
-          // Preset
-          if(step.id === "preset"){
-            state.presetKey = String(opt.value);
-            state.answers.preset = { value:state.presetKey, label:opt.label };
-            goNext();
-            return;
-          }
-
-          // Profil-Modul: Red-Flag-Step mit funktionierendem Button
-          if(step.id === "rf_step"){
-            state.answers.rf_step = { value: opt.value, label: opt.label };
-
-            if(opt.value === "open"){
-              openCfg();            // zeigt den Katalog
-              // NICHT weitergehen – erst nach "Übernehmen"
-              return;
-            }
-            if(opt.value === "skip"){
-              closeCfg();
-              goNext();
-              return;
+          // Wenn Modus wechselt: Mode-spezifische Felder bereinigen
+          if (step.id === "mode"){
+            if (opt.value === "private"){
+              delete state.answers.portfolioSize;
+            } else {
+              delete state.answers.assetType;
             }
           }
 
-          // Normaler Step
-          state.answers[step.id] = { value: opt.value, label: opt.label };
+          saveState();
           goNext();
         });
 
@@ -1863,55 +1483,8 @@
       triggerFade(elOptions);
     }
 
-    function goNext(){
-      if (state.stepIndex < state.steps.length - 1){
-        state.stepIndex++;
-        render();
-      }
-    }
-    function goBack(){
-      if (state.stepIndex > 0){
-        state.stepIndex--;
-        render();
-      }
-    }
-
-    document.getElementById("backBtn").addEventListener("click", goBack);
-
-    elRestartBtn.addEventListener("click", ()=>{
-      state.moduleKey = "chat";
-      state.presetKey = "balanced";
-      state.answers = {};
-      state.stepIndex = 0;
-      rebuildSteps();
-      render();
-    });
-
-    function rebuildSteps(){
-      state.steps = buildStepsForModule(state.moduleKey);
-      // Preset-Optionen updaten (weil Modul wechselbar)
-      const presetStep = state.steps.find(s=>s.id === "preset");
-      if(presetStep){
-        presetStep.options = getPresetOptions(state.moduleKey);
-      }
-      // Fortschritt reset (aber nicht zwingend)
-      state.stepIndex = Math.min(state.stepIndex, state.steps.length - 1);
-      ensureRfDefaults();
-      syncGlobalSliders();
-      refreshCfgLive();
-    }
-
-    function escapeHtml(s){
-      return String(s ?? "")
-        .replaceAll("&","&amp;")
-        .replaceAll("<","&lt;")
-        .replaceAll(">","&gt;")
-        .replaceAll('"',"&quot;")
-        .replaceAll("'","&#039;");
-    }
-
-    // Init
-    rebuildSteps();
+    // INIT
+    loadState();
     render();
   </script>
 </body>
