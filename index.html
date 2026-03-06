@@ -1,21 +1,21 @@
-<!-- File: index.html (single-file version) -->
+<!-- File: index.html (Single-File • Mobile-first • Deutsch • 16-Step Wizard • Soundless-Chime • Premium) -->
 <!doctype html>
-<html lang="en">
+<html lang="de">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
     <meta name="color-scheme" content="dark light" />
     <title>Venture Resonance Studio</title>
     <meta
       name="description"
-      content="A symbolic reflection studio for founders, ventures and business cycles — archetypes, tensions, cycles, and strategic prompts."
+      content="Symbolisches Reflexionsstudio für Gründer:innen und Unternehmen – Archetypen, Spannungsachsen, Zyklen, Sonne/Mond/Aszendent als Metaphern."
     />
 
     <style>
       :root {
         --bg: #07090f;
         --panel: rgba(255, 255, 255, 0.06);
-        --panel2: rgba(255, 255, 255, 0.08);
+        --panel2: rgba(255, 255, 255, 0.085);
         --line: rgba(255, 255, 255, 0.12);
         --text: rgba(255, 255, 255, 0.92);
         --muted: rgba(255, 255, 255, 0.68);
@@ -24,281 +24,285 @@
         --gold: rgba(196, 162, 92, 0.95);
         --sand: rgba(233, 222, 199, 0.95);
         --silver: rgba(218, 226, 240, 0.9);
+        --ice: rgba(140, 180, 255, 0.75);
 
-        --shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
-        --shadow2: 0 28px 90px rgba(0, 0, 0, 0.55);
-        --radius: 22px;
-        --radius2: 28px;
+        --shadow: 0 18px 55px rgba(0, 0, 0, 0.42);
+        --shadow2: 0 28px 90px rgba(0, 0, 0, 0.60);
+        --radius: 20px;
+        --radius2: 26px;
 
         --serif: ui-serif, "Iowan Old Style", "Palatino Linotype", Palatino, Garamond, serif;
-        --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji",
-          "Segoe UI Emoji";
+        --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+
+        /* Safe area for iPhone */
+        --sat: env(safe-area-inset-top);
+        --sab: env(safe-area-inset-bottom);
+        --sal: env(safe-area-inset-left);
+        --sar: env(safe-area-inset-right);
       }
 
       * { box-sizing: border-box; }
       html, body { height: 100%; }
-
       body {
         margin: 0;
         color: var(--text);
         background:
-          radial-gradient(1400px 700px at 30% -10%, rgba(196, 162, 92, 0.10), transparent 60%),
-          radial-gradient(900px 500px at 90% 10%, rgba(140, 180, 255, 0.10), transparent 50%),
-          radial-gradient(1200px 800px at 50% 110%, rgba(233, 222, 199, 0.08), transparent 55%),
+          radial-gradient(1200px 620px at 20% -10%, rgba(196, 162, 92, 0.12), transparent 60%),
+          radial-gradient(900px 520px at 95% 10%, rgba(140, 180, 255, 0.12), transparent 55%),
+          radial-gradient(900px 650px at 50% 120%, rgba(233, 222, 199, 0.08), transparent 55%),
           var(--bg);
         font-family: var(--sans);
         letter-spacing: 0.2px;
+        -webkit-font-smoothing: antialiased;
+        text-rendering: geometricPrecision;
+        overflow-x: hidden;
       }
 
+      /* Premium ambient */
       .bg-orbit {
         position: fixed;
-        inset: -30vh -30vw;
+        inset: -35vh -35vw;
         pointer-events: none;
-        opacity: 0.35;
+        opacity: 0.34;
         filter: blur(0.2px);
         background:
           radial-gradient(circle at 40% 40%, rgba(255, 255, 255, 0.08), transparent 40%),
-          radial-gradient(circle at 60% 55%, rgba(196, 162, 92, 0.08), transparent 42%),
+          radial-gradient(circle at 60% 55%, rgba(196, 162, 92, 0.09), transparent 42%),
           conic-gradient(from 210deg, rgba(255,255,255,0.0), rgba(255,255,255,0.05), rgba(255,255,255,0.0));
-        mask-image: radial-gradient(circle at 50% 50%, rgba(0,0,0,0.8) 35%, transparent 70%);
+        mask-image: radial-gradient(circle at 50% 50%, rgba(0,0,0,0.86) 35%, transparent 72%);
       }
 
+      /* Typography */
       h1, h2, h3 {
         font-family: var(--serif);
-        letter-spacing: 0.1px;
+        letter-spacing: 0.08px;
         margin: 0;
       }
-      h1 { font-size: clamp(2rem, 3.2vw, 3.2rem); line-height: 1.05; }
-      h2 { font-size: clamp(1.6rem, 2.2vw, 2.2rem); line-height: 1.1; }
-      h3 { font-size: 1.15rem; line-height: 1.2; }
+      h1 { font-size: clamp(1.85rem, 5.5vw, 3.0rem); line-height: 1.06; }
+      h2 { font-size: clamp(1.45rem, 4.2vw, 2.1rem); line-height: 1.12; }
+      h3 { font-size: 1.12rem; line-height: 1.2; }
       p { margin: 0; }
 
+      .muted { color: var(--muted); }
+      .faint { color: var(--faint); }
+      .small { font-size: 0.9rem; }
+
+      /* Layout (mobile-first) */
       main {
-        width: min(1160px, calc(100% - 40px));
+        width: 100%;
         margin: 0 auto;
-        padding: 26px 0 90px;
+        padding: calc(14px + var(--sat)) calc(14px + var(--sal)) calc(120px + var(--sab)) calc(14px + var(--sar));
+        max-width: 980px;
       }
 
-      /* Topbar */
+      /* Topbar: compact on mobile */
       .topbar {
         position: sticky;
         top: 0;
-        z-index: 50;
+        z-index: 70;
         backdrop-filter: blur(14px);
-        background: linear-gradient(to bottom, rgba(7, 9, 15, 0.86), rgba(7, 9, 15, 0.40));
+        background: linear-gradient(to bottom, rgba(7, 9, 15, 0.90), rgba(7, 9, 15, 0.40));
         border-bottom: 1px solid rgba(255,255,255,0.10);
+        padding-top: var(--sat);
       }
-      .topbar {
+      .topbar-inner {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        gap: 18px;
-        padding: 14px 20px;
+        gap: 12px;
+        padding: 10px calc(14px + var(--sal)) 10px calc(14px + var(--sar));
       }
-
-      .brand { display: flex; align-items: center; gap: 12px; min-width: 260px; }
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        min-width: 0;
+      }
       .brand-mark {
-        width: 34px;
-        height: 34px;
+        width: 32px;
+        height: 32px;
         border-radius: 14px;
         background:
           radial-gradient(circle at 30% 30%, rgba(255,255,255,0.22), rgba(255,255,255,0.06)),
           linear-gradient(160deg, rgba(196,162,92,0.55), rgba(218,226,240,0.10));
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+        box-shadow: 0 10px 26px rgba(0, 0, 0, 0.35);
         border: 1px solid rgba(255,255,255,0.14);
+        flex: 0 0 auto;
       }
-      .brand-title { font-family: var(--serif); font-size: 1.02rem; }
-      .brand-sub { color: var(--muted); font-size: 0.82rem; margin-top: 2px; }
-      .brand-text { display: grid; }
+      .brand-text { display: grid; min-width: 0; }
+      .brand-title {
+        font-family: var(--serif);
+        font-size: 0.98rem;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .brand-sub { color: var(--muted); font-size: 0.80rem; margin-top: 2px; }
 
-      .topnav { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; justify-content: flex-end; }
+      .topnav {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex: 0 0 auto;
+      }
       .navlink {
         appearance: none;
         border: 1px solid rgba(255,255,255,0.12);
         background: rgba(255,255,255,0.04);
         color: var(--text);
-        padding: 8px 10px;
+        padding: 9px 10px;
         border-radius: 14px;
         cursor: pointer;
         transition: transform 140ms ease, background 140ms ease, border-color 140ms ease;
         font-size: 0.88rem;
+        line-height: 1;
+        min-height: 40px;
       }
-      .navlink:hover {
-        transform: translateY(-1px);
-        background: rgba(255,255,255,0.06);
-        border-color: rgba(255,255,255,0.18);
-      }
+      .navlink:hover { transform: translateY(-1px); background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.18); }
       .navlink.subtle { color: var(--muted); }
+      .navlink[disabled] { opacity: 0.5; cursor: not-allowed; transform: none !important; }
 
-      /* Screens */
-      .screen {
-        padding: 34px 0;
-        border-bottom: 1px solid rgba(255,255,255,0.06);
+      /* Stepper (compact) */
+      .stepper {
+        padding: 10px calc(14px + var(--sal)) 12px calc(14px + var(--sar));
+        border-top: 1px solid rgba(255,255,255,0.06);
       }
-      .hero { padding-top: 44px; }
-
-      .hero-grid {
-        display: grid;
-        grid-template-columns: 1.2fr 0.8fr;
-        gap: 22px;
-        align-items: start;
+      .stepper-top {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+      .stepper-title { color: var(--muted); font-size: 0.95rem; }
+      .stepper-title strong { color: var(--text); font-family: var(--serif); font-weight: 600; }
+      .stepper-hint { color: var(--faint); font-size: 0.88rem; }
+      .progressbar {
+        margin-top: 10px;
+        width: 100%;
+        height: 9px;
+        border-radius: 999px;
+        border: 1px solid rgba(255,255,255,0.10);
+        background: rgba(255,255,255,0.04);
+        overflow: hidden;
+      }
+      .progressbar > div {
+        height: 100%;
+        width: 0%;
+        background: linear-gradient(90deg, rgba(196,162,92,0.22), rgba(140,180,255,0.18), rgba(233,222,199,0.18));
+        border-right: 1px solid rgba(255,255,255,0.10);
+        transition: width 240ms ease;
       }
 
+      /* Sections */
+      .screen { padding: 18px 0; border-bottom: 1px solid rgba(255,255,255,0.06); }
+      .screen-head { display: grid; gap: 10px; margin-bottom: 14px; }
+
+      /* Hero (mobile-first single column) */
       .kicker {
         color: var(--sand);
-        letter-spacing: 0.32em;
+        letter-spacing: 0.30em;
         text-transform: uppercase;
-        font-size: 0.78rem;
-        opacity: 0.9;
-        margin-bottom: 14px;
+        font-size: 0.76rem;
+        opacity: 0.92;
+        margin-bottom: 12px;
       }
-      .lead {
-        color: var(--muted);
-        font-size: 1.02rem;
-        line-height: 1.55;
-        margin-top: 16px;
-        max-width: 62ch;
-      }
-      .hero-cta { display: flex; gap: 10px; margin-top: 22px; flex-wrap: wrap; }
-      .micro-note { margin-top: 14px; color: var(--faint); font-size: 0.9rem; }
+      .lead { color: var(--muted); font-size: 1.02rem; line-height: 1.62; margin-top: 14px; max-width: 70ch; }
+
+      .hero-cta { display: flex; gap: 10px; margin-top: 18px; flex-wrap: wrap; }
+      .micro-note { margin-top: 12px; color: var(--faint); font-size: 0.92rem; }
 
       .hero-card {
+        margin-top: 16px;
         border: 1px solid rgba(255,255,255,0.10);
         border-radius: var(--radius2);
         background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));
         box-shadow: var(--shadow2);
-        padding: 18px 18px 16px;
+        padding: 16px;
         position: relative;
         overflow: hidden;
       }
       .hero-card::before {
         content: "";
         position: absolute;
-        inset: -30% -30%;
+        inset: -35% -35%;
         background:
-          radial-gradient(circle at 30% 25%, rgba(196, 162, 92, 0.10), transparent 45%),
-          radial-gradient(circle at 70% 65%, rgba(218, 226, 240, 0.08), transparent 52%);
+          radial-gradient(circle at 30% 25%, rgba(196, 162, 92, 0.11), transparent 45%),
+          radial-gradient(circle at 70% 65%, rgba(218, 226, 240, 0.09), transparent 52%);
         transform: rotate(6deg);
         pointer-events: none;
       }
-      .card-title { position: relative; z-index: 1; font-family: var(--serif); font-size: 1.05rem; }
-      .bullets { position: relative; z-index: 1; margin: 12px 0 0; padding-left: 18px; color: var(--muted); line-height: 1.6; }
+      .card-title { position: relative; z-index: 1; font-family: var(--serif); font-size: 1.06rem; }
+      .bullets { position: relative; z-index: 1; margin: 12px 0 0; padding-left: 18px; color: var(--muted); line-height: 1.65; }
 
       .callout {
         position: relative;
         z-index: 1;
-        margin-top: 16px;
+        margin-top: 14px;
         padding: 12px 12px;
         border-radius: 18px;
         border: 1px solid rgba(255,255,255,0.10);
         background: rgba(0,0,0,0.18);
       }
-      .callout-title {
-        color: var(--sand);
-        font-size: 0.85rem;
-        letter-spacing: 0.18em;
-        text-transform: uppercase;
-      }
-      .callout-body {
-        margin-top: 6px;
-        color: var(--text);
-        font-family: var(--serif);
-        font-size: 1.02rem;
-      }
+      .callout-title { color: var(--sand); font-size: 0.84rem; letter-spacing: 0.18em; text-transform: uppercase; }
+      .callout-body { margin-top: 6px; color: var(--text); font-family: var(--serif); font-size: 1.02rem; line-height: 1.35; }
 
+      /* Buttons (touch-first) */
       .btn {
         appearance: none;
         border: 1px solid rgba(255,255,255,0.12);
         background: rgba(255,255,255,0.05);
         color: var(--text);
-        padding: 11px 14px;
+        padding: 12px 14px;
         border-radius: 16px;
         cursor: pointer;
         transition: transform 140ms ease, background 140ms ease, border-color 140ms ease;
-        font-size: 0.95rem;
+        font-size: 0.98rem;
+        min-height: 46px;
+        line-height: 1;
       }
-      .btn:hover {
-        transform: translateY(-1px);
-        background: rgba(255,255,255,0.07);
-        border-color: rgba(255,255,255,0.18);
-      }
-      .btn.primary {
-        border-color: rgba(196,162,92,0.35);
-        background: linear-gradient(180deg, rgba(196,162,92,0.18), rgba(255,255,255,0.05));
-      }
+      .btn:hover { transform: translateY(-1px); background: rgba(255,255,255,0.07); border-color: rgba(255,255,255,0.18); }
+      .btn.primary { border-color: rgba(196,162,92,0.35); background: linear-gradient(180deg, rgba(196,162,92,0.20), rgba(255,255,255,0.05)); }
       .btn.ghost { color: var(--muted); }
+      .btn.subtle { color: var(--faint); border-color: rgba(255,255,255,0.10); }
+      .btn[disabled] { opacity: 0.55; cursor: not-allowed; transform: none !important; }
 
-      .screen-head { display: grid; gap: 10px; margin-bottom: 18px; }
-      .muted { color: var(--muted); }
-      .faint { color: var(--faint); }
-      .small { font-size: 0.88rem; }
-
-      /* Form */
-      .form-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 14px;
-        padding: 16px;
+      /* Wizard shell */
+      .wizard-shell {
         border-radius: var(--radius2);
         border: 1px solid rgba(255,255,255,0.10);
-        background: rgba(255,255,255,0.04);
-        box-shadow: 0 18px 55px rgba(0, 0, 0, 0.28);
-      }
-      .field { display: grid; gap: 8px; }
-      label { font-size: 0.9rem; color: var(--faint); }
-      input, select, textarea {
-        width: 100%;
-        padding: 12px 12px;
-        border-radius: 16px;
-        border: 1px solid rgba(255,255,255,0.12);
-        background: rgba(0,0,0,0.20);
-        color: var(--text);
-        outline: none;
-      }
-      textarea { resize: vertical; min-height: 72px; }
-      input:focus, select:focus, textarea:focus {
-        border-color: rgba(196,162,92,0.40);
-        box-shadow: 0 0 0 4px rgba(196,162,92,0.10);
-      }
-      .col-span-2 { grid-column: span 2; }
-      .actions { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
-      .hint { color: var(--muted); font-size: 0.9rem; }
-
-      /* Results */
-      .empty {
-        border-radius: var(--radius2);
-        border: 1px dashed rgba(255,255,255,0.14);
-        padding: 18px;
         background: rgba(255,255,255,0.03);
+        box-shadow: 0 18px 70px rgba(0, 0, 0, 0.35);
+        overflow: hidden;
       }
-      .empty-title { font-family: var(--serif); font-size: 1.2rem; }
-      .empty-body { margin-top: 6px; color: var(--muted); }
-      .hidden { display: none !important; }
+      .wizard-stage {
+        padding: 14px;
+        min-height: 420px;
+        display: grid;
+        align-content: start;
+        gap: 12px;
+        position: relative;
+      }
 
-      .results { display: grid; gap: 24px; }
-      .cards { display: grid; grid-template-columns: repeat(12, 1fr); gap: 14px; }
-
-      .card {
-        grid-column: span 4;
+      .wizard-card {
         border-radius: var(--radius2);
         border: 1px solid rgba(255,255,255,0.10);
-        background: linear-gradient(180deg, rgba(255,255,255,0.055), rgba(255,255,255,0.03));
-        padding: 16px;
-        box-shadow: 0 18px 60px rgba(0, 0, 0, 0.35);
+        background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));
+        box-shadow: var(--shadow);
+        padding: 14px;
         position: relative;
         overflow: hidden;
       }
-      .card::after {
+      .wizard-card::after {
         content: "";
         position: absolute;
-        inset: -40%;
+        inset: -45%;
         background:
           radial-gradient(circle at 25% 25%, rgba(218,226,240,0.06), transparent 52%),
           radial-gradient(circle at 70% 70%, rgba(196,162,92,0.06), transparent 55%);
         pointer-events: none;
       }
-      .card-top { position: relative; z-index: 1; display: grid; gap: 8px; margin-bottom: 10px; }
-      .card-body { position: relative; z-index: 1; }
+      .wizard-card > * { position: relative; z-index: 1; }
 
       .chip {
         width: fit-content;
@@ -307,13 +311,98 @@
         border: 1px solid rgba(255,255,255,0.12);
         background: rgba(0,0,0,0.16);
         color: var(--muted);
-        font-size: 0.78rem;
+        font-size: 0.76rem;
         letter-spacing: 0.16em;
         text-transform: uppercase;
       }
 
-      .prose { color: var(--muted); line-height: 1.6; }
-      .big { font-family: var(--serif); font-size: 1.32rem; margin-bottom: 8px; color: var(--text); }
+      .prompt-title { font-family: var(--serif); font-size: 1.22rem; line-height: 1.18; margin-top: 10px; }
+      .prompt-body { color: var(--muted); line-height: 1.68; max-width: 78ch; margin-top: 10px; }
+      .prompt-body strong { color: var(--text); font-weight: 600; }
+
+      /* Fields mobile-first: one column */
+      .field-grid { display: grid; grid-template-columns: 1fr; gap: 12px; margin-top: 10px; }
+      .field { display: grid; gap: 8px; }
+      label { font-size: 0.92rem; color: var(--faint); }
+      input, select, textarea {
+        width: 100%;
+        padding: 13px 12px;
+        border-radius: 16px;
+        border: 1px solid rgba(255,255,255,0.12);
+        background: rgba(0,0,0,0.22);
+        color: var(--text);
+        outline: none;
+        font-size: 1rem;
+      }
+      textarea { resize: vertical; min-height: 110px; }
+      input:focus, select:focus, textarea:focus {
+        border-color: rgba(196,162,92,0.42);
+        box-shadow: 0 0 0 4px rgba(196,162,92,0.11);
+      }
+
+      /* Step transitions */
+      .step-view { display: none; opacity: 0; transform: translateY(10px); }
+      .step-view.active { display: block; opacity: 1; transform: translateY(0); transition: opacity 260ms ease, transform 260ms ease; }
+
+      /* Sticky bottom bar (mobile perfection) */
+      .bottom-bar {
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 80;
+        padding: 10px calc(14px + var(--sal)) calc(10px + var(--sab)) calc(14px + var(--sar));
+        background: linear-gradient(to top, rgba(7,9,15,0.95), rgba(7,9,15,0.55));
+        border-top: 1px solid rgba(255,255,255,0.10);
+        backdrop-filter: blur(14px);
+      }
+      .bottom-inner {
+        max-width: 980px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        align-items: center;
+      }
+      .bottom-inner .btn { width: 100%; }
+      .bottom-meta {
+        grid-column: span 2;
+        display: flex;
+        justify-content: space-between;
+        gap: 10px;
+        color: var(--faint);
+        font-size: 0.88rem;
+        margin-top: 6px;
+      }
+      .kbd { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; font-size: 0.88em; color: rgba(255,255,255,0.70); }
+
+      /* Results (mobile-first: one column stack) */
+      .results { display: grid; gap: 16px; margin-top: 14px; }
+      .cards { display: grid; grid-template-columns: 1fr; gap: 12px; }
+
+      .card {
+        border-radius: var(--radius2);
+        border: 1px solid rgba(255,255,255,0.10);
+        background: linear-gradient(180deg, rgba(255,255,255,0.055), rgba(255,255,255,0.03));
+        padding: 14px;
+        box-shadow: var(--shadow);
+        position: relative;
+        overflow: hidden;
+      }
+      .card::after {
+        content: "";
+        position: absolute;
+        inset: -45%;
+        background:
+          radial-gradient(circle at 25% 25%, rgba(218,226,240,0.06), transparent 52%),
+          radial-gradient(circle at 70% 70%, rgba(196,162,92,0.06), transparent 55%);
+        pointer-events: none;
+      }
+      .card > * { position: relative; z-index: 1; }
+
+      .card-top { display: grid; gap: 8px; margin-bottom: 10px; }
+      .prose { color: var(--muted); line-height: 1.68; }
+      .big { font-family: var(--serif); font-size: 1.28rem; margin-bottom: 8px; color: var(--text); }
 
       .tags, .axis { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
       .badge {
@@ -333,29 +422,26 @@
         background: rgba(0,0,0,0.14);
       }
       .mini-k { font-size: 0.82rem; color: var(--faint); }
-      .mini-v { margin-top: 6px; font-family: var(--serif); color: var(--text); }
+      .mini-v { margin-top: 6px; font-family: var(--serif); color: var(--text); line-height: 1.25; }
 
-      /* Wheel */
+      /* Wheel (mobile stack) */
       .wheel-wrap {
-        margin-top: 8px;
-        padding: 18px 16px;
+        padding: 14px;
         border-radius: var(--radius2);
         border: 1px solid rgba(255,255,255,0.10);
         background: rgba(255,255,255,0.03);
       }
-      .wheel-head { display: grid; gap: 10px; margin-bottom: 14px; }
-      .wheel-grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 14px; align-items: start; }
-
+      .wheel-head { display: grid; gap: 10px; margin-bottom: 12px; }
+      .wheel-grid { display: grid; grid-template-columns: 1fr; gap: 12px; }
       .wheel-shell {
         border-radius: var(--radius2);
         border: 1px solid rgba(255,255,255,0.10);
-        background: radial-gradient(circle at 50% 40%, rgba(255,255,255,0.06), rgba(0,0,0,0.12));
-        box-shadow: 0 20px 70px rgba(0,0,0,0.35);
+        background: radial-gradient(circle at 50% 40%, rgba(255,255,255,0.07), rgba(0,0,0,0.12));
+        box-shadow: 0 20px 80px rgba(0,0,0,0.40);
         overflow: hidden;
       }
       #wheelSvg { width: 100%; height: auto; display: block; }
-
-      .wheel-legend { margin-top: 10px; font-size: 0.9rem; }
+      .wheel-legend { margin-top: 10px; font-size: 0.92rem; }
 
       .wheel-detail {
         border-radius: var(--radius2);
@@ -364,43 +450,46 @@
         padding: 14px;
       }
       .detail-top { display: grid; gap: 8px; margin-bottom: 10px; }
-      .detail-actions { margin-top: 12px; }
+      .detail-actions { margin-top: 12px; display: flex; gap: 10px; flex-wrap: wrap; }
 
-      /* Reflection */
-      .reflection { padding-top: 8px; }
-      .reflection-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 14px; }
-      .panel {
+      /* Reflection reveal cards */
+      .reveal-grid { display: grid; gap: 12px; }
+      .reveal-card {
+        border-radius: 22px;
+        border: 1px solid rgba(255,255,255,0.10);
+        background: rgba(0,0,0,0.14);
+        padding: 14px;
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      .reveal-card.show { opacity: 1; transform: translateY(0); transition: opacity 360ms ease, transform 360ms ease; }
+      .reveal-q { font-family: var(--serif); font-size: 1.02rem; color: var(--text); line-height: 1.38; }
+      .reveal-hint { margin-top: 6px; color: var(--muted); line-height: 1.62; }
+
+      /* Export */
+      .export-actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 12px; }
+      .export-sheet {
+        margin-top: 12px;
         border-radius: var(--radius2);
         border: 1px solid rgba(255,255,255,0.10);
         background: rgba(255,255,255,0.03);
         padding: 14px;
       }
-      .panel-title { font-family: var(--serif); font-size: 1.05rem; margin-bottom: 10px; }
-      .prompt-list { margin: 0; padding-left: 18px; color: var(--muted); line-height: 1.6; }
-      .divider { height: 1px; background: rgba(255,255,255,0.08); margin: 14px 0; }
-
-      /* Export */
-      .export-actions { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 14px; }
-      .export-sheet {
-        border-radius: var(--radius2);
-        border: 1px solid rgba(255,255,255,0.10);
-        background: rgba(255,255,255,0.03);
-        padding: 18px;
-      }
-      .export-hero { display: flex; gap: 12px; align-items: center; margin-bottom: 16px; }
+      .export-hero { display: flex; gap: 12px; align-items: center; margin-bottom: 14px; }
       .export-mark {
-        width: 46px;
-        height: 46px;
+        width: 44px;
+        height: 44px;
         border-radius: 18px;
         border: 1px solid rgba(255,255,255,0.14);
         background:
           radial-gradient(circle at 30% 30%, rgba(255,255,255,0.22), rgba(255,255,255,0.06)),
           linear-gradient(160deg, rgba(196,162,92,0.55), rgba(218,226,240,0.10));
+        flex: 0 0 auto;
       }
-      .export-title { font-family: var(--serif); font-size: 1.35rem; }
+      .export-title { font-family: var(--serif); font-size: 1.28rem; }
       .export-sub { margin-top: 4px; color: var(--muted); }
 
-      .export-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px; }
+      .export-grid { display: grid; grid-template-columns: 1fr; gap: 10px; margin-bottom: 12px; }
       .export-block {
         border-radius: 18px;
         border: 1px solid rgba(255,255,255,0.10);
@@ -408,7 +497,7 @@
         padding: 12px;
       }
       .export-h { color: var(--faint); text-transform: uppercase; letter-spacing: 0.18em; font-size: 0.74rem; }
-      .export-v { margin-top: 8px; font-family: var(--serif); color: var(--text); }
+      .export-v { margin-top: 8px; font-family: var(--serif); color: var(--text); line-height: 1.3; }
 
       .note-box {
         min-height: 120px;
@@ -419,20 +508,15 @@
         color: var(--text);
         outline: none;
       }
+      .divider { height: 1px; background: rgba(255,255,255,0.08); margin: 14px 0; }
 
-      .export-foot {
-        margin-top: 14px;
-        padding-top: 12px;
-        border-top: 1px solid rgba(255,255,255,0.08);
-      }
-
-      .footer { width: min(1160px, calc(100% - 40px)); margin: 0 auto 30px; }
+      .footer { padding: 22px 0 0; }
 
       /* Modal */
       .modal { border: none; padding: 0; background: transparent; }
       .modal::backdrop { background: rgba(0,0,0,0.55); backdrop-filter: blur(6px); }
       .modal-card {
-        width: min(680px, calc(100% - 28px));
+        width: min(720px, calc(100% - 28px));
         margin: 10vh auto;
         padding: 16px;
         border-radius: var(--radius2);
@@ -443,1475 +527,665 @@
       .modal-top { display: grid; gap: 8px; margin-bottom: 10px; }
       .modal-actions { display: flex; justify-content: flex-end; margin-top: 14px; }
 
-      /* Premium micro-animations */
-      @media (prefers-reduced-motion: no-preference) {
-        .brand-mark { animation: pulseGlow 4.8s ease-in-out infinite; }
-        .hero-card::before { animation: drift 10s ease-in-out infinite; }
-        .bg-orbit { animation: orbit 16s ease-in-out infinite; }
+      /* Loading */
+      .calibrating { display: grid; gap: 10px; align-content: start; padding: 10px 0 0; }
+      .cal-line {
+        height: 10px;
+        border-radius: 999px;
+        border: 1px solid rgba(255,255,255,0.10);
+        background: rgba(255,255,255,0.04);
+        overflow: hidden;
       }
-      @keyframes pulseGlow {
-        0%, 100% { transform: translateY(0); filter: saturate(1); }
-        50% { transform: translateY(-1px); filter: saturate(1.1); }
+      .cal-line > div {
+        height: 100%;
+        width: 0%;
+        background: linear-gradient(90deg, rgba(196,162,92,0.24), rgba(140,180,255,0.18), rgba(233,222,199,0.18));
+        animation: loadbar 1.2s ease-in-out infinite;
       }
-      @keyframes drift {
-        0%, 100% { transform: rotate(6deg) translateY(0); opacity: 0.9; }
-        50% { transform: rotate(9deg) translateY(8px); opacity: 1; }
-      }
-      @keyframes orbit {
-        0%, 100% { transform: rotate(0deg) scale(1); opacity: 0.33; }
-        50% { transform: rotate(8deg) scale(1.01); opacity: 0.40; }
+      @keyframes loadbar {
+        0% { width: 12%; transform: translateX(-20%); }
+        50% { width: 68%; transform: translateX(10%); }
+        100% { width: 12%; transform: translateX(120%); }
       }
 
-      /* Responsive */
-      @media (max-width: 980px) {
-        .hero-grid { grid-template-columns: 1fr; }
-        .cards { grid-template-columns: repeat(6, 1fr); }
-        .card { grid-column: span 6; }
-        .wheel-grid { grid-template-columns: 1fr; }
-        .reflection-grid { grid-template-columns: 1fr; }
+      .hidden { display: none !important; }
+      .no-print { }
+
+      /* Soundless-Chime overlay */
+      .chime {
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        z-index: 120;
+        display: none;
       }
-      @media (max-width: 640px) {
-        main { width: calc(100% - 26px); }
-        .topbar { padding: 12px 14px; }
-        .brand { min-width: unset; }
-        .form-grid { grid-template-columns: 1fr; }
-        .col-span-2 { grid-column: span 1; }
-        .export-grid { grid-template-columns: 1fr; }
+      .chime.show { display: block; }
+      .chime-ring {
+        position: absolute;
+        left: 50%;
+        bottom: calc(70px + var(--sab));
+        transform: translateX(-50%);
+        width: 14px;
+        height: 14px;
+        border-radius: 999px;
+        border: 1px solid rgba(255,255,255,0.20);
+        background: rgba(196,162,92,0.16);
+        box-shadow: 0 0 0 0 rgba(196,162,92,0.20), 0 0 0 0 rgba(140,180,255,0.18);
+        opacity: 0;
+      }
+      .chime.show .chime-ring {
+        animation: chimePulse 520ms ease-out 1;
+      }
+      @keyframes chimePulse {
+        0% { opacity: 0; transform: translateX(-50%) scale(0.85); box-shadow: 0 0 0 0 rgba(196,162,92,0.20), 0 0 0 0 rgba(140,180,255,0.18); }
+        25% { opacity: 1; transform: translateX(-50%) scale(1.0); }
+        100% { opacity: 0; transform: translateX(-50%) scale(1.55); box-shadow: 0 0 0 18px rgba(196,162,92,0.0), 0 0 0 34px rgba(140,180,255,0.0); }
+      }
+
+      /* Desktop enhancements (only when wider) */
+      @media (min-width: 920px) {
+        main { padding: calc(22px + var(--sat)) 20px calc(110px + var(--sab)) 20px; }
+        .hero-grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 22px; align-items: start; }
+        .hero-card { margin-top: 0; }
+        .field-grid { grid-template-columns: 1fr 1fr; }
+        .export-grid { grid-template-columns: 1fr 1fr; }
+        .wheel-grid { grid-template-columns: 1.2fr 0.8fr; }
+        .cards { grid-template-columns: repeat(12, 1fr); }
+        .card { grid-column: span 4; }
       }
 
       /* Print */
       @media print {
-        :root {
-          --bg: #ffffff;
-          --text: #111111;
-          --muted: #333333;
-          --faint: #555555;
-        }
+        :root { --bg: #ffffff; --text: #111111; --muted: #333333; --faint: #555555; }
         body { background: #ffffff !important; color: #111111 !important; }
-        .no-print { display: none !important; }
-        main { width: 100%; margin: 0; padding: 0; }
+        .no-print, .bottom-bar, .topbar, .bg-orbit, .chime { display: none !important; }
+        main { max-width: none; padding: 0; }
         .screen { border: none; padding: 0; }
-        .export-sheet { border: 1px solid #dddddd; background: #ffffff; box-shadow: none; }
+        .wizard-shell, .wheel-wrap, .export-sheet, .card { box-shadow: none; }
+        .export-sheet { border: 1px solid #dddddd; background: #ffffff; }
         .export-block, .note-box { background: #ffffff; border: 1px solid #dddddd; }
         .chip, .badge { border: 1px solid #dddddd; background: #ffffff; color: #333333; }
       }
+
+      /* Reduced motion */
+      @media (prefers-reduced-motion: no-preference) {
+        .bg-orbit { animation: orbit 16s ease-in-out infinite; }
+        .brand-mark { animation: pulseGlow 4.8s ease-in-out infinite; }
+      }
+      @keyframes orbit { 0%,100%{transform:rotate(0deg) scale(1);opacity:.32} 50%{transform:rotate(8deg) scale(1.01);opacity:.40} }
+      @keyframes pulseGlow { 0%,100%{transform:translateY(0);filter:saturate(1)} 50%{transform:translateY(-1px);filter:saturate(1.1)} }
     </style>
   </head>
 
   <body>
     <div class="bg-orbit" aria-hidden="true"></div>
 
+    <!-- Soundless-Chime overlay -->
+    <div class="chime" id="chime">
+      <div class="chime-ring"></div>
+    </div>
+
     <header class="topbar no-print">
-      <div class="brand">
-        <div class="brand-mark" aria-hidden="true"></div>
-        <div class="brand-text">
-          <div class="brand-title">Venture Resonance Studio</div>
-          <div class="brand-sub">Interpretive reflection environment</div>
+      <div class="topbar-inner">
+        <div class="brand">
+          <div class="brand-mark" aria-hidden="true"></div>
+          <div class="brand-text">
+            <div class="brand-title">Venture Resonance Studio</div>
+            <div class="brand-sub">Symbolischer Reflexionsraum</div>
+          </div>
         </div>
+
+        <nav class="topnav" aria-label="Primary">
+          <button class="navlink" data-scroll="#screen-landing">Start</button>
+          <button class="navlink" data-scroll="#screen-studio">Studio</button>
+          <button class="navlink" data-scroll="#screen-ergebnis" id="navErgebnis" disabled>Ergebnis</button>
+          <button class="navlink subtle" id="openDisclaimer">Hinweis</button>
+        </nav>
       </div>
 
-      <nav class="topnav" aria-label="Primary">
-        <button class="navlink" data-scroll="#screen-landing">Overview</button>
-        <button class="navlink" data-scroll="#screen-input">Origin Input</button>
-        <button class="navlink" data-scroll="#screen-results">Profile</button>
-        <button class="navlink" data-scroll="#screen-export">Export</button>
-        <button class="navlink subtle" id="openDisclaimer">Disclaimer</button>
-      </nav>
+      <div class="stepper" id="stepperBar">
+        <div class="stepper-top">
+          <div class="stepper-title">
+            <strong id="stepTitle">Studio</strong> · <span id="stepCount">Schritt 1 von 16</span>
+          </div>
+          <div class="stepper-hint">
+            <span class="faint"><span class="kbd">Enter</span></span> = Weiter · <span class="faint"><span class="kbd">Shift</span>+<span class="kbd">Enter</span></span> = Zeilenumbruch
+          </div>
+        </div>
+        <div class="progressbar" aria-label="Fortschritt">
+          <div id="progressFill"></div>
+        </div>
+      </div>
     </header>
 
     <main>
-      <!-- Screen 1: Landing -->
+      <!-- Landing -->
       <section id="screen-landing" class="screen hero">
-        <div class="hero-grid">
-          <div class="hero-copy">
-            <div class="kicker">Symbolic strategy lab</div>
-            <h1>
-              Map the founding pattern of a business.<br />
-              Reveal archetypes, tensions, cycles — and reflection prompts.
-            </h1>
-            <p class="lead">
-              This is not an assessment or a “truth machine”.
-              It is a crafted reflection environment designed to produce meaning, questions and strategic insight under uncertainty.
-            </p>
+        <div class="kicker">premium · ruhig · klar</div>
+        <h1>
+          Lies die Gründungs-Signatur deines Unternehmens.<br />
+          Und finde die Fragen, die wirklich etwas bewegen.
+        </h1>
+        <p class="lead">
+          Dieses Studio ist kein Gutachten und keine Wahrheit. Es ist ein <strong>interpretativer Reflexionsraum</strong>:
+          Wir nutzen Gründungsdaten und Kontext – plus <strong>Sonne/Mond/Aszendent als Metaphern</strong> – um Bedürfnisse,
+          Spannungen, Zyklen und hilfreiche Impulse sichtbar zu machen.
+        </p>
 
-            <div class="hero-cta no-print">
-              <button class="btn primary" data-scroll="#screen-input">Generate Resonance Profile</button>
-              <button class="btn ghost" id="demoFill">Load Demo Data</button>
-            </div>
+        <div class="hero-cta no-print">
+          <button class="btn primary" id="startWizard">Studio starten</button>
+          <button class="btn ghost" id="demoFill">Demo laden</button>
+        </div>
 
-            <div class="micro-note">
-              No login. No backend. Runs locally. GitHub Pages ready.
+        <div class="micro-note">
+          Lokal · ohne Backend · GitHub Pages ready · Ergebnis als Druckansicht exportierbar
+        </div>
+
+        <div class="hero-card">
+          <div class="card-title">Was du am Ende bekommst</div>
+          <ul class="bullets">
+            <li>Gründungs-Signatur (Rhythmus, Feld, Ursprungston)</li>
+            <li>Sonne/Mond/Aszendent als Metaphern: Fokus · Bedürfnis · Auftreten</li>
+            <li>Archetypen & Führungsdynamik</li>
+            <li>Spannungsachsen (Wachstum↔Stabilität etc.)</li>
+            <li>Zyklus-Phase + Timing-Reibung</li>
+            <li>Ausführliche Reflexionskarten, nacheinander eingeblendet</li>
+          </ul>
+
+          <div class="callout">
+            <div class="callout-title">Frame</div>
+            <div class="callout-body">
+              „Ordnung in Unsicherheit – ohne zu behaupten, die Wahrheit zu sein.“
             </div>
           </div>
+        </div>
+      </section>
 
-          <div class="hero-card">
-            <div class="card-title">What you’ll receive</div>
-            <ul class="bullets">
-              <li>Origin Signature & founding rhythm</li>
-              <li>Dominant + Secondary Archetype</li>
-              <li>Growth Tension axes (top drivers)</li>
-              <li>Leadership pattern & decision risks</li>
-              <li>Cycle view + friction timing</li>
-              <li>7–12 strategic reflection questions</li>
-            </ul>
+      <!-- Studio Wizard -->
+      <section id="screen-studio" class="screen">
+        <div class="screen-head">
+          <h2>Studio-Journey</h2>
+          <p class="muted">
+            Du gehst Schritt für Schritt. Nach jedem Schritt: <strong>Enter</strong> oder <strong>Weiter</strong>.
+            Das Ergebnis wird erst am Ende „revealed“.
+          </p>
+        </div>
 
-            <div class="callout">
-              <div class="callout-title">Frame</div>
-              <div class="callout-body">
-                “Interpretive reflection environment for founders and businesses.”
+        <div class="wizard-shell">
+          <div class="wizard-stage">
+            <div id="stepsMount"></div>
+
+            <div id="calibrating" class="wizard-card hidden" aria-live="polite">
+              <div class="chip">Resonanz</div>
+              <div class="prompt-title" style="margin-top:10px;">Ich kalibriere das Profil…</div>
+              <div class="prompt-body">
+                Alles bleibt Hypothese und Spiegel. Du bekommst keine Diagnose – du bekommst <strong>gute Fragen</strong>
+                und ein strukturiertes Bild.
+              </div>
+              <div class="calibrating">
+                <div class="cal-line"><div></div></div>
+                <div class="muted">Signatur wird komponiert…</div>
+                <div class="cal-line"><div></div></div>
+                <div class="muted">Spannungsachsen werden geordnet…</div>
+                <div class="cal-line"><div></div></div>
+                <div class="muted">Reflexionskarten werden kuratiert…</div>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- Screen 2: Origin Input -->
-      <section id="screen-input" class="screen">
+      <!-- Ergebnis -->
+      <section id="screen-ergebnis" class="screen">
         <div class="screen-head">
-          <h2>Origin Input</h2>
+          <h2>Ergebnis-Reveal</h2>
           <p class="muted">
-            Provide founding signals and context. The output is symbolic and interpretive — designed to unlock questions and patterns.
+            Lies es wie ein Atelier-Spiegel: nicht als Urteil, sondern als Einladung zu Klarheit, Entscheidungen und sanfter Konsequenz.
           </p>
         </div>
 
-        <form id="originForm" class="form-grid" autocomplete="off">
-          <div class="field">
-            <label for="ventureName">Venture Name</label>
-            <input id="ventureName" name="ventureName" placeholder="e.g., Lumen Atelier" required />
-          </div>
-
-          <div class="field">
-            <label for="foundingDate">Founding Date</label>
-            <input id="foundingDate" name="foundingDate" type="date" required />
-          </div>
-
-          <div class="field">
-            <label for="foundingTime">Founding Time (optional)</label>
-            <input id="foundingTime" name="foundingTime" type="time" />
-          </div>
-
-          <div class="field">
-            <label for="foundingPlace">Founding Place</label>
-            <input id="foundingPlace" name="foundingPlace" placeholder="City, Country" required />
-          </div>
-
-          <div class="field">
-            <label for="industry">Industry</label>
-            <select id="industry" name="industry" required>
-              <option value="" selected disabled>Select…</option>
-              <option>Software / SaaS</option>
-              <option>Consumer / Brand</option>
-              <option>Creative Studio</option>
-              <option>Agency / Services</option>
-              <option>Marketplace</option>
-              <option>FinTech</option>
-              <option>Health</option>
-              <option>Climate / Energy</option>
-              <option>Manufacturing / Hardware</option>
-              <option>Education</option>
-              <option>Other</option>
-            </select>
-          </div>
-
-          <div class="field">
-            <label for="teamSize">Team Size</label>
-            <select id="teamSize" name="teamSize" required>
-              <option value="" selected disabled>Select…</option>
-              <option value="solo">Solo</option>
-              <option value="tiny">2–5</option>
-              <option value="small">6–15</option>
-              <option value="mid">16–50</option>
-              <option value="scale">51–200</option>
-              <option value="large">200+</option>
-            </select>
-          </div>
-
-          <div class="field">
-            <label for="currentStage">Current Stage</label>
-            <select id="currentStage" name="currentStage" required>
-              <option value="" selected disabled>Select…</option>
-              <option value="start">Start</option>
-              <option value="consolidate">Consolidation</option>
-              <option value="friction">Friction</option>
-              <option value="break">Breakthrough / Pivot</option>
-              <option value="expand">Expansion</option>
-              <option value="reorder">Reordering</option>
-            </select>
-          </div>
-
-          <div class="field col-span-2">
-            <label for="mainChallenge">Main Challenge</label>
-            <textarea
-              id="mainChallenge"
-              name="mainChallenge"
-              rows="2"
-              placeholder="What feels most stuck or costly right now?"
-              required
-            ></textarea>
-          </div>
-
-          <div class="field col-span-2">
-            <label for="desiredDirection">Desired Direction</label>
-            <textarea
-              id="desiredDirection"
-              name="desiredDirection"
-              rows="2"
-              placeholder="What kind of growth, change, or clarity is most desired?"
-              required
-            ></textarea>
-          </div>
-
-          <div class="actions col-span-2 no-print">
-            <button class="btn primary" type="submit">Generate Resonance Profile</button>
-            <button class="btn ghost" type="button" id="resetBtn">Reset</button>
-            <div class="hint">
-              Output is symbolic — not scientific, not advisory. See Disclaimer.
-            </div>
-          </div>
-        </form>
-      </section>
-
-      <!-- Screen 3-5: Results -->
-      <section id="screen-results" class="screen">
-        <div class="screen-head">
-          <h2>Resonance Profile</h2>
-          <p class="muted">
-            A layered reading across archetypes, tension axes and cycles — built to trigger strategic reflection.
-          </p>
+        <div id="ergebnisEmpty" class="wizard-card">
+          <div class="chip">Hinweis</div>
+          <div class="prompt-title" style="margin-top:10px;">Noch kein Ergebnis.</div>
+          <div class="prompt-body">Starte die Studio-Journey und gehe alle Schritte durch. Dann erscheint hier das Profil.</div>
         </div>
 
-        <div id="emptyState" class="empty">
-          <div class="empty-title">No profile yet.</div>
-          <div class="empty-body">Fill Origin Input, then generate.</div>
-        </div>
-
-        <div id="resultsWrap" class="results hidden">
+        <div id="ergebnisWrap" class="results hidden">
           <div class="cards">
             <article class="card">
               <div class="card-top">
-                <div class="chip">Origin</div>
-                <h3>Origin Signature</h3>
+                <div class="chip">Ursprung</div>
+                <h3>Gründungs-Signatur</h3>
               </div>
-              <div class="card-body">
-                <p id="originSignatureText" class="prose"></p>
-                <div class="mini-grid">
-                  <div class="mini">
-                    <div class="mini-k">Founding rhythm</div>
-                    <div id="rhythmTag" class="mini-v"></div>
-                  </div>
-                  <div class="mini">
-                    <div class="mini-k">Field</div>
-                    <div id="fieldTag" class="mini-v"></div>
-                  </div>
+              <div class="prose" id="originText"></div>
+              <div class="mini-grid">
+                <div class="mini">
+                  <div class="mini-k">Rhythmus</div>
+                  <div class="mini-v" id="rhythmTag">—</div>
+                </div>
+                <div class="mini">
+                  <div class="mini-k">Feld</div>
+                  <div class="mini-v" id="fieldTag">—</div>
                 </div>
               </div>
             </article>
 
             <article class="card">
               <div class="card-top">
-                <div class="chip">Archetypes</div>
-                <h3>Dominant Archetype</h3>
+                <div class="chip">Chart-Metaphern</div>
+                <h3>Sonne · Mond · Aszendent</h3>
               </div>
-              <div class="card-body">
-                <div id="domArchetypeName" class="big"></div>
-                <p id="domArchetypeText" class="prose"></p>
-                <div class="tags" id="domTags"></div>
-              </div>
+              <div class="prose" id="smaText"></div>
+              <div class="tags" id="smaBadges"></div>
             </article>
 
             <article class="card">
               <div class="card-top">
-                <div class="chip">Archetypes</div>
-                <h3>Secondary Archetype</h3>
+                <div class="chip">Archetypen</div>
+                <h3>Dominant & Sekundär</h3>
               </div>
-              <div class="card-body">
-                <div id="secArchetypeName" class="big"></div>
-                <p id="secArchetypeText" class="prose"></p>
-                <div class="tags" id="secTags"></div>
-              </div>
+              <div class="big" id="archNames">—</div>
+              <div class="prose" id="archText"></div>
+              <div class="tags" id="archTags"></div>
             </article>
 
             <article class="card">
               <div class="card-top">
-                <div class="chip">Tension</div>
-                <h3>Growth Tension</h3>
+                <div class="chip">Spannung</div>
+                <h3>Primäre Achse</h3>
               </div>
-              <div class="card-body">
-                <div id="tensionName" class="big"></div>
-                <p id="tensionText" class="prose"></p>
-                <div class="axis" id="axisBadges"></div>
-              </div>
+              <div class="big" id="axisName">—</div>
+              <div class="prose" id="axisText"></div>
+              <div class="axis" id="axisBadges"></div>
             </article>
 
             <article class="card">
               <div class="card-top">
-                <div class="chip">Leadership</div>
-                <h3>Leadership Pattern</h3>
+                <div class="chip">Führung</div>
+                <h3>Führungsdynamik</h3>
               </div>
-              <div class="card-body">
-                <p id="leadershipText" class="prose"></p>
-                <div class="mini-grid">
-                  <div class="mini">
-                    <div class="mini-k">Decision risk</div>
-                    <div id="riskTag" class="mini-v"></div>
-                  </div>
-                  <div class="mini">
-                    <div class="mini-k">Primary lever</div>
-                    <div id="leverTag" class="mini-v"></div>
-                  </div>
+              <div class="prose" id="leadText"></div>
+              <div class="mini-grid">
+                <div class="mini">
+                  <div class="mini-k">Entscheidungsrisiko</div>
+                  <div class="mini-v" id="riskTag">—</div>
+                </div>
+                <div class="mini">
+                  <div class="mini-k">Hebel</div>
+                  <div class="mini-v" id="leverTag">—</div>
                 </div>
               </div>
+            </article>
+
+            <article class="card">
+              <div class="card-top">
+                <div class="chip">Zyklus</div>
+                <h3>Phase & Timing-Reibung</h3>
+              </div>
+              <div class="prose" id="cycleText"></div>
+              <div class="tags" id="cycleBadges"></div>
             </article>
           </div>
 
-          <!-- Resonance Wheel -->
-          <div id="screen-wheel" class="wheel-wrap">
+          <div class="wheel-wrap">
             <div class="wheel-head">
-              <h2>Resonance Wheel</h2>
+              <h2>Resonanz-Rad</h2>
               <p class="muted">
-                A modern circular map of tensions and emphasis layers. Click segments to reveal interpretations.
+                Drei Ringe: <strong>Element-Qualitäten</strong> (innen), <strong>Spannungsachsen</strong> (mittel),
+                <strong>Zyklus/Tension-Marker</strong> (außen). Klick pinnt Details.
               </p>
             </div>
 
             <div class="wheel-grid">
-              <div class="wheel-panel">
+              <div>
                 <div class="wheel-shell">
-                  <svg id="wheelSvg" viewBox="0 0 600 600" role="img" aria-label="Resonance Wheel"></svg>
+                  <svg id="wheelSvg" viewBox="0 0 720 720" role="img" aria-label="Resonanz-Rad"></svg>
                 </div>
-                <div class="wheel-legend muted">
-                  Hover for labels • Click to lock details • Designed as symbolic interface (not astrology).
-                </div>
+                <div class="wheel-legend muted">Hover = Vorschau · Klick = Pin · Symbolisch (kein Gutachten)</div>
               </div>
 
               <aside class="wheel-detail">
                 <div class="detail-top">
-                  <div class="chip">Wheel</div>
-                  <h3 id="wheelDetailTitle">Select a segment</h3>
+                  <div class="chip">Rad-Detail</div>
+                  <h3 id="wheelDetailTitle">Wähle ein Segment</h3>
                 </div>
                 <div id="wheelDetailBody" class="prose muted">
-                  The wheel visualizes the current emphasis layers: tension axes, archetype tone, and cycle friction.
+                  Das Rad zeigt Schwerpunkt-Layer: Element-Qualitäten, Achsen und Timing-Marker.
                 </div>
 
                 <div class="detail-actions no-print">
-                  <button class="btn ghost" id="unlockWheel">Unlock</button>
+                  <button class="btn ghost" id="unlockWheel">Pin lösen</button>
                 </div>
               </aside>
             </div>
           </div>
 
-          <!-- Strategic Reflection -->
-          <div id="screen-reflection" class="reflection">
-            <div class="screen-head">
-              <h2>Strategic Reflection</h2>
+          <div class="wheel-wrap">
+            <div class="wheel-head">
+              <h2>Reflexionskarten</h2>
               <p class="muted">
-                Questions are the product. Use these as a studio prompt — not as verdicts.
+                Sie erscheinen nacheinander – wie ein ruhiger Studio-Dialog. Nimm dir Zeit. Notiere. Lass wirken.
               </p>
             </div>
 
-            <div class="reflection-grid">
-              <div class="panel">
-                <div class="panel-title">Reflection Prompts</div>
-                <ol id="promptList" class="prompt-list"></ol>
+            <div class="wheel-grid">
+              <div class="wheel-detail">
+                <div class="detail-top">
+                  <div class="chip">Sequenz</div>
+                  <h3>Fragen, die dich weitertragen</h3>
+                </div>
+                <div class="prose muted">
+                  Tipp: Lies jede Karte wie eine Spiegelung. Du musst nichts glauben – nur prüfen, was resoniert.
+                </div>
+                <div class="detail-actions no-print">
+                  <button class="btn primary" id="revealAll">Alle einblenden</button>
+                  <button class="btn ghost" id="revealNext">Nächste Karte</button>
+                </div>
               </div>
 
-              <div class="panel">
-                <div class="panel-title">Timing & Friction</div>
-                <div id="cycleText" class="prose"></div>
+              <div class="wheel-detail">
+                <div class="detail-top">
+                  <div class="chip">Karten</div>
+                  <h3 id="revealStatus">0 / 10 sichtbar</h3>
+                </div>
+                <div id="revealGrid" class="reveal-grid"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="wheel-wrap">
+            <div class="wheel-head">
+              <h2>Export</h2>
+              <p class="muted">Druckansicht als PDF (Browser) oder als Zusammenfassung kopieren.</p>
+            </div>
+
+            <div class="export-actions no-print">
+              <button class="btn primary" id="printBtn">Drucken / Als PDF</button>
+              <button class="btn ghost" id="copyBtn">Zusammenfassung kopieren</button>
+            </div>
+
+            <article class="export-sheet" id="exportSheet">
+              <div class="export-hero">
+                <div class="export-mark" aria-hidden="true"></div>
+                <div>
+                  <div class="export-title" id="exportTitle">Venture Resonance Studio</div>
+                  <div class="export-sub" id="exportSub">Symbolische Reflexion · keine Bewertung</div>
+                </div>
+              </div>
+
+              <div class="export-grid">
+                <div class="export-block">
+                  <div class="export-h">Unternehmen</div>
+                  <div id="exportVenture" class="export-v muted">—</div>
+                </div>
+                <div class="export-block">
+                  <div class="export-h">Sonne/Mond/Aszendent (Metaphern)</div>
+                  <div id="exportSMA" class="export-v muted">—</div>
+                </div>
+                <div class="export-block">
+                  <div class="export-h">Archetypen</div>
+                  <div id="exportArch" class="export-v muted">—</div>
+                </div>
+                <div class="export-block">
+                  <div class="export-h">Spannungsachsen</div>
+                  <div id="exportAxes" class="export-v muted">—</div>
+                </div>
+              </div>
+
+              <div class="export-long">
+                <div class="export-h">Interpretive Zusammenfassung</div>
+                <p id="exportSummary" class="prose muted">Gehe die Journey durch, um eine Zusammenfassung zu erzeugen.</p>
+
                 <div class="divider"></div>
-                <div class="panel-title">Blindspots to watch</div>
-                <ul id="blindspotsList" class="bullets"></ul>
+
+                <div class="export-h">Reflexionskarten</div>
+                <ul id="exportPrompts" class="bullets"></ul>
+
+                <div class="divider"></div>
+
+                <div class="export-h">Notizen</div>
+                <div class="note-box" contenteditable="true" aria-label="Notizen"></div>
               </div>
-            </div>
+
+              <footer class="export-foot">
+                <div class="muted small">
+                  Hinweis: Dieses Studio ist für Reflexion und kreative strategische Einsichten gedacht. Es ist <strong>keine</strong> wissenschaftliche Bewertung und sollte nicht für Personalentscheidungen, rechtliche, finanzielle oder medizinische Entscheidungen verwendet werden.
+                </div>
+              </footer>
+            </article>
           </div>
         </div>
-      </section>
 
-      <!-- Export -->
-      <section id="screen-export" class="screen export">
-        <div class="screen-head">
-          <h2>Export</h2>
-          <p class="muted">
-            Print-friendly view with a compact summary and a note field. Use “Copy Summary” for docs.
-          </p>
+        <div class="footer no-print">
+          <div class="muted small">Venture Resonance Studio • lokal • ohne Tracking • Symbolischer Reflexionsraum</div>
         </div>
-
-        <div class="export-actions no-print">
-          <button class="btn primary" id="printBtn">Print / Save as PDF</button>
-          <button class="btn ghost" id="copyBtn">Copy Summary</button>
-        </div>
-
-        <article class="export-sheet" id="exportSheet">
-          <div class="export-hero">
-            <div class="export-mark" aria-hidden="true"></div>
-            <div>
-              <div class="export-title" id="exportTitle">Venture Resonance Studio</div>
-              <div class="export-sub" id="exportSub">Symbolic reflection summary — not an assessment.</div>
-            </div>
-          </div>
-
-          <div class="export-grid">
-            <div class="export-block">
-              <div class="export-h">Venture</div>
-              <div id="exportVenture" class="export-v muted">—</div>
-            </div>
-            <div class="export-block">
-              <div class="export-h">Archetypes</div>
-              <div id="exportArchetypes" class="export-v muted">—</div>
-            </div>
-            <div class="export-block">
-              <div class="export-h">Primary Tensions</div>
-              <div id="exportTensions" class="export-v muted">—</div>
-            </div>
-            <div class="export-block">
-              <div class="export-h">Cycle Phase</div>
-              <div id="exportCycle" class="export-v muted">—</div>
-            </div>
-          </div>
-
-          <div class="export-long">
-            <div class="export-h">Interpretive Summary</div>
-            <p id="exportSummary" class="prose muted">Generate a profile to produce a summary.</p>
-
-            <div class="divider"></div>
-
-            <div class="export-h">Reflection Prompts</div>
-            <ul id="exportPrompts" class="bullets"></ul>
-
-            <div class="divider"></div>
-
-            <div class="export-h">Notes</div>
-            <div class="note-box" contenteditable="true" aria-label="Notes"></div>
-          </div>
-
-          <footer class="export-foot">
-            <div class="muted small" id="disclaimerInline">
-              This experience is designed for reflection and creative strategic insight. It is not a scientific assessment and should not be used for hiring, legal, financial or medical decisions.
-            </div>
-          </footer>
-        </article>
       </section>
     </main>
+
+    <!-- Sticky bottom controls (mobile) -->
+    <div class="bottom-bar no-print" id="bottomBar">
+      <div class="bottom-inner">
+        <button class="btn subtle" id="btnBack">Zurück</button>
+        <button class="btn primary" id="btnNext">Weiter</button>
+        <div class="bottom-meta">
+          <div id="bottomLeft">Studio-Journey</div>
+          <div id="bottomRight"><span class="kbd">Enter</span> weiter</div>
+        </div>
+      </div>
+    </div>
 
     <!-- Disclaimer modal -->
     <dialog id="disclaimerDialog" class="modal">
       <form method="dialog" class="modal-card">
         <div class="modal-top">
-          <div class="chip">Disclaimer</div>
-          <h3>Interpretive reflection — not assessment</h3>
+          <div class="chip">Hinweis</div>
+          <h3>Reflexionsstudio – kein Urteil</h3>
         </div>
 
         <div class="prose">
           <p>
-            This experience is designed for reflection and creative strategic insight.
-            It is <strong>not</strong> a scientific assessment and should not be used for hiring,
-            legal, financial or medical decisions.
+            Dieses Studio ist für Reflexion und kreative strategische Einsichten gedacht.
+            Es ist <strong>keine</strong> wissenschaftliche Bewertung und sollte nicht für Personalentscheidungen,
+            rechtliche, finanzielle oder medizinische Entscheidungen verwendet werden.
           </p>
           <p class="muted">
-            Outputs are symbolic narratives generated from inputs and rule-based mappings. Use as prompts —
-            not as verdicts.
+            Sonne/Mond/Aszendent sind hier <strong>Metaphern</strong> für Fokus, Bedürfnis und Auftreten des Systems – nicht als Faktbehauptung.
           </p>
         </div>
 
         <div class="modal-actions">
-          <button class="btn primary" value="close">I understand</button>
+          <button class="btn primary" value="close">Verstanden</button>
         </div>
       </form>
     </dialog>
 
-    <footer class="footer no-print">
-      <div class="muted small">
-        Venture Resonance Studio • Local-first • No tracking • Symbolic reflection environment
-      </div>
-    </footer>
-
     <script type="module">
-      /* ---------------------------
-         Data: Archetypes
-      ---------------------------- */
+      /* ===========================
+         Data
+      =========================== */
       const ARCHETYPES = [
-        {
-          id: "builder",
-          name: "The Builder",
-          tone: ["structure", "repeatability", "craft"],
-          strengths: ["Operational clarity", "Systems and routines", "Shipping under constraints"],
-          shadow: ["Over-control", "Local optimization", "Mistaking motion for meaning"],
-          levers: ["Define the smallest repeatable unit of value", "Make constraints visible", "Ritualize learning loops"],
-        },
-        {
-          id: "catalyst",
-          name: "The Catalyst",
-          tone: ["momentum", "activation", "velocity"],
-          strengths: ["Igniting action", "Unlocking energy", "Fast iteration"],
-          shadow: ["Burning attention", "Skipping integration", "Chasing novelty"],
-          levers: ["Commit to fewer bets", "Add stabilizers", "Convert sparks into systems"],
-        },
-        {
-          id: "steward",
-          name: "The Steward",
-          tone: ["care", "continuity", "trust"],
-          strengths: ["Long-term thinking", "Reliability", "Culture as infrastructure"],
-          shadow: ["Avoiding conflict", "Slow decisions", "Protecting yesterday’s identity"],
-          levers: ["Name trade-offs explicitly", "Build decision cadence", "Upgrade the mission, not the museum"],
-        },
-        {
-          id: "challenger",
-          name: "The Challenger",
-          tone: ["edge", "differentiation", "pressure"],
-          strengths: ["Clear stance", "Competitive sharpness", "Truth-telling"],
-          shadow: ["Unnecessary battles", "Burning alliances", "Over-indexing on opposition"],
-          levers: ["Choose one enemy", "Turn critique into offers", "Build bridges after the strike"],
-        },
-        {
-          id: "magnet",
-          name: "The Magnet",
-          tone: ["attraction", "signal", "story"],
-          strengths: ["Brand gravity", "Community pull", "Narrative leverage"],
-          shadow: ["Diffuse positioning", "Dependency on hype", "Inconsistent delivery"],
-          levers: ["Anchor promises in proof", "Tighten the signature offer", "Build retention rituals"],
-        },
-        {
-          id: "integrator",
-          name: "The Integrator",
-          tone: ["alignment", "coherence", "translation"],
-          strengths: ["Cross-functional synthesis", "Reducing friction", "Making sense across domains"],
-          shadow: ["Decision deferral", "Too many stakeholders", "Polish over progress"],
-          levers: ["Clarify the ‘one thing’", "Assign owners", "Ship the imperfect bridge"],
-        },
-        {
-          id: "pioneer",
-          name: "The Pioneer",
-          tone: ["exploration", "vision", "frontier"],
-          strengths: ["Original direction", "New markets", "Inventing language"],
-          shadow: ["Underestimating execution cost", "Lonely strategy", "Unvalidated assumptions"],
-          levers: ["Constrain the experiment", "Turn vision into tests", "Recruit operators early"],
-        },
-        {
-          id: "oracle",
-          name: "The Oracle",
-          tone: ["insight", "pattern", "intuition"],
-          strengths: ["Seeing systems", "Strategic foresight", "Naming the hidden constraint"],
-          shadow: ["Abstraction drift", "Over-reading signals", "Avoiding concrete commitments"],
-          levers: ["Translate insight into one decision", "Create feedback instruments", "Choose a measurable proxy"],
-        },
+        { id: "builder", name: "Die Builderin", tone: ["Struktur","Wiederholbarkeit","Handwerk"], strengths: ["Operative Klarheit","Routinen, die tragen","Liefern unter Constraints"], shadow: ["Überkontrolle","Lokale Optimierung","Bewegung statt Wirkung"], lever: "Definiere die kleinste wiederholbare Einheit von Wert – und schütze sie wie ein Ritual." },
+        { id: "catalyst", name: "Die Katalysatorin", tone: ["Momentum","Aktivierung","Tempo"], strengths: ["Energie entfachen","Iterieren mit Mut","Barrieren durchbrechen"], shadow: ["Zerstreuung","Überspringen von Integration","Novelty-Jagd"], lever: "Schneide zwei Baustellen, damit ein Strahl entsteht: ein Fokus, eine Kadenz, ein Proof." },
+        { id: "steward", name: "Die Hüterin", tone: ["Fürsorge","Kontinuität","Vertrauen"], strengths: ["Langfristigkeit","Zuverlässigkeit","Kultur als Infrastruktur"], shadow: ["Konfliktvermeidung","Langsame Entscheidungen","Schutz der alten Identität"], lever: "Benenne Trade-offs offen – so wird Fürsorge nicht zu Stillstand, sondern zu Führung." },
+        { id: "challenger", name: "Die Challengerin", tone: ["Kante","Differenzierung","Druck"], strengths: ["Klarer Standpunkt","Wahrheitssprache","Kategorie neu schneiden"], shadow: ["Unnötige Kämpfe","Allianzen verbrennen","Gegen-Modus als Identität"], lever: "Wähle genau eine Reibung, die du transformierst – und baue danach Brücken." },
+        { id: "magnet", name: "Die Magnetin", tone: ["Anziehung","Signal","Story"], strengths: ["Marken-Gravitation","Community-Zug","Narrative Hebel"], shadow: ["Diffuses Angebot","Hype-Abhängigkeit","Inkonsistente Lieferung"], lever: "Verankere Versprechen in Beweis: weniger Stories – mehr klare, wiederholbare Proof-Momente." },
+        { id: "integrator", name: "Die Integratorin", tone: ["Ausrichtung","Kohärenz","Übersetzung"], strengths: ["Sinn über Silos","Reibung reduzieren","Komplexität entwirren"], shadow: ["Entscheidungsaufschub","Zu viele Stimmen","Politur vor Fortschritt"], lever: "Ein Owner, eine Entscheidung, eine Woche: Shippe die Brücke – auch wenn sie noch roh ist." },
+        { id: "pioneer", name: "Die Pionierin", tone: ["Exploration","Vision","Frontier"], strengths: ["Originale Richtung","Neue Sprache","Neues Terrain erschließen"], shadow: ["Execution-Kosten unterschätzen","Einsame Strategie","Ungeprüfte Annahmen"], lever: "Kleinere Experimente. Kürzere Loops. Ein messbarer Proxy pro Vision." },
+        { id: "oracle", name: "Die Orakel-Strategin", tone: ["Insight","Pattern","Intuition"], strengths: ["Systemblick","Foresight","Hidden Constraint benennen"], shadow: ["Abstraktionsdrift","Über-Interpretation","Commitment vermeiden"], lever: "Übersetze Insight in genau eine irreversible Entscheidung – und baue ein Feedback-Instrument." },
       ];
 
-      function getArchetypeById(id) {
-        return ARCHETYPES.find((a) => a.id === id) ?? ARCHETYPES[0];
-      }
-
-      /* ---------------------------
-         Data: Cycles
-      ---------------------------- */
-      const CYCLES = {
-        start: {
-          name: "Start",
-          signals: ["Identity forming", "High ambiguity", "Energy is the asset"],
-          friction: ["Over-scoping", "Reactivity", "Undefined offer edges"],
-          timingHint: "Prioritize clarity over scale. Reduce optionality without killing curiosity.",
-        },
-        consolidate: {
-          name: "Consolidation",
-          signals: ["Offer stabilizing", "Early repeatability", "First constraints appear"],
-          friction: ["Process debt", "Role ambiguity", "Unowned operations"],
-          timingHint: "Codify what works. Turn intuition into routines before complexity expands.",
-        },
-        friction: {
-          name: "Friction",
-          signals: ["Growth reveals cracks", "Team tension surfaces", "Decisions lag reality"],
-          friction: ["Control vs trust", "Vision vs execution", "Conflicting priorities"],
-          timingHint: "Name the tension out loud. Decide what gets protected and what gets rewritten.",
-        },
-        break: {
-          name: "Breakthrough / Pivot",
-          signals: ["Old model strains", "New direction wants form", "Momentum changes shape"],
-          friction: ["Identity grief", "Stakeholder misalignment", "Half-commits"],
-          timingHint: "Make one irreversible choice. Then build the smallest structure that supports it.",
-        },
-        expand: {
-          name: "Expansion",
-          signals: ["Scale demands structure", "Systems become strategy", "Hiring changes culture"],
-          friction: ["Complexity drag", "Signal dilution", "Leadership bandwidth"],
-          timingHint: "Install constraints that preserve the signature. Scale the system, not the chaos.",
-        },
-        reorder: {
-          name: "Reordering",
-          signals: ["Second-order optimization", "Portfolio thinking", "Renewal cycles begin"],
-          friction: ["Complacency", "Innovation freeze", "Cultural calcification"],
-          timingHint: "Renew the story with proof. Keep a frontier function alive inside the machine.",
-        },
-      };
-
-      function getCycle(stageKey) {
-        return CYCLES[stageKey] ?? CYCLES.start;
-      }
-
-      /* ---------------------------
-         Data: Prompts
-      ---------------------------- */
-      const PROMPT_BANK = [
-        { id: "gvs_1", tags: ["growth_vs_stability"], text: "Where does the venture confuse speed with progress — and where does it confuse stability with safety?" },
-        { id: "gvs_2", tags: ["growth_vs_stability"], text: "What would you protect at all costs during expansion — and what must be allowed to break?" },
-        { id: "vve_1", tags: ["vision_vs_execution"], text: "Which part of the vision is currently not executable — and what is the smallest test that would make it real?" },
-        { id: "vve_2", tags: ["vision_vs_execution"], text: "If delivery had to be reduced by 40%, what would remain as the true signature offer?" },
-        { id: "cvt_1", tags: ["control_vs_trust"], text: "Where is leadership over-steering because trust is not instrumented?" },
-        { id: "cvt_2", tags: ["control_vs_trust"], text: "What must become explicit (roles, rules, cadence) so that trust can increase safely?" },
-        { id: "tvm_1", tags: ["tempo_vs_maturity"], text: "Which part of the business wants to run — while another part is not ready to carry it?" },
-        { id: "tvm_2", tags: ["tempo_vs_maturity"], text: "What is the ‘slow constraint’ that decides the maximum sustainable tempo right now?" },
-        { id: "fim_1", tags: ["founder_vs_market"], text: "Where does the venture still carry the handwriting of its origin — even though the market now demands a different shape?" },
-        { id: "fim_2", tags: ["founder_vs_market"], text: "What is the most uncomfortable customer truth you keep negotiating with?" },
-        { id: "ivs_1", tags: ["innovation_vs_structure"], text: "Where is innovation trapped in improvisation instead of being converted into repeatable structure?" },
-        { id: "ivs_2", tags: ["innovation_vs_structure"], text: "What is one rule you could introduce that would make the next 90 days simpler?" },
-
-        { id: "pioneer_1", tags: ["archetype:pioneer"], text: "Which assumption would you bet your reputation on — and how can you test it in 7 days?" },
-        { id: "builder_1", tags: ["archetype:builder"], text: "What is the smallest repeatable unit of value you can ship weekly without negotiation?" },
-        { id: "magnet_1", tags: ["archetype:magnet"], text: "Which promise is currently stronger than the proof — and how can you close that gap publicly?" },
-        { id: "oracle_1", tags: ["archetype:oracle"], text: "If your intuition is right, what decision must become irreversible this month?" },
-        { id: "integrator_1", tags: ["archetype:integrator"], text: "Where is alignment being used as delay — and what ownership assignment would unblock action?" },
-        { id: "catalyst_1", tags: ["archetype:catalyst"], text: "Which two initiatives should be cut so momentum can consolidate into one line of force?" },
-        { id: "steward_1", tags: ["archetype:steward"], text: "What conflict is being avoided that would actually upgrade the system if faced directly?" },
-        { id: "challenger_1", tags: ["archetype:challenger"], text: "If you had to choose one enemy (a false belief, a category norm), what is it — and what offer defeats it?" },
-      ];
-
-      function pickPrompts({ tensionTags, archetypeIds, count = 10 }) {
-        const wantedTags = new Set([...tensionTags, ...archetypeIds.map((a) => `archetype:${a}`)]);
-
-        const scored = PROMPT_BANK
-          .map((p) => {
-            const hit = p.tags.reduce((acc, t) => acc + (wantedTags.has(t) ? 1 : 0), 0);
-            return { prompt: p, score: hit };
-          })
-          .filter((x) => x.score > 0)
-          .sort((a, b) => b.score - a.score);
-
-        const unique = [];
-        const seen = new Set();
-        for (const s of scored) {
-          if (seen.has(s.prompt.id)) continue;
-          unique.push(s.prompt);
-          seen.add(s.prompt.id);
-          if (unique.length >= count) break;
-        }
-
-        if (unique.length < count) {
-          const fallback = PROMPT_BANK.filter((p) => p.tags.some((t) => tensionTags.includes(t)));
-          for (const p of fallback) {
-            if (unique.length >= count) break;
-            if (seen.has(p.id)) continue;
-            unique.push(p);
-            seen.add(p.id);
-          }
-        }
-
-        return unique.slice(0, count);
-      }
-
-      /* ---------------------------
-         Engine: Tension
-      ---------------------------- */
       const AXES = [
-        {
-          id: "growth_vs_stability",
-          name: "Growth vs Stability",
-          poles: ["Acceleration", "Containment"],
-          description:
-            "A classic axis: expanding capacity without breaking coherence. The tension often signals a choice between speed and repeatability.",
-        },
-        {
-          id: "vision_vs_execution",
-          name: "Vision vs Executability",
-          poles: ["Imagination", "Delivery"],
-          description:
-            "When the venture’s language outruns its operational body. This tension becomes productive when the vision is translated into testable steps.",
-        },
-        {
-          id: "control_vs_trust",
-          name: "Control vs Trust",
-          poles: ["Steering", "Delegation"],
-          description:
-            "Appears when leadership compensates for uncertainty with oversight. The unlock is building instruments: roles, rules, cadence, feedback.",
-        },
-        {
-          id: "tempo_vs_maturity",
-          name: "Tempo vs Maturity",
-          poles: ["Speed", "Readiness"],
-          description:
-            "Momentum can outrun the organization’s readiness. The task is to identify the slow constraint and design around it.",
-        },
-        {
-          id: "founder_vs_market",
-          name: "Founder Identity vs Market Demand",
-          poles: ["Origin handwriting", "Category reality"],
-          description:
-            "The venture may still be loyal to the founder’s original story — while the market asks for a different shape. This is identity work, not just strategy.",
-        },
-        {
-          id: "innovation_vs_structure",
-          name: "Innovation vs Structure",
-          poles: ["Novelty", "System"],
-          description:
-            "Innovation creates value only when it becomes structure. Too much structure kills novelty; too little turns innovation into improvisation debt.",
-        },
+        { id: "wachstum_vs_stabilitaet", name: "Wachstum ↔ Stabilität", poles: ["Beschleunigung","Containment"], description: "Skalierung ohne Selbstverlust. Nicht mehr machen – mehr tragen können." },
+        { id: "vision_vs_umsetzung", name: "Vision ↔ Umsetzbarkeit", poles: ["Imagination","Lieferfähigkeit"], description: "Wenn Sprache schneller ist als das operative System. Vision braucht Tests." },
+        { id: "kontrolle_vs_vertrauen", name: "Kontrolle ↔ Vertrauen", poles: ["Steuerung","Delegation"], description: "Wenn Unsicherheit zu Übersteuerung führt. Instrumente bauen: Rollen, Regeln, Rhythmus, Feedback." },
+        { id: "tempo_vs_reife", name: "Tempo ↔ Reife", poles: ["Speed","Readiness"], description: "Momentum kann das System überholen. Engpass finden und Tempo designen." },
+        { id: "gruender_vs_markt", name: "Ursprung ↔ Markt", poles: ["Handschrift","Kategorie-Realität"], description: "Ursprung reifen lassen: gleiche Handschrift, neue Form." },
+        { id: "innovation_vs_struktur", name: "Innovation ↔ Struktur", poles: ["Neuheit","System"], description: "Innovation wird stark, wenn sie Struktur wird. Zu wenig = Impro-Schuld." },
       ];
 
-      function getAxisById(id) {
-        return AXES.find((a) => a.id === id) ?? AXES[0];
-      }
-
-      function computeTensions({ stageKey, teamSize, industry, challenge, desired }) {
-        const text = `${challenge} ${desired}`.toLowerCase();
-        const weights = new Map(AXES.map((a) => [a.id, 0]));
-        const bump = (id, by) => weights.set(id, (weights.get(id) ?? 0) + by);
-
-        if (stageKey === "start") { bump("vision_vs_execution", 2); bump("innovation_vs_structure", 1); }
-        if (stageKey === "consolidate") { bump("innovation_vs_structure", 2); bump("growth_vs_stability", 1); bump("control_vs_trust", 1); }
-        if (stageKey === "friction") { bump("control_vs_trust", 2); bump("tempo_vs_maturity", 2); bump("founder_vs_market", 1); }
-        if (stageKey === "break") { bump("founder_vs_market", 2); bump("vision_vs_execution", 2); }
-        if (stageKey === "expand") { bump("growth_vs_stability", 2); bump("tempo_vs_maturity", 2); bump("control_vs_trust", 1); }
-        if (stageKey === "reorder") { bump("innovation_vs_structure", 2); bump("growth_vs_stability", 1); bump("founder_vs_market", 1); }
-
-        if (teamSize === "solo" || teamSize === "tiny") { bump("vision_vs_execution", 1); bump("innovation_vs_structure", 1); }
-        else if (teamSize === "mid" || teamSize === "scale" || teamSize === "large") { bump("control_vs_trust", 2); bump("tempo_vs_maturity", 1); bump("growth_vs_stability", 1); }
-
-        const ind = (industry ?? "").toLowerCase();
-        if (ind.includes("brand") || ind.includes("consumer")) { bump("founder_vs_market", 1); bump("innovation_vs_structure", 1); }
-        if (ind.includes("saas") || ind.includes("software") || ind.includes("fintech")) { bump("vision_vs_execution", 1); bump("growth_vs_stability", 1); }
-        if (ind.includes("agency") || ind.includes("services")) { bump("control_vs_trust", 1); bump("tempo_vs_maturity", 1); }
-
-        const kw = [
-          ["hire", "control_vs_trust", 2], ["deleg", "control_vs_trust", 2],
-          ["process", "innovation_vs_structure", 2], ["structure", "innovation_vs_structure", 2],
-          ["position", "founder_vs_market", 2], ["brand", "founder_vs_market", 1], ["pivot", "founder_vs_market", 2],
-          ["growth", "growth_vs_stability", 2], ["scale", "growth_vs_stability", 2],
-          ["slow", "tempo_vs_maturity", 2], ["burn", "growth_vs_stability", 1],
-          ["delivery", "vision_vs_execution", 2], ["execute", "vision_vs_execution", 2],
-        ];
-        for (const [frag, axis, w] of kw) { if (text.includes(frag)) bump(axis, w); }
-
-        const sorted = [...weights.entries()].sort((a, b) => b[1] - a[1]);
-        const top = sorted.slice(0, 2).map(([id, score]) => ({ id, score, axis: getAxisById(id) }));
-
-        return { primary: top[0], secondary: top[1], all: sorted.map(([id, score]) => ({ id, score, axis: getAxisById(id) })) };
-      }
-
-      /* ---------------------------
-         Engine: Text
-      ---------------------------- */
-      const VARIANTS = {
-        origin: [
-          "This venture carries a strong initiating pattern: it wants to move from instinct to form — quickly, but with meaning.",
-          "The origin reads as a deliberate ignition: a venture designed to translate intent into a distinct signature in the market.",
-          "The founding signal suggests a venture that learns by building — and builds by learning. Iteration is part of the identity.",
-        ],
-        containment: [
-          "Its tension lies not in ambition, but in containment: what must be stabilized so growth becomes sustainable?",
-          "The edge is not speed — it’s coherence. The system wants fewer bets, clearer ownership, and cleaner loops.",
-          "The venture is ready for expansion only if it protects a stable core: offer, cadence, and decision rights.",
-        ],
-        leadership: [
-          "Leadership appears strongest when it converts instinct into repeatable structure — without suffocating momentum.",
-          "The leadership pattern favors clarity and decisive sequencing: name the trade-off, commit, and let the system learn.",
-          "The venture benefits from leadership that designs instruments: roles, rules, and feedback — so trust can scale safely.",
-        ],
-        risk: [
-          "Decision risk clusters around half-commitments: keeping options open long after reality has changed.",
-          "Risk emerges when the team optimizes locally while the system needs a single line of force.",
-          "The main risk is identity drag: defending the origin story when the market demands a new shape.",
-        ],
+      const CYCLES = {
+        start: { name: "Start", signals: ["Identität formt sich","Ambiguität hoch","Energie ist Asset"], friction: ["Overscoping","Reaktivität","Unklare Angebotskanten"], hint: "Schütze Klarheit. Reduziere Optionalität – ohne Neugier zu töten." },
+        konsolidierung: { name: "Konsolidierung", signals: ["Angebot stabilisiert","erste Wiederholbarkeit","Constraints erscheinen"], friction: ["Prozess-Schuld","Rollen-Unklarheit","Ops ohne Owner"], hint: "Codifiziere, was funktioniert. Intuition braucht Routinen, bevor Komplexität wächst." },
+        reibung: { name: "Reibung", signals: ["Wachstum zeigt Risse","Teamspannung wird sichtbar","Entscheidungen hängen"], friction: ["Kontrolle↔Vertrauen","Vision↔Umsetzung","Prioritäten kollidieren"], hint: "Benenne die Spannung laut. Entscheide, was geschützt wird – und was neu geschrieben werden muss." },
+        umbruch: { name: "Umbruch / Pivot", signals: ["Altes Modell zieht","Neues will Form","Momentum ändert Gestalt"], friction: ["Identitäts-Trauer","Ausrichtung fehlt","Halb-Commitments"], hint: "Triff eine klare Entscheidung. Dann baue die kleinste Struktur, die sie trägt." },
+        expansion: { name: "Expansion", signals: ["Skalierung verlangt Struktur","System wird Strategie","Hiring verändert Kultur"], friction: ["Komplexitäts-Drag","Signal-Verdünnung","Leadership-Bandwidth"], hint: "Installiere Constraints, die die Signatur schützen. Skaliere das System – nicht das Chaos." },
+        neuordnung: { name: "Neuordnung", signals: ["Second-order Optimierung","Portfolio-Denken","Erneuerungszyklen starten"], friction: ["Komfort","Innovation friert","Kultur versteinert"], hint: "Erneuere die Story mit Proof. Halte eine Frontier-Funktion lebendig." },
       };
 
-      function pick(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
+      const ELEMENTE = [
+        { id: "feuer", name: "Feuer", cue: "Mut, Vorwärts, Risiko", note: "Feuer bringt Schub – braucht klare Containment-Grenzen." },
+        { id: "wasser", name: "Wasser", cue: "Empfinden, Bindung, Tiefe", note: "Wasser trägt Kultur – braucht klare Sprache für Bedürfnisse." },
+        { id: "luft", name: "Luft", cue: "Sinn, Austausch, Perspektive", note: "Luft klärt – braucht Entscheidungen, sonst wird sie Nebel." },
+        { id: "erde", name: "Erde", cue: "Wirklichkeit, Ritual, Stabilität", note: "Erde liefert – braucht Raum, sonst wird sie Starrheit." },
+      ];
 
-      function composeOriginSignature({ rhythmTag, fieldTag, place, industry }) {
-        const base = pick(VARIANTS.origin);
-        const nuance = [
-          `Founding rhythm: ${rhythmTag}.`,
-          `Field: ${fieldTag}.`,
-          `Place imprint: ${place} adds a contextual texture — a hint of how the venture relates to environment and networks.`,
-          `Industry resonance: ${industry} tends to amplify the venture’s default pace and proof demands.`,
-        ];
-        return `${base} ${nuance.join(" ")}`;
-      }
+      const SMA_SIGNS = [
+        { id: "solaris", label: "Solaris", meaning: "Fokus & Richtung", tone: "klar, initiierend" },
+        { id: "luna", label: "Luna", meaning: "Bedürfnis & Regulation", tone: "weich, fühlend" },
+        { id: "asc", label: "Ascend", meaning: "Auftreten & Interface", tone: "signalgebend" },
+        { id: "aurora", label: "Aurora", meaning: "Kreativer Aufbruch", tone: "magnetisch" },
+        { id: "saturna", label: "Saturna", meaning: "Containment & Reife", tone: "tragend" },
+        { id: "meridia", label: "Meridia", meaning: "Ausrichtung & Übersetzung", tone: "verbindend" },
+        { id: "ferox", label: "Ferox", meaning: "Kante & Differenzierung", tone: "konsequent" },
+        { id: "verdant", label: "Verdant", meaning: "Wachstum & Pflege", tone: "kultivierend" },
+      ];
 
-      function composeTensionNarrative({ primaryAxisId, secondaryAxisId }) {
-        const p = getAxisById(primaryAxisId);
-        const s = getAxisById(secondaryAxisId);
-        return [
-          `Primary axis: ${p.name} (${p.poles[0]} ↔ ${p.poles[1]}). ${p.description}`,
-          `Secondary axis: ${s.name} (${s.poles[0]} ↔ ${s.poles[1]}). ${s.description}`,
-          pick(VARIANTS.containment),
-        ].join(" ");
-      }
+      /* ===========================
+         Wizard Steps (16)
+      =========================== */
+      const STEPS = [
+        { id: "intention", chip: "Einstieg", title: "Wie soll sich dieses Unternehmen anfühlen, wenn es ganz in seiner Kraft ist?",
+          body: "Gib 2–6 Wörter. Nicht „mehr“, sondern „stimmiger“. Diese Wörter werden später als Resonanz-Anker genutzt.",
+          fields: [{ key: "zielGefuehl", label: "Zielgefühl (2–6 Wörter)", type: "text", placeholder: "z.B. klar, magnetisch, ruhig, souverän", required: true }] },
+        { id: "venture", chip: "Identität", title: "Wie heißt das Unternehmen – und wofür soll der Name im Markt stehen, ohne sich zu erklären?",
+          body: "Der Name ist ein Signal. Optional: eine Tagline (ein Satz), die die Signatur verdichtet.",
+          fields: [
+            { key: "ventureName", label: "Unternehmensname", type: "text", placeholder: "z.B. Lumen Atelier", required: true },
+            { key: "tagline", label: "Tagline (optional)", type: "text", placeholder: "Ein Satz, der die Essenz trägt", required: false },
+          ] },
+        { id: "date", chip: "Ursprung", title: "Wann wurde der Impuls verbindlich – nicht nur gedacht, sondern entschieden?",
+          body: "Wir nutzen den Gründungstag als symbolischen Startpunkt. Er wird als Rhythmus-Marker und als Metapher für die „Sonne“ verwendet.",
+          fields: [
+            { key: "foundingDate", label: "Gründungsdatum", type: "date", required: true },
+            { key: "foundingPlace", label: "Gründungsort", type: "text", placeholder: "Stadt, Land", required: true },
+          ] },
+        { id: "time", chip: "Timing", title: "Kennst du die Uhrzeit? Wenn ja: Welche Tagesqualität trug den Start?",
+          body: "Uhrzeit ist optional. Wenn du sie kennst: Wir nutzen sie als Metapher für den „Aszendenten“ – wie das Unternehmen nach außen „eintritt“.",
+          fields: [
+            { key: "foundingTime", label: "Uhrzeit (optional)", type: "time", required: false },
+            { key: "startQualitaet", label: "Tagesqualität", type: "select", required: true, options: [
+              { v: "morgen", t: "Morgen: klar, frisch, initiierend" },
+              { v: "mittag", t: "Mittag: präsent, leistungsfähig, sichtbar" },
+              { v: "abend", t: "Abend: verdichtend, mutig, verbindlich" },
+              { v: "nacht", t: "Nacht: intuitiv, tief, transformierend" },
+            ] },
+          ] },
+        { id: "industry", chip: "Wirkungsfeld", title: "In welchem Feld wirkt ihr – und welche Art von Beweis verlangt dieser Markt?",
+          body: "Manche Felder brauchen starken Proof, andere leben stärker von Signal & Vertrauen. Kein Urteil – nur Kontext.",
+          fields: [
+            { key: "industry", label: "Branche", type: "select", required: true, options: [
+              { v: "saas", t: "Software / SaaS" }, { v: "brand", t: "Consumer / Brand" }, { v: "creative", t: "Creative Studio" },
+              { v: "services", t: "Agentur / Services" }, { v: "marketplace", t: "Marketplace" }, { v: "fintech", t: "FinTech" },
+              { v: "health", t: "Health" }, { v: "climate", t: "Climate / Energy" }, { v: "hardware", t: "Manufacturing / Hardware" },
+              { v: "edu", t: "Education" }, { v: "other", t: "Andere" },
+            ] },
+            { key: "proofDemand", label: "Proof-Druck (gefühlte Realität)", type: "select", required: true, options: [
+              { v: "hoch", t: "hoch: Vertrauen muss hart verdient werden" },
+              { v: "mittel", t: "mittel: Proof & Story balancieren" },
+              { v: "niedrig", t: "niedrig: Signal/Community tragen viel" },
+            ] },
+          ] },
+        { id: "team", chip: "System", title: "Wie groß ist das System – und wo spürst du gerade Reibung?",
+          body: "Teamgröße verändert Führung. Reibung ist Information: Wo ist der nächste Reife-Schritt?",
+          fields: [
+            { key: "teamSize", label: "Teamgröße", type: "select", required: true, options: [
+              { v: "solo", t: "Solo" }, { v: "tiny", t: "2–5" }, { v: "small", t: "6–15" },
+              { v: "mid", t: "16–50" }, { v: "scale", t: "51–200" }, { v: "large", t: "200+" },
+            ] },
+            { key: "frictionZone", label: "Wo reibt es am meisten?", type: "select", required: true, options: [
+              { v: "kommunikation", t: "Kommunikation & Missverständnisse" },
+              { v: "ownership", t: "Ownership & Verantwortlichkeiten" },
+              { v: "energie", t: "Energie & Überforderung" },
+              { v: "struktur", t: "Struktur & Prozesse" },
+              { v: "strategie", t: "Strategie & Prioritäten" },
+            ] },
+          ] },
+        { id: "stage", chip: "Zyklus", title: "Welche Phase beschreibt es ehrlich – ohne Story, nur Realität?",
+          body: "Zyklen sind ein sanfter Blick: In welcher Entwicklungsbewegung seid ihr? Das bestimmt, welche Fragen jetzt die richtigen sind.",
+          fields: [
+            { key: "currentStage", label: "Aktuelle Phase", type: "select", required: true, options: [
+              { v: "start", t: "Start" }, { v: "konsolidierung", t: "Konsolidierung" }, { v: "reibung", t: "Reibung" },
+              { v: "umbruch", t: "Umbruch / Pivot" }, { v: "expansion", t: "Expansion" }, { v: "neuordnung", t: "Neuordnung" },
+            ] },
+          ] },
+        { id: "challenge", chip: "Spannung", title: "Was ist gerade das teuerste Problem – nicht nur im Kopf, sondern im System?",
+          body: "Beschreibe es so, dass es jemand im Team sofort wiedererkennt. Je konkreter, desto präziser wird die Spiegelung.",
+          fields: [{ key: "mainChallenge", label: "Hauptproblem", type: "textarea", required: true, placeholder: "Was ist stuck, kostspielig oder wiederholt sich?" }] },
+        { id: "axis", chip: "Achse", title: "Wenn du es als Spannungsachse formulierst: Was steht sich gegenüber?",
+          body: "Du kannst frei schreiben oder eine klassische Achse wählen. Eine gute Achse bringt sofort Ordnung.",
+          fields: [
+            { key: "axisFree", label: "Deine Achse (optional, frei)", type: "text", required: false, placeholder: "z.B. Freiheit ↔ Verbindlichkeit / Kreativität ↔ Struktur" },
+            { key: "axisPreset", label: "Oder wähle eine klassische Achse", type: "select", required: true, options: [
+              { v: "auto", t: "Auto: Studio leitet es aus Kontext ab" },
+              { v: "wachstum_vs_stabilitaet", t: "Wachstum ↔ Stabilität" },
+              { v: "vision_vs_umsetzung", t: "Vision ↔ Umsetzbarkeit" },
+              { v: "kontrolle_vs_vertrauen", t: "Kontrolle ↔ Vertrauen" },
+              { v: "tempo_vs_reife", t: "Tempo ↔ Reife" },
+              { v: "gruender_vs_markt", t: "Ursprung ↔ Markt" },
+              { v: "innovation_vs_struktur", t: "Innovation ↔ Struktur" },
+            ] },
+          ] },
+        { id: "leak", chip: "Energie", title: "Wo versickert gerade Energie – und wie zeigt sich das im Alltag?",
+          body: "Das ist die Stelle, an der das System unbemerkt bezahlt. Wenn wir hier Klarheit schaffen, entsteht oft sofort Entlastung.",
+          fields: [
+            { key: "energyLeak", label: "Energie-Leak", type: "select", required: true, options: [
+              { v: "komplexitaet", t: "Komplexität bindet Wirkung" },
+              { v: "unklarheit", t: "Unklarheit frisst Entscheidungskraft" },
+              { v: "perfektion", t: "Perfektion blockiert Delivery" },
+              { v: "zuviel", t: "Zu viele Baustellen" },
+              { v: "konflikt", t: "Vermeideter Konflikt" },
+            ] },
+            { key: "leakNote", label: "1 Satz Kontext", type: "text", required: true, placeholder: "Wie sieht das konkret aus?" },
+          ] },
+        { id: "direction", chip: "Wachstum", title: "Wenn Wachstum nicht „mehr“ heißt, sondern „stimmiger“: Was soll sich in 90 Tagen spürbar verändern?",
+          body: "Bitte so formulieren, dass du es später messen oder eindeutig beobachten kannst.",
+          fields: [{ key: "desiredDirection", label: "Gewünschte Richtung (90 Tage)", type: "textarea", required: true, placeholder: "Was soll anders sein – im Team, im Angebot, im Markt?" }] },
+        { id: "leadership", chip: "Führung", title: "Welche Führungsqualität braucht es jetzt am meisten – und was macht sie gerade schwierig?",
+          body: "Wähle eine Qualität. Dann: ein ehrlicher Satz, wo es hakt. Kein Defizit – Material für Reife.",
+          fields: [
+            { key: "leadQuality", label: "Führungsqualität", type: "select", required: true, options: [
+              { v: "fokus", t: "Fokus" }, { v: "containment", t: "Containment (Grenzen, Rahmen)" }, { v: "mut", t: "Mut (klare Schnitte)" },
+              { v: "sanftheit", t: "Sanftheit (Würde, Tempo halten)" }, { v: "konsequenz", t: "Konsequenz (Kadenz, Commitment)" }, { v: "vertrauen", t: "Vertrauen (Delegation)" },
+            ] },
+            { key: "leadHard", label: "Was ist daran gerade schwer?", type: "text", required: true, placeholder: "Ein Satz – ehrlich und konkret" },
+          ] },
+        { id: "culture", chip: "Beziehung", title: "Wo entsteht Nähe als Stärke – und wo kippt sie in Unklarheit oder Überverantwortung?",
+          body: "Verbindung ist eine Kraft. Schatten entsteht, wenn Rollen & Grenzen nicht klar sind.",
+          fields: [
+            { key: "closeness", label: "Wie zeigt sich Nähe?", type: "select", required: true, options: [
+              { v: "hoch", t: "hoch: wir sind eng und loyal" },
+              { v: "mittel", t: "mittel: situativ (abhängig vom Stress)" },
+              { v: "niedrig", t: "niedrig: eher sachlich/distanziert" },
+            ] },
+            { key: "boundary", label: "Wo fehlt eine Grenze?", type: "text", required: true, placeholder: "z.B. Scope, Kunden, Rollen, Zeit" },
+          ] },
+        { id: "decision", chip: "Klarheit", title: "Welche Entscheidung wird aufgeschoben, obwohl sie im System längst da ist?",
+          body: "Wenn du willst: Formuliere sie so, dass sie in einem Satz entscheidbar ist. Später wird das ein Impuls-Hebel.",
+          fields: [{ key: "delayedDecision", label: "Aufgeschobene Entscheidung", type: "textarea", required: true, placeholder: "Worum geht es – und was wird vermieden?" }] },
+        { id: "closing", chip: "Intention", title: "Wofür willst du dieses Reading nutzen – Klarheit, Mut, Fokus, Entlastung oder Richtung?",
+          body: "Letzter Schritt. Danach bekommst du das Ergebnis als Reveal – Karten, Rad, Zusammenfassung.",
+          fields: [{ key: "useFor", label: "Ich nutze das Reading für…", type: "select", required: true, options: [
+            { v: "klarheit", t: "Klarheit" }, { v: "mut", t: "Mut" }, { v: "fokus", t: "Fokus" },
+            { v: "entlastung", t: "Entlastung" }, { v: "richtung", t: "Richtung" }, { v: "entscheid", t: "Entscheidung" },
+          ] }] },
+      ];
 
-      function composeLeadership({ dominantName, lever, riskTag }) {
-        return [
-          pick(VARIANTS.leadership),
-          `Dominant tone: ${dominantName}.`,
-          `Primary lever: ${lever}.`,
-          `Decision risk: ${riskTag}.`,
-          pick(VARIANTS.risk),
-        ].join(" ");
-      }
-
-      function composeArchetypeBlurb(archetype) {
-        return [
-          `A symbolic leadership/market behavior pattern: ${archetype.name}.`,
-          `Strengths: ${archetype.strengths.slice(0, 2).join(" · ")}.`,
-          `Shadow: ${archetype.shadow[0]}.`,
-        ].join(" ");
-      }
-
-      function composeExportSummary({ ventureName, originLine, archetypeLine, tensionLine, cycleLine, leadershipLine }) {
-        return [
-          `Venture: ${ventureName}.`,
-          originLine,
-          archetypeLine,
-          tensionLine,
-          cycleLine,
-          leadershipLine,
-          "Use this as a reflection studio output — not as an assessment.",
-        ].join(" ");
-      }
-
-      /* ---------------------------
-         Engine: Profile
-      ---------------------------- */
-      function buildVentureProfile(input) {
-        const n = normalizeInput(input);
-
-        const rhythmTag = rhythmTagFromDate(n.foundingDate);
-        const fieldTag = fieldTagFromIndustry(n.industry);
-
-        const archetypeScores = scoreArchetypes(n);
-        const sorted = [...archetypeScores.entries()].sort((a, b) => b[1] - a[1]);
-        const dominantId = sorted[0]?.[0] ?? "builder";
-        const secondaryId = sorted[1]?.[0] ?? "integrator";
-
-        const dominant = getArchetypeById(dominantId);
-        const secondary = getArchetypeById(secondaryId);
-
-        const tensions = computeTensions({
-          stageKey: n.currentStage,
-          teamSize: n.teamSize,
-          industry: n.industry,
-          challenge: n.mainChallenge,
-          desired: n.desiredDirection,
-        });
-
-        const cycle = getCycle(n.currentStage);
-
-        const leverTag = choosePrimaryLever(dominant, tensions.primary.id);
-        const riskTag = chooseRiskTag(n, dominantId, tensions.primary.id);
-        const blindspots = synthesizeBlindspots({ dominant, secondary, tensions, stageKey: n.currentStage });
-
-        return {
-          input: n,
-          tags: { rhythmTag, fieldTag, riskTag, leverTag },
-          archetypes: {
-            dominantId, secondaryId, dominant, secondary,
-            scores: Object.fromEntries(sorted),
-          },
-          tensions,
-          cycle,
-          blindspots,
-        };
-      }
-
-      function normalizeInput(input) {
-        const safe = (v) => String(v ?? "").trim();
-        return {
-          ventureName: safe(input.ventureName),
-          foundingDate: safe(input.foundingDate),
-          foundingTime: safe(input.foundingTime),
-          foundingPlace: safe(input.foundingPlace),
-          industry: safe(input.industry),
-          teamSize: safe(input.teamSize),
-          currentStage: safe(input.currentStage),
-          mainChallenge: safe(input.mainChallenge),
-          desiredDirection: safe(input.desiredDirection),
-        };
-      }
-
-      function rhythmTagFromDate(isoDate) {
-        const dt = new Date(isoDate);
-        const day = dt.getUTCDate();
-        const month = dt.getUTCMonth() + 1;
-
-        const dayMod = day % 4;
-        const monthMod = month % 3;
-
-        const dayTone = ["Pulse", "Vector", "Anchor", "Spiral"][dayMod];
-        const monthTone = ["Initiation", "Containment", "Transmutation"][monthMod];
-        return `${dayTone} · ${monthTone}`;
-      }
-
-      function fieldTagFromIndustry(industry) {
-        const s = (industry ?? "").toLowerCase();
-        if (s.includes("creative") || s.includes("brand") || s.includes("consumer")) return "Signal & Desire";
-        if (s.includes("agency") || s.includes("services")) return "Delivery & Trust";
-        if (s.includes("marketplace")) return "Exchange & Network";
-        if (s.includes("fintech")) return "Risk & Integrity";
-        if (s.includes("health")) return "Care & Proof";
-        if (s.includes("climate") || s.includes("energy")) return "Transition & Constraint";
-        if (s.includes("manufacturing") || s.includes("hardware")) return "Material & Precision";
-        if (s.includes("education")) return "Transformation & Practice";
-        if (s.includes("software") || s.includes("saas")) return "Systems & Leverage";
-        return "Meaning & Mechanism";
-      }
-
-      function scoreArchetypes(n) {
-        const text = `${n.mainChallenge} ${n.desiredDirection}`.toLowerCase();
-        const scores = new Map(ARCHETYPES.map((a) => [a.id, 0]));
-        const bump = (id, w) => scores.set(id, (scores.get(id) ?? 0) + w);
-
-        if (n.currentStage === "start") { bump("pioneer", 3); bump("catalyst", 2); bump("oracle", 1); }
-        if (n.currentStage === "consolidate") { bump("builder", 3); bump("integrator", 2); bump("steward", 1); }
-        if (n.currentStage === "friction") { bump("integrator", 2); bump("steward", 2); bump("challenger", 1); }
-        if (n.currentStage === "break") { bump("challenger", 2); bump("pioneer", 2); bump("oracle", 1); }
-        if (n.currentStage === "expand") { bump("builder", 2); bump("steward", 2); bump("integrator", 1); }
-        if (n.currentStage === "reorder") { bump("steward", 2); bump("oracle", 2); bump("builder", 1); }
-
-        if (n.teamSize === "solo" || n.teamSize === "tiny") { bump("pioneer", 1); bump("catalyst", 1); }
-        if (n.teamSize === "mid" || n.teamSize === "scale" || n.teamSize === "large") { bump("integrator", 2); bump("steward", 1); bump("builder", 1); }
-
-        const ind = (n.industry ?? "").toLowerCase();
-        if (ind.includes("brand") || ind.includes("consumer")) { bump("magnet", 3); bump("challenger", 1); }
-        if (ind.includes("creative")) { bump("magnet", 2); bump("oracle", 1); }
-        if (ind.includes("saas") || ind.includes("software") || ind.includes("fintech")) { bump("builder", 2); bump("pioneer", 1); }
-        if (ind.includes("agency") || ind.includes("services")) { bump("integrator", 2); bump("steward", 1); }
-
-        const rules = [
-          ["process", "builder", 2], ["system", "builder", 2], ["ops", "builder", 2], ["ship", "builder", 1],
-          ["growth", "catalyst", 1], ["scale", "catalyst", 1], ["momentum", "catalyst", 2],
-          ["conflict", "challenger", 2], ["different", "challenger", 1], ["position", "challenger", 1],
-          ["culture", "steward", 2], ["trust", "steward", 2],
-          ["community", "magnet", 2], ["brand", "magnet", 2],
-          ["align", "integrator", 2], ["handoff", "integrator", 2],
-          ["vision", "pioneer", 2], ["new", "pioneer", 1],
-          ["insight", "oracle", 2], ["intuition", "oracle", 2], ["clarity", "oracle", 1],
-        ];
-        for (const [frag, id, w] of rules) { if (text.includes(frag)) bump(id, w); }
-
-        return scores;
-      }
-
-      function choosePrimaryLever(dominant, primaryAxisId) {
-        const axisLeverMap = {
-          growth_vs_stability: "Define a stable core (offer + cadence + ownership)",
-          vision_vs_execution: "Translate vision into one testable commitment",
-          control_vs_trust: "Instrument trust (roles, rules, feedback loops)",
-          tempo_vs_maturity: "Identify the slow constraint and design around it",
-          founder_vs_market: "Let the origin evolve into a market-ready signature",
-          innovation_vs_structure: "Convert novelty into repeatable structure",
-        };
-        const axisLever = axisLeverMap[primaryAxisId] ?? "Name the trade-off, then commit";
-        const archeLever = dominant.levers?.[0] ?? "Reduce optionality; increase clarity";
-        return `${axisLever} · ${archeLever}`;
-      }
-
-      function chooseRiskTag(n, dominantId, primaryAxisId) {
-        const text = `${n.mainChallenge} ${n.desiredDirection}`.toLowerCase();
-        if (text.includes("hire") || text.includes("team")) return "People-system mismatch";
-        if (primaryAxisId === "founder_vs_market") return "Identity drag";
-        if (primaryAxisId === "vision_vs_execution") return "Abstract drift";
-        if (primaryAxisId === "control_vs_trust") return "Over-steering";
-        if (dominantId === "catalyst") return "Fragmented bets";
-        if (dominantId === "magnet") return "Signal > proof gap";
-        return "Half-commitment";
-      }
-
-      function synthesizeBlindspots({ dominant, secondary, tensions, stageKey }) {
-        const out = new Set();
-        for (const s of dominant.shadow.slice(0, 2)) out.add(s);
-        for (const s of secondary.shadow.slice(0, 1)) out.add(s);
-
-        if (stageKey === "expand") out.add("Signal dilution under scale");
-        if (stageKey === "start") out.add("Over-scoping before proof");
-        if (tensions.primary.id === "control_vs_trust") out.add("Trust not instrumented");
-        if (tensions.primary.id === "vision_vs_execution") out.add("Vision outruns delivery body");
-
-        return [...out].slice(0, 6);
-      }
-
-      /* ---------------------------
-         App
-      ---------------------------- */
+      /* ===========================
+         Helpers
+      =========================== */
       const $ = (sel) => document.querySelector(sel);
-
-      const state = {
-        profile: null,
-        wheelLock: false,
-        wheelSelected: null,
-      };
-
-      init();
-
-      function init() {
-        bindNavScroll();
-        bindDisclaimer();
-        bindForm();
-        bindActions();
-        renderWheelSkeleton();
-        renderExportEmpty();
-      }
-
-      function bindNavScroll() {
-        document.addEventListener("click", (e) => {
-          const btn = e.target.closest("[data-scroll]");
-          if (!btn) return;
-          const target = btn.getAttribute("data-scroll");
-          const el = document.querySelector(target);
-          if (!el) return;
-          el.scrollIntoView({ behavior: "smooth", block: "start" });
-        });
-      }
-
-      function bindDisclaimer() {
-        const dlg = $("#disclaimerDialog");
-        $("#openDisclaimer").addEventListener("click", () => dlg.showModal());
-
-        const key = "vrs_disclaimer_seen_v1";
-        if (!localStorage.getItem(key)) {
-          localStorage.setItem(key, "1");
-          setTimeout(() => dlg.showModal(), 450);
-        }
-      }
-
-      function bindForm() {
-        $("#originForm").addEventListener("submit", (e) => {
-          e.preventDefault();
-          const data = Object.fromEntries(new FormData(e.currentTarget).entries());
-          generate(data);
-          $("#screen-results").scrollIntoView({ behavior: "smooth", block: "start" });
-        });
-      }
-
-      function bindActions() {
-        $("#resetBtn").addEventListener("click", () => {
-          $("#originForm").reset();
-          state.profile = null;
-          state.wheelLock = false;
-          state.wheelSelected = null;
-          $("#resultsWrap").classList.add("hidden");
-          $("#emptyState").classList.remove("hidden");
-          setWheelDetail(null);
-          renderWheelSkeleton();
-          renderExportEmpty();
-        });
-
-        $("#demoFill").addEventListener("click", () => {
-          $("#ventureName").value = "Lumen Atelier";
-          $("#foundingDate").value = "2022-10-07";
-          $("#foundingTime").value = "19:20";
-          $("#foundingPlace").value = "Berlin, Germany";
-          $("#industry").value = "Creative Studio";
-          $("#teamSize").value = "small";
-          $("#currentStage").value = "friction";
-          $("#mainChallenge").value =
-            "Positioning feels diffuse and delivery is inconsistent; internal ownership is blurred and decisions lag reality.";
-          $("#desiredDirection").value =
-            "A stable signature offer, sharper narrative, and scalable delivery cadence without losing the creative edge.";
-          $("#screen-input").scrollIntoView({ behavior: "smooth", block: "start" });
-        });
-
-        $("#printBtn").addEventListener("click", () => window.print());
-
-        $("#copyBtn").addEventListener("click", async () => {
-          const text = buildCopySummary();
-          try {
-            await navigator.clipboard.writeText(text);
-            toast("Summary copied");
-          } catch {
-            toast("Copy failed (browser permissions).");
-          }
-        });
-
-        $("#unlockWheel").addEventListener("click", () => {
-          state.wheelLock = false;
-          state.wheelSelected = null;
-          toast("Wheel unlocked");
-          setWheelDetail(null);
-        });
-      }
-
-      function generate(input) {
-        const profile = buildVentureProfile(input);
-        state.profile = profile;
-
-        const originText = composeOriginSignature({
-          rhythmTag: profile.tags.rhythmTag,
-          fieldTag: profile.tags.fieldTag,
-          place: profile.input.foundingPlace,
-          industry: profile.input.industry,
-        });
-
-        const domText = composeArchetypeBlurb(profile.archetypes.dominant);
-        const secText = composeArchetypeBlurb(profile.archetypes.secondary);
-
-        const tensionText = composeTensionNarrative({
-          primaryAxisId: profile.tensions.primary.id,
-          secondaryAxisId: profile.tensions.secondary.id,
-        });
-
-        const leadershipText = composeLeadership({
-          dominantName: profile.archetypes.dominant.name,
-          lever: profile.tags.leverTag,
-          riskTag: profile.tags.riskTag,
-        });
-
-        // Cards
-        $("#originSignatureText").textContent = originText;
-        $("#rhythmTag").textContent = profile.tags.rhythmTag;
-        $("#fieldTag").textContent = profile.tags.fieldTag;
-
-        $("#domArchetypeName").textContent = profile.archetypes.dominant.name;
-        $("#domArchetypeText").textContent = domText;
-        renderTags("#domTags", profile.archetypes.dominant.tone);
-
-        $("#secArchetypeName").textContent = profile.archetypes.secondary.name;
-        $("#secArchetypeText").textContent = secText;
-        renderTags("#secTags", profile.archetypes.secondary.tone);
-
-        const primaryAxis = getAxisById(profile.tensions.primary.id);
-        const secondaryAxis = getAxisById(profile.tensions.secondary.id);
-
-        $("#tensionName").textContent = primaryAxis.name;
-        $("#tensionText").textContent = tensionText;
-        renderAxisBadges(primaryAxis, secondaryAxis);
-
-        $("#leadershipText").textContent = leadershipText;
-        $("#riskTag").textContent = profile.tags.riskTag;
-        $("#leverTag").textContent = profile.tags.leverTag;
-
-        // Reflection
-        const prompts = pickPrompts({
-          tensionTags: [profile.tensions.primary.id, profile.tensions.secondary.id],
-          archetypeIds: [profile.archetypes.dominantId, profile.archetypes.secondaryId],
-          count: 10,
-        });
-        renderPrompts(prompts);
-        renderCycle(profile);
-        renderBlindspots(profile.blindspots);
-
-        // Wheel
-        renderWheel(profile);
-
-        // Export
-        renderExport(profile, { originText, tensionText, leadershipText, prompts });
-
-        // Show
-        $("#emptyState").classList.add("hidden");
-        $("#resultsWrap").classList.remove("hidden");
-      }
-
-      function renderTags(sel, arr) {
-        const wrap = $(sel);
-        wrap.innerHTML = "";
-        for (const t of arr) {
-          const b = document.createElement("span");
-          b.className = "badge";
-          b.textContent = t;
-          wrap.appendChild(b);
-        }
-      }
-
-      function renderAxisBadges(primary, secondary) {
-        const wrap = $("#axisBadges");
-        wrap.innerHTML = "";
-        for (const ax of [primary, secondary]) {
-          const b = document.createElement("span");
-          b.className = "badge";
-          b.textContent = `${ax.poles[0]} ↔ ${ax.poles[1]}`;
-          wrap.appendChild(b);
-        }
-      }
-
-      function renderPrompts(prompts) {
-        const list = $("#promptList");
-        list.innerHTML = "";
-        for (const p of prompts) {
-          const li = document.createElement("li");
-          li.textContent = p.text;
-          list.appendChild(li);
-        }
-      }
-
-      function renderCycle(profile) {
-        const c = profile.cycle;
-        $("#cycleText").innerHTML = [
-          `<div class="big">${escapeHtml(c.name)}</div>`,
-          `<p class="muted">Signals: ${escapeHtml(c.signals.join(" · "))}</p>`,
-          `<p class="muted">Friction: ${escapeHtml(c.friction.join(" · "))}</p>`,
-          `<p class="muted"><strong>Timing hint:</strong> ${escapeHtml(c.timingHint)}</p>`,
-        ].join("");
-      }
-
-      function renderBlindspots(items) {
-        const ul = $("#blindspotsList");
-        ul.innerHTML = "";
-        for (const x of items) {
-          const li = document.createElement("li");
-          li.textContent = x;
-          ul.appendChild(li);
-        }
-      }
-
-      /* ---------------------------
-         Resonance Wheel (SVG)
-      ---------------------------- */
-      function renderWheelSkeleton() {
-        const svg = $("#wheelSvg");
-        svg.innerHTML = "";
-
-        const defs = el("defs");
-        defs.appendChild(glowFilter("softGlow", 2.8, 0.35));
-        defs.appendChild(glowFilter("hardGlow", 5.0, 0.22));
-        svg.appendChild(defs);
-
-        svg.appendChild(circle(300, 300, 252, "rgba(255,255,255,0.10)", "rgba(0,0,0,0)"));
-        svg.appendChild(circle(300, 300, 210, "rgba(255,255,255,0.08)", "rgba(0,0,0,0)"));
-        svg.appendChild(circle(300, 300, 165, "rgba(255,255,255,0.06)", "rgba(0,0,0,0)"));
-
-        svg.appendChild(line(300, 85, 300, 515, "rgba(255,255,255,0.08)"));
-        svg.appendChild(line(85, 300, 515, 300, "rgba(255,255,255,0.08)"));
-
-        const core = circle(300, 300, 10, "rgba(196,162,92,0.55)", "rgba(255,255,255,0)");
-        core.setAttribute("filter", "url(#hardGlow)");
-        svg.appendChild(core);
-
-        setWheelDetail(null);
-      }
-
-      function renderWheel(profile) {
-        renderWheelSkeleton();
-        const svg = $("#wheelSvg");
-        const segments = buildSegments(profile);
-
-        for (const seg of segments) {
-          const path = el("path");
-          path.setAttribute("d", arcPath(300, 300, 118, 252, seg.a0, seg.a1));
-          path.setAttribute("fill", seg.fill);
-          path.setAttribute("stroke", "rgba(255,255,255,0.10)");
-          path.setAttribute("stroke-width", "1");
-          path.setAttribute("cursor", "pointer");
-
-          path.addEventListener("mouseenter", () => {
-            if (state.wheelLock) return;
-            setWheelDetail(seg);
-          });
-          path.addEventListener("mouseleave", () => {
-            if (state.wheelLock) return;
-            setWheelDetail(null);
-          });
-          path.addEventListener("click", () => {
-            state.wheelLock = true;
-            state.wheelSelected = seg.id;
-            setWheelDetail(seg);
-            toast("Wheel segment locked");
-          });
-
-          svg.appendChild(path);
-
-          const n = polarToXY(300, 300, 216, (seg.a0 + seg.a1) / 2);
-          const node = circle(n.x, n.y, 5.2, seg.node, "rgba(255,255,255,0)");
-          node.setAttribute("filter", "url(#softGlow)");
-          svg.appendChild(node);
-        }
-
-        const p = getAxisById(profile.tensions.primary.id);
-        const s = getAxisById(profile.tensions.secondary.id);
-        svg.appendChild(axisLineFor(p.id, "url(#softGlow)", 2.0));
-        svg.appendChild(axisLineFor(s.id, "url(#softGlow)", 1.3));
-      }
-
-      function buildSegments(profile) {
-        const a = [
-          { id: "origin", label: "Origin Signature", detail: "Founding rhythm and field imprint.", weight: 1 },
-          { id: "dominant", label: "Dominant Archetype", detail: profile.archetypes.dominant.name, weight: 2 },
-          { id: "secondary", label: "Secondary Archetype", detail: profile.archetypes.secondary.name, weight: 1 },
-          { id: "tension_primary", label: "Primary Tension", detail: getAxisById(profile.tensions.primary.id).name, weight: 2 },
-          { id: "tension_secondary", label: "Secondary Tension", detail: getAxisById(profile.tensions.secondary.id).name, weight: 1 },
-          { id: "cycle", label: "Cycle Phase", detail: profile.cycle.name, weight: 1 },
-          { id: "lever", label: "Primary Lever", detail: profile.tags.leverTag, weight: 1 },
-          { id: "risk", label: "Decision Risk", detail: profile.tags.riskTag, weight: 1 },
-        ];
-
-        const total = a.reduce((acc, x) => acc + x.weight, 0);
-        let angle = -90;
-        const res = [];
-        for (const x of a) {
-          const span = (x.weight / total) * 360;
-          const a0 = angle;
-          const a1 = angle + span;
-          angle = a1;
-
-          res.push({ ...x, a0, a1, fill: fillForSegment(x.id), node: nodeForSegment(x.id) });
-        }
-        return res;
-      }
-
-      function fillForSegment(id) {
-        const map = {
-          origin: "rgba(218,226,240,0.05)",
-          dominant: "rgba(196,162,92,0.08)",
-          secondary: "rgba(233,222,199,0.06)",
-          tension_primary: "rgba(140,180,255,0.06)",
-          tension_secondary: "rgba(140,180,255,0.04)",
-          cycle: "rgba(255,255,255,0.04)",
-          lever: "rgba(196,162,92,0.06)",
-          risk: "rgba(255,255,255,0.035)",
-        };
-        return map[id] ?? "rgba(255,255,255,0.04)";
-      }
-
-      function nodeForSegment(id) {
-        const map = {
-          dominant: "rgba(196,162,92,0.85)",
-          tension_primary: "rgba(140,180,255,0.75)",
-          origin: "rgba(233,222,199,0.75)",
-          risk: "rgba(255,255,255,0.60)",
-        };
-        return map[id] ?? "rgba(218,226,240,0.65)";
-      }
-
-      function axisLineFor(axisId, filter, width) {
-        const angleMap = {
-          growth_vs_stability: 25,
-          vision_vs_execution: -30,
-          control_vs_trust: 90,
-          tempo_vs_maturity: -90,
-          founder_vs_market: 155,
-          innovation_vs_structure: -155,
-        };
-        const ang = angleMap[axisId] ?? 0;
-        const p0 = polarToXY(300, 300, 84, ang);
-        const p1 = polarToXY(300, 300, 258, ang);
-
-        const l = line(p0.x, p0.y, p1.x, p1.y, "rgba(196,162,92,0.22)");
-        l.setAttribute("stroke-width", String(width));
-        l.setAttribute("filter", filter);
-        return l;
-      }
-
-      function setWheelDetail(seg) {
-        const title = $("#wheelDetailTitle");
-        const body = $("#wheelDetailBody");
-
-        if (!state.profile) {
-          title.textContent = "Select a segment";
-          body.textContent =
-            "Generate a profile first. The wheel visualizes tensions, archetype tone and cycle friction as an interpretive interface.";
-          return;
-        }
-
-        if (!seg) {
-          title.textContent = state.wheelLock ? "Locked" : "Select a segment";
-          body.textContent = state.wheelLock
-            ? "Wheel is locked. Press Unlock to resume hover previews."
-            : "Hover or click a segment to reveal interpretive notes.";
-          return;
-        }
-
-        title.textContent = seg.label;
-        body.textContent = seg.detail;
-      }
-
-      /* ---------------------------
-         Export
-      ---------------------------- */
-      function renderExport(profile, composed) {
-        $("#exportVenture").textContent = `${profile.input.ventureName} • ${profile.input.foundingPlace} • ${profile.input.industry}`;
-        $("#exportArchetypes").textContent = `${profile.archetypes.dominant.name} + ${profile.archetypes.secondary.name}`;
-        $("#exportTensions").textContent = `${getAxisById(profile.tensions.primary.id).name} • ${getAxisById(profile.tensions.secondary.id).name}`;
-        $("#exportCycle").textContent = profile.cycle.name;
-
-        const originLine = composed.originText;
-        const archetypeLine = `Archetypes: ${profile.archetypes.dominant.name} (dominant) + ${profile.archetypes.secondary.name} (secondary).`;
-        const tensionLine = `Tensions: ${getAxisById(profile.tensions.primary.id).name} + ${getAxisById(profile.tensions.secondary.id).name}.`;
-        const cycleLine = `Cycle: ${profile.cycle.name}. Timing hint: ${profile.cycle.timingHint}`;
-        const leadershipLine = composed.leadershipText;
-
-        $("#exportSummary").textContent = composeExportSummary({
-          ventureName: profile.input.ventureName,
-          originLine,
-          archetypeLine,
-          tensionLine,
-          cycleLine,
-          leadershipLine,
-        });
-
-        const ul = $("#exportPrompts");
-        ul.innerHTML = "";
-        for (const p of composed.prompts.slice(0, 8)) {
-          const li = document.createElement("li");
-          li.textContent = p.text;
-          ul.appendChild(li);
-        }
-
-        $("#exportTitle").textContent = profile.input.ventureName;
-        $("#exportSub").textContent = "Symbolic reflection summary — not an assessment.";
-      }
-
-      function renderExportEmpty() {
-        $("#exportVenture").textContent = "—";
-        $("#exportArchetypes").textContent = "—";
-        $("#exportTensions").textContent = "—";
-        $("#exportCycle").textContent = "—";
-        $("#exportSummary").textContent = "Generate a profile to produce a summary.";
-        $("#exportPrompts").innerHTML = "";
-        $("#exportTitle").textContent = "Venture Resonance Studio";
-        $("#exportSub").textContent = "Symbolic reflection summary — not an assessment.";
-      }
-
-      function buildCopySummary() {
-        if (!state.profile) {
-          return [
-            "Venture Resonance Studio — generate a profile first.",
-            "",
-            "Disclaimer: This is designed for reflection and creative strategic insight. Not a scientific assessment; do not use for hiring, legal, financial or medical decisions.",
-          ].join("\n");
-        }
-
-        const p = state.profile;
-        const primary = getAxisById(p.tensions.primary.id);
-        const secondary = getAxisById(p.tensions.secondary.id);
-
-        return [
-          "Venture Resonance Studio — Summary",
-          "",
-          `Venture: ${p.input.ventureName}`,
-          `Origin: ${p.input.foundingDate}${p.input.foundingTime ? " " + p.input.foundingTime : ""} • ${p.input.foundingPlace}`,
-          `Industry: ${p.input.industry} • Team: ${p.input.teamSize} • Stage: ${p.cycle.name}`,
-          "",
-          `Origin rhythm: ${p.tags.rhythmTag} • Field: ${p.tags.fieldTag}`,
-          `Archetypes: ${p.archetypes.dominant.name} (dominant), ${p.archetypes.secondary.name} (secondary)`,
-          `Tensions: ${primary.name} / ${secondary.name}`,
-          `Lever: ${p.tags.leverTag}`,
-          `Decision risk: ${p.tags.riskTag}`,
-          "",
-          "Disclaimer: This experience is designed for reflection and creative strategic insight. It is not a scientific assessment and should not be used for hiring, legal, financial or medical decisions.",
-        ].join("\n");
-      }
-
-      /* ---------------------------
-         Tiny UI helpers
-      ---------------------------- */
-      function toast(msg) {
-        const t = document.createElement("div");
-        t.textContent = msg;
-        t.style.position = "fixed";
-        t.style.right = "16px";
-        t.style.bottom = "16px";
-        t.style.padding = "10px 12px";
-        t.style.borderRadius = "14px";
-        t.style.border = "1px solid rgba(255,255,255,0.14)";
-        t.style.background = "rgba(0,0,0,0.55)";
-        t.style.backdropFilter = "blur(10px)";
-        t.style.color = "rgba(255,255,255,0.85)";
-        t.style.zIndex = "999";
-        t.style.boxShadow = "0 18px 50px rgba(0,0,0,0.35)";
-        document.body.appendChild(t);
-        setTimeout(() => t.remove(), 1400);
-      }
+      const clamp = (n, a, b) => Math.max(a, Math.min(b, n));
+      const safe = (v) => String(v ?? "").trim();
 
       function escapeHtml(s) {
         return String(s)
@@ -1922,13 +1196,113 @@
           .replaceAll("'", "&#039;");
       }
 
-      /* ---------------------------
-         SVG utilities
-      ---------------------------- */
-      function el(name) { return document.createElementNS("http://www.w3.org/2000/svg", name); }
+      function hash32(str) {
+        let h = 2166136261 >>> 0;
+        for (let i = 0; i < str.length; i++) {
+          h ^= str.charCodeAt(i);
+          h = Math.imul(h, 16777619);
+        }
+        return h >>> 0;
+      }
 
-      function circle(cx, cy, r, stroke, fill) {
-        const c = el("circle");
+      function pick(arr, seed) {
+        if (!arr.length) return null;
+        return arr[seed % arr.length];
+      }
+
+      function toast(msg) {
+        const t = document.createElement("div");
+        t.textContent = msg;
+        Object.assign(t.style, {
+          position: "fixed",
+          left: "50%",
+          bottom: `calc(92px + env(safe-area-inset-bottom))`,
+          transform: "translateX(-50%)",
+          padding: "10px 12px",
+          borderRadius: "14px",
+          border: "1px solid rgba(255,255,255,0.14)",
+          background: "rgba(0,0,0,0.55)",
+          backdropFilter: "blur(10px)",
+          color: "rgba(255,255,255,0.88)",
+          zIndex: "140",
+          boxShadow: "0 18px 50px rgba(0,0,0,0.35)",
+          maxWidth: "min(520px, calc(100% - 28px))",
+          textAlign: "center",
+        });
+        document.body.appendChild(t);
+        setTimeout(() => t.remove(), 1300);
+      }
+
+      function sleep(ms) { return new Promise((r) => setTimeout(r, ms)); }
+
+      /* Soundless-Chime (visual + optional haptic) */
+      function chime() {
+        const el = $("#chime");
+        if (!el) return;
+        el.classList.remove("show");
+        // reflow to restart animation
+        void el.offsetWidth;
+        el.classList.add("show");
+        setTimeout(() => el.classList.remove("show"), 560);
+
+        // optional haptic micro-vibe (supported on some Android)
+        try { if (navigator.vibrate) navigator.vibrate(10); } catch { /* ignore */ }
+      }
+
+      /* SVG helpers */
+      function elSvg(name) { return document.createElementNS("http://www.w3.org/2000/svg", name); }
+      function polar(cx, cy, r, deg) {
+        const a = (deg * Math.PI) / 180;
+        return { x: cx + r * Math.cos(a), y: cy + r * Math.sin(a) };
+      }
+      function arcPath(cx, cy, r0, r1, a0, a1) {
+        const p0 = polar(cx, cy, r1, a0);
+        const p1 = polar(cx, cy, r1, a1);
+        const p2 = polar(cx, cy, r0, a1);
+        const p3 = polar(cx, cy, r0, a0);
+        const largeArc = Math.abs(a1 - a0) > 180 ? 1 : 0;
+
+        const f = (n) => n.toFixed(2);
+        return [
+          `M ${f(p0.x)} ${f(p0.y)}`,
+          `A ${f(r1)} ${f(r1)} 0 ${largeArc} 1 ${f(p1.x)} ${f(p1.y)}`,
+          `L ${f(p2.x)} ${f(p2.y)}`,
+          `A ${f(r0)} ${f(r0)} 0 ${largeArc} 0 ${f(p3.x)} ${f(p3.y)}`,
+          "Z",
+        ].join(" ");
+      }
+      function svgGlowFilter(id, blur, opacity) {
+        const f = elSvg("filter");
+        f.setAttribute("id", id);
+
+        const g = elSvg("feGaussianBlur");
+        g.setAttribute("stdDeviation", String(blur));
+        g.setAttribute("result", "coloredBlur");
+
+        const c = elSvg("feColorMatrix");
+        c.setAttribute("type", "matrix");
+        c.setAttribute("values", [
+          "1 0 0 0 0",
+          "0 1 0 0 0",
+          "0 0 1 0 0",
+          `0 0 0 ${opacity} 0`,
+        ].join(" "));
+
+        const m = elSvg("feMerge");
+        const n1 = elSvg("feMergeNode");
+        n1.setAttribute("in", "coloredBlur");
+        const n2 = elSvg("feMergeNode");
+        n2.setAttribute("in", "SourceGraphic");
+        m.appendChild(n1);
+        m.appendChild(n2);
+
+        f.appendChild(g);
+        f.appendChild(c);
+        f.appendChild(m);
+        return f;
+      }
+      function svgCircle(cx, cy, r, stroke, fill) {
+        const c = elSvg("circle");
         c.setAttribute("cx", String(cx));
         c.setAttribute("cy", String(cy));
         c.setAttribute("r", String(r));
@@ -1937,72 +1311,1069 @@
         c.setAttribute("fill", fill);
         return c;
       }
-
-      function line(x1, y1, x2, y2, stroke) {
-        const l = el("line");
+      function svgLine(x1, y1, x2, y2, stroke, width) {
+        const l = elSvg("line");
         l.setAttribute("x1", String(x1));
         l.setAttribute("y1", String(y1));
         l.setAttribute("x2", String(x2));
         l.setAttribute("y2", String(y2));
         l.setAttribute("stroke", stroke);
-        l.setAttribute("stroke-width", "1");
+        l.setAttribute("stroke-width", String(width));
         return l;
       }
 
-      function glowFilter(id, blur, opacity) {
-        const f = el("filter");
-        f.setAttribute("id", id);
+      /* ===========================
+         State
+      =========================== */
+      const state = {
+        stepIndex: 0,
+        values: {},
+        profile: null,
+        wheelPinned: false,
+        wheelPinId: null,
+        reveal: { prompts: [], shown: 0 },
+      };
 
-        const feGaussian = el("feGaussianBlur");
-        feGaussian.setAttribute("stdDeviation", String(blur));
-        feGaussian.setAttribute("result", "coloredBlur");
+      init();
 
-        const feColor = el("feColorMatrix");
-        feColor.setAttribute("type", "matrix");
-        feColor.setAttribute(
-          "values",
-          [
-            "1 0 0 0 0",
-            "0 1 0 0 0",
-            "0 0 1 0 0",
-            `0 0 0 ${opacity} 0`,
-          ].join(" ")
-        );
+      /* ===========================
+         Init / UI
+      =========================== */
+      function init() {
+        $("#openDisclaimer").addEventListener("click", () => $("#disclaimerDialog").showModal());
 
-        const feMerge = el("feMerge");
-        const m1 = el("feMergeNode");
-        m1.setAttribute("in", "coloredBlur");
-        const m2 = el("feMergeNode");
-        m2.setAttribute("in", "SourceGraphic");
+        const key = "vrs_disclaimer_seen_mobile_v1";
+        if (!localStorage.getItem(key)) {
+          localStorage.setItem(key, "1");
+          setTimeout(() => $("#disclaimerDialog").showModal(), 550);
+        }
 
-        feMerge.appendChild(m1);
-        feMerge.appendChild(m2);
+        document.addEventListener("click", (e) => {
+          const btn = e.target.closest("[data-scroll]");
+          if (!btn) return;
+          const target = btn.getAttribute("data-scroll");
+          const el = document.querySelector(target);
+          if (!el) return;
+          el.scrollIntoView({ behavior: "smooth", block: "start" });
+        });
 
-        f.appendChild(feGaussian);
-        f.appendChild(feColor);
-        f.appendChild(feMerge);
-        return f;
+        $("#startWizard").addEventListener("click", () => {
+          document.querySelector("#screen-studio").scrollIntoView({ behavior: "smooth", block: "start" });
+          setStep(0);
+          focusFirstInput();
+          toast("Studio gestartet");
+        });
+
+        $("#demoFill").addEventListener("click", () => {
+          state.values = {
+            zielGefuehl: "klar, magnetisch, tragend",
+            ventureName: "Lumen Atelier",
+            tagline: "Eine ruhige Signatur, die Wirkung trägt.",
+            foundingDate: "2022-10-07",
+            foundingPlace: "Berlin, Deutschland",
+            foundingTime: "19:20",
+            startQualitaet: "abend",
+            industry: "creative",
+            proofDemand: "mittel",
+            teamSize: "small",
+            frictionZone: "ownership",
+            currentStage: "reibung",
+            mainChallenge: "Positionierung wirkt diffus, Delivery ist inkonsistent, Ownership verschwimmt. Entscheidungen hängen länger als sie sollten, und Energie versickert in Abstimmung statt in Wirkung.",
+            axisFree: "Kreativität ↔ Struktur",
+            axisPreset: "auto",
+            energyLeak: "unklarheit",
+            leakNote: "Niemand weiß genau, was diese Woche wirklich Priorität hat.",
+            desiredDirection: "Ein klares Signature-Angebot, ein stabiler Delivery-Rhythmus und weniger interne Reibung – ohne die kreative Kante zu verlieren.",
+            leadQuality: "containment",
+            leadHard: "Grenzen zu setzen fühlt sich gerade an wie Verlust, obwohl es eigentlich Schutz wäre.",
+            closeness: "hoch",
+            boundary: "Scope & Kundenerwartungen",
+            delayedDecision: "Wir müssen ein Angebot streichen und ein anderes bewusst priorisieren – aber wir halten alles parallel offen.",
+            useFor: "klarheit",
+          };
+          toast("Demo geladen");
+          document.querySelector("#screen-studio").scrollIntoView({ behavior: "smooth", block: "start" });
+          setStep(0);
+          focusFirstInput();
+        });
+
+        $("#navErgebnis").addEventListener("click", () => {
+          if (!state.profile) return;
+          $("#screen-ergebnis").scrollIntoView({ behavior: "smooth", block: "start" });
+        });
+
+        $("#unlockWheel").addEventListener("click", () => {
+          state.wheelPinned = false;
+          state.wheelPinId = null;
+          setWheelDetail(null);
+          toast("Pin gelöst");
+        });
+
+        $("#revealAll").addEventListener("click", () => revealAllPrompts());
+        $("#revealNext").addEventListener("click", () => revealNextPrompt());
+
+        $("#printBtn").addEventListener("click", () => window.print());
+        $("#copyBtn").addEventListener("click", async () => {
+          const text = buildCopySummary();
+          try {
+            await navigator.clipboard.writeText(text);
+            toast("Zusammenfassung kopiert");
+          } catch {
+            toast("Kopieren fehlgeschlagen (Permission).");
+          }
+        });
+
+        // Bottom bar controls
+        $("#btnBack").addEventListener("click", () => prevStep());
+        $("#btnNext").addEventListener("click", () => nextStep());
+
+        // Swipe navigation (mobile-friendly)
+        bindSwipeForWizard();
+
+        buildWizardUI();
+        setStep(0);
+        updateStepper();
+        renderWheelEmpty();
       }
 
-      function arcPath(cx, cy, r0, r1, a0, a1) {
-        const p0 = polarToXY(cx, cy, r1, a0);
-        const p1 = polarToXY(cx, cy, r1, a1);
-        const p2 = polarToXY(cx, cy, r0, a1);
-        const p3 = polarToXY(cx, cy, r0, a0);
-        const largeArc = Math.abs(a1 - a0) > 180 ? 1 : 0;
+      function bindSwipeForWizard() {
+        const area = document.querySelector(".wizard-shell");
+        if (!area) return;
+
+        let sx = 0, sy = 0, st = 0;
+        area.addEventListener("touchstart", (e) => {
+          if (!e.touches || e.touches.length !== 1) return;
+          sx = e.touches[0].clientX;
+          sy = e.touches[0].clientY;
+          st = Date.now();
+        }, { passive: true });
+
+        area.addEventListener("touchend", (e) => {
+          const dt = Date.now() - st;
+          if (dt > 650) return;
+          const touch = e.changedTouches && e.changedTouches[0];
+          if (!touch) return;
+
+          const dx = touch.clientX - sx;
+          const dy = touch.clientY - sy;
+
+          // horizontal swipe threshold
+          if (Math.abs(dx) < 56 || Math.abs(dy) > 80) return;
+
+          if (dx < 0) { // swipe left => next
+            nextStep();
+          } else { // swipe right => back
+            prevStep();
+          }
+        }, { passive: true });
+      }
+
+      function buildWizardUI() {
+        const mount = $("#stepsMount");
+        mount.innerHTML = "";
+
+        STEPS.forEach((s, idx) => {
+          const wrap = document.createElement("div");
+          wrap.className = "step-view";
+          wrap.dataset.step = String(idx);
+
+          const card = document.createElement("div");
+          card.className = "wizard-card";
+
+          const chip = document.createElement("div");
+          chip.className = "chip";
+          chip.textContent = `Schritt ${idx + 1} · ${s.chip}`;
+
+          const title = document.createElement("div");
+          title.className = "prompt-title";
+          title.textContent = s.title;
+
+          const body = document.createElement("div");
+          body.className = "prompt-body";
+          body.textContent = s.body;
+
+          const grid = document.createElement("div");
+          grid.className = "field-grid";
+
+          for (const f of s.fields) {
+            const field = document.createElement("div");
+            field.className = "field";
+
+            const label = document.createElement("label");
+            label.setAttribute("for", `${s.id}_${f.key}`);
+            label.textContent = f.label;
+
+            let input;
+            if (f.type === "select") {
+              input = document.createElement("select");
+              input.id = `${s.id}_${f.key}`;
+              input.name = f.key;
+
+              const opt0 = document.createElement("option");
+              opt0.value = "";
+              opt0.textContent = "Bitte wählen…";
+              opt0.disabled = true;
+              opt0.selected = true;
+              input.appendChild(opt0);
+
+              for (const o of f.options ?? []) {
+                const opt = document.createElement("option");
+                opt.value = o.v;
+                opt.textContent = o.t;
+                input.appendChild(opt);
+              }
+            } else if (f.type === "textarea") {
+              input = document.createElement("textarea");
+              input.id = `${s.id}_${f.key}`;
+              input.name = f.key;
+              input.placeholder = f.placeholder ?? "";
+              input.rows = 4;
+            } else {
+              input = document.createElement("input");
+              input.id = `${s.id}_${f.key}`;
+              input.name = f.key;
+              input.type = f.type;
+              input.placeholder = f.placeholder ?? "";
+            }
+
+            if (f.required) input.dataset.required = "1";
+
+            input.addEventListener("keydown", (e) => {
+              const isTextArea = input.tagName.toLowerCase() === "textarea";
+              if (e.key === "Enter" && !e.shiftKey) {
+                if (isTextArea) {
+                  e.preventDefault();
+                  nextStep();
+                  return;
+                }
+                e.preventDefault();
+                nextStep();
+              }
+            });
+
+            input.addEventListener("change", () => { state.values[f.key] = safe(input.value); updateStepper(); });
+            input.addEventListener("input", () => { state.values[f.key] = safe(input.value); });
+
+            field.appendChild(label);
+            field.appendChild(input);
+            grid.appendChild(field);
+          }
+
+          card.appendChild(chip);
+          card.appendChild(title);
+          card.appendChild(body);
+          card.appendChild(grid);
+
+          wrap.appendChild(card);
+          mount.appendChild(wrap);
+        });
+      }
+
+      function setStep(i) {
+        state.stepIndex = clamp(i, 0, STEPS.length - 1);
+
+        document.querySelectorAll(".step-view").forEach((v) => v.classList.remove("active"));
+        const active = document.querySelector(\`.step-view[data-step="\${state.stepIndex}"]\`);
+        if (active) active.classList.add("active");
+
+        hydrateStepInputs();
+        updateStepper();
+        updateBottomBar();
+      }
+
+      function hydrateStepInputs() {
+        const s = STEPS[state.stepIndex];
+        for (const f of s.fields) {
+          const el = document.getElementById(\`\${s.id}_\${f.key}\`);
+          if (!el) continue;
+
+          const v = state.values[f.key];
+          if (v) {
+            el.value = v;
+          } else {
+            if (el.tagName.toLowerCase() === "select") el.value = "";
+            else el.value = "";
+          }
+        }
+      }
+
+      function focusFirstInput() {
+        const active = document.querySelector(\`.step-view[data-step="\${state.stepIndex}"]\`);
+        if (!active) return;
+        const first = active.querySelector("input, select, textarea");
+        if (first) first.focus({ preventScroll: false });
+      }
+
+      function validateStep() {
+        const s = STEPS[state.stepIndex];
+        for (const f of s.fields) {
+          if (!f.required) continue;
+          const v = safe(state.values[f.key]);
+          if (!v) {
+            toast(\`Bitte ausfüllen: \${f.label}\`);
+            return false;
+          }
+        }
+        return true;
+      }
+
+      function prevStep() {
+        if (state.stepIndex === 0) return;
+        setStep(state.stepIndex - 1);
+        chime();
+        focusFirstInput();
+      }
+
+      async function nextStep() {
+        if (!validateStep()) return;
+
+        if (state.stepIndex >= STEPS.length - 1) {
+          await generateProfile();
+          return;
+        }
+        setStep(state.stepIndex + 1);
+        chime();
+        focusFirstInput();
+      }
+
+      function updateStepper() {
+        const total = STEPS.length;
+        const idx = state.stepIndex + 1;
+        $("#stepTitle").textContent = "Studio";
+        $("#stepCount").textContent = \`Schritt \${idx} von \${total}\`;
+        $("#progressFill").style.width = \`\${((idx / total) * 100).toFixed(1)}%\`;
+      }
+
+      function updateBottomBar() {
+        $("#btnBack").disabled = state.stepIndex === 0;
+        $("#btnNext").textContent = state.stepIndex === STEPS.length - 1 ? "Profil erzeugen" : "Weiter";
+        $("#bottomLeft").textContent = \`Schritt \${state.stepIndex + 1}/\${STEPS.length}\`;
+        $("#bottomRight").innerHTML = \`<span class="kbd">Enter</span> weiter\`;
+      }
+
+      /* ===========================
+         Engine
+      =========================== */
+      function computeRhythmTag(dateISO) {
+        const dt = new Date(dateISO);
+        const day = dt.getUTCDate();
+        const month = dt.getUTCMonth() + 1;
+        const dayTone = ["Puls","Vektor","Anker","Spirale"][day % 4];
+        const monthTone = ["Initiation","Containment","Transmutation"][month % 3];
+        return \`\${dayTone} · \${monthTone}\`;
+      }
+
+      function computeFieldTag(industry, proofDemand) {
+        const base = {
+          saas: "System & Leverage",
+          brand: "Signal & Desire",
+          creative: "Ästhetik & Bedeutung",
+          services: "Delivery & Vertrauen",
+          marketplace: "Austausch & Netzwerk",
+          fintech: "Risiko & Integrität",
+          health: "Care & Proof",
+          climate: "Transition & Constraint",
+          hardware: "Material & Präzision",
+          edu: "Transformation & Praxis",
+          other: "Meaning & Mechanism",
+        }[industry] ?? "Meaning & Mechanism";
+
+        const proof = {
+          hoch: "hoher Proof-Druck",
+          mittel: "balancierter Proof-Druck",
+          niedrig: "signal-getragener Proof",
+        }[proofDemand] ?? "Proof-Druck unklar";
+
+        return \`\${base} · \${proof}\`;
+      }
+
+      function computeSMA(values) {
+        const seedBase = [
+          values.ventureName,
+          values.foundingDate,
+          values.foundingTime || "00:00",
+          values.foundingPlace,
+          values.industry,
+          values.zielGefuehl,
+        ].join("|");
+
+        const h = hash32(seedBase);
+        const sun = pick(SMA_SIGNS, h);
+        const moon = pick(SMA_SIGNS.filter((x) => x.id !== sun.id), h >>> 3);
+        const asc = pick(SMA_SIGNS.filter((x) => x.id !== sun.id && x.id !== moon.id), h >>> 7);
+
+        const element = pick(ELEMENTE, (h >>> 11));
+        const element2 = pick(ELEMENTE.filter((e) => e.id !== element.id), (h >>> 15));
+        return { sun, moon, asc, element, element2 };
+      }
+
+      function computeTensions(values) {
+        const weights = new Map(AXES.map((a) => [a.id, 0]));
+        const bump = (id, by) => weights.set(id, (weights.get(id) ?? 0) + by);
+
+        const stage = values.currentStage;
+        if (stage === "start") { bump("vision_vs_umsetzung", 2); bump("innovation_vs_struktur", 1); }
+        if (stage === "konsolidierung") { bump("innovation_vs_struktur", 2); bump("wachstum_vs_stabilitaet", 1); bump("kontrolle_vs_vertrauen", 1); }
+        if (stage === "reibung") { bump("kontrolle_vs_vertrauen", 2); bump("tempo_vs_reife", 2); bump("gruender_vs_markt", 1); }
+        if (stage === "umbruch") { bump("gruender_vs_markt", 2); bump("vision_vs_umsetzung", 2); }
+        if (stage === "expansion") { bump("wachstum_vs_stabilitaet", 2); bump("tempo_vs_reife", 2); bump("kontrolle_vs_vertrauen", 1); }
+        if (stage === "neuordnung") { bump("innovation_vs_struktur", 2); bump("wachstum_vs_stabilitaet", 1); bump("gruender_vs_markt", 1); }
+
+        const team = values.teamSize;
+        if (team === "solo" || team === "tiny") { bump("vision_vs_umsetzung", 1); bump("innovation_vs_struktur", 1); }
+        if (team === "mid" || team === "scale" || team === "large") { bump("kontrolle_vs_vertrauen", 2); bump("tempo_vs_reife", 1); bump("wachstum_vs_stabilitaet", 1); }
+
+        const leak = values.energyLeak;
+        if (leak === "unklarheit") bump("kontrolle_vs_vertrauen", 1);
+        if (leak === "komplexitaet") bump("innovation_vs_struktur", 1);
+        if (leak === "perfektion") bump("vision_vs_umsetzung", 1);
+        if (leak === "zuviel") bump("wachstum_vs_stabilitaet", 1);
+        if (leak === "konflikt") bump("kontrolle_vs_vertrauen", 1);
+
+        const fr = values.frictionZone;
+        if (fr === "ownership") bump("kontrolle_vs_vertrauen", 1);
+        if (fr === "struktur") bump("innovation_vs_struktur", 1);
+        if (fr === "strategie") bump("vision_vs_umsetzung", 1);
+        if (fr === "energie") bump("tempo_vs_reife", 1);
+
+        const text = \`\${values.mainChallenge} \${values.desiredDirection} \${values.axisFree} \${values.delayedDecision}\`.toLowerCase();
+        const kw = [
+          ["position", "gruender_vs_markt", 2], ["marke", "gruender_vs_markt", 1], ["pivot", "gruender_vs_markt", 2],
+          ["prozess", "innovation_vs_struktur", 2], ["struktur", "innovation_vs_struktur", 2],
+          ["delivery", "vision_vs_umsetzung", 2], ["umsetzen", "vision_vs_umsetzung", 2],
+          ["wachstum", "wachstum_vs_stabilitaet", 2], ["skal", "wachstum_vs_stabilitaet", 2],
+          ["vertrauen", "kontrolle_vs_vertrauen", 2], ["deleg", "kontrolle_vs_vertrauen", 2],
+          ["langsam", "tempo_vs_reife", 2], ["reif", "tempo_vs_reife", 2],
+        ];
+        for (const [frag, id, w] of kw) if (text.includes(frag)) bump(id, w);
+
+        if (values.axisPreset && values.axisPreset !== "auto") bump(values.axisPreset, 4);
+
+        const sorted = [...weights.entries()].sort((a, b) => b[1] - a[1]);
+        const primaryId = sorted[0]?.[0] ?? "wachstum_vs_stabilitaet";
+        const secondaryId = sorted[1]?.[0] ?? "vision_vs_umsetzung";
+        return {
+          primary: AXES.find((a) => a.id === primaryId),
+          secondary: AXES.find((a) => a.id === secondaryId),
+        };
+      }
+
+      function computeArchetypes(values, sma, tensions) {
+        const scores = new Map(ARCHETYPES.map((a) => [a.id, 0]));
+        const bump = (id, by) => scores.set(id, (scores.get(id) ?? 0) + by);
+
+        const st = values.currentStage;
+        if (st === "start") { bump("pioneer", 3); bump("catalyst", 2); bump("oracle", 1); }
+        if (st === "konsolidierung") { bump("builder", 3); bump("integrator", 2); bump("steward", 1); }
+        if (st === "reibung") { bump("integrator", 2); bump("steward", 2); bump("challenger", 1); }
+        if (st === "umbruch") { bump("challenger", 2); bump("pioneer", 2); bump("oracle", 1); }
+        if (st === "expansion") { bump("builder", 2); bump("steward", 2); bump("integrator", 1); }
+        if (st === "neuordnung") { bump("steward", 2); bump("oracle", 2); bump("builder", 1); }
+
+        const ind = values.industry;
+        if (ind === "brand") { bump("magnet", 3); bump("challenger", 1); }
+        if (ind === "creative") { bump("magnet", 2); bump("oracle", 1); }
+        if (ind === "services") { bump("integrator", 2); bump("steward", 1); }
+        if (ind === "saas" || ind === "fintech") { bump("builder", 2); bump("pioneer", 1); }
+
+        const p = tensions.primary.id;
+        if (p === "kontrolle_vs_vertrauen") bump("integrator", 2);
+        if (p === "vision_vs_umsetzung") { bump("builder", 1); bump("pioneer", 1); }
+        if (p === "gruender_vs_markt") { bump("challenger", 1); bump("magnet", 1); }
+        if (p === "innovation_vs_struktur") bump("builder", 2);
+        if (p === "tempo_vs_reife") { bump("steward", 1); bump("integrator", 1); }
+        if (p === "wachstum_vs_stabilitaet") { bump("steward", 1); bump("builder", 1); }
+
+        if (sma.element.id === "feuer") { bump("catalyst", 1); bump("pioneer", 1); }
+        if (sma.element.id === "wasser") { bump("steward", 1); bump("magnet", 1); }
+        if (sma.element.id === "luft") { bump("oracle", 1); bump("integrator", 1); }
+        if (sma.element.id === "erde") bump("builder", 1);
+
+        const sorted = [...scores.entries()].sort((a, b) => b[1] - a[1]);
+        const domId = sorted[0]?.[0] ?? "builder";
+        const secId = sorted[1]?.[0] ?? "integrator";
+        return {
+          dominant: ARCHETYPES.find((a) => a.id === domId),
+          secondary: ARCHETYPES.find((a) => a.id === secId),
+        };
+      }
+
+      function computeCycle(stage) { return CYCLES[stage] ?? CYCLES.start; }
+
+      function computeRiskAndLever(values, arch, tensions) {
+        const text = \`\${values.mainChallenge} \${values.desiredDirection} \${values.delayedDecision}\`.toLowerCase();
+        let risk = "Halb-Commitment";
+        if (tensions.primary.id === "gruender_vs_markt") risk = "Identitäts-Drag";
+        if (tensions.primary.id === "vision_vs_umsetzung") risk = "Abstraktions-Drift";
+        if (tensions.primary.id === "kontrolle_vs_vertrauen") risk = "Übersteuerung";
+        if (text.includes("team") || text.includes("rollen") || text.includes("hire")) risk = "People-System-Mismatch";
+        if (arch.dominant.id === "catalyst") risk = "Zerstreute Wetten";
+        if (arch.dominant.id === "magnet") risk = "Signal->Proof-Gap";
+
+        const axisLever = {
+          wachstum_vs_stabilitaet: "Schütze einen stabilen Kern: Angebot · Kadenz · Ownership.",
+          vision_vs_umsetzung: "Übersetze Vision in einen testbaren Commit – diese Woche, nicht irgendwann.",
+          kontrolle_vs_vertrauen: "Instrumentiere Vertrauen: Rollen, Regeln, Feedback – damit Loslassen sicher wird.",
+          tempo_vs_reife: "Finde den langsamen Constraint – und designe Tempo um ihn herum.",
+          gruender_vs_markt: "Lass den Ursprung reifen: gleiche Handschrift, neue Form.",
+          innovation_vs_struktur: "Konvertiere Neuheit in Struktur – bevor sie zur Impro-Schuld wird.",
+        }[tensions.primary.id] ?? "Benenne den Trade-off – und committe bewusst.";
+
+        return { risk, lever: \`\${axisLever} \${arch.dominant.lever}\` };
+      }
+
+      function composeOriginText(values, rhythmTag, fieldTag, sma, cycle) {
+        const qual = { morgen: "morgendlich-klar", mittag: "sichtbar-tragend", abend: "verdichtend-mutig", nacht: "intuitiv-tief" }[values.startQualitaet] ?? "klar";
+        const feel = values.zielGefuehl;
 
         return [
-          `M ${p0.x} ${p0.y}`,
-          `A ${r1} ${r1} 0 ${largeArc} 1 ${p1.x} ${p1.y}`,
-          `L ${p2.x} ${p2.y}`,
-          `A ${r0} ${r0} 0 ${largeArc} 0 ${p3.x} ${p3.y}`,
-          "Z",
+          `Dieses Unternehmen trägt eine Gründungs-Signatur, die wie ein <strong>${qual}</strong>er Eintritt wirkt – ein Impuls, der nicht nur starten, sondern <strong>Form</strong> finden will.`,
+          `Der Rhythmus liest sich als <strong>${rhythmTag}</strong>: ein Muster aus Bewegung und Containment.`,
+          `Das Feld wirkt wie <strong>${fieldTag}</strong> – ein Kontext, der bestimmt, wie viel Proof, Klarheit und Kadenz das System braucht, um zu tragen.`,
+          `Dein Zielgefühl („${escapeHtml(feel)}“) ist wie ein Nordstern: nicht die Wahrheit, aber die <strong>Qualität</strong>, in die du zurückkehren willst.`,
+          `Zyklus-Hinweis: Ihr seid in <strong>${cycle.name}</strong>. In dieser Phase wirken gute Fragen oft schneller als neue Features.`,
         ].join(" ");
       }
 
-      function polarToXY(cx, cy, r, angleDeg) {
-        const a = (angleDeg * Math.PI) / 180;
-        return { x: (cx + r * Math.cos(a)).toFixed(2), y: (cy + r * Math.sin(a)).toFixed(2) };
+      function composeSMAText(sma) {
+        return [
+          `<strong>Sonne</strong> („${sma.sun.label}“): ${sma.sun.meaning}. Ton: ${sma.sun.tone}.`,
+          `<strong>Mond</strong> („${sma.moon.label}“): ${sma.moon.meaning}. Ton: ${sma.moon.tone}.`,
+          `<strong>Aszendent</strong> („${sma.asc.label}“): ${sma.asc.meaning}. Ton: ${sma.asc.tone}.`,
+          `Element-Qualitäten: <strong>${sma.element.name}</strong> (${sma.element.cue}) + <strong>${sma.element2.name}</strong> (${sma.element2.cue}).`,
+        ].join("<br/>");
+      }
+
+      function composeArchetypeText(arch) {
+        const d = arch.dominant, s = arch.secondary;
+        return [
+          `Dominant wirkt <strong>${d.name}</strong>: ${d.strengths.slice(0,2).join(" · ")}.`,
+          `Sekundär wirkt <strong>${s.name}</strong>: ${s.strengths.slice(0,2).join(" · ")}.`,
+          `Schatten-Hinweis (sanft, aber wichtig): ${d.shadow[0]}.`,
+        ].join(" ");
+      }
+
+      function composeAxisText(values, primary, secondary) {
+        const extra = values.axisFree ? `Deine formulierte Achse („${escapeHtml(values.axisFree)}“) färbt die Lesart zusätzlich.` : "";
+        return [
+          `Primär: <strong>${primary.name}</strong> (${primary.poles[0]} ↔ ${primary.poles[1]}). ${primary.description}`,
+          `Sekundär: <strong>${secondary.name}</strong> (${secondary.poles[0]} ↔ ${secondary.poles[1]}). ${secondary.description}`,
+          extra,
+        ].join(" ");
+      }
+
+      function composeLeadText(values, arch, riskLever) {
+        const qMap = {
+          fokus: "Fokus: weniger, aber wahrer.",
+          containment: "Containment: Grenzen setzen, damit Energie bleibt.",
+          mut: "Mut: klare Schnitte, ohne Härte.",
+          sanftheit: "Sanftheit: Würde halten, Tempo trotzdem führen.",
+          konsequenz: "Konsequenz: Kadenz, Commitment, Wiederholung.",
+          vertrauen: "Vertrauen: Delegation, ohne Blindheit.",
+        };
+        return [
+          `Führungsqualität: <strong>${qMap[values.leadQuality] ?? "Klarheit"}</strong>`,
+          `Was es schwer macht: „${escapeHtml(values.leadHard)}“`,
+          `Führung wirkt am stärksten, wenn sie den Archetyp-Ton (${arch.dominant.name}) in eine <strong>kleine, wiederholbare Praxis</strong> übersetzt.`,
+          `Hebel: ${escapeHtml(riskLever.lever)}`,
+          `Entscheidungsrisiko: <strong>${riskLever.risk}</strong>`,
+        ].join(" ");
+      }
+
+      function buildPrompts(values, sma, tensions, arch, cycle) {
+        const t1 = tensions.primary.id, t2 = tensions.secondary.id;
+
+        const base = [
+          { q: "Wenn dieses Unternehmen ein Mensch wäre: Welches Bedürfnis wird gerade überhört – und wie zeigt sich das im Alltag (Meetings, Delivery, Entscheidungen)?", h: "Suche nicht nach Schuld. Suche nach dem Ort, an dem das System unbemerkt bezahlt." },
+          { q: "Wo ist der Ursprung noch spürbar – und wo braucht er eine neue Form, damit der Markt euch wirklich versteht?", h: "Reifung heißt: gleiche Handschrift, neue Gestalt." },
+          { q: "Welche Entscheidung würde das System entspannen, obwohl sie kurzfristig unbequem ist?", h: "Entlastung ist oft: Klarheit + Konsequenz – nicht mehr Ruhe." },
+        ];
+
+        const axisPrompts = {
+          wachstum_vs_stabilitaet: [
+            { q: "Was musst du in den nächsten 90 Tagen schützen, damit Wachstum nicht zum Selbstverlust wird?", h: "Schütze den Kern: Angebot · Kadenz · Ownership. Alles andere darf verhandelbar bleiben." },
+            { q: "Welche Struktur ist nicht Bürokratie, sondern liebevolles Containment für eure Energie?", h: "Containment ist Schutzraum – nicht Kontrolle." },
+          ],
+          vision_vs_umsetzung: [
+            { q: "Welche Vision-Aussage klingt schön, ist aber noch nicht umsetzbar – und was wäre der kleinste Test, der sie real macht?", h: "In 7 Tagen machbar. Mit sichtbarem Output." },
+            { q: "Wenn ihr Delivery um 40% reduzieren müsstet: Was bleibt als Signature-Angebot übrig?", h: "Hier zeigt sich oft das echte Zentrum." },
+          ],
+          kontrolle_vs_vertrauen: [
+            { q: "Wo wird übersteuert, weil Vertrauen nicht instrumentiert ist?", h: "Rollen, Regeln, Feedback-Loops. Dann kann Vertrauen wachsen, ohne naiv zu werden." },
+            { q: "Welche Verantwortung liegt „zwischen den Stühlen“ – und wie würdest du Ownership vergeben, damit es sich klar (nicht hart) anfühlt?", h: "Klarheit ist Fürsorge, wenn sie gut gesetzt ist." },
+          ],
+          tempo_vs_reife: [
+            { q: "Welche Stelle im System ist der langsame Constraint – und wie würdet ihr Tempo designen, statt es nur zu fordern?", h: "Die beste Beschleunigung ist oft eine präzise Entlastung." },
+            { q: "Wo rennt ihr – und wo ist euer System noch nicht bereit zu tragen?", h: "Timing-Information. Kein Versagen." },
+          ],
+          gruender_vs_markt: [
+            { q: "Welche Handschrift des Ursprungs ist kostbar – und welche ist gerade ein Gefängnis?", h: "Beides darf wahr sein. Die Kunst ist, die Grenze zu benennen." },
+            { q: "Welche Markt-Wahrheit ist unangenehm – würde euch aber sofort schärfer machen, wenn ihr sie integriert?", h: "Nicht gefällig. Präzise." },
+          ],
+          innovation_vs_struktur: [
+            { q: "Wo ist Innovation gerade Improvisation – und was wäre eine Regel, die die nächsten 90 Tage einfacher macht?", h: "Klein, eindeutig, energie-schützend." },
+            { q: "Welche Neuheit sollte jetzt bewusst „System“ werden (Ritual, Prozess, Template), damit sie wiederholbar Wirkung erzeugt?", h: "Struktur ist Träger der Kreativität." },
+          ],
+        };
+
+        const smaPrompts = [
+          { q: `Sonne-Metapher („${sma.sun.label}“): Was ist euer Fokus – und was müsst ihr dafür bewusst nicht tun?`, h: "Fokus ist Richtung – nicht Mangel." },
+          { q: `Mond-Metapher („${sma.moon.label}“): Was braucht das System, um sich sicher zu fühlen (Ritual, Rhythmus, Grenze, Sprache)?`, h: "Sicherheit ist Regulation – nicht Komfort." },
+          { q: `Aszendent-Metapher („${sma.asc.label}“): Wie wirkt ihr nach außen – und wo ist euer Signal stärker als euer Proof (oder umgekehrt)?`, h: "Wenn Signal und Proof zusammenfinden, entsteht Magnetismus ohne Hype." },
+        ];
+
+        const culturePrompt = { q: `Nähe & Grenze: Wo kippt Verbindung in Überverantwortung – und welche Grenze („${escapeHtml(values.boundary)}“) würde euch würdevoll entlasten?`, h: "Grenzen sind die Form, in der Verbindung im System bleiben kann." };
+        const closing = { q: `Wenn du nur eine Sache aus diesem Reading nimmst: Welche Praxis setzt du in 7 Tagen wirklich um – im Dienst von „${escapeHtml(values.zielGefuehl)}“?`, h: "Klein. Konsequent. Wiederholbar." };
+
+        const list = [...base, ...(axisPrompts[t1] ?? []), ...(axisPrompts[t2] ?? []), ...smaPrompts, culturePrompt, closing];
+
+        const seen = new Set();
+        const out = [];
+        for (const p of list) {
+          if (seen.has(p.q)) continue;
+          seen.add(p.q);
+          out.push(p);
+          if (out.length >= 10) break;
+        }
+        return out;
+      }
+
+      /* ===========================
+         Generate profile
+      =========================== */
+      async function generateProfile() {
+        $("#calibrating").classList.remove("hidden");
+        document.querySelectorAll(".step-view").forEach((v) => v.classList.remove("active"));
+
+        // Short paced reveal
+        chime();
+        await sleep(750);
+
+        const v = normalizeValues(state.values);
+        const rhythmTag = computeRhythmTag(v.foundingDate);
+        const fieldTag = computeFieldTag(v.industry, v.proofDemand);
+        const sma = computeSMA(v);
+        const tensions = computeTensions(v);
+        const arch = computeArchetypes(v, sma, tensions);
+        const cycle = computeCycle(v.currentStage);
+        const riskLever = computeRiskAndLever(v, arch, tensions);
+        const prompts = buildPrompts(v, sma, tensions, arch, cycle);
+
+        state.profile = { values: v, rhythmTag, fieldTag, sma, tensions, arch, cycle, riskLever, prompts };
+
+        await sleep(650);
+        $("#calibrating").classList.add("hidden");
+        $("#navErgebnis").disabled = false;
+
+        renderResult(state.profile);
+
+        $("#screen-ergebnis").scrollIntoView({ behavior: "smooth", block: "start" });
+        toast("Ergebnis erzeugt");
+        chime();
+      }
+
+      function normalizeValues(values) {
+        const out = {};
+        for (const s of STEPS) for (const f of s.fields) out[f.key] = safe(values[f.key]);
+        if (!out.axisPreset) out.axisPreset = "auto";
+        if (!out.startQualitaet) out.startQualitaet = "morgen";
+        return out;
+      }
+
+      /* ===========================
+         Render result
+      =========================== */
+      function renderBadges(sel, items) {
+        const wrap = $(sel);
+        wrap.innerHTML = "";
+        for (const t of items) {
+          const b = document.createElement("span");
+          b.className = "badge";
+          b.textContent = t;
+          wrap.appendChild(b);
+        }
+      }
+
+      function renderResult(p) {
+        $("#ergebnisEmpty").classList.add("hidden");
+        $("#ergebnisWrap").classList.remove("hidden");
+
+        $("#originText").innerHTML = composeOriginText(p.values, p.rhythmTag, p.fieldTag, p.sma, p.cycle);
+        $("#rhythmTag").textContent = p.rhythmTag;
+        $("#fieldTag").textContent = p.fieldTag;
+
+        $("#smaText").innerHTML = composeSMAText(p.sma);
+        renderBadges("#smaBadges", [
+          `Sonne: ${p.sma.sun.label}`,
+          `Mond: ${p.sma.moon.label}`,
+          `Aszendent: ${p.sma.asc.label}`,
+          `Element: ${p.sma.element.name}`,
+          `Sekundär: ${p.sma.element2.name}`,
+        ]);
+
+        $("#archNames").textContent = `${p.arch.dominant.name} + ${p.arch.secondary.name}`;
+        $("#archText").innerHTML = composeArchetypeText(p.arch);
+        renderBadges("#archTags", [...p.arch.dominant.tone, ...p.arch.secondary.tone].slice(0, 6));
+
+        $("#axisName").textContent = p.tensions.primary.name;
+        $("#axisText").innerHTML = composeAxisText(p.values, p.tensions.primary, p.tensions.secondary);
+        renderBadges("#axisBadges", [
+          `${p.tensions.primary.poles[0]} ↔ ${p.tensions.primary.poles[1]}`,
+          `${p.tensions.secondary.poles[0]} ↔ ${p.tensions.secondary.poles[1]}`,
+        ]);
+
+        $("#leadText").innerHTML = composeLeadText(p.values, p.arch, p.riskLever);
+        $("#riskTag").textContent = p.riskLever.risk;
+        $("#leverTag").textContent = p.riskLever.lever;
+
+        $("#cycleText").innerHTML = [
+          `<div class="big">${escapeHtml(p.cycle.name)}</div>`,
+          `<div class="prose">Signale: ${escapeHtml(p.cycle.signals.join(" · "))}</div>`,
+          `<div class="prose">Reibung: ${escapeHtml(p.cycle.friction.join(" · "))}</div>`,
+          `<div class="prose"><strong>Timing-Hinweis:</strong> ${escapeHtml(p.cycle.hint)}</div>`,
+        ].join("");
+        renderBadges("#cycleBadges", [p.cycle.name, `Reibung: ${p.values.frictionZone}`, `Leak: ${p.values.energyLeak}`]);
+
+        renderWheel(p);
+
+        // Prompts reveal
+        state.reveal.prompts = p.prompts;
+        state.reveal.shown = 0;
+        $("#revealGrid").innerHTML = "";
+        updateRevealStatus();
+        revealNextPrompt();
+        setTimeout(() => revealNextPrompt(), 430);
+
+        renderExport(p);
+      }
+
+      /* ===========================
+         Prompt reveal
+      =========================== */
+      function updateRevealStatus() {
+        $("#revealStatus").textContent = `${state.reveal.shown} / ${state.reveal.prompts.length} sichtbar`;
+      }
+
+      function revealNextPrompt() {
+        const idx = state.reveal.shown;
+        if (idx >= state.reveal.prompts.length) {
+          toast("Alle Karten sichtbar");
+          return;
+        }
+        const p = state.reveal.prompts[idx];
+        const card = document.createElement("div");
+        card.className = "reveal-card";
+
+        const q = document.createElement("div");
+        q.className = "reveal-q";
+        q.textContent = p.q;
+
+        const h = document.createElement("div");
+        h.className = "reveal-hint";
+        h.textContent = p.h;
+
+        card.appendChild(q);
+        card.appendChild(h);
+
+        $("#revealGrid").appendChild(card);
+        requestAnimationFrame(() => card.classList.add("show"));
+
+        state.reveal.shown += 1;
+        updateRevealStatus();
+        syncExportPrompts();
+        chime();
+      }
+
+      function revealAllPrompts() {
+        while (state.reveal.shown < state.reveal.prompts.length) revealNextPrompt();
+      }
+
+      function syncExportPrompts() {
+        if (!state.profile) return;
+        const ul = $("#exportPrompts");
+        ul.innerHTML = "";
+        const list = state.profile.prompts.slice(0, 8);
+        for (const p of list) {
+          const li = document.createElement("li");
+          li.textContent = p.q;
+          ul.appendChild(li);
+        }
+      }
+
+      /* ===========================
+         Wheel
+      =========================== */
+      function renderWheelEmpty() {
+        const svg = $("#wheelSvg");
+        if (!svg) return;
+        svg.innerHTML = "";
+        const defs = elSvg("defs");
+        defs.appendChild(svgGlowFilter("softGlow", 3.0, 0.36));
+        defs.appendChild(svgGlowFilter("hardGlow", 6.0, 0.22));
+        svg.appendChild(defs);
+      }
+
+      function renderWheel(profile) {
+        const svg = $("#wheelSvg");
+        svg.innerHTML = "";
+
+        const defs = elSvg("defs");
+        defs.appendChild(svgGlowFilter("softGlow", 3.0, 0.36));
+        defs.appendChild(svgGlowFilter("hardGlow", 6.0, 0.22));
+        svg.appendChild(defs);
+
+        const cx = 360, cy = 360;
+
+        svg.appendChild(svgCircle(cx, cy, 318, "rgba(255,255,255,0.10)", "rgba(0,0,0,0)"));
+        svg.appendChild(svgCircle(cx, cy, 270, "rgba(255,255,255,0.08)", "rgba(0,0,0,0)"));
+        svg.appendChild(svgCircle(cx, cy, 220, "rgba(255,255,255,0.06)", "rgba(0,0,0,0)"));
+        svg.appendChild(svgCircle(cx, cy, 168, "rgba(255,255,255,0.05)", "rgba(0,0,0,0)"));
+
+        svg.appendChild(svgLine(cx, 70, cx, 650, "rgba(255,255,255,0.06)", 1));
+        svg.appendChild(svgLine(70, cy, 650, cy, "rgba(255,255,255,0.06)", 1));
+
+        const eSegs = ELEMENTE.map((e, i) => ({
+          id: `elem_${e.id}`,
+          label: `Element: ${e.name}`,
+          detail: `${e.cue}. ${e.note}`,
+          a0: -90 + i * 90,
+          a1: -90 + (i + 1) * 90,
+          r0: 118, r1: 168,
+          fill: elementFill(e.id),
+          node: elementNode(e.id),
+        }));
+
+        const aSegs = AXES.map((a, i) => ({
+          id: `axis_${a.id}`,
+          label: `Achse: ${a.name}`,
+          detail: `${a.description} Pole: ${a.poles[0]} ↔ ${a.poles[1]}.`,
+          a0: -90 + i * (360 / AXES.length),
+          a1: -90 + (i + 1) * (360 / AXES.length),
+          r0: 168, r1: 270,
+          fill: axisFill(a.id, profile),
+          node: "rgba(218,226,240,0.65)",
+        }));
+
+        const outerLabels = [
+          { id: "marker_kern", label: "Kern schützen", detail: "Was muss stabil sein, damit Bewegung tragfähig bleibt?" },
+          { id: "marker_proof", label: "Proof setzen", detail: "Wo braucht ihr sichtbaren Beweis statt mehr Erzählung?" },
+          { id: "marker_ownership", label: "Ownership klären", detail: "Welche Verantwortung braucht eine eindeutige Besitzerin?" },
+          { id: "marker_ritual", label: "Ritual bauen", detail: "Welche kleine Wiederholung würde euch sofort entlasten?" },
+          { id: "marker_kante", label: "Kante zeigen", detail: "Welche klare Abgrenzung macht euch verständlicher?" },
+          { id: "marker_schnitt", label: "Schnitt setzen", detail: "Welche Entscheidung darf irreversibel werden?" },
+          { id: "marker_regulation", label: "Regulation", detail: "Was beruhigt das System – ohne es zu sedieren?" },
+          { id: "marker_tempo", label: "Tempo designen", detail: "Wo entscheidet ein Engpass das Tempo – und wie passt ihr euch an?" },
+        ];
+        const oSegs = outerLabels.map((x, i) => ({
+          id: x.id,
+          label: x.label,
+          detail: x.detail,
+          a0: -90 + i * 45,
+          a1: -90 + (i + 1) * 45,
+          r0: 270, r1: 318,
+          fill: "rgba(255,255,255,0.035)",
+          node: "rgba(255,255,255,0.55)",
+        }));
+
+        const allSegs = [...oSegs, ...aSegs, ...eSegs];
+
+        for (const seg of allSegs) {
+          const path = elSvg("path");
+          path.setAttribute("d", arcPath(cx, cy, seg.r0, seg.r1, seg.a0, seg.a1));
+          path.setAttribute("fill", seg.fill);
+          path.setAttribute("stroke", "rgba(255,255,255,0.10)");
+          path.setAttribute("stroke-width", "1");
+          path.setAttribute("cursor", "pointer");
+          path.dataset.segId = seg.id;
+
+          path.addEventListener("mouseenter", () => { if (state.wheelPinned) return; setWheelDetail(seg); });
+          path.addEventListener("mouseleave", () => { if (state.wheelPinned) return; setWheelDetail(null); });
+          path.addEventListener("click", () => {
+            state.wheelPinned = true;
+            state.wheelPinId = seg.id;
+            setWheelDetail(seg);
+            toast("Segment gepinnt");
+            chime();
+          });
+
+          svg.appendChild(path);
+
+          const midA = (seg.a0 + seg.a1) / 2;
+          const nodeR = (seg.r0 + seg.r1) / 2;
+          const p = polar(cx, cy, nodeR, midA);
+          const c = svgCircle(p.x, p.y, seg.r1 - seg.r0 <= 55 ? 4.8 : 5.6, seg.node, "rgba(255,255,255,0)");
+          c.setAttribute("filter", "url(#softGlow)");
+          svg.appendChild(c);
+        }
+
+        // axis emphasis lines
+        svg.appendChild(axisLine(cx, cy, axisAngle(profile.tensions.primary.id), "rgba(196,162,92,0.20)", 2.2));
+        svg.appendChild(axisLine(cx, cy, axisAngle(profile.tensions.secondary.id), "rgba(140,180,255,0.18)", 1.6));
+
+        // core & SMA nodes
+        const core = svgCircle(cx, cy, 10, "rgba(196,162,92,0.55)", "rgba(255,255,255,0)");
+        core.setAttribute("filter", "url(#hardGlow)");
+        svg.appendChild(core);
+
+        const sma = profile.sma;
+        const nodes = [
+          { label: "Sonne", v: sma.sun.label, a: -75, color: "rgba(196,162,92,0.85)" },
+          { label: "Mond", v: sma.moon.label, a: -5, color: "rgba(233,222,199,0.78)" },
+          { label: "Asc", v: sma.asc.label, a: 65, color: "rgba(140,180,255,0.75)" },
+        ];
+        for (const n of nodes) {
+          const p = polar(cx, cy, 88, n.a);
+          const dot = svgCircle(p.x, p.y, 6.2, n.color, "rgba(255,255,255,0)");
+          dot.setAttribute("filter", "url(#softGlow)");
+          svg.appendChild(dot);
+
+          const text = elSvg("text");
+          text.setAttribute("x", String(p.x + 10));
+          text.setAttribute("y", String(p.y + 4));
+          text.setAttribute("fill", "rgba(255,255,255,0.65)");
+          text.setAttribute("font-size", "12");
+          text.setAttribute("font-family", "ui-sans-serif, system-ui");
+          text.textContent = `${n.label}`;
+          svg.appendChild(text);
+        }
+
+        setWheelDetail(null);
+      }
+
+      function axisLine(cx, cy, deg, stroke, width) {
+        const p0 = polar(cx, cy, 120, deg);
+        const p1 = polar(cx, cy, 320, deg);
+        const l = svgLine(p0.x, p0.y, p1.x, p1.y, stroke, width);
+        l.setAttribute("filter", "url(#softGlow)");
+        return l;
+      }
+
+      function axisAngle(axisId) {
+        const map = {
+          wachstum_vs_stabilitaet: 25,
+          vision_vs_umsetzung: -30,
+          kontrolle_vs_vertrauen: 90,
+          tempo_vs_reife: -90,
+          gruender_vs_markt: 155,
+          innovation_vs_struktur: -155,
+        };
+        return map[axisId] ?? 0;
+      }
+
+      function elementFill(id) {
+        const map = {
+          feuer: "rgba(196,162,92,0.10)",
+          wasser: "rgba(140,180,255,0.08)",
+          luft: "rgba(218,226,240,0.07)",
+          erde: "rgba(233,222,199,0.08)",
+        };
+        return map[id] ?? "rgba(255,255,255,0.05)";
+      }
+      function elementNode(id) {
+        const map = {
+          feuer: "rgba(196,162,92,0.85)",
+          wasser: "rgba(140,180,255,0.75)",
+          luft: "rgba(218,226,240,0.70)",
+          erde: "rgba(233,222,199,0.75)",
+        };
+        return map[id] ?? "rgba(218,226,240,0.65)";
+      }
+      function axisFill(id, profile) {
+        const isPrimary = profile && profile.tensions.primary.id === id;
+        const isSecondary = profile && profile.tensions.secondary.id === id;
+        if (isPrimary) return "rgba(140,180,255,0.07)";
+        if (isSecondary) return "rgba(196,162,92,0.06)";
+        return "rgba(255,255,255,0.045)";
+      }
+
+      function setWheelDetail(seg) {
+        const title = $("#wheelDetailTitle");
+        const body = $("#wheelDetailBody");
+
+        if (!state.profile) {
+          title.textContent = "Wähle ein Segment";
+          body.textContent = "Erzeuge zuerst ein Profil. Dann zeigt dir das Rad Element-Qualitäten, Achsen und Timing-Marker.";
+          return;
+        }
+
+        if (!seg) {
+          title.textContent = state.wheelPinned ? "Gepinnt" : "Wähle ein Segment";
+          body.textContent = state.wheelPinned
+            ? "Ein Segment ist gepinnt. Klicke „Pin lösen“, um wieder Hover-Vorschau zu nutzen."
+            : "Tippe ein Segment: Du bekommst eine kurze interpretative Notiz.";
+          return;
+        }
+
+        title.textContent = seg.label;
+        body.textContent = seg.detail;
+      }
+
+      /* ===========================
+         Export
+      =========================== */
+      function renderExport(p) {
+        const v = p.values;
+
+        $("#exportTitle").textContent = v.ventureName || "Venture Resonance Studio";
+        $("#exportSub").textContent = "Symbolische Reflexion · keine Bewertung";
+
+        $("#exportVenture").textContent = [
+          `${v.ventureName}`,
+          v.tagline ? `„${v.tagline}“` : null,
+          `${v.foundingPlace} · ${v.foundingDate}${v.foundingTime ? " " + v.foundingTime : ""}`,
+        ].filter(Boolean).join(" • ");
+
+        $("#exportSMA").textContent = `Sonne: ${p.sma.sun.label} · Mond: ${p.sma.moon.label} · Asc: ${p.sma.asc.label} · Elemente: ${p.sma.element.name}/${p.sma.element2.name}`;
+        $("#exportArch").textContent = `${p.arch.dominant.name} + ${p.arch.secondary.name}`;
+        $("#exportAxes").textContent = `${p.tensions.primary.name} · ${p.tensions.secondary.name}`;
+
+        const summary = [
+          `Zielgefühl: ${v.zielGefuehl}.`,
+          `Signatur: ${p.rhythmTag} · ${p.fieldTag}.`,
+          `Sonne/Mond/Asc (Metaphern): Fokus (${p.sma.sun.label}), Bedürfnis (${p.sma.moon.label}), Auftreten (${p.sma.asc.label}).`,
+          `Archetypen: ${p.arch.dominant.name} (dominant) + ${p.arch.secondary.name} (sekundär).`,
+          `Spannung: ${p.tensions.primary.name} (primär) + ${p.tensions.secondary.name} (sekundär).`,
+          `Zyklus: ${p.cycle.name}. Timing: ${p.cycle.hint}`,
+          `Hebel: ${p.riskLever.lever}`,
+          `Risiko: ${p.riskLever.risk}`,
+          `Hinweis: interpretativer Reflexionsraum, keine Bewertung. Nicht für Personalentscheidungen verwenden.`,
+        ].join(" ");
+
+        $("#exportSummary").textContent = summary;
+        syncExportPrompts();
+      }
+
+      function buildCopySummary() {
+        if (!state.profile) {
+          return [
+            "Venture Resonance Studio — noch kein Profil.",
+            "",
+            "Hinweis: Reflexion & kreative strategische Einsicht. Keine wissenschaftliche Bewertung. Nicht für Personalentscheidungen verwenden.",
+          ].join("\n");
+        }
+
+        const p = state.profile;
+        const v = p.values;
+
+        return [
+          "Venture Resonance Studio — Zusammenfassung",
+          "",
+          `Unternehmen: ${v.ventureName}${v.tagline ? " — " + v.tagline : ""}`,
+          `Ursprung: ${v.foundingDate}${v.foundingTime ? " " + v.foundingTime : ""} • ${v.foundingPlace}`,
+          `Zielgefühl: ${v.zielGefuehl}`,
+          "",
+          `Signatur: ${p.rhythmTag} • ${p.fieldTag}`,
+          `Sonne/Mond/Asc (Metaphern): Fokus=${p.sma.sun.label} • Bedürfnis=${p.sma.moon.label} • Auftreten=${p.sma.asc.label}`,
+          `Elemente: ${p.sma.element.name}/${p.sma.element2.name}`,
+          "",
+          `Archetypen: ${p.arch.dominant.name} (dominant), ${p.arch.secondary.name} (sekundär)`,
+          `Spannungsachsen: ${p.tensions.primary.name} / ${p.tensions.secondary.name}`,
+          `Zyklus: ${p.cycle.name}`,
+          `Hebel: ${p.riskLever.lever}`,
+          `Risiko: ${p.riskLever.risk}`,
+          "",
+          "Hinweis: interpretativer Reflexionsraum, keine wissenschaftliche Bewertung. Nicht für Personalentscheidungen, rechtliche, finanzielle oder medizinische Entscheidungen verwenden.",
+        ].join("\n");
       }
     </script>
   </body>
