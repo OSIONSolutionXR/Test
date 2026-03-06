@@ -1,4 +1,4 @@
-<!-- File: index.html (Single-File • Mobile-first • 3 Fenster • Inline Step-Nav • Fixed Select Styling • Intuitivere Fragen • Ergebnis als Accordions + Karten-Deck • Rad mit Erklärung) -->
+<!-- File: index.html (Single-File • Mobile-first • 3 Fenster • Inline Step-Nav • Fix Select Dropdown • Ergebnis komplett neu: "Studio Report" mit Tabs + Action-Plan + Terminwahl + Team/Hiring-Reflexion + Expansion) -->
 <!doctype html>
 <html lang="de">
   <head>
@@ -71,7 +71,7 @@
 
       h1, h2, h3 { font-family: var(--serif); letter-spacing: 0.08px; margin: 0; }
       h1 { font-size: clamp(1.75rem, 5.8vw, 2.8rem); line-height: 1.06; }
-      h2 { font-size: clamp(1.35rem, 4.2vw, 2.05rem); line-height: 1.12; }
+      h2 { font-size: clamp(1.30rem, 4.2vw, 2.05rem); line-height: 1.12; }
       h3 { font-size: 1.12rem; line-height: 1.2; }
       p { margin: 0; }
 
@@ -121,8 +121,7 @@
         box-shadow:
           0 10px 30px rgba(0,0,0,0.35),
           0 0 0 1px rgba(255,255,255,0.06) inset;
-        filter: saturate(1.08);
-        transition: transform 260ms ease, width 260ms ease, opacity 180ms ease;
+        transition: transform 260ms ease, width 260ms ease;
         pointer-events: none;
       }
       .navbtn {
@@ -147,7 +146,6 @@
       .navbtn.active { color: rgba(255,255,255,0.94); border-color: rgba(255,255,255,0.16); background: rgba(255,255,255,0.02); }
       .navbtn[disabled] { opacity: 0.55; cursor: not-allowed; }
 
-      /* Premium sweep */
       .navbtn::after,
       .btn::after {
         content: "";
@@ -196,6 +194,7 @@
         margin-top: 12px;
         max-width: 70ch;
       }
+
       .hero-card {
         margin-top: 14px;
         border: 1px solid rgba(255,255,255,0.10);
@@ -244,7 +243,7 @@
 
       .cta-row { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 14px; }
 
-      /* Wizard */
+      /* Wizard shell */
       .wizard-shell {
         margin-top: 12px;
         border-radius: var(--radius2);
@@ -323,22 +322,15 @@
           calc(100% - 18px) calc(1em + 4px),
           calc(100% - 13px) calc(1em + 4px),
           calc(100% - 2.6em) 0.5em;
-        background-size:
-          5px 5px,
-          5px 5px,
-          1px 1.6em;
+        background-size: 5px 5px, 5px 5px, 1px 1.6em;
         background-repeat: no-repeat;
         padding-right: 40px;
       }
-      option {
-        background: #0b0e16;
-        color: rgba(255,255,255,0.92);
-      }
+      option { background: #0b0e16; color: rgba(255,255,255,0.92); }
 
       .step-view { display: none; opacity: 0; transform: translateY(10px); }
       .step-view.active { display: block; opacity: 1; transform: translateY(0); transition: opacity 260ms ease, transform 260ms ease; }
 
-      /* Step header inside card */
       .step-meta {
         display: flex;
         align-items: baseline;
@@ -369,7 +361,7 @@
         transition: width 240ms ease;
       }
 
-      /* Inline nav inside card (no far-away buttons) */
+      /* Inline nav inside card */
       .card-actions {
         margin-top: 14px;
         display: grid;
@@ -405,61 +397,131 @@
         100% { width: 12%; transform: translateX(120%); }
       }
 
-      /* Results layout: accordions */
-      .results { display: grid; gap: 14px; margin-top: 10px; }
-      .summary-strip {
+      /* Ergebnis: komplett neu */
+      .report { display: grid; gap: 14px; margin-top: 10px; }
+
+      .hero-report {
         border-radius: var(--radius2);
         border: 1px solid rgba(255,255,255,0.10);
-        background: rgba(0,0,0,0.14);
+        background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));
+        box-shadow: var(--shadow2);
         padding: 14px;
+        position: relative;
+        overflow: hidden;
       }
-      .summary-title { font-family: var(--serif); font-size: 1.18rem; }
-      .summary-sub { margin-top: 8px; color: var(--muted); line-height: 1.55; }
+      .hero-report::before {
+        content: "";
+        position: absolute;
+        inset: -35% -35%;
+        background:
+          radial-gradient(circle at 30% 25%, rgba(196, 162, 92, 0.10), transparent 45%),
+          radial-gradient(circle at 70% 65%, rgba(140, 180, 255, 0.08), transparent 52%);
+        transform: rotate(6deg);
+        pointer-events: none;
+      }
+      .hero-report > * { position: relative; z-index: 1; }
+
+      .report-title { font-family: var(--serif); font-size: 1.35rem; }
+      .report-sub { margin-top: 8px; color: var(--muted); line-height: 1.55; }
+
       .badges { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
       .badge {
         padding: 8px 10px;
         border-radius: 999px;
         border: 1px solid rgba(255,255,255,0.12);
         background: rgba(255,255,255,0.04);
-        color: var(--faint);
+        color: rgba(255,255,255,0.74);
         font-size: 0.88rem;
       }
 
-      details.acc {
+      .grid-tiles { display: grid; grid-template-columns: 1fr; gap: 12px; }
+      .tile {
         border-radius: var(--radius2);
         border: 1px solid rgba(255,255,255,0.10);
-        background: linear-gradient(180deg, rgba(255,255,255,0.055), rgba(255,255,255,0.03));
-        box-shadow: var(--shadow);
-        overflow: hidden;
-      }
-      details.acc > summary {
-        list-style: none;
-        cursor: pointer;
+        background: rgba(0,0,0,0.14);
         padding: 14px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 12px;
-        user-select: none;
       }
-      details.acc > summary::-webkit-details-marker { display: none; }
-      .acc-left { display: grid; gap: 4px; }
-      .acc-chip { width: fit-content; }
-      .acc-title { font-family: var(--serif); font-size: 1.12rem; }
-      .acc-teaser { color: var(--muted); font-size: 0.95rem; line-height: 1.35; }
-      .acc-icon {
-        width: 34px;
-        height: 34px;
-        border-radius: 14px;
+      .tile h3 { font-size: 1.08rem; }
+      .tile p { margin-top: 8px; color: var(--muted); line-height: 1.65; }
+      .tile strong { color: rgba(255,255,255,0.92); font-weight: 600; }
+
+      .divider { height: 1px; background: rgba(255,255,255,0.08); margin: 8px 0; }
+
+      /* Tabs (Ergebnis) */
+      .segmented {
+        position: sticky;
+        top: calc(var(--navH) + var(--sat) + 10px);
+        z-index: 60;
+        border-radius: 20px;
         border: 1px solid rgba(255,255,255,0.10);
-        background: rgba(0,0,0,0.16);
+        background: rgba(0,0,0,0.14);
+        padding: 6px;
+        backdrop-filter: blur(12px);
         display: grid;
-        place-items: center;
-        color: rgba(255,255,255,0.72);
-        flex: 0 0 auto;
+        grid-auto-flow: column;
+        gap: 8px;
+        overflow: auto;
+        -webkit-overflow-scrolling: touch;
       }
-      .acc-body { padding: 0 14px 14px; color: var(--muted); line-height: 1.7; }
-      .acc-body strong { color: rgba(255,255,255,0.92); font-weight: 600; }
+      .segbtn {
+        appearance: none;
+        border: 1px solid rgba(255,255,255,0.10);
+        background: rgba(255,255,255,0.03);
+        color: rgba(255,255,255,0.78);
+        padding: 10px 12px;
+        border-radius: 16px;
+        cursor: pointer;
+        font-size: 0.92rem;
+        min-height: 42px;
+        white-space: nowrap;
+        position: relative;
+        overflow: hidden;
+        -webkit-tap-highlight-color: transparent;
+      }
+      .segbtn.active {
+        color: rgba(255,255,255,0.94);
+        border-color: rgba(196,162,92,0.25);
+        background: linear-gradient(180deg, rgba(196,162,92,0.16), rgba(255,255,255,0.03));
+      }
+
+      .panel { display: none; }
+      .panel.active { display: block; }
+
+      /* Action plan */
+      .action {
+        border-radius: var(--radius2);
+        border: 1px solid rgba(255,255,255,0.10);
+        background: rgba(0,0,0,0.14);
+        padding: 14px;
+      }
+      .action h3 { font-size: 1.08rem; }
+      .steps {
+        margin: 12px 0 0;
+        padding: 0;
+        list-style: none;
+        display: grid;
+        gap: 10px;
+      }
+      .step {
+        border-radius: 18px;
+        border: 1px solid rgba(255,255,255,0.10);
+        background: rgba(0,0,0,0.14);
+        padding: 12px;
+      }
+      .step .k { color: var(--faint); font-size: 0.78rem; letter-spacing: 0.18em; text-transform: uppercase; }
+      .step .v { margin-top: 6px; color: var(--text); line-height: 1.5; font-family: var(--serif); }
+
+      /* Timing planner */
+      .timing-grid { display: grid; grid-template-columns: 1fr; gap: 12px; }
+      .slot {
+        border-radius: var(--radius2);
+        border: 1px solid rgba(255,255,255,0.10);
+        background: rgba(0,0,0,0.14);
+        padding: 14px;
+      }
+      .slot-title { font-family: var(--serif); font-size: 1.06rem; }
+      .slot p { margin-top: 8px; color: var(--muted); line-height: 1.65; }
+      .slot .hint { margin-top: 10px; color: rgba(255,255,255,0.80); }
 
       /* Wheel */
       .wheel-wrap {
@@ -504,10 +566,9 @@
         background: rgba(0,0,0,0.14);
         padding: 14px;
       }
-      .wheel-detail h3 { margin: 0; }
       .wheel-detail .prose { margin-top: 8px; color: var(--muted); line-height: 1.65; }
 
-      /* Reflection deck (one card at a time + swipe) */
+      /* Reflection deck */
       .deck {
         border-radius: var(--radius2);
         border: 1px solid rgba(255,255,255,0.10);
@@ -515,13 +576,7 @@
         padding: 14px;
         overflow: hidden;
       }
-      .deck-top {
-        display: flex;
-        justify-content: space-between;
-        align-items: baseline;
-        gap: 10px;
-        flex-wrap: wrap;
-      }
+      .deck-top { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; flex-wrap: wrap; }
       .deck-count { color: var(--muted); font-size: 0.95rem; }
       .deck-card {
         margin-top: 12px;
@@ -541,7 +596,6 @@
 
       /* Export */
       .export-sheet {
-        margin-top: 10px;
         border-radius: var(--radius2);
         border: 1px solid rgba(255,255,255,0.10);
         background: rgba(255,255,255,0.03);
@@ -561,7 +615,6 @@
       .export-title { font-family: var(--serif); font-size: 1.28rem; }
       .export-sub { margin-top: 4px; color: var(--muted); }
       .export-actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 12px; }
-      .divider { height: 1px; background: rgba(255,255,255,0.08); margin: 14px 0; }
       .note-box {
         min-height: 120px;
         padding: 12px;
@@ -606,7 +659,8 @@
       @media (min-width: 920px) {
         main { padding: 22px 20px 22px 20px; }
         .field-grid { grid-template-columns: 1fr 1fr; }
-        .deck-actions { grid-template-columns: 1fr 1fr; }
+        .grid-tiles { grid-template-columns: 1fr 1fr; }
+        .timing-grid { grid-template-columns: 1fr 1fr; }
       }
 
       @media (prefers-reduced-motion: reduce) {
@@ -619,7 +673,7 @@
 
       @media print {
         body { background: #ffffff !important; color: #111111 !important; }
-        .topbar, .bg-orbit, .chime { display: none !important; }
+        .topbar, .bg-orbit, .chime, .segmented, .export-actions { display: none !important; }
         main { max-width: none; padding: 0; }
       }
     </style>
@@ -656,8 +710,8 @@
 
         <div class="hero-card">
           <div class="prompt-body">
-            <strong>Du spürst, dass etwas „dran“ ist?</strong><br />
-            Dieses Reading macht aus diffusem Druck eine klare Landkarte: Kern · Spannung · Timing · nächster Schritt.
+            <strong>Wenn du spürst, dass „etwas dran“ ist:</strong><br />
+            Dieses Reading macht daraus Struktur — Kern · Spannung · Timing · nächster Schritt.
           </div>
         </div>
       </section>
@@ -678,7 +732,7 @@
                 <div class="cal-line"><div></div></div>
                 <div class="muted">Spannung ordnen…</div>
                 <div class="cal-line"><div></div></div>
-                <div class="muted">Karten kuratieren…</div>
+                <div class="muted">Module kuratieren…</div>
               </div>
             </div>
           </div>
@@ -693,176 +747,226 @@
           <div class="prompt-body">Starte mit „Reading beginnen“ und gehe die Schritte durch.</div>
         </div>
 
-        <div id="ergebnisWrap" class="results hidden">
-          <section class="summary-strip">
-            <div class="summary-title" id="sumTitle">Dein Reading</div>
-            <div class="summary-sub" id="sumSub">
-              Eine kompakte Skizze – damit du sofort weißt, worum es gerade wirklich geht.
-            </div>
-            <div class="badges" id="sumBadges"></div>
+        <div id="ergebnisWrap" class="report hidden">
+          <!-- Hero report -->
+          <section class="hero-report">
+            <div class="report-title" id="rTitle">—</div>
+            <div class="report-sub" id="rSub">—</div>
+            <div class="badges" id="rBadges"></div>
           </section>
 
-          <details class="acc" open>
-            <summary>
-              <div class="acc-left">
-                <div class="chip acc-chip">Signatur</div>
-                <div class="acc-title">Gründung</div>
-                <div class="acc-teaser" id="teaserOrigin">—</div>
-              </div>
-              <div class="acc-icon">⌄</div>
-            </summary>
-            <div class="acc-body" id="originText"></div>
-          </details>
+          <!-- Ergebnis Tabs -->
+          <nav class="segmented" id="reportTabs" aria-label="Report Tabs">
+            <button class="segbtn active" data-panel="p_overview">Überblick</button>
+            <button class="segbtn" data-panel="p_timing">Terminwahl</button>
+            <button class="segbtn" data-panel="p_team">Team & Hiring</button>
+            <button class="segbtn" data-panel="p_expand">Expansion</button>
+            <button class="segbtn" data-panel="p_export">Export</button>
+          </nav>
 
-          <details class="acc">
-            <summary>
-              <div class="acc-left">
-                <div class="chip acc-chip">Chart</div>
-                <div class="acc-title">Sonne · Mond · Aszendent</div>
-                <div class="acc-teaser" id="teaserSMA">—</div>
-              </div>
-              <div class="acc-icon">⌄</div>
-            </summary>
-            <div class="acc-body">
-              <div id="smaText"></div>
-              <div class="badges" id="smaBadges"></div>
+          <!-- Panels -->
+          <section class="panel active" id="p_overview">
+            <div class="grid-tiles">
+              <article class="tile">
+                <h3>Ursprungs-Signatur</h3>
+                <p id="tOrigin">—</p>
+                <div class="divider"></div>
+                <div class="badges" id="tOriginBadges"></div>
+              </article>
+
+              <article class="tile">
+                <h3>Hauptspannung</h3>
+                <p id="tAxis">—</p>
+                <div class="divider"></div>
+                <div class="badges" id="tAxisBadges"></div>
+              </article>
+
+              <article class="tile">
+                <h3>Führung & Hebel</h3>
+                <p id="tLead">—</p>
+                <div class="divider"></div>
+                <div class="badges" id="tLeadBadges"></div>
+              </article>
+
+              <article class="tile">
+                <h3>Zyklus & Timing</h3>
+                <p id="tCycle">—</p>
+                <div class="divider"></div>
+                <div class="badges" id="tCycleBadges"></div>
+              </article>
             </div>
-          </details>
 
-          <details class="acc">
-            <summary>
-              <div class="acc-left">
-                <div class="chip acc-chip">Archetypen</div>
-                <div class="acc-title">Dominant & Sekundär</div>
-                <div class="acc-teaser" id="teaserArch">—</div>
-              </div>
-              <div class="acc-icon">⌄</div>
-            </summary>
-            <div class="acc-body">
-              <div id="archText"></div>
-              <div class="badges" id="archBadges"></div>
-            </div>
-          </details>
-
-          <details class="acc">
-            <summary>
-              <div class="acc-left">
-                <div class="chip acc-chip">Achsen</div>
-                <div class="acc-title">Spannung & Hebel</div>
-                <div class="acc-teaser" id="teaserAxis">—</div>
-              </div>
-              <div class="acc-icon">⌄</div>
-            </summary>
-            <div class="acc-body">
-              <div id="axisText"></div>
-              <div class="badges" id="axisBadges"></div>
-              <div style="margin-top:12px;" id="leadText"></div>
-              <div class="badges" id="leadBadges"></div>
-            </div>
-          </details>
-
-          <details class="acc">
-            <summary>
-              <div class="acc-left">
-                <div class="chip acc-chip">Timing</div>
-                <div class="acc-title">Zyklus</div>
-                <div class="acc-teaser" id="teaserCycle">—</div>
-              </div>
-              <div class="acc-icon">⌄</div>
-            </summary>
-            <div class="acc-body">
-              <div id="cycleText"></div>
-              <div class="badges" id="cycleBadges"></div>
-            </div>
-          </details>
-
-          <section class="wheel-wrap">
-            <div class="wheel-head">
-              <h2>Resonanz-Rad</h2>
-              <p class="muted">
-                Quick-Lesart: <strong>innen</strong> = Element-Ton · <strong>mittig</strong> = Haupt-Spannung · <strong>außen</strong> = Timing-Marker.
+            <section class="action">
+              <h3>Dein nächster Schritt (konkret)</h3>
+              <p class="muted" style="margin-top:8px; line-height:1.65;">
+                Kein Overload. Fünf klare Moves, die sich aus eurem Chart-Ton, eurer Achse und eurer Phase ergeben.
               </p>
-            </div>
+              <ul class="steps" id="actionPlan"></ul>
+            </section>
 
-            <div class="wheel-shell">
-              <svg id="wheelSvg" viewBox="0 0 720 720" role="img" aria-label="Resonanz-Rad"></svg>
-            </div>
-
-            <div class="wheel-legend">
-              <strong>Wie du es liest (in 10 Sekunden):</strong><br />
-              Tippe ein Segment. Du bekommst eine kurze Notiz. Das Rad ist kein „Rätsel“ – es ist ein Interface, das dir Fokus gibt.
-              <div class="row">
-                <span class="pill">Innen: Element-Qualität</span>
-                <span class="pill">Mitte: Spannungsachse</span>
-                <span class="pill">Außen: Marker (Timing)</span>
+            <section class="wheel-wrap">
+              <div class="wheel-head">
+                <h2>Resonanz-Rad</h2>
+                <p class="muted"><strong>Innen</strong> = Element · <strong>Mitte</strong> = Achse · <strong>Außen</strong> = Marker</p>
               </div>
-            </div>
 
-            <div class="wheel-detail">
-              <h3 id="wheelDetailTitle">Wähle ein Segment</h3>
-              <div class="prose" id="wheelDetailBody">Tippe ein Segment, um eine Notiz zu pinnen. Tippe erneut irgendwo anders, um zu wechseln.</div>
-              <div class="cta-row" style="margin-top:12px;">
-                <button class="btn ghost" id="unlockWheel">Pin lösen</button>
+              <div class="wheel-shell">
+                <svg id="wheelSvg" viewBox="0 0 720 720" role="img" aria-label="Resonanz-Rad"></svg>
               </div>
+
+              <div class="wheel-legend">
+                <strong>So wird es sofort verständlich:</strong><br />
+                Tippe ein Segment. Du bekommst eine klare Notiz: <em>Was heißt das für Entscheidungen, Meetings oder Fokus?</em>
+                <div class="row">
+                  <span class="pill">Innen: Element-Ton</span>
+                  <span class="pill">Mitte: Achse</span>
+                  <span class="pill">Außen: Timing-Marker</span>
+                </div>
+              </div>
+
+              <div class="wheel-detail">
+                <h3 id="wheelDetailTitle">Wähle ein Segment</h3>
+                <div class="prose" id="wheelDetailBody">Tippe ein Segment, um eine Notiz zu pinnen.</div>
+                <div class="cta-row" style="margin-top:12px;">
+                  <button class="btn ghost" id="unlockWheel">Pin lösen</button>
+                </div>
+              </div>
+            </section>
+
+            <section class="deck" id="deck">
+              <div class="deck-top">
+                <div class="chip">Reflexionskarten</div>
+                <div class="deck-count" id="deckCount">0 / 0</div>
+              </div>
+
+              <div class="deck-card" id="deckCard">
+                <div class="deck-q" id="deckQ">—</div>
+                <div class="deck-h" id="deckH">—</div>
+              </div>
+
+              <div class="deck-actions">
+                <button class="btn ghost" id="deckBack">Zurück</button>
+                <button class="btn primary" id="deckNext">Weiter</button>
+              </div>
+            </section>
+          </section>
+
+          <section class="panel" id="p_timing">
+            <section class="action">
+              <h3>Terminwahl (symbolisch, praktisch)</h3>
+              <p class="muted" style="margin-top:8px; line-height:1.65;">
+                Für Kick-offs, Aussendungen, Launches und heikle Gespräche: Wir setzen eine „Zeitqualität“, die zu eurer Phase passt.
+              </p>
+            </section>
+
+            <div class="timing-grid" id="timingGrid"></div>
+          </section>
+
+          <section class="panel" id="p_team">
+            <section class="action">
+              <h3>Team-Entwicklung · Führung · Hiring (als Reflexion)</h3>
+              <p class="muted" style="margin-top:8px; line-height:1.65;">
+                Keine Bewertung von Menschen. Hier geht es um Rollen, Bedürfnisse, Dynamik und gute Fragen für Gespräche.
+              </p>
+            </section>
+
+            <div class="grid-tiles">
+              <article class="tile">
+                <h3>Team-Dynamik</h3>
+                <p id="teamDyn">—</p>
+                <div class="divider"></div>
+                <div class="badges" id="teamBadges"></div>
+              </article>
+
+              <article class="tile">
+                <h3>Interview-Fragen (resonant)</h3>
+                <p class="muted" style="line-height:1.65;">
+                  Nutze diese Fragen als Gesprächsführung – nicht als „Score“.
+                </p>
+                <ul class="steps" id="interviewQs"></ul>
+              </article>
+
+              <article class="tile">
+                <h3>Personalentwicklung</h3>
+                <p id="peopleDev">—</p>
+              </article>
+
+              <article class="tile">
+                <h3>Führungskräfte-Coaching</h3>
+                <p id="leadCoach">—</p>
+              </article>
             </div>
           </section>
 
-          <section class="deck" id="deck">
-            <div class="deck-top">
-              <div class="chip">Reflexionskarten</div>
-              <div class="deck-count" id="deckCount">0 / 0</div>
-            </div>
+          <section class="panel" id="p_expand">
+            <section class="action">
+              <h3>Expansion („go international“) als Resonanz-Check</h3>
+              <p class="muted" style="margin-top:8px; line-height:1.65;">
+                Kein Orakel. Eine Struktur: Orte, Märkte, Teams – und welche Risiken ihr bewusst mitnehmt.
+              </p>
+            </section>
 
-            <div class="deck-card" id="deckCard">
-              <div class="deck-q" id="deckQ">—</div>
-              <div class="deck-h" id="deckH">—</div>
-            </div>
+            <div class="grid-tiles">
+              <article class="tile">
+                <h3>Neue Orte</h3>
+                <p id="geo">—</p>
+              </article>
 
-            <div class="deck-actions">
-              <button class="btn ghost" id="deckBack">Zurück</button>
-              <button class="btn primary" id="deckNext">Weiter</button>
+              <article class="tile">
+                <h3>Markt-Einstieg</h3>
+                <p id="marketEntry">—</p>
+              </article>
+
+              <article class="tile">
+                <h3>Standorte & Rollen</h3>
+                <p id="rolesPlaces">—</p>
+              </article>
+
+              <article class="tile">
+                <h3>Risiko-Check</h3>
+                <p id="riskCheck">—</p>
+              </article>
             </div>
           </section>
 
-          <section class="export-sheet" id="exportSheet">
-            <div class="export-hero">
-              <div class="export-mark" aria-hidden="true"></div>
-              <div>
-                <div class="export-title" id="exportTitle">—</div>
-                <div class="export-sub" id="exportSub">Reading-Summary</div>
+          <section class="panel" id="p_export">
+            <section class="export-sheet" id="exportSheet">
+              <div class="export-hero">
+                <div class="export-mark" aria-hidden="true"></div>
+                <div>
+                  <div class="export-title" id="exportTitle">—</div>
+                  <div class="export-sub" id="exportSub">—</div>
+                </div>
               </div>
-            </div>
 
-            <div class="export-actions">
-              <button class="btn primary" id="printBtn">Drucken / PDF</button>
-              <button class="btn ghost" id="copyBtn">Kopieren</button>
-            </div>
+              <div class="export-actions">
+                <button class="btn primary" id="printBtn">Drucken / PDF</button>
+                <button class="btn ghost" id="copyBtn">Kopieren</button>
+              </div>
 
-            <div class="divider"></div>
+              <div class="divider"></div>
 
-            <div class="chip">Zusammenfassung</div>
-            <p id="exportSummary" class="muted" style="margin-top:10px; line-height:1.65;">—</p>
+              <div class="chip">Zusammenfassung</div>
+              <p id="exportSummary" class="muted" style="margin-top:10px; line-height:1.65;">—</p>
 
-            <div class="divider"></div>
+              <div class="divider"></div>
 
-            <div class="chip">Notizen</div>
-            <div class="note-box" contenteditable="true" aria-label="Notizen" style="margin-top:10px;"></div>
+              <div class="chip">Notizen</div>
+              <div class="note-box" contenteditable="true" aria-label="Notizen" style="margin-top:10px;"></div>
+
+              <div class="divider"></div>
+
+              <div class="muted" style="font-size:0.92rem; line-height:1.55;">
+                Hinweis: Dieses Reading ist eine interpretative Reflexion. Nutze es als Gesprächs- und Denkstruktur – nicht als formales Gutachten.
+              </div>
+            </section>
           </section>
         </div>
       </section>
     </main>
 
     <script type="module">
-      /* ===========================
-         TL;DR (pseudocode)
-         - 3 Views: start / reading / ergebnis
-         - Wizard buttons INSIDE card (sticky within card)
-         - Nav glow aligned via offsetLeft math (fix misalignment)
-         - Select dropdown dark options
-         - Questions redesigned: only 4 free-text fields total
-         - Ergebnis: accordions + “Quick Summary” + Rad explained + Karten-Deck (one-at-a-time)
-      =========================== */
-
+      /* ========= Helpers ========= */
       const $ = (sel) => document.querySelector(sel);
       const clamp = (n, a, b) => Math.max(a, Math.min(b, n));
       const safe = (v) => String(v ?? "").trim();
@@ -908,12 +1012,8 @@
         }
         return h >>> 0;
       }
-      function pick(arr, seed) {
-        if (!arr.length) return null;
-        return arr[seed % arr.length];
-      }
+      function pick(arr, seed) { return arr.length ? arr[seed % arr.length] : null; }
       function sleep(ms) { return new Promise((r) => setTimeout(r, ms)); }
-
       function escapeHtml(s) {
         return String(s)
           .replaceAll("&", "&amp;")
@@ -923,7 +1023,7 @@
           .replaceAll("'", "&#039;");
       }
 
-      /* SVG helpers */
+      /* ========= SVG ========= */
       function elSvg(name) { return document.createElementNS("http://www.w3.org/2000/svg", name); }
       function polar(cx, cy, r, deg) {
         const a = (deg * Math.PI) / 180;
@@ -947,11 +1047,9 @@
       function svgGlowFilter(id, blur, opacity) {
         const f = elSvg("filter");
         f.setAttribute("id", id);
-
         const g = elSvg("feGaussianBlur");
         g.setAttribute("stdDeviation", String(blur));
         g.setAttribute("result", "coloredBlur");
-
         const c = elSvg("feColorMatrix");
         c.setAttribute("type", "matrix");
         c.setAttribute("values", [
@@ -960,18 +1058,11 @@
           "0 0 1 0 0",
           `0 0 0 ${opacity} 0`,
         ].join(" "));
-
         const m = elSvg("feMerge");
-        const n1 = elSvg("feMergeNode");
-        n1.setAttribute("in", "coloredBlur");
-        const n2 = elSvg("feMergeNode");
-        n2.setAttribute("in", "SourceGraphic");
-        m.appendChild(n1);
-        m.appendChild(n2);
-
-        f.appendChild(g);
-        f.appendChild(c);
-        f.appendChild(m);
+        const n1 = elSvg("feMergeNode"); n1.setAttribute("in", "coloredBlur");
+        const n2 = elSvg("feMergeNode"); n2.setAttribute("in", "SourceGraphic");
+        m.appendChild(n1); m.appendChild(n2);
+        f.appendChild(g); f.appendChild(c); f.appendChild(m);
         return f;
       }
       function svgCircle(cx, cy, r, stroke, fill) {
@@ -995,10 +1086,7 @@
         return l;
       }
 
-      /* ===========================
-         DATA (more intuitive flow, 4 free-text fields total)
-         Free-text: ventureName, foundingPlace, mainChallenge, desiredDirection
-      =========================== */
+      /* ========= Data ========= */
       const AXES = [
         { id: "wachstum_vs_stabilitaet", name: "Wachstum ↔ Stabilität", poles: ["Beschleunigung","Containment"], description: "Skalierung ohne Selbstverlust. Nicht mehr machen – mehr tragen können." },
         { id: "vision_vs_umsetzung", name: "Vision ↔ Umsetzbarkeit", poles: ["Imagination","Lieferfähigkeit"], description: "Wenn Sprache schneller ist als das operative System. Vision braucht Tests." },
@@ -1056,6 +1144,7 @@
         { v: "konsequent", t: "Konsequent" },
       ];
 
+      /* ========= Steps (Wording fix: Phase prompt) ========= */
       const STEPS = [
         {
           id: "tone",
@@ -1068,7 +1157,7 @@
           id: "venture",
           chip: "Identität",
           title: "Wie heißt das Unternehmen?",
-          body: "Ein Name ist ein Signal – wir lesen ihn als „Ursprungston“ im System.",
+          body: "Ein Name ist ein Signal – wir lesen ihn als Ursprungston im System.",
           fields: [{ key: "ventureName", label: "Unternehmensname", type: "text", placeholder: "z.B. Lumen Atelier", required: true }],
         },
         {
@@ -1086,7 +1175,7 @@
           id: "day",
           chip: "Zeitqualität",
           title: "Welche Tagesqualität passt zum Start-Moment?",
-          body: "Das ist kein Fakt-Beweis, sondern eine Lesart: Welche Qualität hat diesen Start getragen?",
+          body: "Wähle die Qualität, die sich für den Start stimmig anfühlt.",
           fields: [
             {
               key: "startQualitaet",
@@ -1178,8 +1267,8 @@
         {
           id: "cycle",
           chip: "Zyklus",
-          title: "Welche Phase ist gerade wahr?",
-          body: "Phase = Timing. Nicht schönreden – nur wahr.",
+          title: "In welcher Phase befindet ihr euch aktuell?",
+          body: "Wähle die Phase, die eure Realität am besten beschreibt.",
           fields: [
             {
               key: "currentStage",
@@ -1200,8 +1289,8 @@
         {
           id: "axis",
           chip: "Spannung",
-          title: "Welche Achse beschreibt eure Situation am besten?",
-          body: "Eine gute Achse macht alles sofort einfacher.",
+          title: "Welche Spannungsachse ist gerade am aktivsten?",
+          body: "Eine gute Achse macht Entscheidungen plötzlich einfacher.",
           fields: [
             { key: "axisPreset", label: "Spannungsachse", type: "select", required: true, options: [{ v: "auto", t: "Auto (aus Kontext)" }, ...AXES.map(a => ({ v: a.id, t: a.name }))] },
           ],
@@ -1209,15 +1298,15 @@
         {
           id: "challenge",
           chip: "Kernproblem",
-          title: "Was ist gerade das teuerste Problem im System?",
-          body: "3–6 Sätze. So, dass jemand aus dem Team sofort nickt.",
+          title: "Was kostet euch gerade am meisten Energie?",
+          body: "3–6 Sätze. So konkret, dass jemand aus dem Team sofort nickt.",
           fields: [{ key: "mainChallenge", label: "Kernproblem", type: "textarea", required: true, placeholder: "Was wiederholt sich? Wo bleibt ihr hängen? Wo geht Energie drauf?" }],
         },
         {
           id: "direction",
           chip: "Richtung",
           title: "Was soll in 90 Tagen spürbar anders sein?",
-          body: "Nicht „mehr“ – sondern „stimmiger“: Welche Veränderung würdest du wirklich merken?",
+          body: "Nicht „mehr“ – sondern „stimmiger“. Welche Verschiebung würdest du wirklich merken?",
           fields: [{ key: "desiredDirection", label: "90-Tage-Verschiebung", type: "textarea", required: true, placeholder: "Was ist anders in Delivery, Team, Angebot, Markt?" }],
         },
         {
@@ -1280,9 +1369,7 @@
         },
       ];
 
-      /* ===========================
-         STATE
-      =========================== */
+      /* ========= State ========= */
       const state = {
         view: "start",
         stepIndex: 0,
@@ -1294,9 +1381,7 @@
         deck: [],
       };
 
-      /* ===========================
-         VIEW SWITCH
-      =========================== */
+      /* ========= View switch + nav indicator ========= */
       const viewMap = {
         start: $("#view-start"),
         reading: $("#view-reading"),
@@ -1325,19 +1410,16 @@
         const active = nav.querySelector(".navbtn.active");
         if (!active) return;
 
-        // offsetLeft is inside the nav padding box; indicator starts at padding too -> subtract padding once.
         const pad = parseFloat(getComputedStyle(nav).paddingLeft) || 0;
         const x = (active.offsetLeft - pad);
         const w = active.offsetWidth;
+
         indicator.style.width = `${w}px`;
         indicator.style.transform = `translateX(${x}px)`;
       }
-
       window.addEventListener("resize", () => requestAnimationFrame(moveNavIndicator));
 
-      /* ===========================
-         WIZARD UI
-      =========================== */
+      /* ========= Wizard UI ========= */
       function buildWizardUI() {
         const mount = $("#stepsMount");
         mount.innerHTML = "";
@@ -1476,8 +1558,7 @@
           const el = document.getElementById(`${s.id}_${f.key}`);
           if (!el) continue;
           const v = state.values[f.key];
-          if (v) el.value = v;
-          else el.value = "";
+          el.value = v ? v : "";
         }
       }
 
@@ -1509,8 +1590,7 @@
         const s = STEPS[state.stepIndex];
         for (const f of s.fields) {
           if (!f.required) continue;
-          const v = safe(state.values[f.key]);
-          if (!v) { toast(`Bitte: ${f.label}`); return false; }
+          if (!safe(state.values[f.key])) { toast(`Bitte: ${f.label}`); return false; }
         }
         return true;
       }
@@ -1524,12 +1604,10 @@
 
       async function nextStep() {
         if (!validateStep()) return;
-
         if (state.stepIndex >= STEPS.length - 1) {
           await generateProfile();
           return;
         }
-
         setStep(state.stepIndex + 1);
         chime();
         focusFirstInput();
@@ -1563,9 +1641,7 @@
         }, { passive: true });
       }
 
-      /* ===========================
-         ENGINE
-      =========================== */
+      /* ========= Engine ========= */
       function computeRhythmTag(dateISO) {
         const dt = new Date(dateISO);
         const day = dt.getUTCDate();
@@ -1597,16 +1673,15 @@
       function computeSMA(v) {
         const seed = [v.ventureName, v.foundingDate, v.foundingTime || "00:00", v.foundingPlace, v.industry, v.tone].join("|");
         const h = hash32(seed);
-
         const sun = pick(SMA_SIGNS, h);
         const moon = pick(SMA_SIGNS.filter(x => x.id !== sun.id), h >>> 3);
         const asc = pick(SMA_SIGNS.filter(x => x.id !== sun.id && x.id !== moon.id), h >>> 7);
-
         const element = pick(ELEMENTE, h >>> 11);
         const element2 = pick(ELEMENTE.filter(e => e.id !== element.id), h >>> 15);
-
         return { sun, moon, asc, element, element2 };
       }
+
+      function computeCycle(stage) { return CYCLES[stage] ?? CYCLES.start; }
 
       function computeTensions(v) {
         const weights = new Map(AXES.map(a => [a.id, 0]));
@@ -1638,10 +1713,7 @@
         const sorted = [...weights.entries()].sort((a,b) => b[1]-a[1]);
         const primaryId = sorted[0]?.[0] ?? "wachstum_vs_stabilitaet";
         const secondaryId = sorted[1]?.[0] ?? "vision_vs_umsetzung";
-        return {
-          primary: AXES.find(a => a.id === primaryId),
-          secondary: AXES.find(a => a.id === secondaryId),
-        };
+        return { primary: AXES.find(a => a.id === primaryId), secondary: AXES.find(a => a.id === secondaryId) };
       }
 
       function computeArchetypes(v, sma, tensions) {
@@ -1677,13 +1749,8 @@
         const sorted = [...scores.entries()].sort((a,b) => b[1]-a[1]);
         const domId = sorted[0]?.[0] ?? "builder";
         const secId = sorted[1]?.[0] ?? "integrator";
-        return {
-          dominant: ARCHETYPES.find(a => a.id === domId),
-          secondary: ARCHETYPES.find(a => a.id === secId),
-        };
+        return { dominant: ARCHETYPES.find(a => a.id === domId), secondary: ARCHETYPES.find(a => a.id === secId) };
       }
-
-      function computeCycle(stage) { return CYCLES[stage] ?? CYCLES.start; }
 
       function computeRiskAndLever(v, arch, tensions) {
         let risk = "Halb-Commitment";
@@ -1706,131 +1773,147 @@
         const blockerLine = {
           zu_viele_optionen: "Blocker: zu viele Optionen gleichzeitig.",
           unklare_rollen: "Blocker: Rollen/Ownership sind nicht hart genug gesetzt.",
-          angst_vor_verlust: "Blocker: der Schnitt fühlt sich nach Verlust an (ist aber oft Schutz).",
+          angst_vor_verlust: "Blocker: ein Schnitt fühlt sich nach Verlust an (ist oft Schutz).",
           fehlender_proof: "Blocker: Proof fehlt – Vertrauen wird nervös.",
           tempo_zu_hoch: "Blocker: Tempo überholt das System.",
           konflikt_avoid: "Blocker: Konflikte werden umgangen – Spannung bleibt im Raum.",
         }[v.leadBlocker] ?? "Blocker: unklar.";
 
+        return { risk, lever: `${lever} ${arch.dominant.lever}`, blockerLine };
+      }
+
+      /* ========= Copy builders (more readable) ========= */
+      function computeQualWord(startQualitaet) {
         return {
-          risk,
-          lever: `${lever} ${arch.dominant.lever}`,
-          blockerLine,
-        };
+          morgen: "klar / initiierend",
+          mittag: "sichtbar / präsent",
+          abend: "verdichtend / mutig",
+          nacht: "intuitiv / transformierend",
+        }[startQualitaet] ?? "klar";
       }
 
-      /* ===========================
-         TEXT (short + readable)
-      =========================== */
-      function composeOriginText(v, rhythmTag, fieldTag, cycle) {
-        const qual = { morgen: "morgendlich-klar", mittag: "sichtbar-tragend", abend: "verdichtend-mutig", nacht: "intuitiv-tief" }[v.startQualitaet] ?? "klar";
-        const tone = v.tone ? v.tone : "—";
-        return [
-          `Ursprungston: <strong>${escapeHtml(v.ventureName)}</strong> · Ton: <strong>${escapeHtml(tone)}</strong>.`,
-          `Ein <strong>${qual}</strong>er Eintritt: Start als Entscheidung, nicht als Idee.`,
-          `Rhythmus: <strong>${rhythmTag}</strong> · Feld: <strong>${fieldTag}</strong>.`,
-          `Zyklus: <strong>${cycle.name}</strong> — ${cycle.hint}`,
-        ].join("<br/>");
+      function buildActionPlan(p) {
+        const v = p.values;
+        const a = p.tensions.primary;
+        const c = p.cycle;
+        const tone = v.tone;
+
+        const plan = [
+          { k: "1 · Kern", v: `Definiere euren Kern in einem Satz. Wenn ihr nur eine Sache schützen dürftet: was ist es? (Ton: ${tone})` },
+          { k: "2 · Achse", v: `Formuliere die Spannung als Entscheidung: ${a.poles[0]} ↔ ${a.poles[1]}. Welche Seite ist gerade überzogen?` },
+          { k: "3 · Rhythmus", v: `Setze ein Wochen-Ritual (30–45 Min): Priorität · Ownership · Proof. Keine Diskussion ohne Entscheidung.` },
+          { k: "4 · Timing", v: `Phase: ${c.name}. In dieser Phase wirkt „Klarheit zuerst“ stärker als „mehr Output“.` },
+          { k: "5 · Proof", v: `Wähle 1 Proof-Moment für die nächsten 14 Tage: ein sichtbarer Beweis, der euer Signal erdet.` },
+        ];
+        return plan;
       }
 
-      function composeSMAText(sma) {
-        return [
-          `<strong>Sonne</strong> („${sma.sun.label}“): ${sma.sun.meaning} · ${sma.sun.tone}.`,
-          `<strong>Mond</strong> („${sma.moon.label}“): ${sma.moon.meaning} · ${sma.moon.tone}.`,
-          `<strong>Aszendent</strong> („${sma.asc.label}“): ${sma.asc.meaning} · ${sma.asc.tone}.`,
-          `Elemente: <strong>${sma.element.name}</strong> + <strong>${sma.element2.name}</strong>.`,
-        ].join("<br/>");
-      }
+      function buildTimingPlanner(p) {
+        const v = p.values;
+        const cycle = p.cycle.name;
+        const qual = computeQualWord(v.startQualitaet);
+        const axis = p.tensions.primary.id;
 
-      function composeArchetypeText(arch) {
-        const d = arch.dominant, s = arch.secondary;
-        return [
-          `<strong>Dominant:</strong> ${d.name} — ${d.strengths.join(" · ")}.`,
-          `<br/><strong>Sekundär:</strong> ${s.name} — ${s.strengths.join(" · ")}.`,
-          `<br/><strong>Schatten (sanft):</strong> ${d.shadow[0]}.`,
-        ].join("");
-      }
-
-      function composeAxisText(v, primary, secondary) {
-        return [
-          `<strong>Primär:</strong> ${primary.name} (${primary.poles[0]} ↔ ${primary.poles[1]}) — ${primary.description}`,
-          `<br/><strong>Sekundär:</strong> ${secondary.name} (${secondary.poles[0]} ↔ ${secondary.poles[1]})`,
-        ].join("");
-      }
-
-      function composeLeadText(v, riskLever) {
-        const qMap = {
-          fokus: "Fokus",
-          containment: "Containment",
-          mut: "Mut",
-          konsequenz: "Konsequenz",
-          vertrauen: "Vertrauen",
-          sanftheit: "Sanftheit",
-        };
-        return [
-          `<strong>Führungsschlüssel:</strong> ${qMap[v.leadQuality] ?? "Klarheit"}. ${escapeHtml(riskLever.blockerLine)}`,
-          `<br/><strong>Hebel:</strong> ${escapeHtml(riskLever.lever)}`,
-          `<br/><strong>Risiko:</strong> ${escapeHtml(riskLever.risk)}`,
-        ].join("");
-      }
-
-      function composeCycleText(cycle) {
-        return [
-          `<strong>${cycle.name}</strong>`,
-          `<br/>Signale: ${cycle.signals.join(" · ")}`,
-          `<br/>Reibung: ${cycle.friction.join(" · ")}`,
-          `<br/><strong>Timing-Hinweis:</strong> ${cycle.hint}`,
-        ].join("");
-      }
-
-      /* ===========================
-         PROMPTS (deck: 8 cards, very readable)
-      =========================== */
-      function buildDeckPrompts(v, sma, tensions, arch, riskLever) {
-        const a = tensions.primary;
-        const b = tensions.secondary;
-
-        const cards = [
+        const slotBase = [
           {
-            q: "Wenn du alles weglässt: Was ist der Kern, den ihr schützen müsst, damit alles andere wieder leicht wird?",
-            h: "Tipp: Kern ist meist Angebot · Kadenz · Ownership – nicht ein weiteres Feature.",
+            title: "Kick-off / Alignment",
+            body: `Ideal, wenn ihr schnell Ordnung braucht. In eurer Phase (${cycle}) ist ein Kick-off stark, wenn er mit 3 Entscheidungen endet: Fokus, Ownership, Kadenz.`,
+            hint: `Zeitqualität: ${qual} · Dauer: 45–60 Min · Output: 3 klare Entscheidungen`,
           },
           {
-            q: `Eure Hauptspannung ist: ${a.name}. Wo kippt ihr aktuell auf eine Seite – und was wäre die kleinste Gegenbewegung?`,
-            h: `Pole: ${a.poles[0]} ↔ ${a.poles[1]}. Gegenbewegung = 1 Entscheidung, 1 Ritual, 1 Proof.`,
+            title: "Aussendung / Launch",
+            body: `Nicht „laut“, sondern „stimmig“. Wenn Proof-Druck hoch ist: zuerst Beweis, dann Story. Wenn Proof-Druck niedrig ist: Story + klare nächste Handlung.`,
+            hint: `Zeitqualität: ${qual} · Fokus: Signal + Proof zusammenführen`,
           },
           {
-            q: `Sonne („${sma.sun.label}“): Was ist euer Fokus – und was macht ihr dafür diese Woche bewusst nicht?`,
-            h: "Fokus wird erst sichtbar durch Weglassen.",
+            title: "Heikles Gespräch",
+            body: `Wenn Spannung aktiv ist (${p.tensions.primary.name}): benenne die Achse zuerst. Dann wird das Gespräch weich UND klar.`,
+            hint: `Satz-Start: „Wir kippen gerade zwischen ${p.tensions.primary.poles[0]} und ${p.tensions.primary.poles[1]}…“`,
           },
           {
-            q: `Mond („${sma.moon.label}“): Was braucht das System, um ruhig zu bleiben, während ihr wächst?`,
-            h: "Regulation ist Design: Rhythmus, Grenzen, klare Zuständigkeiten.",
-          },
-          {
-            q: `Aszendent („${sma.asc.label}“): Wie wirkt ihr im Markt – und wo passt Signal nicht zum Proof?`,
-            h: "Wenn Signal + Proof zusammenfallen, entsteht natürliche Anziehung.",
-          },
-          {
-            q: `Dominanter Archetyp: ${arch.dominant.name}. Was ist die Stärke – und wo wird sie zur Übertreibung?`,
-            h: `Schatten-Hinweis: ${arch.dominant.shadow[0]}.`,
-          },
-          {
-            q: `Führungsschlüssel: ${v.leadQuality}. Welche eine Praxis setzt du in 7 Tagen – wirklich?`,
-            h: `Hebel: ${riskLever.lever}`,
-          },
-          {
-            q: "Welche Entscheidung würde euch sofort entlasten, obwohl sie kurz unbequem ist?",
-            h: "Das System weiß meist längst, was fällig ist – es wartet nur auf Sprache + Commitment.",
+            title: "Hiring / Rollen-Definition",
+            body: `Nicht nach „Passung“ raten – Rollen klar machen. In dieser Phase zählt: Verantwortung + Tempo + Feedback. Erst dann Persönlichkeit.`,
+            hint: `Rolle: Owner/Scope · Feedback-Rhythmus · Entscheidungsspielraum`,
           },
         ];
 
-        return cards;
+        // tiny axis-specific spice
+        const axisExtra = {
+          wachstum_vs_stabilitaet: "Tipp: Vor großen Ankündigungen immer erst den Kern stabilisieren (Angebot, Pricing, Delivery).",
+          vision_vs_umsetzung: "Tipp: Launch nur mit einem messbaren Proof-Proxy. Sonst wird es nur Erzählung.",
+          kontrolle_vs_vertrauen: "Tipp: Vor wichtigen Meetings Rollen + Entscheidungsrechte schriftlich klären.",
+          tempo_vs_reife: "Tipp: Tempo nicht pushen – Engpass fixen. Dann wirkt alles schneller.",
+          gruender_vs_markt: "Tipp: Messaging erst schärfen, dann skalieren. Sonst skaliert ihr Unklarheit.",
+          innovation_vs_struktur: "Tipp: Erst Template/Prozess, dann neue Ideen. So bleibt Innovation tragfähig.",
+        }[axis] ?? "Tipp: Zeitqualität als Rahmen nutzen – nicht als Ersatz für Klarheit.";
+
+        return { slots: slotBase, extra: axisExtra };
       }
 
-      /* ===========================
-         WHEEL
-      =========================== */
+      function buildTeamModule(p) {
+        const v = p.values;
+        const a = p.tensions.primary.id;
+
+        const dyn = {
+          kontrolle_vs_vertrauen: "Team-Dynamik: Delegation ist gerade der Nerv. Wenn Ownership nicht instrumentiert ist, kippt es in Mikromanagement oder diffuse Verantwortung.",
+          vision_vs_umsetzung: "Team-Dynamik: Vision und Delivery laufen auseinander. Ihr braucht Übersetzung: klare Scope-Grenzen + Proof-Rituale.",
+          tempo_vs_reife: "Team-Dynamik: Tempo ist hoch. Das Team braucht Reife-Container: Regeln, Rhythmus, klare Done-Definition.",
+          gruender_vs_markt: "Team-Dynamik: Identität ist Thema. Ihr braucht Sprache, die Ursprung + Markt gleichzeitig hält.",
+          wachstum_vs_stabilitaet: "Team-Dynamik: Das System wächst. Ihr braucht einen stabilen Kern, sonst wird alles teuer.",
+          innovation_vs_struktur: "Team-Dynamik: Kreativität braucht Struktur. Sonst wird’s Dauersprint ohne Wiederholung.",
+        }[a] ?? "Team-Dynamik: Klarheit über Rollen und Rhythmus ist jetzt der Hebel.";
+
+        const badges = [
+          `Reibung: ${v.frictionZone}`,
+          `Team: ${v.teamSize}`,
+          `Führung: ${v.leadQuality}`,
+        ];
+
+        const interview = [
+          { k: "Frage", v: "Welche Verantwortung hast du zuletzt wirklich owned – und wie hast du sie sichtbar gemacht?" },
+          { k: "Frage", v: "Wie gehst du mit Unklarheit um: fragst du nach, setzt du Hypothesen, oder wartest du?" },
+          { k: "Frage", v: "Welche Art von Feedback-Rhythmus brauchst du, um gut zu liefern?" },
+          { k: "Frage", v: "Was ist für dich ein guter „Done“-Standard – und wie hältst du ihn unter Druck?" },
+        ];
+
+        const dev = "Personalentwicklung: Nutzt 1×/Monat ein Resonanz-Review: (1) Was hat Energie gegeben? (2) Was hat Energie gezogen? (3) Welche Regel/Rolle würde entlasten?";
+        const coach = "Führungskräfte-Coaching: Der Shift ist „sanft UND klar“: Spannung benennen, Grenzen setzen, Entscheidungen halten. Ohne Drama. Ohne Ausrede.";
+
+        return { dyn, badges, interview, dev, coach };
+      }
+
+      function buildExpansionModule(p) {
+        const v = p.values;
+        const cycle = p.cycle.name;
+
+        const geo = `Neue Orte: Denke in „Fit“ statt in Fantasie. Wo ist euer Proof-Druck tragbar? Wo ist euer Signal verständlich? (Phase: ${cycle})`;
+        const marketEntry = `Markt-Einstieg: Übersetze eure Signatur in eine klare Kategorie. Erst Sprache, dann Skalierung.`;
+        const rolesPlaces = `Standorte & Rollen: Definiere pro Standort einen „Owner“ für Signal, Delivery und Feedback. Ohne Owner wird Expansion teuer.`;
+        const riskCheck = `Risiko-Check: Welche Achse wird beim Wachstum schlimmer? (${p.tensions.primary.name}) Plant Gegenbewegungen ein: Regeln, Kadenz, Proof.`;
+
+        return { geo, marketEntry, rolesPlaces, riskCheck };
+      }
+
+      function buildDeckPrompts(p) {
+        const v = p.values;
+        const a = p.tensions.primary;
+        const sma = p.sma;
+        const arch = p.arch;
+        const rl = p.riskLever;
+
+        return [
+          { q: "Was ist euer Kern, den ihr schützen müsst, damit alles andere wieder leicht wird?", h: "Kern ist oft Angebot · Kadenz · Ownership — nicht ein weiteres Feature." },
+          { q: `Eure Hauptspannung ist: ${a.name}. Wo kippt ihr aktuell — und was wäre die kleinste Gegenbewegung?`, h: `Pole: ${a.poles[0]} ↔ ${a.poles[1]}. Gegenbewegung = 1 Entscheidung + 1 Ritual.` },
+          { q: `Sonne („${sma.sun.label}“): Was ist euer Fokus — und was lasst ihr diese Woche bewusst weg?`, h: "Fokus wird sichtbar durch Weglassen." },
+          { q: `Mond („${sma.moon.label}“): Was braucht das System, um ruhig zu bleiben, während ihr wächst?`, h: "Regulation ist Design: Rhythmus, Grenzen, Zuständigkeiten." },
+          { q: `Aszendent („${sma.asc.label}“): Wo passt Signal nicht zum Proof — oder Proof nicht zum Signal?`, h: "Wenn beides zusammenfällt, entsteht natürliche Anziehung." },
+          { q: `Dominanter Archetyp: ${arch.dominant.name}. Wo ist eure Stärke — und wo wird sie zur Übertreibung?`, h: `Schatten: ${arch.dominant.shadow[0]}.` },
+          { q: `Führungsschlüssel: ${v.leadQuality}. Welche Praxis setzt du in 7 Tagen – wirklich?`, h: `Hebel: ${rl.lever}` },
+          { q: "Welche Entscheidung würde euch sofort entlasten, obwohl sie kurz unbequem ist?", h: "Das System weiß meist längst, was fällig ist – es wartet auf Sprache + Commitment." },
+        ];
+      }
+
+      /* ========= Wheel ========= */
       function renderWheelEmpty() {
         const svg = $("#wheelSvg");
         if (!svg) return;
@@ -1898,7 +1981,7 @@
 
         if (!seg) {
           title.textContent = state.wheelPinned ? "Gepinnt" : "Wähle ein Segment";
-          body.textContent = state.wheelPinned ? "Pin lösen, um wieder frei zu wählen." : "Tippe ein Segment: Innen = Element, Mitte = Achse, Außen = Timing.";
+          body.textContent = state.wheelPinned ? "Pin lösen, um wieder frei zu wählen." : "Tippe ein Segment: Innen = Element, Mitte = Achse, Außen = Marker.";
           return;
         }
 
@@ -1949,19 +2032,19 @@
         }));
 
         const outerLabels = [
-          { id: "marker_kern", label: "Kern", detail: "Was muss stabil sein, damit Bewegung tragfähig bleibt?" },
-          { id: "marker_proof", label: "Proof", detail: "Wo braucht ihr Beweis statt mehr Erzählung?" },
-          { id: "marker_ownership", label: "Ownership", detail: "Welche Verantwortung braucht eine eindeutige Besitzerin?" },
-          { id: "marker_ritual", label: "Ritual", detail: "Welche Wiederholung entlastet sofort?" },
-          { id: "marker_kante", label: "Kante", detail: "Welche Abgrenzung macht euch verständlicher?" },
-          { id: "marker_schnitt", label: "Schnitt", detail: "Welche Entscheidung darf irreversibel werden?" },
-          { id: "marker_regulation", label: "Regulation", detail: "Was beruhigt das System, ohne es zu sedieren?" },
-          { id: "marker_tempo", label: "Tempo", detail: "Wo entscheidet ein Engpass das Tempo – und wie passt ihr euch an?" },
+          { id: "marker_kern", label: "Marker: Kern", detail: "Was muss stabil sein, damit Bewegung tragfähig bleibt?" },
+          { id: "marker_proof", label: "Marker: Proof", detail: "Wo braucht ihr Beweis statt mehr Erzählung?" },
+          { id: "marker_ownership", label: "Marker: Ownership", detail: "Welche Verantwortung braucht eine eindeutige Besitzerin?" },
+          { id: "marker_ritual", label: "Marker: Ritual", detail: "Welche Wiederholung entlastet sofort?" },
+          { id: "marker_kante", label: "Marker: Kante", detail: "Welche Abgrenzung macht euch verständlicher?" },
+          { id: "marker_schnitt", label: "Marker: Schnitt", detail: "Welche Entscheidung darf irreversibel werden?" },
+          { id: "marker_regulation", label: "Marker: Regulation", detail: "Was beruhigt das System, ohne es zu sedieren?" },
+          { id: "marker_tempo", label: "Marker: Tempo", detail: "Wo entscheidet ein Engpass das Tempo – und wie passt ihr euch an?" },
         ];
 
         const oSegs = outerLabels.map((x, i) => ({
           id: x.id,
-          label: `Marker: ${x.label}`,
+          label: x.label,
           detail: x.detail,
           a0: -90 + i * 45,
           a1: -90 + (i + 1) * 45,
@@ -2010,52 +2093,7 @@
         setWheelDetail(null);
       }
 
-      /* ===========================
-         PROFILE GENERATION
-      =========================== */
-      function normalizeValues(values) {
-        const out = {};
-        for (const s of STEPS) for (const f of s.fields) out[f.key] = safe(values[f.key]);
-        if (!out.axisPreset) out.axisPreset = "auto";
-        if (!out.startQualitaet) out.startQualitaet = "morgen";
-        if (!out.foundingTime) out.foundingTime = "";
-        return out;
-      }
-
-      async function generateProfile() {
-        $("#calibrating").classList.remove("hidden");
-        document.querySelectorAll(".step-view").forEach((v) => v.classList.remove("active"));
-        chime();
-        await sleep(650);
-
-        const v = normalizeValues(state.values);
-        const rhythmTag = computeRhythmTag(v.foundingDate);
-        const fieldTag = computeFieldTag(v.industry, v.proofDemand);
-        const sma = computeSMA(v);
-        const tensions = computeTensions(v);
-        const arch = computeArchetypes(v, sma, tensions);
-        const cycle = computeCycle(v.currentStage);
-        const riskLever = computeRiskAndLever(v, arch, tensions);
-        const deck = buildDeckPrompts(v, sma, tensions, arch, riskLever);
-
-        state.profile = { values: v, rhythmTag, fieldTag, sma, tensions, arch, cycle, riskLever };
-        state.deck = deck;
-        state.deckIndex = 0;
-
-        await sleep(520);
-        $("#calibrating").classList.add("hidden");
-
-        renderResult();
-
-        $("#navErgebnis").disabled = false;
-        switchView("ergebnis");
-        toast("Ergebnis erzeugt");
-        chime();
-      }
-
-      /* ===========================
-         RESULT RENDER
-      =========================== */
+      /* ========= Result render ========= */
       function setBadges(el, items) {
         const wrap = $(el);
         wrap.innerHTML = "";
@@ -2067,61 +2105,48 @@
         }
       }
 
-      function renderResult() {
-        const p = state.profile;
-        if (!p) return;
+      function setStepsList(el, items) {
+        const ul = $(el);
+        ul.innerHTML = "";
+        for (const it of items) {
+          const li = document.createElement("li");
+          li.className = "step";
+          li.innerHTML = `<div class="k">${escapeHtml(it.k)}</div><div class="v">${escapeHtml(it.v)}</div>`;
+          ul.appendChild(li);
+        }
+      }
 
-        $("#ergebnisEmpty").classList.add("hidden");
-        $("#ergebnisWrap").classList.remove("hidden");
+      function renderTimingGrid(p) {
+        const t = buildTimingPlanner(p);
+        const grid = $("#timingGrid");
+        grid.innerHTML = "";
 
-        $("#sumTitle").textContent = p.values.ventureName || "Dein Reading";
-        $("#sumSub").textContent =
-          "Du bekommst eine klare Struktur: Wo ist der Kern, welche Spannung ist aktiv, und was ist jetzt reif zu entscheiden – ohne Overload.";
+        const extra = document.createElement("div");
+        extra.className = "slot";
+        extra.innerHTML = `<div class="slot-title">Zusatz-Hinweis</div><p>${escapeHtml(t.extra)}</p>`;
+        grid.appendChild(extra);
 
-        setBadges("#sumBadges", [
-          `Ton: ${p.values.tone}`,
-          `Primär: ${p.tensions.primary.name}`,
-          `Zyklus: ${p.cycle.name}`,
-          `Sonne: ${p.sma.sun.label}`,
-        ]);
+        for (const s of t.slots) {
+          const card = document.createElement("div");
+          card.className = "slot";
+          card.innerHTML = `
+            <div class="slot-title">${escapeHtml(s.title)}</div>
+            <p>${escapeHtml(s.body)}</p>
+            <div class="hint">${escapeHtml(s.hint)}</div>
+          `;
+          grid.appendChild(card);
+        }
+      }
 
-        const origin = composeOriginText(p.values, p.rhythmTag, p.fieldTag, p.cycle);
-        $("#originText").innerHTML = origin;
-        $("#teaserOrigin").textContent = `${p.rhythmTag} · ${p.fieldTag}`;
-
-        const smaText = composeSMAText(p.sma);
-        $("#smaText").innerHTML = smaText;
-        $("#teaserSMA").textContent = `${p.sma.sun.label} · ${p.sma.moon.label} · ${p.sma.asc.label}`;
-        setBadges("#smaBadges", [
-          `Sonne: ${p.sma.sun.label}`,
-          `Mond: ${p.sma.moon.label}`,
-          `Asc: ${p.sma.asc.label}`,
-          `Element: ${p.sma.element.name}`,
-        ]);
-
-        const archText = composeArchetypeText(p.arch);
-        $("#archText").innerHTML = archText;
-        $("#teaserArch").textContent = `${p.arch.dominant.name} + ${p.arch.secondary.name}`;
-        setBadges("#archBadges", [...p.arch.dominant.tone, ...p.arch.secondary.tone].slice(0, 6));
-
-        $("#axisText").innerHTML = composeAxisText(p.values, p.tensions.primary, p.tensions.secondary);
-        $("#teaserAxis").textContent = p.tensions.primary.name;
-        setBadges("#axisBadges", [
-          `${p.tensions.primary.poles[0]} ↔ ${p.tensions.primary.poles[1]}`,
-          `${p.tensions.secondary.poles[0]} ↔ ${p.tensions.secondary.poles[1]}`,
-        ]);
-
-        $("#leadText").innerHTML = composeLeadText(p.values, p.riskLever);
-        setBadges("#leadBadges", [`Risiko: ${p.riskLever.risk}`]);
-
-        $("#cycleText").innerHTML = composeCycleText(p.cycle);
-        $("#teaserCycle").textContent = p.cycle.hint;
-        setBadges("#cycleBadges", [`Phase: ${p.cycle.name}`, `Reibung: ${p.values.frictionZone}`, `Proof: ${p.values.proofDemand}`]);
-
-        renderWheel(p);
-        renderDeck();
-
-        renderExport();
+      function renderInterviewQs(items) {
+        const ul = $("#interviewQs");
+        ul.innerHTML = "";
+        for (const it of items) {
+          const li = document.createElement("li");
+          li.className = "step";
+          li.innerHTML = `<div class="k">${escapeHtml(it.k)}</div><div class="v">${escapeHtml(it.v)}</div>`;
+          ul.appendChild(li);
+        }
       }
 
       function renderDeck() {
@@ -2130,8 +2155,8 @@
         state.deckIndex = i;
 
         $("#deckCount").textContent = `${deck.length ? i + 1 : 0} / ${deck.length}`;
-        const card = $("#deckCard");
 
+        const card = $("#deckCard");
         if (!deck.length) {
           $("#deckQ").textContent = "—";
           $("#deckH").textContent = "—";
@@ -2153,7 +2178,6 @@
         renderDeck();
         chime();
       }
-
       function deckBack() {
         if (!state.deck.length) return;
         state.deckIndex = clamp(state.deckIndex - 1, 0, state.deck.length - 1);
@@ -2189,13 +2213,7 @@
         }, { passive: true });
       }
 
-      /* ===========================
-         EXPORT
-      =========================== */
-      function renderExport() {
-        const p = state.profile;
-        if (!p) return;
-
+      function renderExport(p) {
         $("#exportTitle").textContent = p.values.ventureName || "Reading";
         $("#exportSub").textContent = `${p.values.foundingPlace} · ${p.values.foundingDate}${p.values.foundingTime ? " " + p.values.foundingTime : ""}`;
 
@@ -2204,7 +2222,7 @@
           `Signatur: ${p.rhythmTag} · ${p.fieldTag}.`,
           `Sonne/Mond/Asc: ${p.sma.sun.label} / ${p.sma.moon.label} / ${p.sma.asc.label}.`,
           `Archetypen: ${p.arch.dominant.name} + ${p.arch.secondary.name}.`,
-          `Achse: ${p.tensions.primary.name} (sekundär: ${p.tensions.secondary.name}).`,
+          `Achse: ${p.tensions.primary.name} (sek.: ${p.tensions.secondary.name}).`,
           `Zyklus: ${p.cycle.name}.`,
           `Hebel: ${p.riskLever.lever}`,
         ].join(" ");
@@ -2212,9 +2230,7 @@
         $("#exportSummary").textContent = summary;
       }
 
-      function buildCopySummary() {
-        const p = state.profile;
-        if (!p) return "Noch kein Ergebnis.";
+      function buildCopySummary(p) {
         const v = p.values;
         return [
           `Unternehmen: ${v.ventureName}`,
@@ -2229,16 +2245,206 @@
         ].join("\n");
       }
 
-      /* ===========================
-         INIT
-      =========================== */
+      function renderReport(p) {
+        $("#ergebnisEmpty").classList.add("hidden");
+        $("#ergebnisWrap").classList.remove("hidden");
+
+        const qual = computeQualWord(p.values.startQualitaet);
+
+        $("#rTitle").textContent = p.values.ventureName || "Venture Resonance Studio";
+        $("#rSub").textContent =
+          `Ton: ${p.values.tone}. Hauptspannung: ${p.tensions.primary.name}. Zeitqualität: ${qual}. Fokus: ${p.sma.sun.label} · Bedürfnis: ${p.sma.moon.label} · Auftreten: ${p.sma.asc.label}.`;
+
+        setBadges("#rBadges", [
+          `Zyklus: ${p.cycle.name}`,
+          `Primär: ${p.tensions.primary.name}`,
+          `Proof: ${p.values.proofDemand}`,
+          `Element: ${p.sma.element.name}`,
+        ]);
+
+        // Overview tiles
+        const rhythmTag = p.rhythmTag;
+        const fieldTag = p.fieldTag;
+
+        $("#tOrigin").innerHTML = `
+          <strong>${escapeHtml(p.values.ventureName)}</strong> · ${escapeHtml(p.values.foundingPlace)} · ${escapeHtml(p.values.foundingDate)}
+          ${p.values.foundingTime ? `· ${escapeHtml(p.values.foundingTime)}` : ""}<br/>
+          Signatur: <strong>${escapeHtml(rhythmTag)}</strong> · Feld: <strong>${escapeHtml(fieldTag)}</strong>
+        `;
+        setBadges("#tOriginBadges", [
+          `Zeitqualität: ${qual}`,
+          `Sonne: ${p.sma.sun.label}`,
+          `Mond: ${p.sma.moon.label}`,
+        ]);
+
+        $("#tAxis").innerHTML = `
+          <strong>${escapeHtml(p.tensions.primary.name)}</strong><br/>
+          Pole: ${escapeHtml(p.tensions.primary.poles[0])} ↔ ${escapeHtml(p.tensions.primary.poles[1])}<br/>
+          ${escapeHtml(p.tensions.primary.description)}
+        `;
+        setBadges("#tAxisBadges", [
+          `Sekundär: ${p.tensions.secondary.name}`,
+          `Reibung: ${p.values.frictionZone}`,
+        ]);
+
+        $("#tLead").innerHTML = `
+          <strong>Risiko:</strong> ${escapeHtml(p.riskLever.risk)}<br/>
+          <strong>Hebel:</strong> ${escapeHtml(p.riskLever.lever)}<br/>
+          <span class="muted">${escapeHtml(p.riskLever.blockerLine)}</span>
+        `;
+        setBadges("#tLeadBadges", [
+          `Führung: ${p.values.leadQuality}`,
+          `Blocker: ${p.values.leadBlocker}`,
+        ]);
+
+        $("#tCycle").innerHTML = `
+          <strong>${escapeHtml(p.cycle.name)}</strong><br/>
+          Signale: ${escapeHtml(p.cycle.signals.join(" · "))}<br/>
+          Timing: ${escapeHtml(p.cycle.hint)}
+        `;
+        setBadges("#tCycleBadges", [
+          `Team: ${p.values.teamSize}`,
+          `Branche: ${p.values.industry}`,
+        ]);
+
+        // Action plan
+        setStepsList("#actionPlan", buildActionPlan(p));
+
+        // Timing panel
+        renderTimingGrid(p);
+
+        // Team panel
+        const tm = buildTeamModule(p);
+        $("#teamDyn").textContent = tm.dyn;
+        setBadges("#teamBadges", tm.badges);
+        renderInterviewQs(tm.interview);
+        $("#peopleDev").textContent = tm.dev;
+        $("#leadCoach").textContent = tm.coach;
+
+        // Expansion panel
+        const ex = buildExpansionModule(p);
+        $("#geo").textContent = ex.geo;
+        $("#marketEntry").textContent = ex.marketEntry;
+        $("#rolesPlaces").textContent = ex.rolesPlaces;
+        $("#riskCheck").textContent = ex.riskCheck;
+
+        // Wheel
+        renderWheel(p);
+
+        // Deck
+        state.deck = buildDeckPrompts(p);
+        state.deckIndex = 0;
+        renderDeck();
+
+        // Export
+        renderExport(p);
+      }
+
+      /* ========= Tabs ========= */
+      function bindReportTabs() {
+        const tabs = $("#reportTabs");
+        if (!tabs) return;
+
+        tabs.querySelectorAll(".segbtn").forEach((btn) => {
+          btn.addEventListener("click", () => {
+            tabs.querySelectorAll(".segbtn").forEach((b) => b.classList.remove("active"));
+            btn.classList.add("active");
+
+            const id = btn.dataset.panel;
+            document.querySelectorAll(".panel").forEach((p) => p.classList.remove("active"));
+            const panel = document.getElementById(id);
+            if (panel) panel.classList.add("active");
+
+            chime();
+            window.scrollTo({ top: 0, behavior: "smooth" });
+          });
+        });
+      }
+
+      /* ========= Wheel pin controls ========= */
+      function bindWheelControls() {
+        $("#unlockWheel").addEventListener("click", () => {
+          state.wheelPinned = false;
+          state.wheelPin = null;
+          setWheelDetail(null);
+          toast("Pin gelöst");
+          chime();
+        });
+      }
+
+      /* ========= Export actions ========= */
+      function bindExport() {
+        $("#printBtn").addEventListener("click", () => window.print());
+        $("#copyBtn").addEventListener("click", async () => {
+          if (!state.profile) return;
+          const txt = buildCopySummary(state.profile);
+          try { await navigator.clipboard.writeText(txt); toast("Kopiert"); chime(); }
+          catch { toast("Copy nicht möglich"); }
+        });
+      }
+
+      /* ========= Normalize + Generate ========= */
+      function normalizeValues(values) {
+        const out = {};
+        for (const s of STEPS) for (const f of s.fields) out[f.key] = safe(values[f.key]);
+        if (!out.axisPreset) out.axisPreset = "auto";
+        if (!out.startQualitaet) out.startQualitaet = "morgen";
+        if (!out.foundingTime) out.foundingTime = "";
+        return out;
+      }
+
+      async function generateProfile() {
+        $("#calibrating").classList.remove("hidden");
+        document.querySelectorAll(".step-view").forEach((v) => v.classList.remove("active"));
+        chime();
+        await sleep(650);
+
+        const v = normalizeValues(state.values);
+        const rhythmTag = computeRhythmTag(v.foundingDate);
+        const fieldTag = computeFieldTag(v.industry, v.proofDemand);
+        const sma = computeSMA(v);
+        const tensions = computeTensions(v);
+        const arch = computeArchetypes(v, sma, tensions);
+        const cycle = computeCycle(v.currentStage);
+        const riskLever = computeRiskAndLever(v, arch, tensions);
+
+        state.profile = { values: v, rhythmTag, fieldTag, sma, tensions, arch, cycle, riskLever };
+
+        await sleep(520);
+        $("#calibrating").classList.add("hidden");
+
+        renderReport(state.profile);
+
+        $("#navErgebnis").disabled = false;
+        switchView("ergebnis");
+        toast("Ergebnis erzeugt");
+        chime();
+      }
+
+      /* ========= Wheel render ========= */
+      function renderWheelEmpty() {
+        const svg = $("#wheelSvg");
+        if (!svg) return;
+        svg.innerHTML = "";
+        const defs = elSvg("defs");
+        defs.appendChild(svgGlowFilter("softGlow", 3.0, 0.36));
+        defs.appendChild(svgGlowFilter("hardGlow", 6.0, 0.22));
+        svg.appendChild(defs);
+      }
+
+      /* ========= Init ========= */
       function init() {
+        // Build UI
         buildWizardUI();
-        renderWheelEmpty();
+        setStep(0);
         bindSwipeWizard();
         bindDeckSwipe();
+        bindReportTabs();
+        bindWheelControls();
+        bindExport();
+        renderWheelEmpty();
 
-        // Nav
+        // Nav clicks
         document.querySelectorAll(".navbtn[data-view]").forEach((btn) => {
           btn.addEventListener("click", () => {
             if (btn.disabled) return;
@@ -2253,38 +2459,26 @@
           chime();
         });
 
-        // Wheel pin
-        $("#unlockWheel").addEventListener("click", () => {
-          state.wheelPinned = false;
-          state.wheelPin = null;
-          setWheelDetail(null);
-          toast("Pin gelöst");
-          chime();
-        });
-
-        // Deck buttons
+        // Deck
         $("#deckNext").addEventListener("click", deckNext);
         $("#deckBack").addEventListener("click", deckBack);
 
-        // Export actions
-        $("#printBtn").addEventListener("click", () => window.print());
-        $("#copyBtn").addEventListener("click", async () => {
-          const txt = buildCopySummary();
-          try { await navigator.clipboard.writeText(txt); toast("Kopiert"); chime(); }
-          catch { toast("Copy nicht möglich"); }
-        });
-
-        // Indicator alignment (fonts settle)
+        // Nav indicator
         requestAnimationFrame(moveNavIndicator);
         setTimeout(() => requestAnimationFrame(moveNavIndicator), 320);
         setTimeout(() => requestAnimationFrame(moveNavIndicator), 900);
 
-        // Wizard start state
-        setStep(0);
+        // Start view
         switchView("start");
       }
 
       init();
+    </script>
+
+    <script type="module">
+      /* ========= Attach wheel + deck event handlers after DOM ready ========= */
+      // (kept separate to avoid accidental reference errors during first paint)
+      // No-op (already bound).
     </script>
   </body>
 </html>
