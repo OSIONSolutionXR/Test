@@ -1,1491 +1,2009 @@
+<!-- File: index.html (single-file version) -->
 <!doctype html>
-<html lang="de">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>OSION Energy | Entscheidungs- & Projekt-App (Demo UI)</title>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="color-scheme" content="dark light" />
+    <title>Venture Resonance Studio</title>
+    <meta
+      name="description"
+      content="A symbolic reflection studio for founders, ventures and business cycles — archetypes, tensions, cycles, and strategic prompts."
+    />
 
-  <style>
-    :root{
-      --bg0:#06060a;
-      --bg1:#0b0b12;
-      --card:#0f1017cc;
-      --stroke:#ffffff1a;
-      --stroke2:#ffffff2a;
-      --text:#f3f4f6;
-      --muted:#c7cad1;
-      --muted2:#a9afba;
-      --shadow: 0 30px 80px rgba(0,0,0,.55);
-      --shadow2: 0 12px 40px rgba(0,0,0,.5);
-      --radius: 26px;
-      --radius2: 20px;
+    <style>
+      :root {
+        --bg: #07090f;
+        --panel: rgba(255, 255, 255, 0.06);
+        --panel2: rgba(255, 255, 255, 0.08);
+        --line: rgba(255, 255, 255, 0.12);
+        --text: rgba(255, 255, 255, 0.92);
+        --muted: rgba(255, 255, 255, 0.68);
+        --faint: rgba(255, 255, 255, 0.48);
 
-      /* OSION Look */
-      --accent1:#b3003c;
-      --accent2:#6b2cff;
-      --accentGlow: 0 0 0 2px rgba(179,0,60,.35), 0 0 40px rgba(107,44,255,.25), 0 0 90px rgba(179,0,60,.18);
+        --gold: rgba(196, 162, 92, 0.95);
+        --sand: rgba(233, 222, 199, 0.95);
+        --silver: rgba(218, 226, 240, 0.9);
 
-      /* Motion */
-      --easeOut: cubic-bezier(.2,.9,.2,1);
-      --easeInOut: cubic-bezier(.4,0,.2,1);
-      --pressScale: .985;
-    }
+        --shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+        --shadow2: 0 28px 90px rgba(0, 0, 0, 0.55);
+        --radius: 22px;
+        --radius2: 28px;
 
-    *{ box-sizing:border-box; }
-    html,body{ height:100%; }
-    body{
-      margin:0;
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
-      color:var(--text);
-      background:
-        radial-gradient(1200px 700px at 10% 20%, rgba(107,44,255,.24), transparent 60%),
-        radial-gradient(900px 700px at 90% 10%, rgba(179,0,60,.22), transparent 55%),
-        radial-gradient(900px 700px at 80% 90%, rgba(107,44,255,.18), transparent 58%),
-        linear-gradient(180deg, var(--bg0), var(--bg1));
-      overflow-x:hidden;
-    }
+        --serif: ui-serif, "Iowan Old Style", "Palatino Linotype", Palatino, Garamond, serif;
+        --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji",
+          "Segoe UI Emoji";
+      }
 
-    .wrap{
-      min-height:100%;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      padding:46px 18px;
-      padding-bottom: calc(46px + env(safe-area-inset-bottom, 0px));
-    }
+      * { box-sizing: border-box; }
+      html, body { height: 100%; }
 
-    .shell{
-      width:min(1180px, 100%);
-      border-radius: calc(var(--radius) + 8px);
-      background: linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.03));
-      box-shadow: var(--shadow);
-      border: 1px solid rgba(255,255,255,.10);
-      overflow:hidden;
-      position:relative;
-    }
+      body {
+        margin: 0;
+        color: var(--text);
+        background:
+          radial-gradient(1400px 700px at 30% -10%, rgba(196, 162, 92, 0.10), transparent 60%),
+          radial-gradient(900px 500px at 90% 10%, rgba(140, 180, 255, 0.10), transparent 50%),
+          radial-gradient(1200px 800px at 50% 110%, rgba(233, 222, 199, 0.08), transparent 55%),
+          var(--bg);
+        font-family: var(--sans);
+        letter-spacing: 0.2px;
+      }
 
-    /* HERO */
-    .hero{
-      position:relative;
-      padding:22px 26px 18px 26px;
-      background:
-        linear-gradient(180deg, rgba(0,0,0,.35), rgba(0,0,0,.62)),
-        radial-gradient(900px 380px at 15% 25%, rgba(107,44,255,.25), transparent 60%),
-        radial-gradient(900px 380px at 85% 25%, rgba(179,0,60,.22), transparent 60%),
-        linear-gradient(180deg, rgba(255,255,255,.05), rgba(0,0,0,.15));
-      border-bottom: 1px solid rgba(255,255,255,.10);
-      min-height: 150px;
-    }
+      .bg-orbit {
+        position: fixed;
+        inset: -30vh -30vw;
+        pointer-events: none;
+        opacity: 0.35;
+        filter: blur(0.2px);
+        background:
+          radial-gradient(circle at 40% 40%, rgba(255, 255, 255, 0.08), transparent 40%),
+          radial-gradient(circle at 60% 55%, rgba(196, 162, 92, 0.08), transparent 42%),
+          conic-gradient(from 210deg, rgba(255,255,255,0.0), rgba(255,255,255,0.05), rgba(255,255,255,0.0));
+        mask-image: radial-gradient(circle at 50% 50%, rgba(0,0,0,0.8) 35%, transparent 70%);
+      }
 
-    .brandRow{
-      display:flex;
-      align-items:center;
-      gap:18px;
-      width:100%;
-    }
+      h1, h2, h3 {
+        font-family: var(--serif);
+        letter-spacing: 0.1px;
+        margin: 0;
+      }
+      h1 { font-size: clamp(2rem, 3.2vw, 3.2rem); line-height: 1.05; }
+      h2 { font-size: clamp(1.6rem, 2.2vw, 2.2rem); line-height: 1.1; }
+      h3 { font-size: 1.15rem; line-height: 1.2; }
+      p { margin: 0; }
 
-    .brandBadge{
-      display:flex;
-      align-items:center;
-      gap:16px;
-      padding:14px 16px;
-      border-radius: 999px;
-      background: rgba(0,0,0,.35);
-      border: 1px solid rgba(255,255,255,.14);
-      backdrop-filter: blur(10px);
-      box-shadow: var(--shadow2);
-      max-width:100%;
-    }
+      main {
+        width: min(1160px, calc(100% - 40px));
+        margin: 0 auto;
+        padding: 26px 0 90px;
+      }
 
-    .logoMark{
-      width:72px;
-      height:72px;
-      border-radius: 14px;
-      background:
-        radial-gradient(120px 80px at 30% 30%, rgba(255,255,255,.18), transparent 55%),
-        linear-gradient(135deg, rgba(107,44,255,.95), rgba(179,0,60,.95));
-      border: 1px solid rgba(255,255,255,.16);
-      display:grid;
-      place-items:center;
-      font-weight:950;
-      letter-spacing:.08em;
-      text-transform:uppercase;
-      color: rgba(255,255,255,.92);
-      user-select:none;
-    }
+      /* Topbar */
+      .topbar {
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        backdrop-filter: blur(14px);
+        background: linear-gradient(to bottom, rgba(7, 9, 15, 0.86), rgba(7, 9, 15, 0.40));
+        border-bottom: 1px solid rgba(255,255,255,0.10);
+      }
+      .topbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 18px;
+        padding: 14px 20px;
+      }
 
-    .brandText{
-      display:flex;
-      flex-direction:column;
-      gap:6px;
-      min-width:0;
-    }
-    .kicker{
-      font-size:12px;
-      letter-spacing:.18em;
-      text-transform:uppercase;
-      color: rgba(255,255,255,.78);
-      white-space:nowrap;
-    }
-    .title{
-      font-size:28px;
-      font-weight:900;
-      line-height:1.05;
-      text-shadow: 0 6px 30px rgba(0,0,0,.5);
-      white-space:nowrap;
-      overflow:hidden;
-      text-overflow:ellipsis;
-    }
+      .brand { display: flex; align-items: center; gap: 12px; min-width: 260px; }
+      .brand-mark {
+        width: 34px;
+        height: 34px;
+        border-radius: 14px;
+        background:
+          radial-gradient(circle at 30% 30%, rgba(255,255,255,0.22), rgba(255,255,255,0.06)),
+          linear-gradient(160deg, rgba(196,162,92,0.55), rgba(218,226,240,0.10));
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+        border: 1px solid rgba(255,255,255,0.14);
+      }
+      .brand-title { font-family: var(--serif); font-size: 1.02rem; }
+      .brand-sub { color: var(--muted); font-size: 0.82rem; margin-top: 2px; }
+      .brand-text { display: grid; }
 
-    .pill{
-      margin-left:auto;
-      display:flex;
-      align-items:center;
-      gap:10px;
-      padding:10px 14px;
-      border-radius:999px;
-      background: rgba(0,0,0,.35);
-      border: 1px solid rgba(255,255,255,.14);
-      backdrop-filter: blur(10px);
-      font-weight:800;
-      color: rgba(255,255,255,.90);
-      white-space:nowrap;
-    }
-    .dot{
-      width:10px;height:10px;border-radius:50%;
-      background: var(--accent1);
-      box-shadow: 0 0 0 4px rgba(179,0,60,.18);
-    }
+      .topnav { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; justify-content: flex-end; }
+      .navlink {
+        appearance: none;
+        border: 1px solid rgba(255,255,255,0.12);
+        background: rgba(255,255,255,0.04);
+        color: var(--text);
+        padding: 8px 10px;
+        border-radius: 14px;
+        cursor: pointer;
+        transition: transform 140ms ease, background 140ms ease, border-color 140ms ease;
+        font-size: 0.88rem;
+      }
+      .navlink:hover {
+        transform: translateY(-1px);
+        background: rgba(255,255,255,0.06);
+        border-color: rgba(255,255,255,0.18);
+      }
+      .navlink.subtle { color: var(--muted); }
 
-    .subRow{
-      margin-top:14px;
-      display:flex;
-      align-items:center;
-      gap:16px;
-      flex-wrap:wrap;
-    }
-    .subText{
-      color: rgba(255,255,255,.84);
-      font-size:14px;
-      line-height:1.35;
-    }
-    .progressWrap{
-      margin-left:auto;
-      display:flex;
-      align-items:center;
-      gap:12px;
-      min-width: 260px;
-      flex: 1 1 260px;
-      justify-content:flex-end;
-    }
-    .progressBar{
-      width:min(420px, 100%);
-      height:10px;
-      border-radius:999px;
-      background: rgba(255,255,255,.14);
-      overflow:hidden;
-      border: 1px solid rgba(255,255,255,.14);
-    }
-    .progressFill{
-      height:100%;
-      width:0%;
-      background: linear-gradient(90deg, rgba(107,44,255,.95), rgba(179,0,60,.95));
-      box-shadow: 0 0 30px rgba(179,0,60,.25);
-      transition: width 420ms var(--easeOut);
-    }
-    .stepLabel{
-      font-size:12px;
-      color: rgba(255,255,255,.80);
-      font-weight:800;
-      white-space:nowrap;
-    }
+      /* Screens */
+      .screen {
+        padding: 34px 0;
+        border-bottom: 1px solid rgba(255,255,255,0.06);
+      }
+      .hero { padding-top: 44px; }
 
-    /* CONTENT */
-    .content{
-      padding: 22px 26px 18px 26px;
-      background:
-        radial-gradient(900px 340px at 10% 30%, rgba(107,44,255,.10), transparent 55%),
-        radial-gradient(900px 340px at 90% 40%, rgba(179,0,60,.10), transparent 55%),
-        linear-gradient(180deg, rgba(0,0,0,.55), rgba(0,0,0,.60));
-      padding-bottom: calc(18px + env(safe-area-inset-bottom, 0px));
-    }
+      .hero-grid {
+        display: grid;
+        grid-template-columns: 1.2fr 0.8fr;
+        gap: 22px;
+        align-items: start;
+      }
 
-    .panel{
-      border-radius: var(--radius);
-      border: 1px solid rgba(255,255,255,.12);
-      background: rgba(10,10,14,.55);
-      box-shadow: var(--shadow2);
-      overflow:hidden;
-    }
+      .kicker {
+        color: var(--sand);
+        letter-spacing: 0.32em;
+        text-transform: uppercase;
+        font-size: 0.78rem;
+        opacity: 0.9;
+        margin-bottom: 14px;
+      }
+      .lead {
+        color: var(--muted);
+        font-size: 1.02rem;
+        line-height: 1.55;
+        margin-top: 16px;
+        max-width: 62ch;
+      }
+      .hero-cta { display: flex; gap: 10px; margin-top: 22px; flex-wrap: wrap; }
+      .micro-note { margin-top: 14px; color: var(--faint); font-size: 0.9rem; }
 
-    .panelHead{
-      padding:18px 18px 12px 18px;
-      display:flex;
-      align-items:flex-start;
-      justify-content:space-between;
-      gap:12px;
-      border-bottom: 1px solid rgba(255,255,255,.10);
-      background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,0));
-    }
+      .hero-card {
+        border: 1px solid rgba(255,255,255,0.10);
+        border-radius: var(--radius2);
+        background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));
+        box-shadow: var(--shadow2);
+        padding: 18px 18px 16px;
+        position: relative;
+        overflow: hidden;
+      }
+      .hero-card::before {
+        content: "";
+        position: absolute;
+        inset: -30% -30%;
+        background:
+          radial-gradient(circle at 30% 25%, rgba(196, 162, 92, 0.10), transparent 45%),
+          radial-gradient(circle at 70% 65%, rgba(218, 226, 240, 0.08), transparent 52%);
+        transform: rotate(6deg);
+        pointer-events: none;
+      }
+      .card-title { position: relative; z-index: 1; font-family: var(--serif); font-size: 1.05rem; }
+      .bullets { position: relative; z-index: 1; margin: 12px 0 0; padding-left: 18px; color: var(--muted); line-height: 1.6; }
 
-    .qWrap{
-      display:flex;
-      flex-direction:column;
-      gap:8px;
-      min-width:0;
-    }
-    .question{
-      font-size:22px;
-      font-weight:950;
-      margin:0;
-      line-height:1.15;
-    }
-    .hint{
-      font-size:13px;
-      color: rgba(255,255,255,.72);
-      margin:0;
-      line-height:1.35;
-    }
+      .callout {
+        position: relative;
+        z-index: 1;
+        margin-top: 16px;
+        padding: 12px 12px;
+        border-radius: 18px;
+        border: 1px solid rgba(255,255,255,0.10);
+        background: rgba(0,0,0,0.18);
+      }
+      .callout-title {
+        color: var(--sand);
+        font-size: 0.85rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+      }
+      .callout-body {
+        margin-top: 6px;
+        color: var(--text);
+        font-family: var(--serif);
+        font-size: 1.02rem;
+      }
 
-    .panelBody{
-      padding:16px 18px 18px 18px;
-      padding-bottom: calc(18px + env(safe-area-inset-bottom, 0px));
-    }
+      .btn {
+        appearance: none;
+        border: 1px solid rgba(255,255,255,0.12);
+        background: rgba(255,255,255,0.05);
+        color: var(--text);
+        padding: 11px 14px;
+        border-radius: 16px;
+        cursor: pointer;
+        transition: transform 140ms ease, background 140ms ease, border-color 140ms ease;
+        font-size: 0.95rem;
+      }
+      .btn:hover {
+        transform: translateY(-1px);
+        background: rgba(255,255,255,0.07);
+        border-color: rgba(255,255,255,0.18);
+      }
+      .btn.primary {
+        border-color: rgba(196,162,92,0.35);
+        background: linear-gradient(180deg, rgba(196,162,92,0.18), rgba(255,255,255,0.05));
+      }
+      .btn.ghost { color: var(--muted); }
 
-    .grid{ display:grid; gap:14px; }
-    .grid.cols-2{ grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    .grid.cols-3{ grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .screen-head { display: grid; gap: 10px; margin-bottom: 18px; }
+      .muted { color: var(--muted); }
+      .faint { color: var(--faint); }
+      .small { font-size: 0.88rem; }
 
-    @media (max-width: 980px){
-      .grid.cols-3{ grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    }
-    @media (max-width: 680px){
-      .grid.cols-2, .grid.cols-3{ grid-template-columns: 1fr; }
-      .hero{ min-height: 170px; padding:18px 18px 14px 18px; }
-      .brandRow{ flex-direction: column; align-items: flex-start; gap: 14px; }
-      .brandBadge{ width: 100%; border-radius: 20px; }
-      .logoMark{ width:56px; height:56px; }
-      .kicker{ white-space: normal; letter-spacing: .14em; line-height: 1.15; }
-      .title{ white-space: normal; font-size: 20px; line-height: 1.18; overflow: visible; text-overflow: clip; }
-      .pill{ margin-left:0; }
-      .progressWrap{ justify-content:flex-start; min-width: 0; width: 100%; }
-      .stepLabel{ white-space: normal; }
-    }
+      /* Form */
+      .form-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 14px;
+        padding: 16px;
+        border-radius: var(--radius2);
+        border: 1px solid rgba(255,255,255,0.10);
+        background: rgba(255,255,255,0.04);
+        box-shadow: 0 18px 55px rgba(0, 0, 0, 0.28);
+      }
+      .field { display: grid; gap: 8px; }
+      label { font-size: 0.9rem; color: var(--faint); }
+      input, select, textarea {
+        width: 100%;
+        padding: 12px 12px;
+        border-radius: 16px;
+        border: 1px solid rgba(255,255,255,0.12);
+        background: rgba(0,0,0,0.20);
+        color: var(--text);
+        outline: none;
+      }
+      textarea { resize: vertical; min-height: 72px; }
+      input:focus, select:focus, textarea:focus {
+        border-color: rgba(196,162,92,0.40);
+        box-shadow: 0 0 0 4px rgba(196,162,92,0.10);
+      }
+      .col-span-2 { grid-column: span 2; }
+      .actions { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+      .hint { color: var(--muted); font-size: 0.9rem; }
 
-    /* OPTION CARD */
-    .opt{
-      position:relative;
-      border-radius: 22px;
-      border: 1px solid rgba(255,255,255,.14);
-      background:
-        radial-gradient(800px 220px at 20% 30%, rgba(107,44,255,.22), transparent 60%),
-        radial-gradient(700px 260px at 90% 40%, rgba(179,0,60,.20), transparent 60%),
-        linear-gradient(180deg, rgba(255,255,255,.05), rgba(0,0,0,.08));
-      box-shadow: 0 18px 55px rgba(0,0,0,.35);
-      padding:18px 18px;
-      cursor:pointer;
-      transition: transform 220ms var(--easeOut), border-color 220ms var(--easeOut), box-shadow 220ms var(--easeOut), filter 220ms var(--easeOut);
-      min-height: 92px;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:14px;
-      outline:none;
-      user-select:none;
-      overflow:hidden;
-      transform: translateZ(0);
-      will-change: transform, box-shadow;
-    }
-    .opt::after{
-      content:"";
-      position:absolute;
-      inset:-2px;
-      border-radius: 24px;
-      pointer-events:none;
-      opacity:0;
-      transition: opacity 240ms var(--easeOut);
-      box-shadow: var(--accentGlow);
-    }
-    .opt:hover{
-      transform: translateY(-1px);
-      border-color: rgba(255,255,255,.22);
-      filter: brightness(1.03);
-    }
-    .opt:active{ transform: translateY(0) scale(var(--pressScale)); }
-    .opt.isSelected{ border-color: rgba(255,255,255,.26); filter: brightness(1.05); }
-    .opt.isSelected::after{ opacity:1; }
+      /* Results */
+      .empty {
+        border-radius: var(--radius2);
+        border: 1px dashed rgba(255,255,255,0.14);
+        padding: 18px;
+        background: rgba(255,255,255,0.03);
+      }
+      .empty-title { font-family: var(--serif); font-size: 1.2rem; }
+      .empty-body { margin-top: 6px; color: var(--muted); }
+      .hidden { display: none !important; }
 
-    .optText{
-      display:flex;
-      flex-direction:column;
-      align-items:flex-start;
-      gap:6px;
-      min-width:0;
-      flex:1 1 auto;
-    }
-    .optMain{
-      font-size:18px;
-      font-weight:950;
-      color: rgba(255,255,255,.96);
-      line-height:1.15;
-      overflow-wrap:anywhere;
-      max-width:100%;
-    }
-    .optSub{
-      font-size:12px;
-      font-weight:800;
-      color: rgba(255,255,255,.70);
-      line-height:1.25;
-      overflow-wrap:anywhere;
-    }
+      .results { display: grid; gap: 24px; }
+      .cards { display: grid; grid-template-columns: repeat(12, 1fr); gap: 14px; }
 
-    .chev{
-      width:40px;height:40px;
-      border-radius:999px;
-      display:grid;
-      place-items:center;
-      border: 1px solid rgba(255,255,255,.16);
-      background: rgba(0,0,0,.18);
-      color: rgba(255,255,255,.92);
-      flex:0 0 auto;
-      transition: transform 240ms var(--easeOut), background 240ms var(--easeOut);
-    }
-    .opt:hover .chev{ transform: translateX(1px); }
-    .chev svg{ width:18px;height:18px; opacity:.95; }
+      .card {
+        grid-column: span 4;
+        border-radius: var(--radius2);
+        border: 1px solid rgba(255,255,255,0.10);
+        background: linear-gradient(180deg, rgba(255,255,255,0.055), rgba(255,255,255,0.03));
+        padding: 16px;
+        box-shadow: 0 18px 60px rgba(0, 0, 0, 0.35);
+        position: relative;
+        overflow: hidden;
+      }
+      .card::after {
+        content: "";
+        position: absolute;
+        inset: -40%;
+        background:
+          radial-gradient(circle at 25% 25%, rgba(218,226,240,0.06), transparent 52%),
+          radial-gradient(circle at 70% 70%, rgba(196,162,92,0.06), transparent 55%);
+        pointer-events: none;
+      }
+      .card-top { position: relative; z-index: 1; display: grid; gap: 8px; margin-bottom: 10px; }
+      .card-body { position: relative; z-index: 1; }
 
-    .panelFoot{
-      padding:14px 18px;
-      border-top: 1px solid rgba(255,255,255,.10);
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:12px;
-      flex-wrap:wrap;
-      background: linear-gradient(180deg, rgba(255,255,255,0), rgba(255,255,255,.03));
-    }
+      .chip {
+        width: fit-content;
+        padding: 6px 10px;
+        border-radius: 999px;
+        border: 1px solid rgba(255,255,255,0.12);
+        background: rgba(0,0,0,0.16);
+        color: var(--muted);
+        font-size: 0.78rem;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+      }
 
-    .btn{
-      appearance:none;
-      border:none;
-      cursor:pointer;
-      border-radius: 14px;
-      padding:12px 14px;
-      font-weight:900;
-      color: rgba(255,255,255,.95);
-      background: rgba(255,255,255,.12);
-      border: 1px solid rgba(255,255,255,.14);
-      transition: transform 220ms var(--easeOut), background 220ms var(--easeOut), border-color 220ms var(--easeOut), box-shadow 220ms var(--easeOut);
-      display:flex;
-      align-items:center;
-      gap:10px;
-      transform: translateZ(0);
-      will-change: transform;
-    }
-    .btn:hover{
-      transform: translateY(-1px);
-      background: rgba(255,255,255,.14);
-      border-color: rgba(255,255,255,.20);
-    }
-    .btn:active{ transform: translateY(0) scale(var(--pressScale)); }
-    .btn:disabled{ opacity:.45; cursor:not-allowed; transform:none; }
+      .prose { color: var(--muted); line-height: 1.6; }
+      .big { font-family: var(--serif); font-size: 1.32rem; margin-bottom: 8px; color: var(--text); }
 
-    .btnPrimary{
-      background: linear-gradient(90deg, rgba(107,44,255,.92), rgba(179,0,60,.92));
-      border-color: rgba(255,255,255,.12);
-      box-shadow: 0 14px 40px rgba(179,0,60,.20);
-    }
-    .btnPrimary:hover{
-      background: linear-gradient(90deg, rgba(107,44,255,1), rgba(179,0,60,1));
-      box-shadow: 0 18px 55px rgba(179,0,60,.26);
-    }
+      .tags, .axis { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
+      .badge {
+        padding: 8px 10px;
+        border-radius: 999px;
+        border: 1px solid rgba(255,255,255,0.12);
+        background: rgba(255,255,255,0.04);
+        color: var(--faint);
+        font-size: 0.88rem;
+      }
 
-    .meta{
-      font-size:12px;
-      color: rgba(255,255,255,.72);
-      font-weight:800;
-      white-space:nowrap;
-    }
+      .mini-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 12px; }
+      .mini {
+        padding: 10px 10px;
+        border-radius: 18px;
+        border: 1px solid rgba(255,255,255,0.10);
+        background: rgba(0,0,0,0.14);
+      }
+      .mini-k { font-size: 0.82rem; color: var(--faint); }
+      .mini-v { margin-top: 6px; font-family: var(--serif); color: var(--text); }
 
-    /* RESULT DASHBOARD */
-    .resultWrap{ display:none; margin-top:16px; }
-    .resultBox{
-      border-radius: 22px;
-      border: 1px solid rgba(255,255,255,.14);
-      background: rgba(255,255,255,.06);
-      padding:16px 16px;
-    }
-    .resultHead{
-      display:flex;
-      align-items:flex-end;
-      justify-content:space-between;
-      gap:12px;
-      flex-wrap:wrap;
-      margin-bottom:10px;
-    }
-    .resultTitle{
-      font-size:18px;
-      font-weight:950;
-      margin:0;
-    }
-    .resultTotal{
-      font-size:22px;
-      font-weight:950;
-      margin:0;
-      letter-spacing:.02em;
-    }
+      /* Wheel */
+      .wheel-wrap {
+        margin-top: 8px;
+        padding: 18px 16px;
+        border-radius: var(--radius2);
+        border: 1px solid rgba(255,255,255,0.10);
+        background: rgba(255,255,255,0.03);
+      }
+      .wheel-head { display: grid; gap: 10px; margin-bottom: 14px; }
+      .wheel-grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 14px; align-items: start; }
 
-    .kpiGrid{
-      display:grid;
-      gap:12px;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      margin-top:12px;
-    }
-    @media (max-width: 980px){
-      .kpiGrid{ grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    }
-    @media (max-width: 560px){
-      .kpiGrid{ grid-template-columns: 1fr; }
-    }
-    .kpi{
-      border-radius: 18px;
-      border: 1px solid rgba(255,255,255,.12);
-      background:
-        radial-gradient(700px 220px at 10% 30%, rgba(107,44,255,.12), transparent 58%),
-        radial-gradient(700px 220px at 90% 40%, rgba(179,0,60,.10), transparent 58%),
-        rgba(0,0,0,.18);
-      padding:12px 12px;
-      display:flex;
-      flex-direction:column;
-      gap:8px;
-      min-height: 92px;
-    }
-    .kpiLabel{
-      font-size:12px;
-      font-weight:900;
-      color: rgba(255,255,255,.76);
-      letter-spacing:.04em;
-      text-transform:uppercase;
-    }
-    .kpiValue{
-      font-size:20px;
-      font-weight:950;
-      color: rgba(255,255,255,.95);
-    }
-    .kpiSub{
-      font-size:12px;
-      font-weight:800;
-      color: rgba(255,255,255,.70);
-      line-height:1.25;
-    }
+      .wheel-shell {
+        border-radius: var(--radius2);
+        border: 1px solid rgba(255,255,255,0.10);
+        background: radial-gradient(circle at 50% 40%, rgba(255,255,255,0.06), rgba(0,0,0,0.12));
+        box-shadow: 0 20px 70px rgba(0,0,0,0.35);
+        overflow: hidden;
+      }
+      #wheelSvg { width: 100%; height: auto; display: block; }
 
-    .splitGrid{
-      display:grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap:12px;
-      margin-top:12px;
-    }
-    @media (max-width: 780px){
-      .splitGrid{ grid-template-columns: 1fr; }
-    }
+      .wheel-legend { margin-top: 10px; font-size: 0.9rem; }
 
-    .table{
-      width:100%;
-      border-collapse:collapse;
-      margin-top:10px;
-      font-size:14px;
-    }
-    .table td{
-      padding:10px 0;
-      border-top: 1px solid rgba(255,255,255,.10);
-      color: rgba(255,255,255,.88);
-      vertical-align:top;
-    }
-    .table td:last-child{
-      text-align:right;
-      font-weight:900;
-      color: rgba(255,255,255,.95);
-      white-space:nowrap;
-      padding-left:14px;
-    }
+      .wheel-detail {
+        border-radius: var(--radius2);
+        border: 1px solid rgba(255,255,255,0.10);
+        background: rgba(0,0,0,0.14);
+        padding: 14px;
+      }
+      .detail-top { display: grid; gap: 8px; margin-bottom: 10px; }
+      .detail-actions { margin-top: 12px; }
 
-    .note{
-      font-size:12px;
-      color: rgba(255,255,255,.70);
-      margin-top:12px;
-      line-height:1.35;
-    }
+      /* Reflection */
+      .reflection { padding-top: 8px; }
+      .reflection-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 14px; }
+      .panel {
+        border-radius: var(--radius2);
+        border: 1px solid rgba(255,255,255,0.10);
+        background: rgba(255,255,255,0.03);
+        padding: 14px;
+      }
+      .panel-title { font-family: var(--serif); font-size: 1.05rem; margin-bottom: 10px; }
+      .prompt-list { margin: 0; padding-left: 18px; color: var(--muted); line-height: 1.6; }
+      .divider { height: 1px; background: rgba(255,255,255,0.08); margin: 14px 0; }
 
-    .pillRow{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      margin-top:12px;
-      align-items:center;
-      justify-content:flex-start;
-    }
-    .tagPill{
-      padding:8px 10px;
-      border-radius:999px;
-      border: 1px solid rgba(255,255,255,.14);
-      background: rgba(0,0,0,.18);
-      font-weight:850;
-      font-size:12px;
-      color: rgba(255,255,255,.86);
-    }
+      /* Export */
+      .export-actions { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 14px; }
+      .export-sheet {
+        border-radius: var(--radius2);
+        border: 1px solid rgba(255,255,255,0.10);
+        background: rgba(255,255,255,0.03);
+        padding: 18px;
+      }
+      .export-hero { display: flex; gap: 12px; align-items: center; margin-bottom: 16px; }
+      .export-mark {
+        width: 46px;
+        height: 46px;
+        border-radius: 18px;
+        border: 1px solid rgba(255,255,255,0.14);
+        background:
+          radial-gradient(circle at 30% 30%, rgba(255,255,255,0.22), rgba(255,255,255,0.06)),
+          linear-gradient(160deg, rgba(196,162,92,0.55), rgba(218,226,240,0.10));
+      }
+      .export-title { font-family: var(--serif); font-size: 1.35rem; }
+      .export-sub { margin-top: 4px; color: var(--muted); }
 
-    /* Modal */
-    .modalOverlay{
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,.62);
-      backdrop-filter: blur(10px);
-      display:none;
-      align-items:center;
-      justify-content:center;
-      padding: 22px 16px;
-      z-index: 9999;
-    }
-    .modalOverlay.isOpen{ display:flex; }
+      .export-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px; }
+      .export-block {
+        border-radius: 18px;
+        border: 1px solid rgba(255,255,255,0.10);
+        background: rgba(0,0,0,0.14);
+        padding: 12px;
+      }
+      .export-h { color: var(--faint); text-transform: uppercase; letter-spacing: 0.18em; font-size: 0.74rem; }
+      .export-v { margin-top: 8px; font-family: var(--serif); color: var(--text); }
 
-    .modalCard{
-      width: min(760px, 100%);
-      border-radius: 26px;
-      border: 1px solid rgba(255,255,255,.16);
-      background:
-        radial-gradient(900px 420px at 10% 20%, rgba(107,44,255,.16), transparent 60%),
-        radial-gradient(900px 420px at 90% 20%, rgba(179,0,60,.14), transparent 60%),
-        rgba(10,10,14,.88);
-      box-shadow: 0 40px 120px rgba(0,0,0,.65);
-      overflow:hidden;
-      transform: translateY(8px) scale(.98);
-      opacity:0;
-      animation: modalIn 360ms var(--easeOut) forwards;
-    }
-    @keyframes modalIn{
-      to{ transform: translateY(0) scale(1); opacity:1; }
-    }
-    .modalHead{
-      padding:18px 18px 12px 18px;
-      border-bottom: 1px solid rgba(255,255,255,.10);
-      display:flex;
-      align-items:flex-start;
-      justify-content:space-between;
-      gap:12px;
-    }
-    .modalTitle{
-      margin:0;
-      font-size:18px;
-      font-weight:950;
-      line-height:1.2;
-    }
-    .modalSub{
-      margin:6px 0 0 0;
-      color: rgba(255,255,255,.76);
-      font-size:13px;
-      line-height:1.35;
-    }
-    .modalClose{
-      width:40px;height:40px;
-      border-radius:999px;
-      display:grid;
-      place-items:center;
-      border: 1px solid rgba(255,255,255,.16);
-      background: rgba(0,0,0,.18);
-      color: rgba(255,255,255,.92);
-    }
-    .modalBody{ padding: 14px 18px 18px 18px; }
+      .note-box {
+        min-height: 120px;
+        padding: 12px;
+        border-radius: 18px;
+        border: 1px solid rgba(255,255,255,0.10);
+        background: rgba(0,0,0,0.14);
+        color: var(--text);
+        outline: none;
+      }
 
-    .formGrid{
-      display:grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap:12px;
-    }
-    @media (max-width: 680px){
-      .formGrid{ grid-template-columns: 1fr; }
-    }
-    .field{ display:flex; flex-direction:column; gap:8px; }
-    .label{
-      font-size:12px;
-      font-weight:900;
-      color: rgba(255,255,255,.84);
-    }
-    .input{
-      width:100%;
-      border-radius: 14px;
-      padding: 12px 12px;
-      color: rgba(255,255,255,.94);
-      background: rgba(255,255,255,.06);
-      border: 1px solid rgba(255,255,255,.14);
-      outline:none;
-      transition: border-color 220ms var(--easeOut), box-shadow 220ms var(--easeOut), transform 220ms var(--easeOut);
-    }
-    .input:focus{
-      border-color: rgba(255,255,255,.22);
-      box-shadow: 0 0 0 2px rgba(255,255,255,.10), 0 0 0 6px rgba(179,0,60,.10);
-      transform: translateY(-1px);
-    }
-    .checkRow{
-      margin-top:12px;
-      display:flex;
-      gap:10px;
-      align-items:flex-start;
-      color: rgba(255,255,255,.82);
-      font-size:12px;
-      line-height:1.35;
-    }
-    .checkRow input{
-      margin-top:3px;
-      width:18px;height:18px;
-      accent-color: var(--accent2);
-    }
-    .formFoot{
-      margin-top:14px;
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      justify-content:flex-end;
-      align-items:center;
-    }
-    .errorText{
-      font-size:12px;
-      color: rgba(255,107,107,.95);
-      font-weight:900;
-      display:none;
-      margin-top:10px;
-    }
-    .errorText.isOpen{ display:block; }
+      .export-foot {
+        margin-top: 14px;
+        padding-top: 12px;
+        border-top: 1px solid rgba(255,255,255,0.08);
+      }
 
-    /* Motion helpers */
-    .fadeIn{ animation: fadeInUp 380ms var(--easeOut) both; }
-    @keyframes fadeInUp{
-      from{ opacity:0; transform: translateY(8px); }
-      to{ opacity:1; transform: translateY(0); }
-    }
-    .pulse{ animation: pulseGlow 520ms var(--easeOut) both; }
-    @keyframes pulseGlow{
-      0%{ transform: translateY(0); filter: brightness(1); }
-      45%{ transform: translateY(-1px); filter: brightness(1.06); }
-      100%{ transform: translateY(0); filter: brightness(1); }
-    }
+      .footer { width: min(1160px, calc(100% - 40px)); margin: 0 auto 30px; }
 
-    .footer{
-      text-align:center;
-      padding: 12px 10px 18px;
-      font-size:12px;
-      color: rgba(255,255,255,.62);
-      padding-bottom: calc(18px + env(safe-area-inset-bottom, 0px));
-    }
+      /* Modal */
+      .modal { border: none; padding: 0; background: transparent; }
+      .modal::backdrop { background: rgba(0,0,0,0.55); backdrop-filter: blur(6px); }
+      .modal-card {
+        width: min(680px, calc(100% - 28px));
+        margin: 10vh auto;
+        padding: 16px;
+        border-radius: var(--radius2);
+        border: 1px solid rgba(255,255,255,0.12);
+        background: linear-gradient(180deg, rgba(255,255,255,0.07), rgba(255,255,255,0.03));
+        box-shadow: var(--shadow2);
+      }
+      .modal-top { display: grid; gap: 8px; margin-bottom: 10px; }
+      .modal-actions { display: flex; justify-content: flex-end; margin-top: 14px; }
 
-    @media (prefers-reduced-motion: reduce){
-      *{ animation:none !important; transition:none !important; scroll-behavior:auto !important; }
-      .modalCard{ opacity:1; transform:none; }
-    }
-  </style>
-</head>
+      /* Premium micro-animations */
+      @media (prefers-reduced-motion: no-preference) {
+        .brand-mark { animation: pulseGlow 4.8s ease-in-out infinite; }
+        .hero-card::before { animation: drift 10s ease-in-out infinite; }
+        .bg-orbit { animation: orbit 16s ease-in-out infinite; }
+      }
+      @keyframes pulseGlow {
+        0%, 100% { transform: translateY(0); filter: saturate(1); }
+        50% { transform: translateY(-1px); filter: saturate(1.1); }
+      }
+      @keyframes drift {
+        0%, 100% { transform: rotate(6deg) translateY(0); opacity: 0.9; }
+        50% { transform: rotate(9deg) translateY(8px); opacity: 1; }
+      }
+      @keyframes orbit {
+        0%, 100% { transform: rotate(0deg) scale(1); opacity: 0.33; }
+        50% { transform: rotate(8deg) scale(1.01); opacity: 0.40; }
+      }
 
-<body>
-  <div class="wrap">
-    <div class="shell">
+      /* Responsive */
+      @media (max-width: 980px) {
+        .hero-grid { grid-template-columns: 1fr; }
+        .cards { grid-template-columns: repeat(6, 1fr); }
+        .card { grid-column: span 6; }
+        .wheel-grid { grid-template-columns: 1fr; }
+        .reflection-grid { grid-template-columns: 1fr; }
+      }
+      @media (max-width: 640px) {
+        main { width: calc(100% - 26px); }
+        .topbar { padding: 12px 14px; }
+        .brand { min-width: unset; }
+        .form-grid { grid-template-columns: 1fr; }
+        .col-span-2 { grid-column: span 1; }
+        .export-grid { grid-template-columns: 1fr; }
+      }
 
-      <header class="hero">
-        <div class="brandRow">
-          <div class="brandBadge">
-            <div class="logoMark" aria-hidden="true">OE</div>
-            <div class="brandText">
-              <div class="kicker">OSION Energy</div>
-              <div class="title">Entscheidungs- & Projekt-App (Demo UI)</div>
+      /* Print */
+      @media print {
+        :root {
+          --bg: #ffffff;
+          --text: #111111;
+          --muted: #333333;
+          --faint: #555555;
+        }
+        body { background: #ffffff !important; color: #111111 !important; }
+        .no-print { display: none !important; }
+        main { width: 100%; margin: 0; padding: 0; }
+        .screen { border: none; padding: 0; }
+        .export-sheet { border: 1px solid #dddddd; background: #ffffff; box-shadow: none; }
+        .export-block, .note-box { background: #ffffff; border: 1px solid #dddddd; }
+        .chip, .badge { border: 1px solid #dddddd; background: #ffffff; color: #333333; }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="bg-orbit" aria-hidden="true"></div>
+
+    <header class="topbar no-print">
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true"></div>
+        <div class="brand-text">
+          <div class="brand-title">Venture Resonance Studio</div>
+          <div class="brand-sub">Interpretive reflection environment</div>
+        </div>
+      </div>
+
+      <nav class="topnav" aria-label="Primary">
+        <button class="navlink" data-scroll="#screen-landing">Overview</button>
+        <button class="navlink" data-scroll="#screen-input">Origin Input</button>
+        <button class="navlink" data-scroll="#screen-results">Profile</button>
+        <button class="navlink" data-scroll="#screen-export">Export</button>
+        <button class="navlink subtle" id="openDisclaimer">Disclaimer</button>
+      </nav>
+    </header>
+
+    <main>
+      <!-- Screen 1: Landing -->
+      <section id="screen-landing" class="screen hero">
+        <div class="hero-grid">
+          <div class="hero-copy">
+            <div class="kicker">Symbolic strategy lab</div>
+            <h1>
+              Map the founding pattern of a business.<br />
+              Reveal archetypes, tensions, cycles — and reflection prompts.
+            </h1>
+            <p class="lead">
+              This is not an assessment or a “truth machine”.
+              It is a crafted reflection environment designed to produce meaning, questions and strategic insight under uncertainty.
+            </p>
+
+            <div class="hero-cta no-print">
+              <button class="btn primary" data-scroll="#screen-input">Generate Resonance Profile</button>
+              <button class="btn ghost" id="demoFill">Load Demo Data</button>
+            </div>
+
+            <div class="micro-note">
+              No login. No backend. Runs locally. GitHub Pages ready.
             </div>
           </div>
 
-          <div class="pill" title="Demo UI mit Beispiel-Logik">
-            <span class="dot"></span>
-            Demo UI
+          <div class="hero-card">
+            <div class="card-title">What you’ll receive</div>
+            <ul class="bullets">
+              <li>Origin Signature & founding rhythm</li>
+              <li>Dominant + Secondary Archetype</li>
+              <li>Growth Tension axes (top drivers)</li>
+              <li>Leadership pattern & decision risks</li>
+              <li>Cycle view + friction timing</li>
+              <li>7–12 strategic reflection questions</li>
+            </ul>
+
+            <div class="callout">
+              <div class="callout-title">Frame</div>
+              <div class="callout-body">
+                “Interpretive reflection environment for founders and businesses.”
+              </div>
+            </div>
           </div>
         </div>
+      </section>
 
-        <div class="subRow">
-          <div class="subText">
-            Schritt-Funnel, Ergebnis-Dashboard, Projektstatus, Wartung und Dokumentation in einer Oberfläche. Beispielwerte, Fokus: UI/UX.
-          </div>
-          <div class="progressWrap">
-            <div class="progressBar" aria-hidden="true">
-              <div class="progressFill" id="progressFill"></div>
-            </div>
-            <div class="stepLabel" id="stepLabel">Schritt 1 von …</div>
-          </div>
+      <!-- Screen 2: Origin Input -->
+      <section id="screen-input" class="screen">
+        <div class="screen-head">
+          <h2>Origin Input</h2>
+          <p class="muted">
+            Provide founding signals and context. The output is symbolic and interpretive — designed to unlock questions and patterns.
+          </p>
         </div>
-      </header>
 
-      <main class="content">
-        <section class="panel" aria-live="polite">
-          <div class="panelHead">
-            <div class="qWrap">
-              <h2 class="question" id="question">…</h2>
-              <p class="hint" id="hint">Bitte auswählen.</p>
-            </div>
-            <div class="meta" id="metaRight"></div>
+        <form id="originForm" class="form-grid" autocomplete="off">
+          <div class="field">
+            <label for="ventureName">Venture Name</label>
+            <input id="ventureName" name="ventureName" placeholder="e.g., Lumen Atelier" required />
           </div>
 
-          <div class="panelBody">
-            <div class="grid cols-2" id="options"></div>
+          <div class="field">
+            <label for="foundingDate">Founding Date</label>
+            <input id="foundingDate" name="foundingDate" type="date" required />
+          </div>
 
-            <!-- RESULT -->
-            <div class="resultWrap" id="resultWrap">
-              <div class="resultBox">
-                <div class="resultHead">
-                  <p class="resultTitle">Dashboard</p>
-                  <p class="resultTotal" id="mainKpi">–</p>
-                </div>
+          <div class="field">
+            <label for="foundingTime">Founding Time (optional)</label>
+            <input id="foundingTime" name="foundingTime" type="time" />
+          </div>
 
-                <p class="hint" id="resultHint" style="margin:0 0 6px 0; color:rgba(255,255,255,.78);">
-                  Ergebnis basiert auf Beispiel-Logik. Für belastbare Werte werden deine echten Parameter in die Rechenengine übernommen.
-                </p>
+          <div class="field">
+            <label for="foundingPlace">Founding Place</label>
+            <input id="foundingPlace" name="foundingPlace" placeholder="City, Country" required />
+          </div>
 
-                <div class="pillRow" id="tagRow"></div>
+          <div class="field">
+            <label for="industry">Industry</label>
+            <select id="industry" name="industry" required>
+              <option value="" selected disabled>Select…</option>
+              <option>Software / SaaS</option>
+              <option>Consumer / Brand</option>
+              <option>Creative Studio</option>
+              <option>Agency / Services</option>
+              <option>Marketplace</option>
+              <option>FinTech</option>
+              <option>Health</option>
+              <option>Climate / Energy</option>
+              <option>Manufacturing / Hardware</option>
+              <option>Education</option>
+              <option>Other</option>
+            </select>
+          </div>
 
-                <div class="kpiGrid">
-                  <div class="kpi">
-                    <div class="kpiLabel">10-Jahres-Gesamt</div>
-                    <div class="kpiValue" id="kpi10">–</div>
-                    <div class="kpiSub" id="kpi10sub">Invest + Energie + Wartung</div>
+          <div class="field">
+            <label for="teamSize">Team Size</label>
+            <select id="teamSize" name="teamSize" required>
+              <option value="" selected disabled>Select…</option>
+              <option value="solo">Solo</option>
+              <option value="tiny">2–5</option>
+              <option value="small">6–15</option>
+              <option value="mid">16–50</option>
+              <option value="scale">51–200</option>
+              <option value="large">200+</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="currentStage">Current Stage</label>
+            <select id="currentStage" name="currentStage" required>
+              <option value="" selected disabled>Select…</option>
+              <option value="start">Start</option>
+              <option value="consolidate">Consolidation</option>
+              <option value="friction">Friction</option>
+              <option value="break">Breakthrough / Pivot</option>
+              <option value="expand">Expansion</option>
+              <option value="reorder">Reordering</option>
+            </select>
+          </div>
+
+          <div class="field col-span-2">
+            <label for="mainChallenge">Main Challenge</label>
+            <textarea
+              id="mainChallenge"
+              name="mainChallenge"
+              rows="2"
+              placeholder="What feels most stuck or costly right now?"
+              required
+            ></textarea>
+          </div>
+
+          <div class="field col-span-2">
+            <label for="desiredDirection">Desired Direction</label>
+            <textarea
+              id="desiredDirection"
+              name="desiredDirection"
+              rows="2"
+              placeholder="What kind of growth, change, or clarity is most desired?"
+              required
+            ></textarea>
+          </div>
+
+          <div class="actions col-span-2 no-print">
+            <button class="btn primary" type="submit">Generate Resonance Profile</button>
+            <button class="btn ghost" type="button" id="resetBtn">Reset</button>
+            <div class="hint">
+              Output is symbolic — not scientific, not advisory. See Disclaimer.
+            </div>
+          </div>
+        </form>
+      </section>
+
+      <!-- Screen 3-5: Results -->
+      <section id="screen-results" class="screen">
+        <div class="screen-head">
+          <h2>Resonance Profile</h2>
+          <p class="muted">
+            A layered reading across archetypes, tension axes and cycles — built to trigger strategic reflection.
+          </p>
+        </div>
+
+        <div id="emptyState" class="empty">
+          <div class="empty-title">No profile yet.</div>
+          <div class="empty-body">Fill Origin Input, then generate.</div>
+        </div>
+
+        <div id="resultsWrap" class="results hidden">
+          <div class="cards">
+            <article class="card">
+              <div class="card-top">
+                <div class="chip">Origin</div>
+                <h3>Origin Signature</h3>
+              </div>
+              <div class="card-body">
+                <p id="originSignatureText" class="prose"></p>
+                <div class="mini-grid">
+                  <div class="mini">
+                    <div class="mini-k">Founding rhythm</div>
+                    <div id="rhythmTag" class="mini-v"></div>
                   </div>
-                  <div class="kpi">
-                    <div class="kpiLabel">Break-Even</div>
-                    <div class="kpiValue" id="kpiBe">–</div>
-                    <div class="kpiSub">Zeitpunkt, ab dem System A günstiger ist</div>
-                  </div>
-                  <div class="kpi">
-                    <div class="kpiLabel">Wartung</div>
-                    <div class="kpiValue" id="kpiMaint">–</div>
-                    <div class="kpiSub">Terminlogik und Vertrag</div>
-                  </div>
-                  <div class="kpi">
-                    <div class="kpiLabel">Projektstatus</div>
-                    <div class="kpiValue" id="kpiStatus">–</div>
-                    <div class="kpiSub">Vorqualifizierung → Partner → Abschluss</div>
-                  </div>
-                </div>
-
-                <div class="splitGrid">
-                  <div class="resultBox" style="margin:0; background:rgba(0,0,0,.18);">
-                    <div class="resultHead" style="margin-bottom:6px;">
-                      <p class="resultTitle">Vergleich</p>
-                      <p class="resultTotal" id="bestPick">–</p>
-                    </div>
-
-                    <table class="table" aria-label="Vergleich">
-                      <tbody>
-                        <tr><td>System A (Wärmepumpe)</td><td id="rowWp">–</td></tr>
-                        <tr><td>System B (Therme+)</td><td id="rowTherm">–</td></tr>
-                        <tr><td>Delta über 10 Jahre</td><td id="rowDelta">–</td></tr>
-                      </tbody>
-                    </table>
-
-                    <div class="note" id="whyBox">
-                      Begründung: Beispiel-Transparenztext. Später wird hier die echte Herleitung aus deinen Parametern ausgegeben.
-                    </div>
-                  </div>
-
-                  <div class="resultBox" style="margin:0; background:rgba(0,0,0,.18);">
-                    <div class="resultHead" style="margin-bottom:6px;">
-                      <p class="resultTitle">Projekt & Dokumente</p>
-                      <p class="resultTotal" id="docCount">–</p>
-                    </div>
-
-                    <table class="table" aria-label="Projekt">
-                      <tbody>
-                        <tr><td>Partner</td><td id="rowPartner">–</td></tr>
-                        <tr><td>Vorlauf</td><td id="rowLead">–</td></tr>
-                        <tr><td>Dokumentation</td><td id="rowDocs">–</td></tr>
-                      </tbody>
-                    </table>
-
-                    <div style="display:flex; gap:12px; flex-wrap:wrap; margin-top:12px;">
-                      <button class="btn btnPrimary" id="ctaOpen" type="button">
-                        Anfrage vorbereiten
-                        <span aria-hidden="true">↗</span>
-                      </button>
-                      <button class="btn" id="resetBtn" type="button">
-                        Neu starten
-                      </button>
-                    </div>
-
-                    <div class="note">
-                      Hinweis: In der Live-Version wird die Partnerzuweisung über dein Netzwerk + Vertragsregeln gesteuert.
-                    </div>
+                  <div class="mini">
+                    <div class="mini-k">Field</div>
+                    <div id="fieldTag" class="mini-v"></div>
                   </div>
                 </div>
               </div>
+            </article>
+
+            <article class="card">
+              <div class="card-top">
+                <div class="chip">Archetypes</div>
+                <h3>Dominant Archetype</h3>
+              </div>
+              <div class="card-body">
+                <div id="domArchetypeName" class="big"></div>
+                <p id="domArchetypeText" class="prose"></p>
+                <div class="tags" id="domTags"></div>
+              </div>
+            </article>
+
+            <article class="card">
+              <div class="card-top">
+                <div class="chip">Archetypes</div>
+                <h3>Secondary Archetype</h3>
+              </div>
+              <div class="card-body">
+                <div id="secArchetypeName" class="big"></div>
+                <p id="secArchetypeText" class="prose"></p>
+                <div class="tags" id="secTags"></div>
+              </div>
+            </article>
+
+            <article class="card">
+              <div class="card-top">
+                <div class="chip">Tension</div>
+                <h3>Growth Tension</h3>
+              </div>
+              <div class="card-body">
+                <div id="tensionName" class="big"></div>
+                <p id="tensionText" class="prose"></p>
+                <div class="axis" id="axisBadges"></div>
+              </div>
+            </article>
+
+            <article class="card">
+              <div class="card-top">
+                <div class="chip">Leadership</div>
+                <h3>Leadership Pattern</h3>
+              </div>
+              <div class="card-body">
+                <p id="leadershipText" class="prose"></p>
+                <div class="mini-grid">
+                  <div class="mini">
+                    <div class="mini-k">Decision risk</div>
+                    <div id="riskTag" class="mini-v"></div>
+                  </div>
+                  <div class="mini">
+                    <div class="mini-k">Primary lever</div>
+                    <div id="leverTag" class="mini-v"></div>
+                  </div>
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <!-- Resonance Wheel -->
+          <div id="screen-wheel" class="wheel-wrap">
+            <div class="wheel-head">
+              <h2>Resonance Wheel</h2>
+              <p class="muted">
+                A modern circular map of tensions and emphasis layers. Click segments to reveal interpretations.
+              </p>
             </div>
 
+            <div class="wheel-grid">
+              <div class="wheel-panel">
+                <div class="wheel-shell">
+                  <svg id="wheelSvg" viewBox="0 0 600 600" role="img" aria-label="Resonance Wheel"></svg>
+                </div>
+                <div class="wheel-legend muted">
+                  Hover for labels • Click to lock details • Designed as symbolic interface (not astrology).
+                </div>
+              </div>
+
+              <aside class="wheel-detail">
+                <div class="detail-top">
+                  <div class="chip">Wheel</div>
+                  <h3 id="wheelDetailTitle">Select a segment</h3>
+                </div>
+                <div id="wheelDetailBody" class="prose muted">
+                  The wheel visualizes the current emphasis layers: tension axes, archetype tone, and cycle friction.
+                </div>
+
+                <div class="detail-actions no-print">
+                  <button class="btn ghost" id="unlockWheel">Unlock</button>
+                </div>
+              </aside>
+            </div>
           </div>
 
-          <div class="panelFoot">
-            <button class="btn" id="backBtn" type="button">
-              <span aria-hidden="true">←</span> Zurück
-            </button>
-            <div class="meta" id="footerMeta"></div>
-          </div>
-        </section>
+          <!-- Strategic Reflection -->
+          <div id="screen-reflection" class="reflection">
+            <div class="screen-head">
+              <h2>Strategic Reflection</h2>
+              <p class="muted">
+                Questions are the product. Use these as a studio prompt — not as verdicts.
+              </p>
+            </div>
 
-        <div class="footer">
-          © OSION Energy – Demo UI. Beispielwerte. Keine Preisgarantie.
+            <div class="reflection-grid">
+              <div class="panel">
+                <div class="panel-title">Reflection Prompts</div>
+                <ol id="promptList" class="prompt-list"></ol>
+              </div>
+
+              <div class="panel">
+                <div class="panel-title">Timing & Friction</div>
+                <div id="cycleText" class="prose"></div>
+                <div class="divider"></div>
+                <div class="panel-title">Blindspots to watch</div>
+                <ul id="blindspotsList" class="bullets"></ul>
+              </div>
+            </div>
+          </div>
         </div>
-      </main>
-    </div>
-  </div>
+      </section>
 
-  <!-- MODAL -->
-  <div class="modalOverlay" id="modalOverlay" aria-hidden="true">
-    <div class="modalCard" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-      <div class="modalHead">
-        <div>
-          <h3 class="modalTitle" id="modalTitle">Anfrage</h3>
-          <p class="modalSub">
-            Deine Angaben werden in eine vorbefüllte E-Mail übernommen – inklusive Ergebnis und Auswahl.
+      <!-- Export -->
+      <section id="screen-export" class="screen export">
+        <div class="screen-head">
+          <h2>Export</h2>
+          <p class="muted">
+            Print-friendly view with a compact summary and a note field. Use “Copy Summary” for docs.
           </p>
         </div>
-        <button class="modalClose btn" type="button" id="modalClose" aria-label="Schließen">
-          ✕
-        </button>
+
+        <div class="export-actions no-print">
+          <button class="btn primary" id="printBtn">Print / Save as PDF</button>
+          <button class="btn ghost" id="copyBtn">Copy Summary</button>
+        </div>
+
+        <article class="export-sheet" id="exportSheet">
+          <div class="export-hero">
+            <div class="export-mark" aria-hidden="true"></div>
+            <div>
+              <div class="export-title" id="exportTitle">Venture Resonance Studio</div>
+              <div class="export-sub" id="exportSub">Symbolic reflection summary — not an assessment.</div>
+            </div>
+          </div>
+
+          <div class="export-grid">
+            <div class="export-block">
+              <div class="export-h">Venture</div>
+              <div id="exportVenture" class="export-v muted">—</div>
+            </div>
+            <div class="export-block">
+              <div class="export-h">Archetypes</div>
+              <div id="exportArchetypes" class="export-v muted">—</div>
+            </div>
+            <div class="export-block">
+              <div class="export-h">Primary Tensions</div>
+              <div id="exportTensions" class="export-v muted">—</div>
+            </div>
+            <div class="export-block">
+              <div class="export-h">Cycle Phase</div>
+              <div id="exportCycle" class="export-v muted">—</div>
+            </div>
+          </div>
+
+          <div class="export-long">
+            <div class="export-h">Interpretive Summary</div>
+            <p id="exportSummary" class="prose muted">Generate a profile to produce a summary.</p>
+
+            <div class="divider"></div>
+
+            <div class="export-h">Reflection Prompts</div>
+            <ul id="exportPrompts" class="bullets"></ul>
+
+            <div class="divider"></div>
+
+            <div class="export-h">Notes</div>
+            <div class="note-box" contenteditable="true" aria-label="Notes"></div>
+          </div>
+
+          <footer class="export-foot">
+            <div class="muted small" id="disclaimerInline">
+              This experience is designed for reflection and creative strategic insight. It is not a scientific assessment and should not be used for hiring, legal, financial or medical decisions.
+            </div>
+          </footer>
+        </article>
+      </section>
+    </main>
+
+    <!-- Disclaimer modal -->
+    <dialog id="disclaimerDialog" class="modal">
+      <form method="dialog" class="modal-card">
+        <div class="modal-top">
+          <div class="chip">Disclaimer</div>
+          <h3>Interpretive reflection — not assessment</h3>
+        </div>
+
+        <div class="prose">
+          <p>
+            This experience is designed for reflection and creative strategic insight.
+            It is <strong>not</strong> a scientific assessment and should not be used for hiring,
+            legal, financial or medical decisions.
+          </p>
+          <p class="muted">
+            Outputs are symbolic narratives generated from inputs and rule-based mappings. Use as prompts —
+            not as verdicts.
+          </p>
+        </div>
+
+        <div class="modal-actions">
+          <button class="btn primary" value="close">I understand</button>
+        </div>
+      </form>
+    </dialog>
+
+    <footer class="footer no-print">
+      <div class="muted small">
+        Venture Resonance Studio • Local-first • No tracking • Symbolic reflection environment
       </div>
+    </footer>
 
-      <div class="modalBody">
-        <div class="formGrid">
-          <div class="field">
-            <div class="label">Name*</div>
-            <input class="input" id="leadName" type="text" autocomplete="name" placeholder="Vor- und Nachname" />
-          </div>
-          <div class="field">
-            <div class="label">E-Mail*</div>
-            <input class="input" id="leadEmail" type="email" autocomplete="email" placeholder="name@beispiel.de" />
-          </div>
-          <div class="field" style="grid-column: 1 / -1;">
-            <div class="label">Telefon (optional)</div>
-            <input class="input" id="leadPhone" type="tel" autocomplete="tel" placeholder="+49 …" />
-          </div>
-        </div>
-
-        <div class="checkRow">
-          <input id="leadConsent" type="checkbox" />
-          <label for="leadConsent">
-            Ich bin einverstanden, dass meine Angaben zum Zweck der Kontaktaufnahme verarbeitet werden. Ein Widerruf ist jederzeit möglich.*
-          </label>
-        </div>
-
-        <div class="errorText" id="leadError">Bitte Name, E-Mail und Einwilligung vollständig angeben.</div>
-
-        <div class="formFoot">
-          <button class="btn" type="button" id="modalCancel">Abbrechen</button>
-          <button class="btn btnPrimary" type="button" id="leadSend">
-            E-Mail erstellen
-            <span aria-hidden="true">→</span>
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <script>
-    // --- SETTINGS (anpassen) ---
-    const LEAD_TO_EMAIL = "info@example.com"; // Zieladresse
-    const PARTNER_DEFAULT = "Partnernetzwerk (regelbasiert)";
-
-    // --- STORAGE ---
-    const STORAGE_KEY = "osion_energy_demo_state_v1";
-
-    // --- UTIL ---
-    function euro(n){
-      return new Intl.NumberFormat("de-DE",{style:"currency",currency:"EUR"}).format(n);
-    }
-    function clamp01(x){ return Math.min(1, Math.max(0, x)); }
-    function round2(x){ return Math.round(x*100)/100; }
-    function isValidEmail(s){
-      return /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(String(s || "").trim());
-    }
-
-    // --- STATE ---
-    const state = {
-      stepIndex: 0,
-      answers: {},
-      computed: null
-    };
-
-    function saveState(){
-      try{
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-      }catch(e){}
-    }
-    function loadState(){
-      try{
-        const raw = localStorage.getItem(STORAGE_KEY);
-        if (!raw) return;
-        const parsed = JSON.parse(raw);
-        if (!parsed || typeof parsed !== "object") return;
-        state.stepIndex = parsed.stepIndex ?? 0;
-        state.answers = parsed.answers ?? {};
-        state.computed = parsed.computed ?? null;
-      }catch(e){}
-    }
-    function resetAll(){
-      state.stepIndex = 0;
-      state.answers = {};
-      state.computed = null;
-      saveState();
-      render();
-    }
-
-    // --- STEPS (UI Blueprint) ---
-    const steps = [
-      {
-        id:"mode",
-        question:"Wofür wird die App genutzt?",
-        hint:"Privat: Einzelobjekt. Verwaltung: Portfolio mit mehreren Objekten.",
-        grid:"cols-2",
-        options:[
-          { value:"private", label:"Privatkunde", sub:"Ein Objekt, Fokus: Entscheidung + Projekt + Wartung" },
-          { value:"portfolio", label:"Immobilienverwaltung", sub:"Mehrere Objekte, Fokus: Portfolio + Budgetplanung" }
-        ]
-      },
-      {
-        id:"goal",
-        question:"Was ist das Ziel?",
-        hint:"Das steuert die Ergebnisdarstellung und die Prioritäten im Dashboard.",
-        grid:"cols-3",
-        options:[
-          { value:"cost", label:"Kosten senken", sub:"Optimierung nach Jahreskosten" },
-          { value:"speed", label:"Schnelle Umsetzung", sub:"Priorität: Terminsicherheit und Vorlauf" },
-          { value:"risk", label:"Risiko minimieren", sub:"Priorität: Wartung und Planbarkeit" }
-        ]
-      },
-      {
-        id:"assetType",
-        when:(s)=> s.answers.mode?.value === "private",
-        question:"Welche Objektart trifft zu?",
-        hint:"Vereinfacht. Für exakte Werte folgt später ein Detailprofil.",
-        grid:"cols-3",
-        options:[
-          { value:"sfh", label:"Einfamilienhaus", sub:"Einheitliche Betrachtung" },
-          { value:"th",  label:"Reihenhaus", sub:"Tendenziell geringere Wärmeverluste" },
-          { value:"mfh", label:"Mehrfamilienhaus", sub:"Mehr Einheiten, größere Hebel" }
-        ]
-      },
-      {
-        id:"portfolioSize",
-        when:(s)=> s.answers.mode?.value === "portfolio",
-        question:"Wie groß ist das Portfolio?",
-        hint:"Dient der UI-Simulation der Portfolio-Kacheln.",
-        grid:"cols-3",
-        options:[
-          { value:"small", label:"10–30 Einheiten", sub:"Startumfang" },
-          { value:"mid",   label:"31–120 Einheiten", sub:"Rahmenvereinbarung realistisch" },
-          { value:"large", label:"121+ Einheiten", sub:"Portfolio-Programm" }
-        ]
-      },
-      {
-        id:"systemInterest",
-        question:"Welche Lösung steht im Fokus?",
-        hint:"Die App bleibt flexibel: Fokus ist Wirtschaftlichkeit, nicht Ideologie.",
-        grid:"cols-3",
-        options:[
-          { value:"wp", label:"Wärmepumpe", sub:"Elektrisch, abhängig von Strompreis" },
-          { value:"therme", label:"Therme+", sub:"Therme + Wartung als Paket" },
-          { value:"compare", label:"Vergleich", sub:"App entscheidet auf Basis der Parameter" }
-        ]
-      },
-      {
-        id:"urgency",
-        question:"Zeitrahmen für die Umsetzung?",
-        hint:"Einfluss auf Projektstatus-UI und Vorlauf.",
-        grid:"cols-3",
-        options:[
-          { value:"now", label:"Sofort", sub:"Terminfenster priorisiert" },
-          { value:"soon", label:"1–3 Monate", sub:"Planung + Angebot" },
-          { value:"later", label:"Später", sub:"Erst strukturieren und vergleichen" }
-        ]
-      },
-      {
-        id:"budget",
-        question:"Welcher Investitionsrahmen passt?",
-        hint:"Nur zur UI-Simulation. Die echte Engine kommt mit deinen Rechendaten.",
-        grid:"cols-3",
-        options:[
-          { value:"low",  label:"bis 12.000 €", sub:"Fokus: minimaler Eingriff" },
-          { value:"mid",  label:"12.000–25.000 €", sub:"Standardumsetzung" },
-          { value:"high", label:"25.000 €+", sub:"Umfangreich, hohe Bandbreite" }
-        ]
-      },
-      {
-        id:"result",
-        question:"Dashboard",
-        hint:"Ergebnisansicht: 1 Haupt-KPI plus Neben-KPIs und Transparenzbereich.",
-        grid:"cols-2",
-        options:[]
-      }
-    ];
-
-    function activeSteps(){
-      return steps.filter(st => !st.when || st.when(state));
-    }
-    function currentActive(){
-      const act = activeSteps();
-      if (state.stepIndex > act.length - 1) state.stepIndex = act.length - 1;
-      if (state.stepIndex < 0) state.stepIndex = 0;
-      return { act, step: act[state.stepIndex] };
-    }
-
-    // --- DOM REFS ---
-    const elQuestion   = document.getElementById("question");
-    const elHint       = document.getElementById("hint");
-    const elOptions    = document.getElementById("options");
-    const elBack       = document.getElementById("backBtn");
-
-    const elProgress   = document.getElementById("progressFill");
-    const elStepLabel  = document.getElementById("stepLabel");
-    const elMetaRight  = document.getElementById("metaRight");
-    const elFooterMeta = document.getElementById("footerMeta");
-
-    const elResultWrap = document.getElementById("resultWrap");
-    const elMainKpi    = document.getElementById("mainKpi");
-    const elKpi10      = document.getElementById("kpi10");
-    const elKpiBe      = document.getElementById("kpiBe");
-    const elKpiMaint   = document.getElementById("kpiMaint");
-    const elKpiStatus  = document.getElementById("kpiStatus");
-
-    const elRowWp      = document.getElementById("rowWp");
-    const elRowTherm   = document.getElementById("rowTherm");
-    const elRowDelta   = document.getElementById("rowDelta");
-    const elBestPick   = document.getElementById("bestPick");
-    const elWhyBox     = document.getElementById("whyBox");
-
-    const elDocCount   = document.getElementById("docCount");
-    const elRowPartner = document.getElementById("rowPartner");
-    const elRowLead    = document.getElementById("rowLead");
-    const elRowDocs    = document.getElementById("rowDocs");
-    const elTagRow     = document.getElementById("tagRow");
-
-    const elCtaOpen    = document.getElementById("ctaOpen");
-    const elResetBtn   = document.getElementById("resetBtn");
-
-    // Modal refs
-    const elModalOverlay = document.getElementById("modalOverlay");
-    const elModalClose   = document.getElementById("modalClose");
-    const elModalCancel  = document.getElementById("modalCancel");
-    const elLeadName     = document.getElementById("leadName");
-    const elLeadEmail    = document.getElementById("leadEmail");
-    const elLeadPhone    = document.getElementById("leadPhone");
-    const elLeadConsent  = document.getElementById("leadConsent");
-    const elLeadSend     = document.getElementById("leadSend");
-    const elLeadError    = document.getElementById("leadError");
-
-    // --- UI HELPERS ---
-    function triggerFade(el){
-      el.classList.remove("fadeIn");
-      void el.offsetWidth;
-      el.classList.add("fadeIn");
-    }
-
-    function setProgress(totalSteps){
-      const current = state.stepIndex + 1;
-      const pct = totalSteps <= 1 ? 100 : ((current - 1) / (totalSteps - 1)) * 100;
-      elProgress.style.width = pct + "%";
-      const s = `Schritt ${current} von ${totalSteps}`;
-      elStepLabel.textContent = s;
-      elMetaRight.textContent = s;
-      elFooterMeta.textContent = s;
-    }
-
-    function setSelectedUI(stepId){
-      const opts = elOptions.querySelectorAll(".opt");
-      opts.forEach(btn=>{
-        btn.classList.remove("isSelected");
-        const v = btn.getAttribute("data-value");
-        const ans = state.answers[stepId];
-        if (ans && v && String(ans.value) === String(v)) btn.classList.add("isSelected");
-      });
-    }
-
-    function animateText(el, text){
-      const prefersReduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      if (prefersReduce){
-        el.textContent = text;
-        return;
-      }
-      el.style.opacity = "0";
-      el.style.transform = "translateY(4px)";
-      requestAnimationFrame(()=>{
-        el.textContent = text;
-        el.style.transition = "opacity 220ms var(--easeOut), transform 220ms var(--easeOut)";
-        el.style.opacity = "1";
-        el.style.transform = "translateY(0)";
-        setTimeout(()=>{
-          el.style.transition = "";
-        }, 260);
-      });
-    }
-
-    // --- DEMO COMPUTE (nur UI, später ersetzt du das mit deiner echten Engine) ---
-    function computeDemo(){
-      const mode = state.answers.mode?.value ?? "private";
-      const goal = state.answers.goal?.value ?? "cost";
-      const interest = state.answers.systemInterest?.value ?? "compare";
-      const urgency = state.answers.urgency?.value ?? "soon";
-      const budget = state.answers.budget?.value ?? "mid";
-
-      // Portfolio Einfluss
-      const portfolioSize = state.answers.portfolioSize?.value ?? "small";
-
-      // Grobe UI-Heuristik (nur Beispiel)
-      let baseWpYear = 2200;
-      let baseThermYear = 2600;
-
-      if (mode === "portfolio"){
-        // im Portfolio wirkt Bündelung (UI-Simulation)
-        baseWpYear -= (portfolioSize === "large") ? 220 : (portfolioSize === "mid") ? 140 : 80;
-        baseThermYear -= (portfolioSize === "large") ? 160 : (portfolioSize === "mid") ? 110 : 60;
-      }
-
-      if (budget === "low"){ baseWpYear += 180; baseThermYear += 120; }
-      if (budget === "high"){ baseWpYear -= 120; baseThermYear -= 80; }
-
-      // Ziel beeinflusst Darstellung leicht
-      let status = "Vorqualifizierung";
-      if (urgency === "now") status = "Priorisiert";
-      if (urgency === "later") status = "Planung";
-
-      const maint = (interest === "therme") ? "Wartung integriert" : "Wartung optional";
-      const lead = (urgency === "now") ? "Vorlauf: 7–21 Tage" : (urgency === "soon") ? "Vorlauf: 3–8 Wochen" : "Vorlauf: planbar";
-
-      // 10-Jahres (inkl. Invest-Platzhalter)
-      let investWp = 24000;
-      let investTherm = 13500;
-
-      if (mode === "portfolio"){
-        investWp *= 0.96;
-        investTherm *= 0.98;
-      }
-
-      if (budget === "low"){ investWp *= 0.92; investTherm *= 0.90; }
-      if (budget === "high"){ investWp *= 1.08; investTherm *= 1.10; }
-
-      // Wartung (Beispiel)
-      const maintWp10 = 10 * 220;
-      const maintTherm10 = 10 * 320;
-
-      const totalWp10 = investWp + 10 * baseWpYear + maintWp10;
-      const totalTherm10 = investTherm + 10 * baseThermYear + maintTherm10;
-
-      // Break-even (sehr grob)
-      const deltaInvest = investWp - investTherm;
-      const deltaYear = (baseThermYear - baseWpYear); // wenn positiv, WP hat weniger Jahreskosten
-      let be = "–";
-      if (deltaYear > 0){
-        const years = deltaInvest / deltaYear;
-        be = (years > 0 && years < 50) ? `${Math.round(years)} Jahre` : "spät";
-      } else {
-        be = "nicht erreicht";
-      }
-
-      // Entscheidung
-      const better = (totalWp10 < totalTherm10) ? "Wärmepumpe" : "Therme+";
-      let choose = better;
-      if (interest === "wp") choose = "Wärmepumpe (Fokus)";
-      if (interest === "therme") choose = "Therme+ (Fokus)";
-      if (interest === "compare") choose = `Empfehlung: ${better}`;
-
-      // Haupt-KPI (jährliche Heizgesamtkosten – UI-Definition)
-      // Als Hauptwert nehmen wir den günstigeren Jahreswert, wenn compare.
-      let mainYear = baseThermYear;
-      if (interest === "wp") mainYear = baseWpYear;
-      if (interest === "therme") mainYear = baseThermYear;
-      if (interest === "compare") mainYear = Math.min(baseWpYear, baseThermYear);
-
-      // Dokumentation (UI)
-      let docs = 4;
-      if (mode === "portfolio") docs = 6;
-      if (goal === "risk") docs += 1;
-
-      // Transparenztext
-      const why = [
-        "Transparenz: Beispiel-Engine nutzt Invest-Platzhalter, Jahreskostenannahmen und Wartungspauschalen.",
-        "In der Live-Version wird die Berechnung mit deinen echten Parametern und der finalen Logik ausgeführt.",
-        "Ergebnis wird inklusive Herleitung, Annahmen und Sensitivitäten dokumentiert."
-      ].join(" ");
-
-      return {
-        mode, goal, interest, urgency, budget, portfolioSize,
-        baseWpYear, baseThermYear,
-        totalWp10, totalTherm10,
-        mainYear, be,
-        status, maint, lead,
-        docs,
-        choose,
-        partner: PARTNER_DEFAULT,
-        why
-      };
-    }
-
-    function tagsFromAnswers(){
-      const tags = [];
-      const mode = state.answers.mode?.value;
-      if (mode === "private") tags.push("Einzelobjekt");
-      if (mode === "portfolio") tags.push("Portfolio");
-
-      const goal = state.answers.goal?.value;
-      if (goal === "cost") tags.push("Kostenfokus");
-      if (goal === "speed") tags.push("Umsetzung");
-      if (goal === "risk") tags.push("Risikofokus");
-
-      const interest = state.answers.systemInterest?.value;
-      if (interest === "wp") tags.push("Wärmepumpe");
-      if (interest === "therme") tags.push("Therme+");
-      if (interest === "compare") tags.push("Vergleich");
-
-      const urgency = state.answers.urgency?.value;
-      if (urgency === "now") tags.push("Sofort");
-      if (urgency === "soon") tags.push("1–3 Monate");
-      if (urgency === "later") tags.push("Später");
-
-      return tags.slice(0, 6);
-    }
-
-    function renderResult(){
-      const c = computeDemo();
-      state.computed = c;
-      saveState();
-
-      const delta10 = c.totalWp10 - c.totalTherm10;
-      const deltaTxt = (delta10 < 0) ? `Wärmepumpe spart ${euro(Math.abs(delta10))}` : `Therme+ spart ${euro(delta10)}`;
-
-      animateText(elMainKpi, `${euro(round2(c.mainYear))} / Jahr`);
-      animateText(elKpi10, euro(round2(Math.min(c.totalWp10, c.totalTherm10))));
-      animateText(elKpiBe, c.be);
-      animateText(elKpiMaint, c.maint);
-      animateText(elKpiStatus, c.status);
-
-      animateText(elRowWp, `${euro(round2(c.totalWp10))}`);
-      animateText(elRowTherm, `${euro(round2(c.totalTherm10))}`);
-      animateText(elRowDelta, deltaTxt);
-      animateText(elBestPick, c.choose);
-
-      animateText(elDocCount, `${c.docs} Dokumente`);
-      animateText(elRowPartner, c.partner);
-      animateText(elRowLead, c.lead);
-      animateText(elRowDocs, `${c.docs} Einträge`);
-
-      animateText(elWhyBox, c.why);
-
-      // Tags
-      elTagRow.innerHTML = "";
-      for (const t of tagsFromAnswers()){
-        const pill = document.createElement("div");
-        pill.className = "tagPill";
-        pill.textContent = t;
-        elTagRow.appendChild(pill);
-      }
-
-      elResultWrap.style.display = "block";
-      triggerFade(elResultWrap);
-    }
-
-    function buildAnswerSummary(){
-      const act = activeSteps();
-      const lines = [];
-      for (const step of act){
-        if (step.id === "result") continue;
-        const ans = state.answers[step.id];
-        if (!ans) continue;
-        lines.push(`- ${step.question}: ${ans.label}`);
-      }
-      return lines.join("\\n");
-    }
-
-    function buildResultSummary(){
-      const c = state.computed ?? computeDemo();
-      const lines = [
-        "ERGEBNIS (Demo UI)",
-        `Haupt-KPI (Jahreskosten): ${euro(round2(c.mainYear))} / Jahr`,
-        "",
-        "Vergleich (10 Jahre):",
-        `- Wärmepumpe: ${euro(round2(c.totalWp10))}`,
-        `- Therme+: ${euro(round2(c.totalTherm10))}`,
-        "",
-        `Empfehlung: ${c.choose}`,
-        `Break-even: ${c.be}`,
-        `Wartung: ${c.maint}`,
-        `Projektstatus: ${c.status}`,
-        "",
-        "Eingaben:",
-        buildAnswerSummary()
+    <script type="module">
+      /* ---------------------------
+         Data: Archetypes
+      ---------------------------- */
+      const ARCHETYPES = [
+        {
+          id: "builder",
+          name: "The Builder",
+          tone: ["structure", "repeatability", "craft"],
+          strengths: ["Operational clarity", "Systems and routines", "Shipping under constraints"],
+          shadow: ["Over-control", "Local optimization", "Mistaking motion for meaning"],
+          levers: ["Define the smallest repeatable unit of value", "Make constraints visible", "Ritualize learning loops"],
+        },
+        {
+          id: "catalyst",
+          name: "The Catalyst",
+          tone: ["momentum", "activation", "velocity"],
+          strengths: ["Igniting action", "Unlocking energy", "Fast iteration"],
+          shadow: ["Burning attention", "Skipping integration", "Chasing novelty"],
+          levers: ["Commit to fewer bets", "Add stabilizers", "Convert sparks into systems"],
+        },
+        {
+          id: "steward",
+          name: "The Steward",
+          tone: ["care", "continuity", "trust"],
+          strengths: ["Long-term thinking", "Reliability", "Culture as infrastructure"],
+          shadow: ["Avoiding conflict", "Slow decisions", "Protecting yesterday’s identity"],
+          levers: ["Name trade-offs explicitly", "Build decision cadence", "Upgrade the mission, not the museum"],
+        },
+        {
+          id: "challenger",
+          name: "The Challenger",
+          tone: ["edge", "differentiation", "pressure"],
+          strengths: ["Clear stance", "Competitive sharpness", "Truth-telling"],
+          shadow: ["Unnecessary battles", "Burning alliances", "Over-indexing on opposition"],
+          levers: ["Choose one enemy", "Turn critique into offers", "Build bridges after the strike"],
+        },
+        {
+          id: "magnet",
+          name: "The Magnet",
+          tone: ["attraction", "signal", "story"],
+          strengths: ["Brand gravity", "Community pull", "Narrative leverage"],
+          shadow: ["Diffuse positioning", "Dependency on hype", "Inconsistent delivery"],
+          levers: ["Anchor promises in proof", "Tighten the signature offer", "Build retention rituals"],
+        },
+        {
+          id: "integrator",
+          name: "The Integrator",
+          tone: ["alignment", "coherence", "translation"],
+          strengths: ["Cross-functional synthesis", "Reducing friction", "Making sense across domains"],
+          shadow: ["Decision deferral", "Too many stakeholders", "Polish over progress"],
+          levers: ["Clarify the ‘one thing’", "Assign owners", "Ship the imperfect bridge"],
+        },
+        {
+          id: "pioneer",
+          name: "The Pioneer",
+          tone: ["exploration", "vision", "frontier"],
+          strengths: ["Original direction", "New markets", "Inventing language"],
+          shadow: ["Underestimating execution cost", "Lonely strategy", "Unvalidated assumptions"],
+          levers: ["Constrain the experiment", "Turn vision into tests", "Recruit operators early"],
+        },
+        {
+          id: "oracle",
+          name: "The Oracle",
+          tone: ["insight", "pattern", "intuition"],
+          strengths: ["Seeing systems", "Strategic foresight", "Naming the hidden constraint"],
+          shadow: ["Abstraction drift", "Over-reading signals", "Avoiding concrete commitments"],
+          levers: ["Translate insight into one decision", "Create feedback instruments", "Choose a measurable proxy"],
+        },
       ];
-      return lines.join("\\n");
-    }
 
-    function buildMailto(name, email, phone){
-      const now = new Date();
-      const ts = now.toLocaleString("de-DE");
-      const subject = `OSION Energy Anfrage – Demo UI (${name})`;
-
-      const body = [
-        "Hallo,",
-        "",
-        "ich möchte eine Beratung bzw. ein Angebot anfragen.",
-        "",
-        "Kontaktdaten:",
-        `- Name: ${name}`,
-        `- E-Mail: ${email}`,
-        phone ? `- Telefon: ${phone}` : "- Telefon: (nicht angegeben)",
-        "",
-        buildResultSummary(),
-        "",
-        `Zeitpunkt: ${ts}`,
-        "",
-        "Hinweis: Dieses Ergebnis stammt aus einer Demo-Oberfläche."
-      ].join("\\n");
-
-      return `mailto:${encodeURIComponent(LEAD_TO_EMAIL)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-    }
-
-    // --- MODAL ---
-    function openModal(){
-      elLeadError.classList.remove("isOpen");
-      elModalOverlay.classList.add("isOpen");
-      elModalOverlay.setAttribute("aria-hidden", "false");
-      document.body.style.overflow = "hidden";
-      setTimeout(()=> elLeadName.focus(), 60);
-    }
-    function closeModal(){
-      elModalOverlay.classList.remove("isOpen");
-      elModalOverlay.setAttribute("aria-hidden", "true");
-      document.body.style.overflow = "";
-    }
-
-    elCtaOpen.addEventListener("click", openModal);
-    elModalClose.addEventListener("click", closeModal);
-    elModalCancel.addEventListener("click", closeModal);
-    elModalOverlay.addEventListener("click", (e)=>{ if (e.target === elModalOverlay) closeModal(); });
-    window.addEventListener("keydown", (e)=>{ if (e.key === "Escape" && elModalOverlay.classList.contains("isOpen")) closeModal(); });
-
-    elLeadSend.addEventListener("click", ()=>{
-      const name = String(elLeadName.value || "").trim();
-      const email = String(elLeadEmail.value || "").trim();
-      const phone = String(elLeadPhone.value || "").trim();
-      const consent = elLeadConsent.checked === true;
-
-      if (!name || !isValidEmail(email) || !consent){
-        elLeadError.classList.add("isOpen");
-        return;
-      }
-      elLeadError.classList.remove("isOpen");
-      const link = buildMailto(name, email, phone);
-      closeModal();
-      window.location.href = link;
-    });
-
-    // --- NAV ---
-    function goNext(){
-      const act = activeSteps();
-      if (state.stepIndex < act.length - 1){
-        state.stepIndex++;
-        saveState();
-        render();
-      }
-    }
-    function goBack(){
-      if (state.stepIndex > 0){
-        state.stepIndex--;
-        saveState();
-        render();
-      }
-    }
-    elBack.addEventListener("click", goBack);
-    elResetBtn.addEventListener("click", resetAll);
-
-    // --- RENDER ---
-    function render(){
-      const { act, step } = currentActive();
-      const totalSteps = act.length;
-
-      setProgress(totalSteps);
-
-      elQuestion.textContent = step.question;
-      elHint.textContent = step.hint;
-
-      triggerFade(elQuestion);
-      triggerFade(elHint);
-
-      elOptions.className = `grid ${step.grid || "cols-2"}`;
-      elOptions.innerHTML = "";
-      elResultWrap.style.display = "none";
-
-      elBack.disabled = state.stepIndex === 0;
-
-      if (step.id === "result"){
-        renderResult();
-        return;
+      function getArchetypeById(id) {
+        return ARCHETYPES.find((a) => a.id === id) ?? ARCHETYPES[0];
       }
 
-      step.options.forEach(opt=>{
-        const btn = document.createElement("button");
-        btn.type="button";
-        btn.className="opt";
-        btn.setAttribute("data-value", opt.value);
+      /* ---------------------------
+         Data: Cycles
+      ---------------------------- */
+      const CYCLES = {
+        start: {
+          name: "Start",
+          signals: ["Identity forming", "High ambiguity", "Energy is the asset"],
+          friction: ["Over-scoping", "Reactivity", "Undefined offer edges"],
+          timingHint: "Prioritize clarity over scale. Reduce optionality without killing curiosity.",
+        },
+        consolidate: {
+          name: "Consolidation",
+          signals: ["Offer stabilizing", "Early repeatability", "First constraints appear"],
+          friction: ["Process debt", "Role ambiguity", "Unowned operations"],
+          timingHint: "Codify what works. Turn intuition into routines before complexity expands.",
+        },
+        friction: {
+          name: "Friction",
+          signals: ["Growth reveals cracks", "Team tension surfaces", "Decisions lag reality"],
+          friction: ["Control vs trust", "Vision vs execution", "Conflicting priorities"],
+          timingHint: "Name the tension out loud. Decide what gets protected and what gets rewritten.",
+        },
+        break: {
+          name: "Breakthrough / Pivot",
+          signals: ["Old model strains", "New direction wants form", "Momentum changes shape"],
+          friction: ["Identity grief", "Stakeholder misalignment", "Half-commits"],
+          timingHint: "Make one irreversible choice. Then build the smallest structure that supports it.",
+        },
+        expand: {
+          name: "Expansion",
+          signals: ["Scale demands structure", "Systems become strategy", "Hiring changes culture"],
+          friction: ["Complexity drag", "Signal dilution", "Leadership bandwidth"],
+          timingHint: "Install constraints that preserve the signature. Scale the system, not the chaos.",
+        },
+        reorder: {
+          name: "Reordering",
+          signals: ["Second-order optimization", "Portfolio thinking", "Renewal cycles begin"],
+          friction: ["Complacency", "Innovation freeze", "Cultural calcification"],
+          timingHint: "Renew the story with proof. Keep a frontier function alive inside the machine.",
+        },
+      };
 
-        const text = document.createElement("div");
-        text.className="optText";
+      function getCycle(stageKey) {
+        return CYCLES[stageKey] ?? CYCLES.start;
+      }
 
-        const main = document.createElement("div");
-        main.className="optMain";
-        main.textContent = opt.label;
+      /* ---------------------------
+         Data: Prompts
+      ---------------------------- */
+      const PROMPT_BANK = [
+        { id: "gvs_1", tags: ["growth_vs_stability"], text: "Where does the venture confuse speed with progress — and where does it confuse stability with safety?" },
+        { id: "gvs_2", tags: ["growth_vs_stability"], text: "What would you protect at all costs during expansion — and what must be allowed to break?" },
+        { id: "vve_1", tags: ["vision_vs_execution"], text: "Which part of the vision is currently not executable — and what is the smallest test that would make it real?" },
+        { id: "vve_2", tags: ["vision_vs_execution"], text: "If delivery had to be reduced by 40%, what would remain as the true signature offer?" },
+        { id: "cvt_1", tags: ["control_vs_trust"], text: "Where is leadership over-steering because trust is not instrumented?" },
+        { id: "cvt_2", tags: ["control_vs_trust"], text: "What must become explicit (roles, rules, cadence) so that trust can increase safely?" },
+        { id: "tvm_1", tags: ["tempo_vs_maturity"], text: "Which part of the business wants to run — while another part is not ready to carry it?" },
+        { id: "tvm_2", tags: ["tempo_vs_maturity"], text: "What is the ‘slow constraint’ that decides the maximum sustainable tempo right now?" },
+        { id: "fim_1", tags: ["founder_vs_market"], text: "Where does the venture still carry the handwriting of its origin — even though the market now demands a different shape?" },
+        { id: "fim_2", tags: ["founder_vs_market"], text: "What is the most uncomfortable customer truth you keep negotiating with?" },
+        { id: "ivs_1", tags: ["innovation_vs_structure"], text: "Where is innovation trapped in improvisation instead of being converted into repeatable structure?" },
+        { id: "ivs_2", tags: ["innovation_vs_structure"], text: "What is one rule you could introduce that would make the next 90 days simpler?" },
 
-        const sub = document.createElement("div");
-        sub.className="optSub";
-        sub.textContent = opt.sub || "";
+        { id: "pioneer_1", tags: ["archetype:pioneer"], text: "Which assumption would you bet your reputation on — and how can you test it in 7 days?" },
+        { id: "builder_1", tags: ["archetype:builder"], text: "What is the smallest repeatable unit of value you can ship weekly without negotiation?" },
+        { id: "magnet_1", tags: ["archetype:magnet"], text: "Which promise is currently stronger than the proof — and how can you close that gap publicly?" },
+        { id: "oracle_1", tags: ["archetype:oracle"], text: "If your intuition is right, what decision must become irreversible this month?" },
+        { id: "integrator_1", tags: ["archetype:integrator"], text: "Where is alignment being used as delay — and what ownership assignment would unblock action?" },
+        { id: "catalyst_1", tags: ["archetype:catalyst"], text: "Which two initiatives should be cut so momentum can consolidate into one line of force?" },
+        { id: "steward_1", tags: ["archetype:steward"], text: "What conflict is being avoided that would actually upgrade the system if faced directly?" },
+        { id: "challenger_1", tags: ["archetype:challenger"], text: "If you had to choose one enemy (a false belief, a category norm), what is it — and what offer defeats it?" },
+      ];
 
-        text.appendChild(main);
-        if (opt.sub) text.appendChild(sub);
+      function pickPrompts({ tensionTags, archetypeIds, count = 10 }) {
+        const wantedTags = new Set([...tensionTags, ...archetypeIds.map((a) => `archetype:${a}`)]);
 
-        const chev = document.createElement("div");
-        chev.className="chev";
-        chev.innerHTML = `
-          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        `;
+        const scored = PROMPT_BANK
+          .map((p) => {
+            const hit = p.tags.reduce((acc, t) => acc + (wantedTags.has(t) ? 1 : 0), 0);
+            return { prompt: p, score: hit };
+          })
+          .filter((x) => x.score > 0)
+          .sort((a, b) => b.score - a.score);
 
-        btn.appendChild(text);
-        btn.appendChild(chev);
+        const unique = [];
+        const seen = new Set();
+        for (const s of scored) {
+          if (seen.has(s.prompt.id)) continue;
+          unique.push(s.prompt);
+          seen.add(s.prompt.id);
+          if (unique.length >= count) break;
+        }
 
-        btn.addEventListener("click", ()=>{
-          elOptions.classList.remove("pulse");
-          void elOptions.offsetWidth;
-          elOptions.classList.add("pulse");
-
-          state.answers[step.id] = opt;
-
-          // Wenn Modus wechselt: Mode-spezifische Felder bereinigen
-          if (step.id === "mode"){
-            if (opt.value === "private"){
-              delete state.answers.portfolioSize;
-            } else {
-              delete state.answers.assetType;
-            }
+        if (unique.length < count) {
+          const fallback = PROMPT_BANK.filter((p) => p.tags.some((t) => tensionTags.includes(t)));
+          for (const p of fallback) {
+            if (unique.length >= count) break;
+            if (seen.has(p.id)) continue;
+            unique.push(p);
+            seen.add(p.id);
           }
+        }
 
-          saveState();
-          goNext();
+        return unique.slice(0, count);
+      }
+
+      /* ---------------------------
+         Engine: Tension
+      ---------------------------- */
+      const AXES = [
+        {
+          id: "growth_vs_stability",
+          name: "Growth vs Stability",
+          poles: ["Acceleration", "Containment"],
+          description:
+            "A classic axis: expanding capacity without breaking coherence. The tension often signals a choice between speed and repeatability.",
+        },
+        {
+          id: "vision_vs_execution",
+          name: "Vision vs Executability",
+          poles: ["Imagination", "Delivery"],
+          description:
+            "When the venture’s language outruns its operational body. This tension becomes productive when the vision is translated into testable steps.",
+        },
+        {
+          id: "control_vs_trust",
+          name: "Control vs Trust",
+          poles: ["Steering", "Delegation"],
+          description:
+            "Appears when leadership compensates for uncertainty with oversight. The unlock is building instruments: roles, rules, cadence, feedback.",
+        },
+        {
+          id: "tempo_vs_maturity",
+          name: "Tempo vs Maturity",
+          poles: ["Speed", "Readiness"],
+          description:
+            "Momentum can outrun the organization’s readiness. The task is to identify the slow constraint and design around it.",
+        },
+        {
+          id: "founder_vs_market",
+          name: "Founder Identity vs Market Demand",
+          poles: ["Origin handwriting", "Category reality"],
+          description:
+            "The venture may still be loyal to the founder’s original story — while the market asks for a different shape. This is identity work, not just strategy.",
+        },
+        {
+          id: "innovation_vs_structure",
+          name: "Innovation vs Structure",
+          poles: ["Novelty", "System"],
+          description:
+            "Innovation creates value only when it becomes structure. Too much structure kills novelty; too little turns innovation into improvisation debt.",
+        },
+      ];
+
+      function getAxisById(id) {
+        return AXES.find((a) => a.id === id) ?? AXES[0];
+      }
+
+      function computeTensions({ stageKey, teamSize, industry, challenge, desired }) {
+        const text = `${challenge} ${desired}`.toLowerCase();
+        const weights = new Map(AXES.map((a) => [a.id, 0]));
+        const bump = (id, by) => weights.set(id, (weights.get(id) ?? 0) + by);
+
+        if (stageKey === "start") { bump("vision_vs_execution", 2); bump("innovation_vs_structure", 1); }
+        if (stageKey === "consolidate") { bump("innovation_vs_structure", 2); bump("growth_vs_stability", 1); bump("control_vs_trust", 1); }
+        if (stageKey === "friction") { bump("control_vs_trust", 2); bump("tempo_vs_maturity", 2); bump("founder_vs_market", 1); }
+        if (stageKey === "break") { bump("founder_vs_market", 2); bump("vision_vs_execution", 2); }
+        if (stageKey === "expand") { bump("growth_vs_stability", 2); bump("tempo_vs_maturity", 2); bump("control_vs_trust", 1); }
+        if (stageKey === "reorder") { bump("innovation_vs_structure", 2); bump("growth_vs_stability", 1); bump("founder_vs_market", 1); }
+
+        if (teamSize === "solo" || teamSize === "tiny") { bump("vision_vs_execution", 1); bump("innovation_vs_structure", 1); }
+        else if (teamSize === "mid" || teamSize === "scale" || teamSize === "large") { bump("control_vs_trust", 2); bump("tempo_vs_maturity", 1); bump("growth_vs_stability", 1); }
+
+        const ind = (industry ?? "").toLowerCase();
+        if (ind.includes("brand") || ind.includes("consumer")) { bump("founder_vs_market", 1); bump("innovation_vs_structure", 1); }
+        if (ind.includes("saas") || ind.includes("software") || ind.includes("fintech")) { bump("vision_vs_execution", 1); bump("growth_vs_stability", 1); }
+        if (ind.includes("agency") || ind.includes("services")) { bump("control_vs_trust", 1); bump("tempo_vs_maturity", 1); }
+
+        const kw = [
+          ["hire", "control_vs_trust", 2], ["deleg", "control_vs_trust", 2],
+          ["process", "innovation_vs_structure", 2], ["structure", "innovation_vs_structure", 2],
+          ["position", "founder_vs_market", 2], ["brand", "founder_vs_market", 1], ["pivot", "founder_vs_market", 2],
+          ["growth", "growth_vs_stability", 2], ["scale", "growth_vs_stability", 2],
+          ["slow", "tempo_vs_maturity", 2], ["burn", "growth_vs_stability", 1],
+          ["delivery", "vision_vs_execution", 2], ["execute", "vision_vs_execution", 2],
+        ];
+        for (const [frag, axis, w] of kw) { if (text.includes(frag)) bump(axis, w); }
+
+        const sorted = [...weights.entries()].sort((a, b) => b[1] - a[1]);
+        const top = sorted.slice(0, 2).map(([id, score]) => ({ id, score, axis: getAxisById(id) }));
+
+        return { primary: top[0], secondary: top[1], all: sorted.map(([id, score]) => ({ id, score, axis: getAxisById(id) })) };
+      }
+
+      /* ---------------------------
+         Engine: Text
+      ---------------------------- */
+      const VARIANTS = {
+        origin: [
+          "This venture carries a strong initiating pattern: it wants to move from instinct to form — quickly, but with meaning.",
+          "The origin reads as a deliberate ignition: a venture designed to translate intent into a distinct signature in the market.",
+          "The founding signal suggests a venture that learns by building — and builds by learning. Iteration is part of the identity.",
+        ],
+        containment: [
+          "Its tension lies not in ambition, but in containment: what must be stabilized so growth becomes sustainable?",
+          "The edge is not speed — it’s coherence. The system wants fewer bets, clearer ownership, and cleaner loops.",
+          "The venture is ready for expansion only if it protects a stable core: offer, cadence, and decision rights.",
+        ],
+        leadership: [
+          "Leadership appears strongest when it converts instinct into repeatable structure — without suffocating momentum.",
+          "The leadership pattern favors clarity and decisive sequencing: name the trade-off, commit, and let the system learn.",
+          "The venture benefits from leadership that designs instruments: roles, rules, and feedback — so trust can scale safely.",
+        ],
+        risk: [
+          "Decision risk clusters around half-commitments: keeping options open long after reality has changed.",
+          "Risk emerges when the team optimizes locally while the system needs a single line of force.",
+          "The main risk is identity drag: defending the origin story when the market demands a new shape.",
+        ],
+      };
+
+      function pick(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
+
+      function composeOriginSignature({ rhythmTag, fieldTag, place, industry }) {
+        const base = pick(VARIANTS.origin);
+        const nuance = [
+          `Founding rhythm: ${rhythmTag}.`,
+          `Field: ${fieldTag}.`,
+          `Place imprint: ${place} adds a contextual texture — a hint of how the venture relates to environment and networks.`,
+          `Industry resonance: ${industry} tends to amplify the venture’s default pace and proof demands.`,
+        ];
+        return `${base} ${nuance.join(" ")}`;
+      }
+
+      function composeTensionNarrative({ primaryAxisId, secondaryAxisId }) {
+        const p = getAxisById(primaryAxisId);
+        const s = getAxisById(secondaryAxisId);
+        return [
+          `Primary axis: ${p.name} (${p.poles[0]} ↔ ${p.poles[1]}). ${p.description}`,
+          `Secondary axis: ${s.name} (${s.poles[0]} ↔ ${s.poles[1]}). ${s.description}`,
+          pick(VARIANTS.containment),
+        ].join(" ");
+      }
+
+      function composeLeadership({ dominantName, lever, riskTag }) {
+        return [
+          pick(VARIANTS.leadership),
+          `Dominant tone: ${dominantName}.`,
+          `Primary lever: ${lever}.`,
+          `Decision risk: ${riskTag}.`,
+          pick(VARIANTS.risk),
+        ].join(" ");
+      }
+
+      function composeArchetypeBlurb(archetype) {
+        return [
+          `A symbolic leadership/market behavior pattern: ${archetype.name}.`,
+          `Strengths: ${archetype.strengths.slice(0, 2).join(" · ")}.`,
+          `Shadow: ${archetype.shadow[0]}.`,
+        ].join(" ");
+      }
+
+      function composeExportSummary({ ventureName, originLine, archetypeLine, tensionLine, cycleLine, leadershipLine }) {
+        return [
+          `Venture: ${ventureName}.`,
+          originLine,
+          archetypeLine,
+          tensionLine,
+          cycleLine,
+          leadershipLine,
+          "Use this as a reflection studio output — not as an assessment.",
+        ].join(" ");
+      }
+
+      /* ---------------------------
+         Engine: Profile
+      ---------------------------- */
+      function buildVentureProfile(input) {
+        const n = normalizeInput(input);
+
+        const rhythmTag = rhythmTagFromDate(n.foundingDate);
+        const fieldTag = fieldTagFromIndustry(n.industry);
+
+        const archetypeScores = scoreArchetypes(n);
+        const sorted = [...archetypeScores.entries()].sort((a, b) => b[1] - a[1]);
+        const dominantId = sorted[0]?.[0] ?? "builder";
+        const secondaryId = sorted[1]?.[0] ?? "integrator";
+
+        const dominant = getArchetypeById(dominantId);
+        const secondary = getArchetypeById(secondaryId);
+
+        const tensions = computeTensions({
+          stageKey: n.currentStage,
+          teamSize: n.teamSize,
+          industry: n.industry,
+          challenge: n.mainChallenge,
+          desired: n.desiredDirection,
         });
 
-        elOptions.appendChild(btn);
-      });
+        const cycle = getCycle(n.currentStage);
 
-      setSelectedUI(step.id);
-      triggerFade(elOptions);
-    }
+        const leverTag = choosePrimaryLever(dominant, tensions.primary.id);
+        const riskTag = chooseRiskTag(n, dominantId, tensions.primary.id);
+        const blindspots = synthesizeBlindspots({ dominant, secondary, tensions, stageKey: n.currentStage });
 
-    // INIT
-    loadState();
-    render();
-  </script>
-</body>
+        return {
+          input: n,
+          tags: { rhythmTag, fieldTag, riskTag, leverTag },
+          archetypes: {
+            dominantId, secondaryId, dominant, secondary,
+            scores: Object.fromEntries(sorted),
+          },
+          tensions,
+          cycle,
+          blindspots,
+        };
+      }
+
+      function normalizeInput(input) {
+        const safe = (v) => String(v ?? "").trim();
+        return {
+          ventureName: safe(input.ventureName),
+          foundingDate: safe(input.foundingDate),
+          foundingTime: safe(input.foundingTime),
+          foundingPlace: safe(input.foundingPlace),
+          industry: safe(input.industry),
+          teamSize: safe(input.teamSize),
+          currentStage: safe(input.currentStage),
+          mainChallenge: safe(input.mainChallenge),
+          desiredDirection: safe(input.desiredDirection),
+        };
+      }
+
+      function rhythmTagFromDate(isoDate) {
+        const dt = new Date(isoDate);
+        const day = dt.getUTCDate();
+        const month = dt.getUTCMonth() + 1;
+
+        const dayMod = day % 4;
+        const monthMod = month % 3;
+
+        const dayTone = ["Pulse", "Vector", "Anchor", "Spiral"][dayMod];
+        const monthTone = ["Initiation", "Containment", "Transmutation"][monthMod];
+        return `${dayTone} · ${monthTone}`;
+      }
+
+      function fieldTagFromIndustry(industry) {
+        const s = (industry ?? "").toLowerCase();
+        if (s.includes("creative") || s.includes("brand") || s.includes("consumer")) return "Signal & Desire";
+        if (s.includes("agency") || s.includes("services")) return "Delivery & Trust";
+        if (s.includes("marketplace")) return "Exchange & Network";
+        if (s.includes("fintech")) return "Risk & Integrity";
+        if (s.includes("health")) return "Care & Proof";
+        if (s.includes("climate") || s.includes("energy")) return "Transition & Constraint";
+        if (s.includes("manufacturing") || s.includes("hardware")) return "Material & Precision";
+        if (s.includes("education")) return "Transformation & Practice";
+        if (s.includes("software") || s.includes("saas")) return "Systems & Leverage";
+        return "Meaning & Mechanism";
+      }
+
+      function scoreArchetypes(n) {
+        const text = `${n.mainChallenge} ${n.desiredDirection}`.toLowerCase();
+        const scores = new Map(ARCHETYPES.map((a) => [a.id, 0]));
+        const bump = (id, w) => scores.set(id, (scores.get(id) ?? 0) + w);
+
+        if (n.currentStage === "start") { bump("pioneer", 3); bump("catalyst", 2); bump("oracle", 1); }
+        if (n.currentStage === "consolidate") { bump("builder", 3); bump("integrator", 2); bump("steward", 1); }
+        if (n.currentStage === "friction") { bump("integrator", 2); bump("steward", 2); bump("challenger", 1); }
+        if (n.currentStage === "break") { bump("challenger", 2); bump("pioneer", 2); bump("oracle", 1); }
+        if (n.currentStage === "expand") { bump("builder", 2); bump("steward", 2); bump("integrator", 1); }
+        if (n.currentStage === "reorder") { bump("steward", 2); bump("oracle", 2); bump("builder", 1); }
+
+        if (n.teamSize === "solo" || n.teamSize === "tiny") { bump("pioneer", 1); bump("catalyst", 1); }
+        if (n.teamSize === "mid" || n.teamSize === "scale" || n.teamSize === "large") { bump("integrator", 2); bump("steward", 1); bump("builder", 1); }
+
+        const ind = (n.industry ?? "").toLowerCase();
+        if (ind.includes("brand") || ind.includes("consumer")) { bump("magnet", 3); bump("challenger", 1); }
+        if (ind.includes("creative")) { bump("magnet", 2); bump("oracle", 1); }
+        if (ind.includes("saas") || ind.includes("software") || ind.includes("fintech")) { bump("builder", 2); bump("pioneer", 1); }
+        if (ind.includes("agency") || ind.includes("services")) { bump("integrator", 2); bump("steward", 1); }
+
+        const rules = [
+          ["process", "builder", 2], ["system", "builder", 2], ["ops", "builder", 2], ["ship", "builder", 1],
+          ["growth", "catalyst", 1], ["scale", "catalyst", 1], ["momentum", "catalyst", 2],
+          ["conflict", "challenger", 2], ["different", "challenger", 1], ["position", "challenger", 1],
+          ["culture", "steward", 2], ["trust", "steward", 2],
+          ["community", "magnet", 2], ["brand", "magnet", 2],
+          ["align", "integrator", 2], ["handoff", "integrator", 2],
+          ["vision", "pioneer", 2], ["new", "pioneer", 1],
+          ["insight", "oracle", 2], ["intuition", "oracle", 2], ["clarity", "oracle", 1],
+        ];
+        for (const [frag, id, w] of rules) { if (text.includes(frag)) bump(id, w); }
+
+        return scores;
+      }
+
+      function choosePrimaryLever(dominant, primaryAxisId) {
+        const axisLeverMap = {
+          growth_vs_stability: "Define a stable core (offer + cadence + ownership)",
+          vision_vs_execution: "Translate vision into one testable commitment",
+          control_vs_trust: "Instrument trust (roles, rules, feedback loops)",
+          tempo_vs_maturity: "Identify the slow constraint and design around it",
+          founder_vs_market: "Let the origin evolve into a market-ready signature",
+          innovation_vs_structure: "Convert novelty into repeatable structure",
+        };
+        const axisLever = axisLeverMap[primaryAxisId] ?? "Name the trade-off, then commit";
+        const archeLever = dominant.levers?.[0] ?? "Reduce optionality; increase clarity";
+        return `${axisLever} · ${archeLever}`;
+      }
+
+      function chooseRiskTag(n, dominantId, primaryAxisId) {
+        const text = `${n.mainChallenge} ${n.desiredDirection}`.toLowerCase();
+        if (text.includes("hire") || text.includes("team")) return "People-system mismatch";
+        if (primaryAxisId === "founder_vs_market") return "Identity drag";
+        if (primaryAxisId === "vision_vs_execution") return "Abstract drift";
+        if (primaryAxisId === "control_vs_trust") return "Over-steering";
+        if (dominantId === "catalyst") return "Fragmented bets";
+        if (dominantId === "magnet") return "Signal > proof gap";
+        return "Half-commitment";
+      }
+
+      function synthesizeBlindspots({ dominant, secondary, tensions, stageKey }) {
+        const out = new Set();
+        for (const s of dominant.shadow.slice(0, 2)) out.add(s);
+        for (const s of secondary.shadow.slice(0, 1)) out.add(s);
+
+        if (stageKey === "expand") out.add("Signal dilution under scale");
+        if (stageKey === "start") out.add("Over-scoping before proof");
+        if (tensions.primary.id === "control_vs_trust") out.add("Trust not instrumented");
+        if (tensions.primary.id === "vision_vs_execution") out.add("Vision outruns delivery body");
+
+        return [...out].slice(0, 6);
+      }
+
+      /* ---------------------------
+         App
+      ---------------------------- */
+      const $ = (sel) => document.querySelector(sel);
+
+      const state = {
+        profile: null,
+        wheelLock: false,
+        wheelSelected: null,
+      };
+
+      init();
+
+      function init() {
+        bindNavScroll();
+        bindDisclaimer();
+        bindForm();
+        bindActions();
+        renderWheelSkeleton();
+        renderExportEmpty();
+      }
+
+      function bindNavScroll() {
+        document.addEventListener("click", (e) => {
+          const btn = e.target.closest("[data-scroll]");
+          if (!btn) return;
+          const target = btn.getAttribute("data-scroll");
+          const el = document.querySelector(target);
+          if (!el) return;
+          el.scrollIntoView({ behavior: "smooth", block: "start" });
+        });
+      }
+
+      function bindDisclaimer() {
+        const dlg = $("#disclaimerDialog");
+        $("#openDisclaimer").addEventListener("click", () => dlg.showModal());
+
+        const key = "vrs_disclaimer_seen_v1";
+        if (!localStorage.getItem(key)) {
+          localStorage.setItem(key, "1");
+          setTimeout(() => dlg.showModal(), 450);
+        }
+      }
+
+      function bindForm() {
+        $("#originForm").addEventListener("submit", (e) => {
+          e.preventDefault();
+          const data = Object.fromEntries(new FormData(e.currentTarget).entries());
+          generate(data);
+          $("#screen-results").scrollIntoView({ behavior: "smooth", block: "start" });
+        });
+      }
+
+      function bindActions() {
+        $("#resetBtn").addEventListener("click", () => {
+          $("#originForm").reset();
+          state.profile = null;
+          state.wheelLock = false;
+          state.wheelSelected = null;
+          $("#resultsWrap").classList.add("hidden");
+          $("#emptyState").classList.remove("hidden");
+          setWheelDetail(null);
+          renderWheelSkeleton();
+          renderExportEmpty();
+        });
+
+        $("#demoFill").addEventListener("click", () => {
+          $("#ventureName").value = "Lumen Atelier";
+          $("#foundingDate").value = "2022-10-07";
+          $("#foundingTime").value = "19:20";
+          $("#foundingPlace").value = "Berlin, Germany";
+          $("#industry").value = "Creative Studio";
+          $("#teamSize").value = "small";
+          $("#currentStage").value = "friction";
+          $("#mainChallenge").value =
+            "Positioning feels diffuse and delivery is inconsistent; internal ownership is blurred and decisions lag reality.";
+          $("#desiredDirection").value =
+            "A stable signature offer, sharper narrative, and scalable delivery cadence without losing the creative edge.";
+          $("#screen-input").scrollIntoView({ behavior: "smooth", block: "start" });
+        });
+
+        $("#printBtn").addEventListener("click", () => window.print());
+
+        $("#copyBtn").addEventListener("click", async () => {
+          const text = buildCopySummary();
+          try {
+            await navigator.clipboard.writeText(text);
+            toast("Summary copied");
+          } catch {
+            toast("Copy failed (browser permissions).");
+          }
+        });
+
+        $("#unlockWheel").addEventListener("click", () => {
+          state.wheelLock = false;
+          state.wheelSelected = null;
+          toast("Wheel unlocked");
+          setWheelDetail(null);
+        });
+      }
+
+      function generate(input) {
+        const profile = buildVentureProfile(input);
+        state.profile = profile;
+
+        const originText = composeOriginSignature({
+          rhythmTag: profile.tags.rhythmTag,
+          fieldTag: profile.tags.fieldTag,
+          place: profile.input.foundingPlace,
+          industry: profile.input.industry,
+        });
+
+        const domText = composeArchetypeBlurb(profile.archetypes.dominant);
+        const secText = composeArchetypeBlurb(profile.archetypes.secondary);
+
+        const tensionText = composeTensionNarrative({
+          primaryAxisId: profile.tensions.primary.id,
+          secondaryAxisId: profile.tensions.secondary.id,
+        });
+
+        const leadershipText = composeLeadership({
+          dominantName: profile.archetypes.dominant.name,
+          lever: profile.tags.leverTag,
+          riskTag: profile.tags.riskTag,
+        });
+
+        // Cards
+        $("#originSignatureText").textContent = originText;
+        $("#rhythmTag").textContent = profile.tags.rhythmTag;
+        $("#fieldTag").textContent = profile.tags.fieldTag;
+
+        $("#domArchetypeName").textContent = profile.archetypes.dominant.name;
+        $("#domArchetypeText").textContent = domText;
+        renderTags("#domTags", profile.archetypes.dominant.tone);
+
+        $("#secArchetypeName").textContent = profile.archetypes.secondary.name;
+        $("#secArchetypeText").textContent = secText;
+        renderTags("#secTags", profile.archetypes.secondary.tone);
+
+        const primaryAxis = getAxisById(profile.tensions.primary.id);
+        const secondaryAxis = getAxisById(profile.tensions.secondary.id);
+
+        $("#tensionName").textContent = primaryAxis.name;
+        $("#tensionText").textContent = tensionText;
+        renderAxisBadges(primaryAxis, secondaryAxis);
+
+        $("#leadershipText").textContent = leadershipText;
+        $("#riskTag").textContent = profile.tags.riskTag;
+        $("#leverTag").textContent = profile.tags.leverTag;
+
+        // Reflection
+        const prompts = pickPrompts({
+          tensionTags: [profile.tensions.primary.id, profile.tensions.secondary.id],
+          archetypeIds: [profile.archetypes.dominantId, profile.archetypes.secondaryId],
+          count: 10,
+        });
+        renderPrompts(prompts);
+        renderCycle(profile);
+        renderBlindspots(profile.blindspots);
+
+        // Wheel
+        renderWheel(profile);
+
+        // Export
+        renderExport(profile, { originText, tensionText, leadershipText, prompts });
+
+        // Show
+        $("#emptyState").classList.add("hidden");
+        $("#resultsWrap").classList.remove("hidden");
+      }
+
+      function renderTags(sel, arr) {
+        const wrap = $(sel);
+        wrap.innerHTML = "";
+        for (const t of arr) {
+          const b = document.createElement("span");
+          b.className = "badge";
+          b.textContent = t;
+          wrap.appendChild(b);
+        }
+      }
+
+      function renderAxisBadges(primary, secondary) {
+        const wrap = $("#axisBadges");
+        wrap.innerHTML = "";
+        for (const ax of [primary, secondary]) {
+          const b = document.createElement("span");
+          b.className = "badge";
+          b.textContent = `${ax.poles[0]} ↔ ${ax.poles[1]}`;
+          wrap.appendChild(b);
+        }
+      }
+
+      function renderPrompts(prompts) {
+        const list = $("#promptList");
+        list.innerHTML = "";
+        for (const p of prompts) {
+          const li = document.createElement("li");
+          li.textContent = p.text;
+          list.appendChild(li);
+        }
+      }
+
+      function renderCycle(profile) {
+        const c = profile.cycle;
+        $("#cycleText").innerHTML = [
+          `<div class="big">${escapeHtml(c.name)}</div>`,
+          `<p class="muted">Signals: ${escapeHtml(c.signals.join(" · "))}</p>`,
+          `<p class="muted">Friction: ${escapeHtml(c.friction.join(" · "))}</p>`,
+          `<p class="muted"><strong>Timing hint:</strong> ${escapeHtml(c.timingHint)}</p>`,
+        ].join("");
+      }
+
+      function renderBlindspots(items) {
+        const ul = $("#blindspotsList");
+        ul.innerHTML = "";
+        for (const x of items) {
+          const li = document.createElement("li");
+          li.textContent = x;
+          ul.appendChild(li);
+        }
+      }
+
+      /* ---------------------------
+         Resonance Wheel (SVG)
+      ---------------------------- */
+      function renderWheelSkeleton() {
+        const svg = $("#wheelSvg");
+        svg.innerHTML = "";
+
+        const defs = el("defs");
+        defs.appendChild(glowFilter("softGlow", 2.8, 0.35));
+        defs.appendChild(glowFilter("hardGlow", 5.0, 0.22));
+        svg.appendChild(defs);
+
+        svg.appendChild(circle(300, 300, 252, "rgba(255,255,255,0.10)", "rgba(0,0,0,0)"));
+        svg.appendChild(circle(300, 300, 210, "rgba(255,255,255,0.08)", "rgba(0,0,0,0)"));
+        svg.appendChild(circle(300, 300, 165, "rgba(255,255,255,0.06)", "rgba(0,0,0,0)"));
+
+        svg.appendChild(line(300, 85, 300, 515, "rgba(255,255,255,0.08)"));
+        svg.appendChild(line(85, 300, 515, 300, "rgba(255,255,255,0.08)"));
+
+        const core = circle(300, 300, 10, "rgba(196,162,92,0.55)", "rgba(255,255,255,0)");
+        core.setAttribute("filter", "url(#hardGlow)");
+        svg.appendChild(core);
+
+        setWheelDetail(null);
+      }
+
+      function renderWheel(profile) {
+        renderWheelSkeleton();
+        const svg = $("#wheelSvg");
+        const segments = buildSegments(profile);
+
+        for (const seg of segments) {
+          const path = el("path");
+          path.setAttribute("d", arcPath(300, 300, 118, 252, seg.a0, seg.a1));
+          path.setAttribute("fill", seg.fill);
+          path.setAttribute("stroke", "rgba(255,255,255,0.10)");
+          path.setAttribute("stroke-width", "1");
+          path.setAttribute("cursor", "pointer");
+
+          path.addEventListener("mouseenter", () => {
+            if (state.wheelLock) return;
+            setWheelDetail(seg);
+          });
+          path.addEventListener("mouseleave", () => {
+            if (state.wheelLock) return;
+            setWheelDetail(null);
+          });
+          path.addEventListener("click", () => {
+            state.wheelLock = true;
+            state.wheelSelected = seg.id;
+            setWheelDetail(seg);
+            toast("Wheel segment locked");
+          });
+
+          svg.appendChild(path);
+
+          const n = polarToXY(300, 300, 216, (seg.a0 + seg.a1) / 2);
+          const node = circle(n.x, n.y, 5.2, seg.node, "rgba(255,255,255,0)");
+          node.setAttribute("filter", "url(#softGlow)");
+          svg.appendChild(node);
+        }
+
+        const p = getAxisById(profile.tensions.primary.id);
+        const s = getAxisById(profile.tensions.secondary.id);
+        svg.appendChild(axisLineFor(p.id, "url(#softGlow)", 2.0));
+        svg.appendChild(axisLineFor(s.id, "url(#softGlow)", 1.3));
+      }
+
+      function buildSegments(profile) {
+        const a = [
+          { id: "origin", label: "Origin Signature", detail: "Founding rhythm and field imprint.", weight: 1 },
+          { id: "dominant", label: "Dominant Archetype", detail: profile.archetypes.dominant.name, weight: 2 },
+          { id: "secondary", label: "Secondary Archetype", detail: profile.archetypes.secondary.name, weight: 1 },
+          { id: "tension_primary", label: "Primary Tension", detail: getAxisById(profile.tensions.primary.id).name, weight: 2 },
+          { id: "tension_secondary", label: "Secondary Tension", detail: getAxisById(profile.tensions.secondary.id).name, weight: 1 },
+          { id: "cycle", label: "Cycle Phase", detail: profile.cycle.name, weight: 1 },
+          { id: "lever", label: "Primary Lever", detail: profile.tags.leverTag, weight: 1 },
+          { id: "risk", label: "Decision Risk", detail: profile.tags.riskTag, weight: 1 },
+        ];
+
+        const total = a.reduce((acc, x) => acc + x.weight, 0);
+        let angle = -90;
+        const res = [];
+        for (const x of a) {
+          const span = (x.weight / total) * 360;
+          const a0 = angle;
+          const a1 = angle + span;
+          angle = a1;
+
+          res.push({ ...x, a0, a1, fill: fillForSegment(x.id), node: nodeForSegment(x.id) });
+        }
+        return res;
+      }
+
+      function fillForSegment(id) {
+        const map = {
+          origin: "rgba(218,226,240,0.05)",
+          dominant: "rgba(196,162,92,0.08)",
+          secondary: "rgba(233,222,199,0.06)",
+          tension_primary: "rgba(140,180,255,0.06)",
+          tension_secondary: "rgba(140,180,255,0.04)",
+          cycle: "rgba(255,255,255,0.04)",
+          lever: "rgba(196,162,92,0.06)",
+          risk: "rgba(255,255,255,0.035)",
+        };
+        return map[id] ?? "rgba(255,255,255,0.04)";
+      }
+
+      function nodeForSegment(id) {
+        const map = {
+          dominant: "rgba(196,162,92,0.85)",
+          tension_primary: "rgba(140,180,255,0.75)",
+          origin: "rgba(233,222,199,0.75)",
+          risk: "rgba(255,255,255,0.60)",
+        };
+        return map[id] ?? "rgba(218,226,240,0.65)";
+      }
+
+      function axisLineFor(axisId, filter, width) {
+        const angleMap = {
+          growth_vs_stability: 25,
+          vision_vs_execution: -30,
+          control_vs_trust: 90,
+          tempo_vs_maturity: -90,
+          founder_vs_market: 155,
+          innovation_vs_structure: -155,
+        };
+        const ang = angleMap[axisId] ?? 0;
+        const p0 = polarToXY(300, 300, 84, ang);
+        const p1 = polarToXY(300, 300, 258, ang);
+
+        const l = line(p0.x, p0.y, p1.x, p1.y, "rgba(196,162,92,0.22)");
+        l.setAttribute("stroke-width", String(width));
+        l.setAttribute("filter", filter);
+        return l;
+      }
+
+      function setWheelDetail(seg) {
+        const title = $("#wheelDetailTitle");
+        const body = $("#wheelDetailBody");
+
+        if (!state.profile) {
+          title.textContent = "Select a segment";
+          body.textContent =
+            "Generate a profile first. The wheel visualizes tensions, archetype tone and cycle friction as an interpretive interface.";
+          return;
+        }
+
+        if (!seg) {
+          title.textContent = state.wheelLock ? "Locked" : "Select a segment";
+          body.textContent = state.wheelLock
+            ? "Wheel is locked. Press Unlock to resume hover previews."
+            : "Hover or click a segment to reveal interpretive notes.";
+          return;
+        }
+
+        title.textContent = seg.label;
+        body.textContent = seg.detail;
+      }
+
+      /* ---------------------------
+         Export
+      ---------------------------- */
+      function renderExport(profile, composed) {
+        $("#exportVenture").textContent = `${profile.input.ventureName} • ${profile.input.foundingPlace} • ${profile.input.industry}`;
+        $("#exportArchetypes").textContent = `${profile.archetypes.dominant.name} + ${profile.archetypes.secondary.name}`;
+        $("#exportTensions").textContent = `${getAxisById(profile.tensions.primary.id).name} • ${getAxisById(profile.tensions.secondary.id).name}`;
+        $("#exportCycle").textContent = profile.cycle.name;
+
+        const originLine = composed.originText;
+        const archetypeLine = `Archetypes: ${profile.archetypes.dominant.name} (dominant) + ${profile.archetypes.secondary.name} (secondary).`;
+        const tensionLine = `Tensions: ${getAxisById(profile.tensions.primary.id).name} + ${getAxisById(profile.tensions.secondary.id).name}.`;
+        const cycleLine = `Cycle: ${profile.cycle.name}. Timing hint: ${profile.cycle.timingHint}`;
+        const leadershipLine = composed.leadershipText;
+
+        $("#exportSummary").textContent = composeExportSummary({
+          ventureName: profile.input.ventureName,
+          originLine,
+          archetypeLine,
+          tensionLine,
+          cycleLine,
+          leadershipLine,
+        });
+
+        const ul = $("#exportPrompts");
+        ul.innerHTML = "";
+        for (const p of composed.prompts.slice(0, 8)) {
+          const li = document.createElement("li");
+          li.textContent = p.text;
+          ul.appendChild(li);
+        }
+
+        $("#exportTitle").textContent = profile.input.ventureName;
+        $("#exportSub").textContent = "Symbolic reflection summary — not an assessment.";
+      }
+
+      function renderExportEmpty() {
+        $("#exportVenture").textContent = "—";
+        $("#exportArchetypes").textContent = "—";
+        $("#exportTensions").textContent = "—";
+        $("#exportCycle").textContent = "—";
+        $("#exportSummary").textContent = "Generate a profile to produce a summary.";
+        $("#exportPrompts").innerHTML = "";
+        $("#exportTitle").textContent = "Venture Resonance Studio";
+        $("#exportSub").textContent = "Symbolic reflection summary — not an assessment.";
+      }
+
+      function buildCopySummary() {
+        if (!state.profile) {
+          return [
+            "Venture Resonance Studio — generate a profile first.",
+            "",
+            "Disclaimer: This is designed for reflection and creative strategic insight. Not a scientific assessment; do not use for hiring, legal, financial or medical decisions.",
+          ].join("\n");
+        }
+
+        const p = state.profile;
+        const primary = getAxisById(p.tensions.primary.id);
+        const secondary = getAxisById(p.tensions.secondary.id);
+
+        return [
+          "Venture Resonance Studio — Summary",
+          "",
+          `Venture: ${p.input.ventureName}`,
+          `Origin: ${p.input.foundingDate}${p.input.foundingTime ? " " + p.input.foundingTime : ""} • ${p.input.foundingPlace}`,
+          `Industry: ${p.input.industry} • Team: ${p.input.teamSize} • Stage: ${p.cycle.name}`,
+          "",
+          `Origin rhythm: ${p.tags.rhythmTag} • Field: ${p.tags.fieldTag}`,
+          `Archetypes: ${p.archetypes.dominant.name} (dominant), ${p.archetypes.secondary.name} (secondary)`,
+          `Tensions: ${primary.name} / ${secondary.name}`,
+          `Lever: ${p.tags.leverTag}`,
+          `Decision risk: ${p.tags.riskTag}`,
+          "",
+          "Disclaimer: This experience is designed for reflection and creative strategic insight. It is not a scientific assessment and should not be used for hiring, legal, financial or medical decisions.",
+        ].join("\n");
+      }
+
+      /* ---------------------------
+         Tiny UI helpers
+      ---------------------------- */
+      function toast(msg) {
+        const t = document.createElement("div");
+        t.textContent = msg;
+        t.style.position = "fixed";
+        t.style.right = "16px";
+        t.style.bottom = "16px";
+        t.style.padding = "10px 12px";
+        t.style.borderRadius = "14px";
+        t.style.border = "1px solid rgba(255,255,255,0.14)";
+        t.style.background = "rgba(0,0,0,0.55)";
+        t.style.backdropFilter = "blur(10px)";
+        t.style.color = "rgba(255,255,255,0.85)";
+        t.style.zIndex = "999";
+        t.style.boxShadow = "0 18px 50px rgba(0,0,0,0.35)";
+        document.body.appendChild(t);
+        setTimeout(() => t.remove(), 1400);
+      }
+
+      function escapeHtml(s) {
+        return String(s)
+          .replaceAll("&", "&amp;")
+          .replaceAll("<", "&lt;")
+          .replaceAll(">", "&gt;")
+          .replaceAll('"', "&quot;")
+          .replaceAll("'", "&#039;");
+      }
+
+      /* ---------------------------
+         SVG utilities
+      ---------------------------- */
+      function el(name) { return document.createElementNS("http://www.w3.org/2000/svg", name); }
+
+      function circle(cx, cy, r, stroke, fill) {
+        const c = el("circle");
+        c.setAttribute("cx", String(cx));
+        c.setAttribute("cy", String(cy));
+        c.setAttribute("r", String(r));
+        c.setAttribute("stroke", stroke);
+        c.setAttribute("stroke-width", "1");
+        c.setAttribute("fill", fill);
+        return c;
+      }
+
+      function line(x1, y1, x2, y2, stroke) {
+        const l = el("line");
+        l.setAttribute("x1", String(x1));
+        l.setAttribute("y1", String(y1));
+        l.setAttribute("x2", String(x2));
+        l.setAttribute("y2", String(y2));
+        l.setAttribute("stroke", stroke);
+        l.setAttribute("stroke-width", "1");
+        return l;
+      }
+
+      function glowFilter(id, blur, opacity) {
+        const f = el("filter");
+        f.setAttribute("id", id);
+
+        const feGaussian = el("feGaussianBlur");
+        feGaussian.setAttribute("stdDeviation", String(blur));
+        feGaussian.setAttribute("result", "coloredBlur");
+
+        const feColor = el("feColorMatrix");
+        feColor.setAttribute("type", "matrix");
+        feColor.setAttribute(
+          "values",
+          [
+            "1 0 0 0 0",
+            "0 1 0 0 0",
+            "0 0 1 0 0",
+            `0 0 0 ${opacity} 0`,
+          ].join(" ")
+        );
+
+        const feMerge = el("feMerge");
+        const m1 = el("feMergeNode");
+        m1.setAttribute("in", "coloredBlur");
+        const m2 = el("feMergeNode");
+        m2.setAttribute("in", "SourceGraphic");
+
+        feMerge.appendChild(m1);
+        feMerge.appendChild(m2);
+
+        f.appendChild(feGaussian);
+        f.appendChild(feColor);
+        f.appendChild(feMerge);
+        return f;
+      }
+
+      function arcPath(cx, cy, r0, r1, a0, a1) {
+        const p0 = polarToXY(cx, cy, r1, a0);
+        const p1 = polarToXY(cx, cy, r1, a1);
+        const p2 = polarToXY(cx, cy, r0, a1);
+        const p3 = polarToXY(cx, cy, r0, a0);
+        const largeArc = Math.abs(a1 - a0) > 180 ? 1 : 0;
+
+        return [
+          `M ${p0.x} ${p0.y}`,
+          `A ${r1} ${r1} 0 ${largeArc} 1 ${p1.x} ${p1.y}`,
+          `L ${p2.x} ${p2.y}`,
+          `A ${r0} ${r0} 0 ${largeArc} 0 ${p3.x} ${p3.y}`,
+          "Z",
+        ].join(" ");
+      }
+
+      function polarToXY(cx, cy, r, angleDeg) {
+        const a = (angleDeg * Math.PI) / 180;
+        return { x: (cx + r * Math.cos(a)).toFixed(2), y: (cy + r * Math.sin(a)).toFixed(2) };
+      }
+    </script>
+  </body>
 </html>
