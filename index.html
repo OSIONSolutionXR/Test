@@ -1,4 +1,4 @@
-<!-- File: index.html (Single-File • Mobile-first • Ultra-entschlackt • Nav oben • „Reading beginnen“ • Soundless-Chime • Premium) -->
+<!-- File: index.html (Single-File • Mobile-first • 3 Fenster: Start / Reading / Ergebnis • Active-Glow Nav • Soundless-Chime) -->
 <!doctype html>
 <html lang="de">
   <head>
@@ -8,18 +8,17 @@
     <title>Venture Resonance Studio</title>
     <meta
       name="description"
-      content="Unternehmens-Chart als Reflexionsraum: Signatur, Zeitqualität, Teamdynamik – Sonne/Mond/Aszendent als Metaphern."
+      content="Venture Resonance Studio – Unternehmens-Chart als Reflexionsraum: Signatur, Zeitqualität, Teamdynamik, Sonne/Mond/Aszendent."
     />
 
     <style>
       :root {
         --bg: #07090f;
-        --panel: rgba(255, 255, 255, 0.06);
-        --panel2: rgba(255, 255, 255, 0.085);
-        --line: rgba(255, 255, 255, 0.12);
         --text: rgba(255, 255, 255, 0.92);
         --muted: rgba(255, 255, 255, 0.68);
         --faint: rgba(255, 255, 255, 0.48);
+
+        --line: rgba(255, 255, 255, 0.12);
 
         --gold: rgba(196, 162, 92, 0.95);
         --sand: rgba(233, 222, 199, 0.95);
@@ -28,6 +27,7 @@
 
         --shadow: 0 18px 55px rgba(0, 0, 0, 0.42);
         --shadow2: 0 28px 90px rgba(0, 0, 0, 0.60);
+
         --radius: 20px;
         --radius2: 26px;
 
@@ -72,11 +72,7 @@
         mask-image: radial-gradient(circle at 50% 50%, rgba(0,0,0,0.86) 35%, transparent 72%);
       }
 
-      h1, h2, h3 {
-        font-family: var(--serif);
-        letter-spacing: 0.08px;
-        margin: 0;
-      }
+      h1, h2, h3 { font-family: var(--serif); letter-spacing: 0.08px; margin: 0; }
       h1 { font-size: clamp(1.75rem, 5.8vw, 2.8rem); line-height: 1.06; }
       h2 { font-size: clamp(1.35rem, 4.2vw, 2.05rem); line-height: 1.12; }
       h3 { font-size: 1.12rem; line-height: 1.2; }
@@ -85,7 +81,7 @@
       .muted { color: var(--muted); }
       .faint { color: var(--faint); }
 
-      /* Top nav only (no logo/title) */
+      /* Top nav (no logo/title; only tabs + active glow pill) */
       .topbar {
         position: sticky;
         top: 0;
@@ -103,17 +99,42 @@
         padding: 8px calc(12px + var(--sal)) 10px calc(12px + var(--sar));
       }
       .topnav {
+        position: relative;
         display: grid;
         grid-auto-flow: column;
         gap: 10px;
         align-items: center;
         justify-content: center;
-        width: min(680px, 100%);
+        width: min(720px, 100%);
+        padding: 6px;
+        border-radius: 20px;
+        border: 1px solid rgba(255,255,255,0.10);
+        background: rgba(0,0,0,0.14);
+        overflow: hidden;
       }
+
+      .nav-indicator {
+        position: absolute;
+        top: 6px;
+        left: 6px;
+        height: calc(100% - 12px);
+        width: 120px;
+        border-radius: 16px;
+        background: linear-gradient(180deg, rgba(196,162,92,0.18), rgba(255,255,255,0.05));
+        border: 1px solid rgba(196,162,92,0.20);
+        box-shadow:
+          0 10px 30px rgba(0,0,0,0.35),
+          0 0 0 1px rgba(255,255,255,0.06) inset;
+        filter: saturate(1.08);
+        transition: transform 260ms ease, width 260ms ease, opacity 180ms ease;
+        opacity: 1;
+        pointer-events: none;
+      }
+
       .navbtn {
         appearance: none;
-        border: 1px solid rgba(255,255,255,0.12);
-        background: rgba(255,255,255,0.04);
+        border: 1px solid rgba(255,255,255,0.10);
+        background: rgba(255,255,255,0.03);
         color: rgba(255,255,255,0.82);
         padding: 10px 12px;
         border-radius: 16px;
@@ -125,23 +146,21 @@
         overflow: hidden;
         user-select: none;
         -webkit-tap-highlight-color: transparent;
+        z-index: 1; /* above indicator */
       }
-      .navbtn:hover { transform: translateY(-1px); background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.18); }
+      .navbtn:hover { transform: translateY(-1px); background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.16); }
       .navbtn:active { transform: translateY(0); }
-      .navbtn.active {
-        color: rgba(255,255,255,0.92);
-        border-color: rgba(196,162,92,0.28);
-        background: linear-gradient(180deg, rgba(196,162,92,0.14), rgba(255,255,255,0.04));
-      }
+      .navbtn.active { color: rgba(255,255,255,0.94); border-color: rgba(255,255,255,0.16); background: rgba(255,255,255,0.02); }
       .navbtn[disabled] { opacity: 0.55; cursor: not-allowed; }
 
-      /* Button animation (premium sweep) */
+      /* Premium sweep on buttons */
       .navbtn::after,
       .btn::after {
         content: "";
         position: absolute;
         inset: -40% -60%;
-        background: radial-gradient(circle at 20% 50%, rgba(233,222,199,0.10), transparent 45%),
+        background:
+          radial-gradient(circle at 20% 50%, rgba(233,222,199,0.10), transparent 45%),
           radial-gradient(circle at 80% 40%, rgba(140,180,255,0.08), transparent 48%),
           linear-gradient(90deg, transparent, rgba(255,255,255,0.10), transparent);
         transform: translateX(-40%) rotate(8deg);
@@ -163,10 +182,11 @@
         padding: 16px calc(14px + var(--sal)) calc(120px + var(--sab)) calc(14px + var(--sar));
       }
 
-      .screen { padding: 16px 0; border-bottom: 1px solid rgba(255,255,255,0.06); }
-      .screen-head { display: grid; gap: 10px; margin-bottom: 12px; }
+      /* Views (Fenster) */
+      .view { display: none; }
+      .view.active { display: block; }
 
-      /* Ultra-short hero */
+      /* Hero */
       .kicker {
         color: var(--sand);
         letter-spacing: 0.30em;
@@ -199,7 +219,6 @@
       }
       .hero-card > * { position: relative; z-index: 1; }
 
-      /* Primary CTA */
       .btn {
         appearance: none;
         border: 1px solid rgba(255,255,255,0.12);
@@ -223,11 +242,11 @@
         background: linear-gradient(180deg, rgba(196,162,92,0.20), rgba(255,255,255,0.05));
       }
       .btn.ghost { color: var(--muted); }
-
       .cta-row { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 14px; }
 
       /* Wizard shell */
       .wizard-shell {
+        margin-top: 12px;
         border-radius: var(--radius2);
         border: 1px solid rgba(255,255,255,0.10);
         background: rgba(255,255,255,0.03);
@@ -297,12 +316,8 @@
       .step-view { display: none; opacity: 0; transform: translateY(10px); }
       .step-view.active { display: block; opacity: 1; transform: translateY(0); transition: opacity 260ms ease, transform 260ms ease; }
 
-      /* Stepper (only in Studio section, clean) */
-      .studio-stepper {
-        display: grid;
-        gap: 10px;
-        margin-bottom: 12px;
-      }
+      /* Stepper (clean) */
+      .studio-stepper { display: grid; gap: 10px; margin-top: 14px; }
       .stepper-top {
         display: flex;
         align-items: baseline;
@@ -328,7 +343,7 @@
         transition: width 240ms ease;
       }
 
-      /* Bottom bar controls (mobile) */
+      /* Bottom bar controls (only relevant for Reading; we toggle it) */
       .bottom-bar {
         position: fixed;
         left: 0;
@@ -541,22 +556,7 @@
         100% { opacity: 0; transform: translateX(-50%) scale(1.55); box-shadow: 0 0 0 18px rgba(196,162,92,0.0), 0 0 0 34px rgba(140,180,255,0.0); }
       }
 
-      /* Modal */
-      .modal { border: none; padding: 0; background: transparent; }
-      .modal::backdrop { background: rgba(0,0,0,0.55); backdrop-filter: blur(6px); }
-      .modal-card {
-        width: min(720px, calc(100% - 28px));
-        margin: 10vh auto;
-        padding: 16px;
-        border-radius: var(--radius2);
-        border: 1px solid rgba(255,255,255,0.12);
-        background: linear-gradient(180deg, rgba(255,255,255,0.07), rgba(255,255,255,0.03));
-        box-shadow: var(--shadow2);
-      }
-      .modal-top { display: grid; gap: 8px; margin-bottom: 10px; }
-      .modal-actions { display: flex; justify-content: flex-end; margin-top: 14px; }
-
-      /* Desktop enhancements */
+      /* Desktop */
       @media (min-width: 920px) {
         main { padding: 22px 20px 120px 20px; }
         .field-grid { grid-template-columns: 1fr 1fr; }
@@ -566,54 +566,46 @@
         .card { grid-column: span 4; }
       }
 
-      /* Reduced motion */
       @media (prefers-reduced-motion: reduce) {
         * { scroll-behavior: auto !important; }
         .step-view.active { transition: none !important; }
         .reveal-card.show { transition: none !important; }
         .navbtn::after, .btn::after { display: none !important; }
         .chime { display: none !important; }
+        .nav-indicator { transition: none !important; }
       }
 
-      /* Print */
       @media print {
-        :root { --bg: #ffffff; --text: #111111; --muted: #333333; --faint: #555555; }
         body { background: #ffffff !important; color: #111111 !important; }
         .topbar, .bottom-bar, .bg-orbit, .chime { display: none !important; }
         main { max-width: none; padding: 0; }
-        .screen { border: none; padding: 0; }
-        .wizard-shell, .wheel-wrap, .export-sheet, .card { box-shadow: none; }
-        .export-sheet { border: 1px solid #dddddd; background: #ffffff; }
-        .export-block, .note-box { background: #ffffff; border: 1px solid #dddddd; }
-        .chip, .badge { border: 1px solid #dddddd; background: #ffffff; color: #333333; }
       }
     </style>
   </head>
 
   <body>
     <div class="bg-orbit" aria-hidden="true"></div>
-
     <div class="chime" id="chime"><div class="chime-ring"></div></div>
 
     <header class="topbar">
       <div class="topbar-inner">
-        <nav class="topnav" aria-label="Navigation">
-          <button class="navbtn active" id="navStart" data-scroll="#screen-landing">Start</button>
-          <button class="navbtn" id="navStudio" data-scroll="#screen-studio">Reading</button>
-          <button class="navbtn" id="navErgebnis" data-scroll="#screen-ergebnis" disabled>Ergebnis</button>
-          <button class="navbtn" id="navHinweis">Hinweis</button>
+        <nav class="topnav" id="topnav" aria-label="Navigation">
+          <div class="nav-indicator" id="navIndicator" aria-hidden="true"></div>
+          <button class="navbtn active" id="navStart" data-view="start">Start</button>
+          <button class="navbtn" id="navReading" data-view="reading">Reading</button>
+          <button class="navbtn" id="navErgebnis" data-view="ergebnis" disabled>Ergebnis</button>
         </nav>
       </div>
     </header>
 
     <main>
-      <!-- HERO (ultra kurz, keine Technik, keine Demo) -->
-      <section id="screen-landing" class="screen">
+      <!-- START (Fenster 1) -->
+      <section class="view active" id="view-start" aria-label="Start">
         <div class="kicker">premium · ruhig · klar</div>
         <h1>Venture Resonance Studio</h1>
         <p class="lead">
-          Unternehmens-Chart als Reflexionsraum: <strong>Signatur</strong>, <strong>Zeitqualität</strong>, <strong>Teamdynamik</strong>.
-          Sonne/Mond/Aszendent sind Metaphern für Fokus, Bedürfnis und Auftreten.
+          Unternehmens-Chart als Reflexionsraum: <strong>Signatur</strong>, <strong>Zeitqualität</strong>, <strong>Teamdynamik</strong> —
+          Sonne, Mond und Aszendent als Sprache für Fokus, Bedürfnis und Auftreten.
         </p>
 
         <div class="cta-row">
@@ -622,25 +614,18 @@
 
         <div class="hero-card">
           <div class="prompt-body">
-            <strong>Wofür das gut ist:</strong> Gründungs-Signatur lesen, Spannungen ordnen, Timing-Impulse setzen,
-            und Fragen bekommen, die Entscheidungen einfacher machen – ohne Kitsch.
+            <strong>Ein Reading, das dich trifft.</strong><br />
+            Nicht mit Lärm — sondern mit Ordnung: Wo ist der Kern? Wo ist die Spannung? Was ist jetzt reif?
           </div>
         </div>
       </section>
 
-      <!-- STUDIO -->
-      <section id="screen-studio" class="screen">
-        <div class="screen-head">
-          <h2>Reading</h2>
-          <p class="muted">
-            Du gehst Schritt für Schritt. Enter funktioniert. Swipe links/rechts auch.
-          </p>
-        </div>
-
+      <!-- READING (Fenster 2) -->
+      <section class="view" id="view-reading" aria-label="Reading">
         <div class="studio-stepper" id="studioStepper">
           <div class="stepper-top">
             <div class="stepper-title"><strong id="stepTitle">Schritt</strong> · <span id="stepCount">1 / 16</span></div>
-            <div class="muted" style="font-size:0.9rem;"><span class="kbd">Enter</span> weiter</div>
+            <div class="muted" style="font-size:0.9rem;"><span class="kbd">Enter</span></div>
           </div>
           <div class="progressbar"><div id="progressFill"></div></div>
         </div>
@@ -652,31 +637,22 @@
             <div id="calibrating" class="wizard-card hidden" aria-live="polite">
               <div class="chip">Resonanz</div>
               <div class="prompt-title">Kalibriere…</div>
-              <div class="prompt-body">
-                Signatur, Zeitqualität und Spannungsachsen werden komponiert.
-              </div>
+              <div class="prompt-body">Signatur, Achsen und Timing formen sich.</div>
               <div class="calibrating">
                 <div class="cal-line"><div></div></div>
-                <div class="muted">Chart-Metaphern setzen…</div>
+                <div class="muted">Chart-Sprache setzen…</div>
                 <div class="cal-line"><div></div></div>
-                <div class="muted">Timing-Impulse ordnen…</div>
+                <div class="muted">Spannung ordnen…</div>
                 <div class="cal-line"><div></div></div>
-                <div class="muted">Fragen kuratieren…</div>
+                <div class="muted">Karten kuratieren…</div>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- ERGEBNIS -->
-      <section id="screen-ergebnis" class="screen">
-        <div class="screen-head">
-          <h2>Ergebnis</h2>
-          <p class="muted">
-            Lies es wie ein Atelier-Spiegel: klar, tragend, ohne Übertreibung.
-          </p>
-        </div>
-
+      <!-- ERGEBNIS (Fenster 3) -->
+      <section class="view" id="view-ergebnis" aria-label="Ergebnis">
         <div id="ergebnisEmpty" class="wizard-card">
           <div class="chip">Noch nicht</div>
           <div class="prompt-title">Ergebnis erscheint nach dem Reading.</div>
@@ -718,8 +694,8 @@
 
             <article class="card">
               <div class="card-top">
-                <div class="chip">Spannung</div>
-                <h3>Achsen</h3>
+                <div class="chip">Achsen</div>
+                <h3>Spannung</h3>
               </div>
               <div class="big" id="axisName">—</div>
               <div class="prose" id="axisText"></div>
@@ -740,8 +716,8 @@
 
             <article class="card">
               <div class="card-top">
-                <div class="chip">Zyklus</div>
-                <h3>Phase & Timing</h3>
+                <div class="chip">Timing</div>
+                <h3>Zyklus</h3>
               </div>
               <div class="prose" id="cycleText"></div>
               <div class="tags" id="cycleBadges"></div>
@@ -751,9 +727,7 @@
           <div class="wheel-wrap">
             <div class="wheel-head">
               <h2>Resonanz-Rad</h2>
-              <p class="muted">
-                Drei Ringe: Element-Qualitäten (innen) · Spannungsachsen (mittel) · Timing-Marker (außen).
-              </p>
+              <p class="muted">Elemente (innen) · Achsen (mittel) · Marker (außen)</p>
             </div>
 
             <div class="wheel-grid">
@@ -768,9 +742,7 @@
                   <div class="chip">Detail</div>
                   <h3 id="wheelDetailTitle">Wähle ein Segment</h3>
                 </div>
-                <div id="wheelDetailBody" class="prose muted">
-                  Tippe ein Segment, um eine Notiz zu pinnen.
-                </div>
+                <div id="wheelDetailBody" class="prose muted">Tippe ein Segment, um eine Notiz zu pinnen.</div>
                 <div class="detail-actions">
                   <button class="btn ghost" id="unlockWheel">Pin lösen</button>
                 </div>
@@ -781,7 +753,7 @@
           <div class="wheel-wrap">
             <div class="wheel-head">
               <h2>Reflexionskarten</h2>
-              <p class="muted">Nacheinander, ruhig, klar.</p>
+              <p class="muted">Nacheinander. Ruhig. Klar.</p>
             </div>
 
             <div class="wheel-grid">
@@ -805,7 +777,7 @@
           <div class="wheel-wrap">
             <div class="wheel-head">
               <h2>Export</h2>
-              <p class="muted">PDF (Druck) oder Zusammenfassung kopieren.</p>
+              <p class="muted">PDF (Druck) oder Zusammenfassung kopieren</p>
             </div>
 
             <div class="export-actions">
@@ -860,116 +832,25 @@
       </div>
     </div>
 
-    <dialog id="disclaimerDialog" class="modal">
-      <form method="dialog" class="modal-card">
-        <div class="modal-top">
-          <div class="chip">Hinweis</div>
-          <h3>Metaphern, nicht Beweise</h3>
-        </div>
-
-        <div class="prose muted" style="line-height:1.65;">
-          Dieses Reading ist ein interpretativer Reflexionsraum. Sonne/Mond/Aszendent stehen hier für Fokus, Bedürfnis und Auftreten –
-          als Metaphern. Nicht als wissenschaftlicher Nachweis.
-        </div>
-
-        <div class="modal-actions">
-          <button class="btn primary" value="close">Okay</button>
-        </div>
-      </form>
-    </dialog>
-
     <script type="module">
       /* ===========================
-         DATA
-      =========================== */
-      const ARCHETYPES = [
-        { id: "builder", name: "Die Builderin", tone: ["Struktur","Wiederholbarkeit","Handwerk"], strengths: ["Operative Klarheit","Routinen, die tragen","Liefern unter Constraints"], shadow: ["Überkontrolle","Lokale Optimierung","Bewegung statt Wirkung"], lever: "Definiere die kleinste wiederholbare Einheit von Wert – und schütze sie wie ein Ritual." },
-        { id: "catalyst", name: "Die Katalysatorin", tone: ["Momentum","Aktivierung","Tempo"], strengths: ["Energie entfachen","Iterieren mit Mut","Barrieren durchbrechen"], shadow: ["Zerstreuung","Überspringen von Integration","Novelty-Jagd"], lever: "Schneide zwei Baustellen, damit ein Strahl entsteht: ein Fokus, eine Kadenz, ein Proof." },
-        { id: "steward", name: "Die Hüterin", tone: ["Fürsorge","Kontinuität","Vertrauen"], strengths: ["Langfristigkeit","Zuverlässigkeit","Kultur als Infrastruktur"], shadow: ["Konfliktvermeidung","Langsame Entscheidungen","Schutz der alten Identität"], lever: "Benenne Trade-offs offen – so wird Fürsorge zu Führung, nicht zu Stillstand." },
-        { id: "challenger", name: "Die Challengerin", tone: ["Kante","Differenzierung","Druck"], strengths: ["Klarer Standpunkt","Wahrheitssprache","Kategorie neu schneiden"], shadow: ["Unnötige Kämpfe","Allianzen verbrennen","Gegen-Modus als Identität"], lever: "Wähle eine Reibung, die du transformierst – und baue danach Brücken." },
-        { id: "magnet", name: "Die Magnetin", tone: ["Anziehung","Signal","Story"], strengths: ["Marken-Gravitation","Community-Zug","Narrative Hebel"], shadow: ["Diffuses Angebot","Hype-Abhängigkeit","Inkonsistente Lieferung"], lever: "Verankere Versprechen in Beweis: weniger Story – mehr wiederholbarer Proof." },
-        { id: "integrator", name: "Die Integratorin", tone: ["Ausrichtung","Kohärenz","Übersetzung"], strengths: ["Sinn über Silos","Reibung reduzieren","Komplexität entwirren"], shadow: ["Entscheidungsaufschub","Zu viele Stimmen","Politur vor Fortschritt"], lever: "Ein Owner, eine Entscheidung, eine Woche: Shippe die Brücke – auch wenn sie noch roh ist." },
-        { id: "pioneer", name: "Die Pionierin", tone: ["Exploration","Vision","Frontier"], strengths: ["Originale Richtung","Neue Sprache","Neues Terrain"], shadow: ["Execution-Kosten unterschätzen","Einsame Strategie","Ungeprüfte Annahmen"], lever: "Kleinere Experimente. Kürzere Loops. Ein messbarer Proxy pro Vision." },
-        { id: "oracle", name: "Die Orakel-Strategin", tone: ["Insight","Pattern","Intuition"], strengths: ["Systemblick","Foresight","Hidden Constraint benennen"], shadow: ["Abstraktionsdrift","Über-Interpretation","Commitment vermeiden"], lever: "Übersetze Insight in eine irreversible Entscheidung – dann baue ein Feedback-Instrument." },
-      ];
+         Plan (pseudocode)
+         1) Drei Views: start / reading / ergebnis (display toggle)
+         2) Top-Nav Tabs -> switchView(viewId)
+         3) Active-Glow Pill: measure active tab -> set indicator width + translateX
+         4) CTA "Reading beginnen" -> switchView("reading") + reset wizard to step 0
+         5) Reading: 16-step Wizard (Enter & swipe) -> generateProfile()
+         6) Ergebnis: only shows after profile; nav enabled then
+         =========================== */
 
-      const AXES = [
-        { id: "wachstum_vs_stabilitaet", name: "Wachstum ↔ Stabilität", poles: ["Beschleunigung","Containment"], description: "Skalierung ohne Selbstverlust. Nicht mehr machen – mehr tragen können." },
-        { id: "vision_vs_umsetzung", name: "Vision ↔ Umsetzbarkeit", poles: ["Imagination","Lieferfähigkeit"], description: "Wenn Sprache schneller ist als das operative System. Vision braucht Tests." },
-        { id: "kontrolle_vs_vertrauen", name: "Kontrolle ↔ Vertrauen", poles: ["Steuerung","Delegation"], description: "Wenn Unsicherheit zu Übersteuerung führt. Instrumente bauen: Rollen, Regeln, Rhythmus, Feedback." },
-        { id: "tempo_vs_reife", name: "Tempo ↔ Reife", poles: ["Speed","Readiness"], description: "Momentum kann das System überholen. Engpass finden und Tempo designen." },
-        { id: "gruender_vs_markt", name: "Ursprung ↔ Markt", poles: ["Handschrift","Kategorie-Realität"], description: "Ursprung reifen lassen: gleiche Handschrift, neue Form." },
-        { id: "innovation_vs_struktur", name: "Innovation ↔ Struktur", poles: ["Neuheit","System"], description: "Innovation wird stark, wenn sie Struktur wird. Zu wenig = Impro-Schuld." },
-      ];
-
-      const CYCLES = {
-        start: { name: "Start", signals: ["Identität formt sich","Ambiguität hoch","Energie ist Asset"], friction: ["Overscoping","Reaktivität","Unklare Angebotskanten"], hint: "Schütze Klarheit. Reduziere Optionalität – ohne Neugier zu töten." },
-        konsolidierung: { name: "Konsolidierung", signals: ["Angebot stabilisiert","erste Wiederholbarkeit","Constraints erscheinen"], friction: ["Prozess-Schuld","Rollen-Unklarheit","Ops ohne Owner"], hint: "Codifiziere, was funktioniert. Intuition braucht Routinen, bevor Komplexität wächst." },
-        reibung: { name: "Reibung", signals: ["Wachstum zeigt Risse","Teamspannung sichtbar","Entscheidungen hängen"], friction: ["Kontrolle↔Vertrauen","Vision↔Umsetzung","Prioritäten kollidieren"], hint: "Benenne die Spannung. Entscheide, was geschützt wird – und was neu geschrieben werden muss." },
-        umbruch: { name: "Umbruch / Pivot", signals: ["Altes Modell zieht","Neues will Form","Momentum ändert Gestalt"], friction: ["Identitäts-Trauer","Ausrichtung fehlt","Halb-Commitments"], hint: "Triff eine klare Entscheidung. Dann baue die kleinste Struktur, die sie trägt." },
-        expansion: { name: "Expansion", signals: ["Skalierung verlangt Struktur","System wird Strategie","Hiring verändert Kultur"], friction: ["Komplexitäts-Drag","Signal-Verdünnung","Leadership-Bandwidth"], hint: "Installiere Constraints, die die Signatur schützen. Skaliere das System – nicht das Chaos." },
-        neuordnung: { name: "Neuordnung", signals: ["Second-order Optimierung","Portfolio-Denken","Erneuerungszyklen"], friction: ["Komfort","Innovation friert","Kultur versteinert"], hint: "Erneuere die Story mit Proof. Halte eine Frontier-Funktion lebendig." },
-      };
-
-      const ELEMENTE = [
-        { id: "feuer", name: "Feuer", cue: "Mut, Vorwärts, Risiko", note: "Feuer bringt Schub – braucht klare Containment-Grenzen." },
-        { id: "wasser", name: "Wasser", cue: "Empfinden, Bindung, Tiefe", note: "Wasser trägt Kultur – braucht klare Sprache für Bedürfnisse." },
-        { id: "luft", name: "Luft", cue: "Sinn, Austausch, Perspektive", note: "Luft klärt – braucht Entscheidungen, sonst wird sie Nebel." },
-        { id: "erde", name: "Erde", cue: "Wirklichkeit, Ritual, Stabilität", note: "Erde liefert – braucht Raum, sonst wird sie Starrheit." },
-      ];
-
-      const SMA_SIGNS = [
-        { id: "solaris", label: "Solaris", meaning: "Fokus & Richtung", tone: "klar, initiierend" },
-        { id: "luna", label: "Luna", meaning: "Bedürfnis & Regulation", tone: "weich, fühlend" },
-        { id: "asc", label: "Ascend", meaning: "Auftreten & Interface", tone: "signalgebend" },
-        { id: "aurora", label: "Aurora", meaning: "Kreativer Aufbruch", tone: "magnetisch" },
-        { id: "saturna", label: "Saturna", meaning: "Containment & Reife", tone: "tragend" },
-        { id: "meridia", label: "Meridia", meaning: "Ausrichtung & Übersetzung", tone: "verbindend" },
-        { id: "ferox", label: "Ferox", meaning: "Kante & Differenzierung", tone: "konsequent" },
-        { id: "verdant", label: "Verdant", meaning: "Wachstum & Pflege", tone: "kultivierend" },
-      ];
-
-      const STEPS = [
-        { id: "intention", chip: "Einstieg", title: "Wie soll sich dieses Unternehmen anfühlen, wenn es ganz in seiner Kraft ist?", body: "2–6 Wörter. Dein Resonanz-Anker.", fields: [{ key: "zielGefuehl", label: "Zielgefühl", type: "text", placeholder: "z.B. klar, magnetisch, tragend", required: true }] },
-        { id: "venture", chip: "Identität", title: "Wie heißt das Unternehmen?", body: "Der Name ist Signal.", fields: [{ key: "ventureName", label: "Unternehmensname", type: "text", placeholder: "z.B. Lumen Atelier", required: true }, { key: "tagline", label: "Tagline (optional)", type: "text", placeholder: "Ein Satz, der die Essenz trägt", required: false }] },
-        { id: "date", chip: "Ursprung", title: "Gründung: Wann wurde der Impuls verbindlich?", body: "Datum & Ort setzen die Gründungs-Signatur.", fields: [{ key: "foundingDate", label: "Gründungsdatum", type: "date", required: true }, { key: "foundingPlace", label: "Gründungsort", type: "text", placeholder: "Stadt, Land", required: true }] },
-        { id: "time", chip: "Aszendent", title: "Kennst du die Uhrzeit?", body: "Optional. Metapher für den Eintritt nach außen.", fields: [{ key: "foundingTime", label: "Uhrzeit (optional)", type: "time", required: false }, { key: "startQualitaet", label: "Tagesqualität", type: "select", required: true, options: [{ v: "morgen", t: "Morgen" }, { v: "mittag", t: "Mittag" }, { v: "abend", t: "Abend" }, { v: "nacht", t: "Nacht" }] }] },
-        { id: "industry", chip: "Feld", title: "In welchem Feld wirkt ihr?", body: "Und wie hoch ist der Proof-Druck?", fields: [{ key: "industry", label: "Branche", type: "select", required: true, options: [{ v: "saas", t: "Software / SaaS" }, { v: "brand", t: "Consumer / Brand" }, { v: "creative", t: "Creative Studio" }, { v: "services", t: "Agentur / Services" }, { v: "marketplace", t: "Marketplace" }, { v: "fintech", t: "FinTech" }, { v: "health", t: "Health" }, { v: "climate", t: "Climate / Energy" }, { v: "hardware", t: "Hardware" }, { v: "edu", t: "Education" }, { v: "other", t: "Andere" }] }, { key: "proofDemand", label: "Proof-Druck", type: "select", required: true, options: [{ v: "hoch", t: "hoch" }, { v: "mittel", t: "mittel" }, { v: "niedrig", t: "niedrig" }] }] },
-        { id: "team", chip: "System", title: "Wie groß ist euer System – und wo reibt es?", body: "Teamgröße + Reibungszone.", fields: [{ key: "teamSize", label: "Teamgröße", type: "select", required: true, options: [{ v: "solo", t: "Solo" }, { v: "tiny", t: "2–5" }, { v: "small", t: "6–15" }, { v: "mid", t: "16–50" }, { v: "scale", t: "51–200" }, { v: "large", t: "200+" }] }, { key: "frictionZone", label: "Reibung", type: "select", required: true, options: [{ v: "kommunikation", t: "Kommunikation" }, { v: "ownership", t: "Ownership" }, { v: "energie", t: "Energie" }, { v: "struktur", t: "Struktur" }, { v: "strategie", t: "Strategie" }] }] },
-        { id: "stage", chip: "Zyklus", title: "Welche Phase ist gerade wahr?", body: "Zyklus = Timing.", fields: [{ key: "currentStage", label: "Phase", type: "select", required: true, options: [{ v: "start", t: "Start" }, { v: "konsolidierung", t: "Konsolidierung" }, { v: "reibung", t: "Reibung" }, { v: "umbruch", t: "Umbruch / Pivot" }, { v: "expansion", t: "Expansion" }, { v: "neuordnung", t: "Neuordnung" }] }] },
-        { id: "challenge", chip: "Problem", title: "Was ist gerade das teuerste Problem im System?", body: "Konkreter = schärfer.", fields: [{ key: "mainChallenge", label: "Hauptproblem", type: "textarea", required: true, placeholder: "Was wiederholt sich? Was ist stuck?" }] },
-        { id: "axis", chip: "Achse", title: "Welche Spannung beschreibt es am besten?", body: "Frei oder Preset.", fields: [{ key: "axisFree", label: "Deine Achse (optional)", type: "text", required: false, placeholder: "z.B. Freiheit ↔ Verbindlichkeit" }, { key: "axisPreset", label: "Preset", type: "select", required: true, options: [{ v: "auto", t: "Auto" }, ...AXES.map(a => ({ v: a.id, t: a.name }))] }] },
-        { id: "leak", chip: "Energie", title: "Wo versickert Energie?", body: "Leak + 1 Satz Kontext.", fields: [{ key: "energyLeak", label: "Leak", type: "select", required: true, options: [{ v: "komplexitaet", t: "Komplexität" }, { v: "unklarheit", t: "Unklarheit" }, { v: "perfektion", t: "Perfektion" }, { v: "zuviel", t: "Zu vieles" }, { v: "konflikt", t: "Konflikt" }] }, { key: "leakNote", label: "Kontext (1 Satz)", type: "text", required: true, placeholder: "Wie zeigt sich das?" }] },
-        { id: "direction", chip: "Richtung", title: "Was soll sich in 90 Tagen spürbar verändern?", body: "Stimmiger, nicht mehr.", fields: [{ key: "desiredDirection", label: "Richtung", type: "textarea", required: true, placeholder: "Was ist anders – im Team/Angebot/Markt?" }] },
-        { id: "leadership", chip: "Führung", title: "Welche Führungsqualität braucht es jetzt?", body: "Qualität + ehrlicher Satz.", fields: [{ key: "leadQuality", label: "Qualität", type: "select", required: true, options: [{ v: "fokus", t: "Fokus" }, { v: "containment", t: "Containment" }, { v: "mut", t: "Mut" }, { v: "sanftheit", t: "Sanftheit" }, { v: "konsequenz", t: "Konsequenz" }, { v: "vertrauen", t: "Vertrauen" }] }, { key: "leadHard", label: "Was ist daran schwer?", type: "text", required: true, placeholder: "Ein Satz" }] },
-        { id: "culture", chip: "Beziehung", title: "Wo kippt Nähe in Unklarheit?", body: "Nähe + Grenze.", fields: [{ key: "closeness", label: "Nähe", type: "select", required: true, options: [{ v: "hoch", t: "hoch" }, { v: "mittel", t: "mittel" }, { v: "niedrig", t: "niedrig" }] }, { key: "boundary", label: "Welche Grenze fehlt?", type: "text", required: true, placeholder: "z.B. Scope, Rollen, Zeit" }] },
-        { id: "decision", chip: "Entscheidung", title: "Welche Entscheidung wird aufgeschoben?", body: "Formuliere sie entscheidbar.", fields: [{ key: "delayedDecision", label: "Entscheidung", type: "textarea", required: true, placeholder: "Worum geht’s – und was wird vermieden?" }] },
-        { id: "closing", chip: "Intention", title: "Wofür nutzt du dieses Reading?", body: "Dann Ergebnis erzeugen.", fields: [{ key: "useFor", label: "Ich nutze es für…", type: "select", required: true, options: [{ v: "klarheit", t: "Klarheit" }, { v: "mut", t: "Mut" }, { v: "fokus", t: "Fokus" }, { v: "entlastung", t: "Entlastung" }, { v: "richtung", t: "Richtung" }, { v: "entscheid", t: "Entscheidung" }] }] },
-      ];
-
-      /* ===========================
-         HELPERS
-      =========================== */
       const $ = (sel) => document.querySelector(sel);
       const clamp = (n, a, b) => Math.max(a, Math.min(b, n));
       const safe = (v) => String(v ?? "").trim();
 
-      function hash32(str) {
-        let h = 2166136261 >>> 0;
-        for (let i = 0; i < str.length; i++) {
-          h ^= str.charCodeAt(i);
-          h = Math.imul(h, 16777619);
-        }
-        return h >>> 0;
-      }
-      function pick(arr, seed) {
-        if (!arr.length) return null;
-        return arr[seed % arr.length];
-      }
-      function sleep(ms) { return new Promise((r) => setTimeout(r, ms)); }
-
+      /* ---------- Soundless-Chime ---------- */
       function chime() {
         const el = $("#chime");
+        if (!el) return;
         el.classList.remove("show");
         void el.offsetWidth;
         el.classList.add("show");
@@ -1000,7 +881,22 @@
         setTimeout(() => t.remove(), 1200);
       }
 
-      /* SVG helpers */
+      /* ---------- Hash helpers (deterministic) ---------- */
+      function hash32(str) {
+        let h = 2166136261 >>> 0;
+        for (let i = 0; i < str.length; i++) {
+          h ^= str.charCodeAt(i);
+          h = Math.imul(h, 16777619);
+        }
+        return h >>> 0;
+      }
+      function pick(arr, seed) {
+        if (!arr.length) return null;
+        return arr[seed % arr.length];
+      }
+      function sleep(ms) { return new Promise((r) => setTimeout(r, ms)); }
+
+      /* ---------- SVG helpers ---------- */
       function elSvg(name) { return document.createElementNS("http://www.w3.org/2000/svg", name); }
       function polar(cx, cy, r, deg) {
         const a = (deg * Math.PI) / 180;
@@ -1074,9 +970,78 @@
       }
 
       /* ===========================
+         DATA (same model, refined UX)
+      =========================== */
+      const ARCHETYPES = [
+        { id: "builder", name: "Die Builderin", tone: ["Struktur","Wiederholbarkeit","Handwerk"], strengths: ["Operative Klarheit","Routinen, die tragen","Liefern unter Constraints"], shadow: ["Überkontrolle","Lokale Optimierung","Bewegung statt Wirkung"], lever: "Definiere die kleinste wiederholbare Einheit von Wert – und schütze sie wie ein Ritual." },
+        { id: "catalyst", name: "Die Katalysatorin", tone: ["Momentum","Aktivierung","Tempo"], strengths: ["Energie entfachen","Iterieren mit Mut","Barrieren durchbrechen"], shadow: ["Zerstreuung","Überspringen von Integration","Novelty-Jagd"], lever: "Schneide zwei Baustellen, damit ein Strahl entsteht: ein Fokus, eine Kadenz, ein Proof." },
+        { id: "steward", name: "Die Hüterin", tone: ["Fürsorge","Kontinuität","Vertrauen"], strengths: ["Langfristigkeit","Zuverlässigkeit","Kultur als Infrastruktur"], shadow: ["Konfliktvermeidung","Langsame Entscheidungen","Schutz der alten Identität"], lever: "Benenne Trade-offs offen – so wird Fürsorge zu Führung, nicht zu Stillstand." },
+        { id: "challenger", name: "Die Challengerin", tone: ["Kante","Differenzierung","Druck"], strengths: ["Klarer Standpunkt","Wahrheitssprache","Kategorie neu schneiden"], shadow: ["Unnötige Kämpfe","Allianzen verbrennen","Gegen-Modus als Identität"], lever: "Wähle eine Reibung, die du transformierst – und baue danach Brücken." },
+        { id: "magnet", name: "Die Magnetin", tone: ["Anziehung","Signal","Story"], strengths: ["Marken-Gravitation","Community-Zug","Narrative Hebel"], shadow: ["Diffuses Angebot","Hype-Abhängigkeit","Inkonsistente Lieferung"], lever: "Verankere Versprechen in Beweis: weniger Story – mehr wiederholbarer Proof." },
+        { id: "integrator", name: "Die Integratorin", tone: ["Ausrichtung","Kohärenz","Übersetzung"], strengths: ["Sinn über Silos","Reibung reduzieren","Komplexität entwirren"], shadow: ["Entscheidungsaufschub","Zu viele Stimmen","Politur vor Fortschritt"], lever: "Ein Owner, eine Entscheidung, eine Woche: Shippe die Brücke – auch wenn sie noch roh ist." },
+        { id: "pioneer", name: "Die Pionierin", tone: ["Exploration","Vision","Frontier"], strengths: ["Originale Richtung","Neue Sprache","Neues Terrain"], shadow: ["Execution-Kosten unterschätzen","Einsame Strategie","Ungeprüfte Annahmen"], lever: "Kleinere Experimente. Kürzere Loops. Ein messbarer Proxy pro Vision." },
+        { id: "oracle", name: "Die Orakel-Strategin", tone: ["Insight","Pattern","Intuition"], strengths: ["Systemblick","Foresight","Hidden Constraint benennen"], shadow: ["Abstraktionsdrift","Über-Interpretation","Commitment vermeiden"], lever: "Übersetze Insight in eine irreversible Entscheidung – dann baue ein Feedback-Instrument." },
+      ];
+
+      const AXES = [
+        { id: "wachstum_vs_stabilitaet", name: "Wachstum ↔ Stabilität", poles: ["Beschleunigung","Containment"], description: "Skalierung ohne Selbstverlust. Nicht mehr machen – mehr tragen können." },
+        { id: "vision_vs_umsetzung", name: "Vision ↔ Umsetzbarkeit", poles: ["Imagination","Lieferfähigkeit"], description: "Wenn Sprache schneller ist als das operative System. Vision braucht Tests." },
+        { id: "kontrolle_vs_vertrauen", name: "Kontrolle ↔ Vertrauen", poles: ["Steuerung","Delegation"], description: "Wenn Unsicherheit zu Übersteuerung führt. Instrumente bauen: Rollen, Regeln, Rhythmus, Feedback." },
+        { id: "tempo_vs_reife", name: "Tempo ↔ Reife", poles: ["Speed","Readiness"], description: "Momentum kann das System überholen. Engpass finden und Tempo designen." },
+        { id: "gruender_vs_markt", name: "Ursprung ↔ Markt", poles: ["Handschrift","Kategorie-Realität"], description: "Ursprung reifen lassen: gleiche Handschrift, neue Form." },
+        { id: "innovation_vs_struktur", name: "Innovation ↔ Struktur", poles: ["Neuheit","System"], description: "Innovation wird stark, wenn sie Struktur wird. Zu wenig = Impro-Schuld." },
+      ];
+
+      const CYCLES = {
+        start: { name: "Start", signals: ["Identität formt sich","Ambiguität hoch","Energie ist Asset"], friction: ["Overscoping","Reaktivität","Unklare Angebotskanten"], hint: "Schütze Klarheit. Reduziere Optionalität – ohne Neugier zu töten." },
+        konsolidierung: { name: "Konsolidierung", signals: ["Angebot stabilisiert","erste Wiederholbarkeit","Constraints erscheinen"], friction: ["Prozess-Schuld","Rollen-Unklarheit","Ops ohne Owner"], hint: "Codifiziere, was funktioniert. Intuition braucht Routinen, bevor Komplexität wächst." },
+        reibung: { name: "Reibung", signals: ["Wachstum zeigt Risse","Teamspannung sichtbar","Entscheidungen hängen"], friction: ["Kontrolle↔Vertrauen","Vision↔Umsetzung","Prioritäten kollidieren"], hint: "Benenne die Spannung. Entscheide, was geschützt wird – und was neu geschrieben werden muss." },
+        umbruch: { name: "Umbruch / Pivot", signals: ["Altes Modell zieht","Neues will Form","Momentum ändert Gestalt"], friction: ["Identitäts-Trauer","Ausrichtung fehlt","Halb-Commitments"], hint: "Triff eine klare Entscheidung. Dann baue die kleinste Struktur, die sie trägt." },
+        expansion: { name: "Expansion", signals: ["Skalierung verlangt Struktur","System wird Strategie","Hiring verändert Kultur"], friction: ["Komplexitäts-Drag","Signal-Verdünnung","Leadership-Bandwidth"], hint: "Installiere Constraints, die die Signatur schützen. Skaliere das System – nicht das Chaos." },
+        neuordnung: { name: "Neuordnung", signals: ["Second-order Optimierung","Portfolio-Denken","Erneuerungszyklen"], friction: ["Komfort","Innovation friert","Kultur versteinert"], hint: "Erneuere die Story mit Proof. Halte eine Frontier-Funktion lebendig." },
+      };
+
+      const ELEMENTE = [
+        { id: "feuer", name: "Feuer", cue: "Mut, Vorwärts, Risiko", note: "Feuer bringt Schub – braucht klare Containment-Grenzen." },
+        { id: "wasser", name: "Wasser", cue: "Empfinden, Bindung, Tiefe", note: "Wasser trägt Kultur – braucht klare Sprache für Bedürfnisse." },
+        { id: "luft", name: "Luft", cue: "Sinn, Austausch, Perspektive", note: "Luft klärt – braucht Entscheidungen, sonst wird sie Nebel." },
+        { id: "erde", name: "Erde", cue: "Wirklichkeit, Ritual, Stabilität", note: "Erde liefert – braucht Raum, sonst wird sie Starrheit." },
+      ];
+
+      const SMA_SIGNS = [
+        { id: "solaris", label: "Solaris", meaning: "Fokus & Richtung", tone: "klar, initiierend" },
+        { id: "luna", label: "Luna", meaning: "Bedürfnis & Regulation", tone: "weich, fühlend" },
+        { id: "asc", label: "Ascend", meaning: "Auftreten & Interface", tone: "signalgebend" },
+        { id: "aurora", label: "Aurora", meaning: "Kreativer Aufbruch", tone: "magnetisch" },
+        { id: "saturna", label: "Saturna", meaning: "Containment & Reife", tone: "tragend" },
+        { id: "meridia", label: "Meridia", meaning: "Ausrichtung & Übersetzung", tone: "verbindend" },
+        { id: "ferox", label: "Ferox", meaning: "Kante & Differenzierung", tone: "konsequent" },
+        { id: "verdant", label: "Verdant", meaning: "Wachstum & Pflege", tone: "kultivierend" },
+      ];
+
+      const STEPS = [
+        { id: "intention", chip: "Einstieg", title: "Wie soll sich dieses Unternehmen anfühlen, wenn es ganz in seiner Kraft ist?", body: "2–6 Wörter. Dein Resonanz-Anker.", fields: [{ key: "zielGefuehl", label: "Zielgefühl", type: "text", placeholder: "z.B. klar, magnetisch, tragend", required: true }] },
+        { id: "venture", chip: "Identität", title: "Wie heißt das Unternehmen?", body: "Der Name ist Signal.", fields: [{ key: "ventureName", label: "Unternehmensname", type: "text", placeholder: "z.B. Lumen Atelier", required: true }, { key: "tagline", label: "Tagline (optional)", type: "text", placeholder: "Ein Satz, der die Essenz trägt", required: false }] },
+        { id: "date", chip: "Ursprung", title: "Gründung: Wann wurde der Impuls verbindlich?", body: "Datum & Ort setzen die Signatur.", fields: [{ key: "foundingDate", label: "Gründungsdatum", type: "date", required: true }, { key: "foundingPlace", label: "Gründungsort", type: "text", placeholder: "Stadt, Land", required: true }] },
+        { id: "time", chip: "Aszendent", title: "Kennst du die Uhrzeit?", body: "Optional. Metapher für den Eintritt nach außen.", fields: [{ key: "foundingTime", label: "Uhrzeit (optional)", type: "time", required: false }, { key: "startQualitaet", label: "Tagesqualität", type: "select", required: true, options: [{ v: "morgen", t: "Morgen" }, { v: "mittag", t: "Mittag" }, { v: "abend", t: "Abend" }, { v: "nacht", t: "Nacht" }] }] },
+        { id: "industry", chip: "Feld", title: "In welchem Feld wirkt ihr?", body: "Und wie hoch ist der Proof-Druck?", fields: [{ key: "industry", label: "Branche", type: "select", required: true, options: [{ v: "saas", t: "Software / SaaS" }, { v: "brand", t: "Consumer / Brand" }, { v: "creative", t: "Creative Studio" }, { v: "services", t: "Agentur / Services" }, { v: "marketplace", t: "Marketplace" }, { v: "fintech", t: "FinTech" }, { v: "health", t: "Health" }, { v: "climate", t: "Climate / Energy" }, { v: "hardware", t: "Hardware" }, { v: "edu", t: "Education" }, { v: "other", t: "Andere" }] }, { key: "proofDemand", label: "Proof-Druck", type: "select", required: true, options: [{ v: "hoch", t: "hoch" }, { v: "mittel", t: "mittel" }, { v: "niedrig", t: "niedrig" }] }] },
+        { id: "team", chip: "System", title: "Wie groß ist euer System – und wo reibt es?", body: "Teamgröße + Reibungszone.", fields: [{ key: "teamSize", label: "Teamgröße", type: "select", required: true, options: [{ v: "solo", t: "Solo" }, { v: "tiny", t: "2–5" }, { v: "small", t: "6–15" }, { v: "mid", t: "16–50" }, { v: "scale", t: "51–200" }, { v: "large", t: "200+" }] }, { key: "frictionZone", label: "Reibung", type: "select", required: true, options: [{ v: "kommunikation", t: "Kommunikation" }, { v: "ownership", t: "Ownership" }, { v: "energie", t: "Energie" }, { v: "struktur", t: "Struktur" }, { v: "strategie", t: "Strategie" }] }] },
+        { id: "stage", chip: "Zyklus", title: "Welche Phase ist gerade wahr?", body: "Zyklus = Timing.", fields: [{ key: "currentStage", label: "Phase", type: "select", required: true, options: [{ v: "start", t: "Start" }, { v: "konsolidierung", t: "Konsolidierung" }, { v: "reibung", t: "Reibung" }, { v: "umbruch", t: "Umbruch / Pivot" }, { v: "expansion", t: "Expansion" }, { v: "neuordnung", t: "Neuordnung" }] }] },
+        { id: "challenge", chip: "Problem", title: "Was ist gerade das teuerste Problem im System?", body: "Konkreter = schärfer.", fields: [{ key: "mainChallenge", label: "Hauptproblem", type: "textarea", required: true, placeholder: "Was wiederholt sich? Was ist stuck?" }] },
+        { id: "axis", chip: "Achse", title: "Welche Spannung beschreibt es am besten?", body: "Frei oder Preset.", fields: [{ key: "axisFree", label: "Deine Achse (optional)", type: "text", required: false, placeholder: "z.B. Freiheit ↔ Verbindlichkeit" }, { key: "axisPreset", label: "Preset", type: "select", required: true, options: [{ v: "auto", t: "Auto" }, ...AXES.map(a => ({ v: a.id, t: a.name }))] }] },
+        { id: "leak", chip: "Energie", title: "Wo versickert Energie?", body: "Leak + 1 Satz Kontext.", fields: [{ key: "energyLeak", label: "Leak", type: "select", required: true, options: [{ v: "komplexitaet", t: "Komplexität" }, { v: "unklarheit", t: "Unklarheit" }, { v: "perfektion", t: "Perfektion" }, { v: "zuviel", t: "Zu vieles" }, { v: "konflikt", t: "Konflikt" }] }, { key: "leakNote", label: "Kontext (1 Satz)", type: "text", required: true, placeholder: "Wie zeigt sich das?" }] },
+        { id: "direction", chip: "Richtung", title: "Was soll sich in 90 Tagen spürbar verändern?", body: "Stimmiger, nicht mehr.", fields: [{ key: "desiredDirection", label: "Richtung", type: "textarea", required: true, placeholder: "Was ist anders – im Team/Angebot/Markt?" }] },
+        { id: "leadership", chip: "Führung", title: "Welche Führungsqualität braucht es jetzt?", body: "Qualität + ehrlicher Satz.", fields: [{ key: "leadQuality", label: "Qualität", type: "select", required: true, options: [{ v: "fokus", t: "Fokus" }, { v: "containment", t: "Containment" }, { v: "mut", t: "Mut" }, { v: "sanftheit", t: "Sanftheit" }, { v: "konsequenz", t: "Konsequenz" }, { v: "vertrauen", t: "Vertrauen" }] }, { key: "leadHard", label: "Was ist daran schwer?", type: "text", required: true, placeholder: "Ein Satz" }] },
+        { id: "culture", chip: "Beziehung", title: "Wo kippt Nähe in Unklarheit?", body: "Nähe + Grenze.", fields: [{ key: "closeness", label: "Nähe", type: "select", required: true, options: [{ v: "hoch", t: "hoch" }, { v: "mittel", t: "mittel" }, { v: "niedrig", t: "niedrig" }] }, { key: "boundary", label: "Welche Grenze fehlt?", type: "text", required: true, placeholder: "z.B. Scope, Rollen, Zeit" }] },
+        { id: "decision", chip: "Entscheidung", title: "Welche Entscheidung wird aufgeschoben?", body: "Formuliere sie entscheidbar.", fields: [{ key: "delayedDecision", label: "Entscheidung", type: "textarea", required: true, placeholder: "Worum geht’s – und was wird vermieden?" }] },
+        { id: "closing", chip: "Intention", title: "Wofür nutzt du dieses Reading?", body: "Dann Ergebnis erzeugen.", fields: [{ key: "useFor", label: "Ich nutze es für…", type: "select", required: true, options: [{ v: "klarheit", t: "Klarheit" }, { v: "mut", t: "Mut" }, { v: "fokus", t: "Fokus" }, { v: "entlastung", t: "Entlastung" }, { v: "richtung", t: "Richtung" }, { v: "entscheid", t: "Entscheidung" }] }] },
+      ];
+
+      /* ===========================
          STATE
       =========================== */
       const state = {
+        view: "start",
         stepIndex: 0,
         values: {},
         profile: null,
@@ -1085,119 +1050,55 @@
       };
 
       /* ===========================
-         INIT
+         NAV + VIEW
       =========================== */
-      init();
+      const viewMap = {
+        start: $("#view-start"),
+        reading: $("#view-reading"),
+        ergebnis: $("#view-ergebnis"),
+      };
 
-      function init() {
-        // Nav + hint
-        $("#navHinweis").addEventListener("click", () => $("#disclaimerDialog").showModal());
+      function switchView(viewKey, opts = {}) {
+        state.view = viewKey;
 
-        // Scroll nav highlight
-        document.addEventListener("click", (e) => {
-          const btn = e.target.closest("[data-scroll]");
-          if (!btn) return;
-          const target = btn.getAttribute("data-scroll");
-          const el = document.querySelector(target);
-          if (!el) return;
-          el.scrollIntoView({ behavior: "smooth", block: "start" });
-          setActiveNav(btn.id);
-          chime();
-        });
+        Object.entries(viewMap).forEach(([k, el]) => el.classList.toggle("active", k === viewKey));
 
-        $("#ctaBegin").addEventListener("click", () => {
-          document.querySelector("#screen-studio").scrollIntoView({ behavior: "smooth", block: "start" });
-          setActiveNav("navStudio");
+        // bottom bar only on reading
+        $("#bottomBar").style.display = viewKey === "reading" ? "block" : "none";
+
+        // set active nav class
+        document.querySelectorAll(".navbtn").forEach((b) => b.classList.remove("active"));
+        const activeBtn = document.querySelector(`.navbtn[data-view="${viewKey}"]`);
+        if (activeBtn) activeBtn.classList.add("active");
+
+        // move indicator
+        requestAnimationFrame(() => moveNavIndicator());
+
+        if (opts.focusStep) {
           setStep(0);
           focusFirstInput();
-          chime();
-        });
-
-        $("#btnBack").addEventListener("click", () => prevStep());
-        $("#btnNext").addEventListener("click", () => nextStep());
-
-        $("#unlockWheel").addEventListener("click", () => {
-          state.wheelPinned = false;
-          setWheelDetail(null);
-          toast("Pin gelöst");
-          chime();
-        });
-
-        $("#revealNext").addEventListener("click", () => revealNextPrompt());
-        $("#revealAll").addEventListener("click", () => revealAllPrompts());
-
-        $("#printBtn").addEventListener("click", () => window.print());
-        $("#copyBtn").addEventListener("click", async () => {
-          const txt = buildCopySummary();
-          try { await navigator.clipboard.writeText(txt); toast("Kopiert"); chime(); } catch { toast("Copy nicht möglich"); }
-        });
-
-        // Build wizard
-        buildWizardUI();
-        setStep(0);
-        updateStepper();
-        updateBottomBar();
-        renderWheelEmpty();
-
-        // Swipe support on wizard
-        bindSwipe();
-
-        // Auto active nav on scroll
-        observeSections();
-
-        // Enable Ergebnis nav when ready
-        $("#navErgebnis").disabled = true;
+        }
       }
 
-      function setActiveNav(id) {
-        document.querySelectorAll(".navbtn").forEach((b) => b.classList.remove("active"));
-        const el = document.getElementById(id);
-        if (el) el.classList.add("active");
+      function moveNavIndicator() {
+        const nav = $("#topnav");
+        const indicator = $("#navIndicator");
+        const active = nav.querySelector(".navbtn.active");
+        if (!active) return;
+
+        const navRect = nav.getBoundingClientRect();
+        const aRect = active.getBoundingClientRect();
+
+        const x = (aRect.left - navRect.left);
+        const w = aRect.width;
+
+        // account for nav internal padding (6px)
+        const xAdjusted = x;
+        indicator.style.width = `${w}px`;
+        indicator.style.transform = `translateX(${xAdjusted}px)`;
       }
 
-      function observeSections() {
-        const sections = [
-          { id: "screen-landing", nav: "navStart" },
-          { id: "screen-studio", nav: "navStudio" },
-          { id: "screen-ergebnis", nav: "navErgebnis" },
-        ];
-        const obs = new IntersectionObserver((entries) => {
-          const visible = entries.filter((e) => e.isIntersecting).sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-          if (!visible) return;
-          const found = sections.find((s) => s.id === visible.target.id);
-          if (found) setActiveNav(found.nav);
-        }, { threshold: [0.35, 0.55, 0.75] });
-
-        sections.forEach((s) => {
-          const el = document.getElementById(s.id);
-          if (el) obs.observe(el);
-        });
-      }
-
-      function bindSwipe() {
-        const area = document.querySelector(".wizard-shell");
-        if (!area) return;
-
-        let sx = 0, sy = 0, st = 0;
-        area.addEventListener("touchstart", (e) => {
-          if (!e.touches || e.touches.length !== 1) return;
-          sx = e.touches[0].clientX;
-          sy = e.touches[0].clientY;
-          st = Date.now();
-        }, { passive: true });
-
-        area.addEventListener("touchend", (e) => {
-          const dt = Date.now() - st;
-          if (dt > 650) return;
-          const t = e.changedTouches && e.changedTouches[0];
-          if (!t) return;
-          const dx = t.clientX - sx;
-          const dy = t.clientY - sy;
-          if (Math.abs(dx) < 56 || Math.abs(dy) > 80) return;
-          if (dx < 0) nextStep();
-          else prevStep();
-        }, { passive: true });
-      }
+      window.addEventListener("resize", () => moveNavIndicator());
 
       /* ===========================
          WIZARD UI
@@ -1372,6 +1273,31 @@
         $("#bottomLeft").textContent = `Schritt ${state.stepIndex + 1}/${STEPS.length}`;
       }
 
+      function bindSwipe() {
+        const area = document.querySelector(".wizard-shell");
+        if (!area) return;
+
+        let sx = 0, sy = 0, st = 0;
+        area.addEventListener("touchstart", (e) => {
+          if (!e.touches || e.touches.length !== 1) return;
+          sx = e.touches[0].clientX;
+          sy = e.touches[0].clientY;
+          st = Date.now();
+        }, { passive: true });
+
+        area.addEventListener("touchend", (e) => {
+          const dt = Date.now() - st;
+          if (dt > 650) return;
+          const t = e.changedTouches && e.changedTouches[0];
+          if (!t) return;
+          const dx = t.clientX - sx;
+          const dy = t.clientY - sy;
+          if (Math.abs(dx) < 56 || Math.abs(dy) > 80) return;
+          if (dx < 0) nextStep();
+          else prevStep();
+        }, { passive: true });
+      }
+
       /* ===========================
          ENGINE
       =========================== */
@@ -1429,10 +1355,6 @@
         if (stage === "expansion") { bump("wachstum_vs_stabilitaet", 2); bump("tempo_vs_reife", 2); bump("kontrolle_vs_vertrauen", 1); }
         if (stage === "neuordnung") { bump("innovation_vs_struktur", 2); bump("wachstum_vs_stabilitaet", 1); bump("gruender_vs_markt", 1); }
 
-        const team = v.teamSize;
-        if (team === "solo" || team === "tiny") { bump("vision_vs_umsetzung", 1); bump("innovation_vs_struktur", 1); }
-        if (team === "mid" || team === "scale" || team === "large") { bump("kontrolle_vs_vertrauen", 2); bump("tempo_vs_reife", 1); bump("wachstum_vs_stabilitaet", 1); }
-
         const leak = v.energyLeak;
         if (leak === "unklarheit") bump("kontrolle_vs_vertrauen", 1);
         if (leak === "komplexitaet") bump("innovation_vs_struktur", 1);
@@ -1489,8 +1411,6 @@
         if (p === "vision_vs_umsetzung") { bump("builder", 1); bump("pioneer", 1); }
         if (p === "gruender_vs_markt") { bump("challenger", 1); bump("magnet", 1); }
         if (p === "innovation_vs_struktur") bump("builder", 2);
-        if (p === "tempo_vs_reife") { bump("steward", 1); bump("integrator", 1); }
-        if (p === "wachstum_vs_stabilitaet") { bump("steward", 1); bump("builder", 1); }
 
         if (sma.element.id === "feuer") { bump("catalyst", 1); bump("pioneer", 1); }
         if (sma.element.id === "wasser") { bump("steward", 1); bump("magnet", 1); }
@@ -1528,13 +1448,22 @@
         return { risk, lever: `${axisLever} ${arch.dominant.lever}` };
       }
 
+      function escapeHtml(s) {
+        return String(s)
+          .replaceAll("&", "&amp;")
+          .replaceAll("<", "&lt;")
+          .replaceAll(">", "&gt;")
+          .replaceAll('"', "&quot;")
+          .replaceAll("'", "&#039;");
+      }
+
       function composeOriginText(v, rhythmTag, fieldTag, cycle) {
         const qual = { morgen: "morgendlich-klar", mittag: "sichtbar-tragend", abend: "verdichtend-mutig", nacht: "intuitiv-tief" }[v.startQualitaet] ?? "klar";
         return [
-          `Ein ${qual}er Eintritt: Der Ursprung will Form – nicht nur Start.`,
+          `Ein <strong>${qual}</strong>er Eintritt: Der Ursprung will Form – nicht nur Start.`,
           `Rhythmus: <strong>${rhythmTag}</strong>.`,
           `Feld: <strong>${fieldTag}</strong>.`,
-          `Zyklus: <strong>${cycle.name}</strong> – ${cycle.hint}`,
+          `Zyklus: <strong>${cycle.name}</strong> · ${cycle.hint}`,
         ].join(" ");
       }
 
@@ -1565,7 +1494,7 @@
         ].join(" ");
       }
 
-      function composeLeadText(v, arch, riskLever) {
+      function composeLeadText(v, riskLever) {
         const qMap = {
           fokus: "Fokus",
           containment: "Containment",
@@ -1588,29 +1517,16 @@
 
         const base = [
           { q: "Welches Bedürfnis des Systems wird gerade überhört – und wo zeigt es sich (Meetings, Delivery, Entscheidungen)?", h: "Suche nach der Stelle, an der Energie unbemerkt bezahlt wird." },
-          { q: "Was muss stabil sein, damit Bewegung tragfähig wird – ohne euch zu verhärten?", h: "Containment ist Schutzraum, nicht Kontrolle." },
           { q: "Welche Entscheidung würde sofort Ordnung schaffen, obwohl sie kurz unbequem ist?", h: "Klarheit entlastet schneller als neue Aufgaben." },
         ];
 
         const axisPrompts = {
-          wachstum_vs_stabilitaet: [
-            { q: "Welche eine Sache schützt du in den nächsten 90 Tagen, damit Wachstum nicht zum Selbstverlust wird?", h: "Kern: Angebot · Kadenz · Ownership." },
-          ],
-          vision_vs_umsetzung: [
-            { q: "Welcher Satz klingt schön, ist aber noch nicht umsetzbar – und was wäre der kleinste Test in 7 Tagen?", h: "Ein Test hat Output." },
-          ],
-          kontrolle_vs_vertrauen: [
-            { q: "Wo wird übersteuert – und welches Instrument würde Vertrauen sicher machen (Rolle, Regel, Feedback)?", h: "Instrumente entdramatisieren Führung." },
-          ],
-          tempo_vs_reife: [
-            { q: "Welcher Engpass entscheidet das Tempo – und wie würdet ihr Tempo designen statt fordern?", h: "Engpass zuerst." },
-          ],
-          gruender_vs_markt: [
-            { q: "Welche Handschrift ist kostbar – und welche ist gerade ein Gefängnis?", h: "Reifung: gleiche Handschrift, neue Form." },
-          ],
-          innovation_vs_struktur: [
-            { q: "Welche Neuheit muss jetzt Struktur werden, damit sie wiederholbar wirkt?", h: "Struktur trägt Kreativität." },
-          ],
+          wachstum_vs_stabilitaet: [{ q: "Was schützt du in den nächsten 90 Tagen, damit Wachstum nicht zum Selbstverlust wird?", h: "Kern: Angebot · Kadenz · Ownership." }],
+          vision_vs_umsetzung: [{ q: "Welche Vision braucht einen Test – und was ist der kleinste Schritt in 7 Tagen?", h: "Ein Test hat Output." }],
+          kontrolle_vs_vertrauen: [{ q: "Wo wird übersteuert – und welches Instrument macht Vertrauen sicher (Rolle, Regel, Feedback)?", h: "Instrumente entdramatisieren Führung." }],
+          tempo_vs_reife: [{ q: "Welcher Engpass entscheidet das Tempo – und wie würdet ihr Tempo designen statt fordern?", h: "Engpass zuerst." }],
+          gruender_vs_markt: [{ q: "Welche Handschrift ist kostbar – und welche ist gerade ein Gefängnis?", h: "Reifung: gleiche Handschrift, neue Form." }],
+          innovation_vs_struktur: [{ q: "Welche Neuheit muss Struktur werden, damit sie wiederholbar wirkt?", h: "Struktur trägt Kreativität." }],
         };
 
         const smaPrompts = [
@@ -1640,49 +1556,7 @@
       }
 
       /* ===========================
-         GENERATE
-      =========================== */
-      async function generateProfile() {
-        $("#calibrating").classList.remove("hidden");
-        document.querySelectorAll(".step-view").forEach((v) => v.classList.remove("active"));
-        chime();
-        await sleep(700);
-
-        const v = normalizeValues(state.values);
-        const rhythmTag = computeRhythmTag(v.foundingDate);
-        const fieldTag = computeFieldTag(v.industry, v.proofDemand);
-        const sma = computeSMA(v);
-        const tensions = computeTensions(v);
-        const arch = computeArchetypes(v, sma, tensions);
-        const cycle = computeCycle(v.currentStage);
-        const riskLever = computeRiskAndLever(v, arch, tensions);
-        const prompts = buildPrompts(v, sma, tensions);
-
-        state.profile = { values: v, rhythmTag, fieldTag, sma, tensions, arch, cycle, riskLever, prompts };
-
-        await sleep(550);
-        $("#calibrating").classList.add("hidden");
-
-        renderResult(state.profile);
-
-        $("#navErgebnis").disabled = false;
-        document.querySelector("#screen-ergebnis").scrollIntoView({ behavior: "smooth", block: "start" });
-        setActiveNav("navErgebnis");
-        toast("Ergebnis erzeugt");
-        chime();
-      }
-
-      function normalizeValues(values) {
-        const out = {};
-        for (const s of STEPS) for (const f of s.fields) out[f.key] = safe(values[f.key]);
-        if (!out.axisPreset) out.axisPreset = "auto";
-        if (!out.startQualitaet) out.startQualitaet = "morgen";
-        if (!out.foundingTime) out.foundingTime = "";
-        return out;
-      }
-
-      /* ===========================
-         RENDER RESULT
+         RESULT RENDER
       =========================== */
       function renderBadges(sel, items) {
         const wrap = document.querySelector(sel);
@@ -1695,63 +1569,19 @@
         }
       }
 
-      function renderResult(p) {
-        $("#ergebnisEmpty").classList.add("hidden");
-        $("#ergebnisWrap").classList.remove("hidden");
-
-        $("#originText").innerHTML = composeOriginText(p.values, p.rhythmTag, p.fieldTag, p.cycle);
-        $("#rhythmTag").textContent = p.rhythmTag;
-        $("#fieldTag").textContent = p.fieldTag;
-
-        $("#smaText").innerHTML = composeSMAText(p.sma);
-        renderBadges("#smaBadges", [
-          `Sonne: ${p.sma.sun.label}`,
-          `Mond: ${p.sma.moon.label}`,
-          `Asc: ${p.sma.asc.label}`,
-          `Element: ${p.sma.element.name}`,
-          `Sek.: ${p.sma.element2.name}`,
-        ]);
-
-        $("#archNames").textContent = `${p.arch.dominant.name} + ${p.arch.secondary.name}`;
-        $("#archText").innerHTML = composeArchetypeText(p.arch);
-        renderBadges("#archTags", [...p.arch.dominant.tone, ...p.arch.secondary.tone].slice(0, 6));
-
-        $("#axisName").textContent = p.tensions.primary.name;
-        $("#axisText").innerHTML = composeAxisText(p.values, p.tensions.primary, p.tensions.secondary);
-        renderBadges("#axisBadges", [
-          `${p.tensions.primary.poles[0]} ↔ ${p.tensions.primary.poles[1]}`,
-          `${p.tensions.secondary.poles[0]} ↔ ${p.tensions.secondary.poles[1]}`,
-        ]);
-
-        $("#leadText").innerHTML = composeLeadText(p.values, p.arch, p.riskLever);
-        $("#riskTag").textContent = p.riskLever.risk;
-        $("#leverTag").textContent = p.riskLever.lever;
-
-        $("#cycleText").innerHTML = [
-          `<div class="big">${p.cycle.name}</div>`,
-          `<div class="prose">Signale: ${p.cycle.signals.join(" · ")}</div>`,
-          `<div class="prose">Reibung: ${p.cycle.friction.join(" · ")}</div>`,
-          `<div class="prose"><strong>Timing:</strong> ${p.cycle.hint}</div>`,
-        ].join("");
-        renderBadges("#cycleBadges", [p.cycle.name, `Reibung: ${p.values.frictionZone}`, `Leak: ${p.values.energyLeak}`]);
-
-        renderWheel(p);
-
-        state.reveal.prompts = p.prompts;
-        state.reveal.shown = 0;
-        $("#revealGrid").innerHTML = "";
-        updateRevealStatus();
-        revealNextPrompt();
-        setTimeout(() => revealNextPrompt(), 420);
-
-        renderExport(p);
-      }
-
-      /* ===========================
-         PROMPTS
-      =========================== */
       function updateRevealStatus() {
         $("#revealStatus").textContent = `${state.reveal.shown} / ${state.reveal.prompts.length} sichtbar`;
+      }
+
+      function syncExportPrompts() {
+        if (!state.profile) return;
+        const ul = $("#exportPrompts");
+        ul.innerHTML = "";
+        for (const p of state.profile.prompts.slice(0, 8)) {
+          const li = document.createElement("li");
+          li.textContent = p.q;
+          ul.appendChild(li);
+        }
       }
 
       function revealNextPrompt() {
@@ -1786,17 +1616,6 @@
         while (state.reveal.shown < state.reveal.prompts.length) revealNextPrompt();
       }
 
-      function syncExportPrompts() {
-        if (!state.profile) return;
-        const ul = $("#exportPrompts");
-        ul.innerHTML = "";
-        for (const p of state.profile.prompts.slice(0, 8)) {
-          const li = document.createElement("li");
-          li.textContent = p.q;
-          ul.appendChild(li);
-        }
-      }
-
       /* ===========================
          WHEEL
       =========================== */
@@ -1820,7 +1639,6 @@
         };
         return map[axisId] ?? 0;
       }
-
       function elementFill(id) {
         const map = {
           feuer: "rgba(196,162,92,0.10)",
@@ -1830,7 +1648,6 @@
         };
         return map[id] ?? "rgba(255,255,255,0.05)";
       }
-
       function elementNode(id) {
         const map = {
           feuer: "rgba(196,162,92,0.85)",
@@ -1840,7 +1657,6 @@
         };
         return map[id] ?? "rgba(218,226,240,0.65)";
       }
-
       function axisFill(id, profile) {
         const isPrimary = profile && profile.tensions.primary.id === id;
         const isSecondary = profile && profile.tensions.secondary.id === id;
@@ -1848,7 +1664,6 @@
         if (isSecondary) return "rgba(196,162,92,0.06)";
         return "rgba(255,255,255,0.045)";
       }
-
       function axisLine(cx, cy, deg, stroke, width) {
         const p0 = polar(cx, cy, 120, deg);
         const p1 = polar(cx, cy, 320, deg);
@@ -1868,7 +1683,6 @@
           body.textContent = state.wheelPinned ? "Pin lösen, um wieder frei zu wählen." : "Tippe ein Segment für eine Notiz.";
           return;
         }
-
         title.textContent = seg.label;
         body.textContent = seg.detail;
       }
@@ -1888,7 +1702,6 @@
         svg.appendChild(svgCircle(cx, cy, 270, "rgba(255,255,255,0.08)", "rgba(0,0,0,0)"));
         svg.appendChild(svgCircle(cx, cy, 220, "rgba(255,255,255,0.06)", "rgba(0,0,0,0)"));
         svg.appendChild(svgCircle(cx, cy, 168, "rgba(255,255,255,0.05)", "rgba(0,0,0,0)"));
-
         svg.appendChild(svgLine(cx, 70, cx, 650, "rgba(255,255,255,0.06)", 1));
         svg.appendChild(svgLine(70, cy, 650, cy, "rgba(255,255,255,0.06)", 1));
 
@@ -2017,6 +1830,174 @@
           `Hebel: ${p.riskLever.lever}`,
         ].join("\n");
       }
+
+      /* ===========================
+         GENERATE
+      =========================== */
+      async function generateProfile() {
+        $("#calibrating").classList.remove("hidden");
+        document.querySelectorAll(".step-view").forEach((v) => v.classList.remove("active"));
+        chime();
+        await sleep(650);
+
+        const v = normalizeValues(state.values);
+        const rhythmTag = computeRhythmTag(v.foundingDate);
+        const fieldTag = computeFieldTag(v.industry, v.proofDemand);
+        const sma = computeSMA(v);
+        const tensions = computeTensions(v);
+        const arch = computeArchetypes(v, sma, tensions);
+        const cycle = computeCycle(v.currentStage);
+        const riskLever = computeRiskAndLever(v, arch, tensions);
+        const prompts = buildPrompts(v, sma, tensions);
+
+        state.profile = { values: v, rhythmTag, fieldTag, sma, tensions, arch, cycle, riskLever, prompts };
+
+        await sleep(520);
+        $("#calibrating").classList.add("hidden");
+
+        renderResult(state.profile);
+
+        $("#navErgebnis").disabled = false;
+        switchView("ergebnis");
+        toast("Ergebnis erzeugt");
+        chime();
+      }
+
+      function normalizeValues(values) {
+        const out = {};
+        for (const s of STEPS) for (const f of s.fields) out[f.key] = safe(values[f.key]);
+        if (!out.axisPreset) out.axisPreset = "auto";
+        if (!out.startQualitaet) out.startQualitaet = "morgen";
+        if (!out.foundingTime) out.foundingTime = "";
+        return out;
+      }
+
+      function renderResult(p) {
+        $("#ergebnisEmpty").classList.add("hidden");
+        $("#ergebnisWrap").classList.remove("hidden");
+
+        $("#originText").innerHTML = composeOriginText(p.values, p.rhythmTag, p.fieldTag, p.cycle);
+        $("#rhythmTag").textContent = p.rhythmTag;
+        $("#fieldTag").textContent = p.fieldTag;
+
+        $("#smaText").innerHTML = composeSMAText(p.sma);
+        renderBadges("#smaBadges", [
+          `Sonne: ${p.sma.sun.label}`,
+          `Mond: ${p.sma.moon.label}`,
+          `Asc: ${p.sma.asc.label}`,
+          `Element: ${p.sma.element.name}`,
+          `Sek.: ${p.sma.element2.name}`,
+        ]);
+
+        $("#archNames").textContent = `${p.arch.dominant.name} + ${p.arch.secondary.name}`;
+        $("#archText").innerHTML = composeArchetypeText(p.arch);
+        renderBadges("#archTags", [...p.arch.dominant.tone, ...p.arch.secondary.tone].slice(0, 6));
+
+        $("#axisName").textContent = p.tensions.primary.name;
+        $("#axisText").innerHTML = composeAxisText(p.values, p.tensions.primary, p.tensions.secondary);
+        renderBadges("#axisBadges", [
+          `${p.tensions.primary.poles[0]} ↔ ${p.tensions.primary.poles[1]}`,
+          `${p.tensions.secondary.poles[0]} ↔ ${p.tensions.secondary.poles[1]}`,
+        ]);
+
+        $("#leadText").innerHTML = composeLeadText(p.values, p.riskLever);
+        $("#riskTag").textContent = p.riskLever.risk;
+        $("#leverTag").textContent = p.riskLever.lever;
+
+        $("#cycleText").innerHTML = [
+          `<div class="big">${p.cycle.name}</div>`,
+          `<div class="prose">Signale: ${p.cycle.signals.join(" · ")}</div>`,
+          `<div class="prose">Reibung: ${p.cycle.friction.join(" · ")}</div>`,
+          `<div class="prose"><strong>Timing:</strong> ${p.cycle.hint}</div>`,
+        ].join("");
+        renderBadges("#cycleBadges", [p.cycle.name, `Reibung: ${p.values.frictionZone}`, `Leak: ${p.values.energyLeak}`]);
+
+        renderWheel(p);
+
+        state.reveal.prompts = p.prompts;
+        state.reveal.shown = 0;
+        $("#revealGrid").innerHTML = "";
+        updateRevealStatus();
+        revealNextPrompt();
+        setTimeout(() => revealNextPrompt(), 420);
+
+        renderExport(p);
+      }
+
+      /* ===========================
+         INIT + EVENTS
+      =========================== */
+      function init() {
+        buildWizardUI();
+        renderWheelEmpty();
+        setStep(0);
+        bindSwipe();
+
+        // Bottom bar only when Reading is active
+        $("#bottomBar").style.display = "none";
+
+        // Nav clicks
+        document.querySelectorAll(".navbtn[data-view]").forEach((btn) => {
+          btn.addEventListener("click", () => {
+            const v = btn.dataset.view;
+            if (btn.disabled) return;
+            switchView(v);
+            chime();
+          });
+        });
+
+        // CTA -> reading
+        $("#ctaBegin").addEventListener("click", () => {
+          switchView("reading", { focusStep: true });
+          chime();
+        });
+
+        // Bottom controls
+        $("#btnBack").addEventListener("click", prevStep);
+        $("#btnNext").addEventListener("click", nextStep);
+
+        // Ergebnis buttons
+        $("#unlockWheel").addEventListener("click", () => {
+          state.wheelPinned = false;
+          setWheelDetail(null);
+          toast("Pin gelöst");
+          chime();
+        });
+        $("#revealNext").addEventListener("click", revealNextPrompt);
+        $("#revealAll").addEventListener("click", revealAllPrompts);
+
+        $("#printBtn").addEventListener("click", () => window.print());
+        $("#copyBtn").addEventListener("click", async () => {
+          const txt = buildCopySummary();
+          try { await navigator.clipboard.writeText(txt); toast("Kopiert"); chime(); }
+          catch { toast("Copy nicht möglich"); }
+        });
+
+        // Indicator initial position
+        requestAnimationFrame(() => moveNavIndicator());
+      }
+
+      init();
+
+      /* --------- keep nav indicator aligned if fonts settle --------- */
+      setTimeout(() => moveNavIndicator(), 320);
+      setTimeout(() => moveNavIndicator(), 900);
+
+      /* ===========================
+         Bottom bar meta updates (Enter is supported)
+      =========================== */
+      document.addEventListener("keydown", (e) => {
+        if (state.view !== "reading") return;
+        // allow Enter-to-next handled per-field; this is a fallback:
+        if (e.key === "Enter" && e.target && ["INPUT","SELECT"].includes(e.target.tagName)) return;
+      });
+
+      /* ===========================
+         Extra: ensure Ergebnis tab indicator moves when it gets enabled
+      =========================== */
+      const ergebnisBtn = $("#navErgebnis");
+      const obs = new MutationObserver(() => requestAnimationFrame(() => moveNavIndicator()));
+      obs.observe(ergebnisBtn, { attributes: true, attributeFilter: ["disabled", "class"] });
     </script>
   </body>
 </html>
