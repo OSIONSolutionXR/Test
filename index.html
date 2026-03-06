@@ -1,4 +1,4 @@
-<!-- File: index.html (Single-File • Mobile-first • 3 Fenster: Start / Reading / Ergebnis • Active-Glow Nav • Soundless-Chime) -->
+<!-- File: index.html (Single-File • Mobile-first • 3 Fenster • Inline Step-Nav • Fixed Select Styling • Intuitivere Fragen • Ergebnis als Accordions + Karten-Deck • Rad mit Erklärung) -->
 <!doctype html>
 <html lang="de">
   <head>
@@ -6,10 +6,6 @@
     <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
     <meta name="color-scheme" content="dark light" />
     <title>Venture Resonance Studio</title>
-    <meta
-      name="description"
-      content="Venture Resonance Studio – Unternehmens-Chart als Reflexionsraum: Signatur, Zeitqualität, Teamdynamik, Sonne/Mond/Aszendent."
-    />
 
     <style>
       :root {
@@ -40,6 +36,7 @@
         --sar: env(safe-area-inset-right);
 
         --navH: 54px;
+        --navPad: 6px;
       }
 
       * { box-sizing: border-box; }
@@ -81,7 +78,7 @@
       .muted { color: var(--muted); }
       .faint { color: var(--faint); }
 
-      /* Top nav (no logo/title; only tabs + active glow pill) */
+      /* Top nav */
       .topbar {
         position: sticky;
         top: 0;
@@ -106,18 +103,17 @@
         align-items: center;
         justify-content: center;
         width: min(720px, 100%);
-        padding: 6px;
+        padding: var(--navPad);
         border-radius: 20px;
         border: 1px solid rgba(255,255,255,0.10);
         background: rgba(0,0,0,0.14);
         overflow: hidden;
       }
-
       .nav-indicator {
         position: absolute;
-        top: 6px;
-        left: 6px;
-        height: calc(100% - 12px);
+        top: var(--navPad);
+        left: var(--navPad);
+        height: calc(100% - (var(--navPad) * 2));
         width: 120px;
         border-radius: 16px;
         background: linear-gradient(180deg, rgba(196,162,92,0.18), rgba(255,255,255,0.05));
@@ -127,10 +123,8 @@
           0 0 0 1px rgba(255,255,255,0.06) inset;
         filter: saturate(1.08);
         transition: transform 260ms ease, width 260ms ease, opacity 180ms ease;
-        opacity: 1;
         pointer-events: none;
       }
-
       .navbtn {
         appearance: none;
         border: 1px solid rgba(255,255,255,0.10);
@@ -146,14 +140,14 @@
         overflow: hidden;
         user-select: none;
         -webkit-tap-highlight-color: transparent;
-        z-index: 1; /* above indicator */
+        z-index: 1;
       }
       .navbtn:hover { transform: translateY(-1px); background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.16); }
       .navbtn:active { transform: translateY(0); }
       .navbtn.active { color: rgba(255,255,255,0.94); border-color: rgba(255,255,255,0.16); background: rgba(255,255,255,0.02); }
       .navbtn[disabled] { opacity: 0.55; cursor: not-allowed; }
 
-      /* Premium sweep on buttons */
+      /* Premium sweep */
       .navbtn::after,
       .btn::after {
         content: "";
@@ -179,10 +173,10 @@
         width: 100%;
         max-width: 980px;
         margin: 0 auto;
-        padding: 16px calc(14px + var(--sal)) calc(120px + var(--sab)) calc(14px + var(--sar));
+        padding: 16px calc(14px + var(--sal)) calc(18px + var(--sab)) calc(14px + var(--sar));
       }
 
-      /* Views (Fenster) */
+      /* Views */
       .view { display: none; }
       .view.active { display: block; }
 
@@ -195,8 +189,13 @@
         opacity: 0.92;
         margin-bottom: 10px;
       }
-      .lead { color: var(--muted); font-size: 1.02rem; line-height: 1.62; margin-top: 12px; max-width: 70ch; }
-
+      .lead {
+        color: var(--muted);
+        font-size: 1.02rem;
+        line-height: 1.62;
+        margin-top: 12px;
+        max-width: 70ch;
+      }
       .hero-card {
         margin-top: 14px;
         border: 1px solid rgba(255,255,255,0.10);
@@ -242,9 +241,10 @@
         background: linear-gradient(180deg, rgba(196,162,92,0.20), rgba(255,255,255,0.05));
       }
       .btn.ghost { color: var(--muted); }
+
       .cta-row { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 14px; }
 
-      /* Wizard shell */
+      /* Wizard */
       .wizard-shell {
         margin-top: 12px;
         border-radius: var(--radius2);
@@ -253,13 +253,8 @@
         box-shadow: 0 18px 70px rgba(0, 0, 0, 0.35);
         overflow: hidden;
       }
-      .wizard-stage {
-        padding: 14px;
-        min-height: 430px;
-        display: grid;
-        align-content: start;
-        gap: 12px;
-      }
+      .wizard-stage { padding: 14px; display: grid; gap: 12px; }
+
       .wizard-card {
         border-radius: var(--radius2);
         border: 1px solid rgba(255,255,255,0.10);
@@ -291,43 +286,74 @@
         letter-spacing: 0.16em;
         text-transform: uppercase;
       }
+
       .prompt-title { font-family: var(--serif); font-size: 1.22rem; line-height: 1.18; margin-top: 10px; }
       .prompt-body { color: var(--muted); line-height: 1.68; margin-top: 10px; }
 
       .field-grid { display: grid; grid-template-columns: 1fr; gap: 12px; margin-top: 12px; }
       .field { display: grid; gap: 8px; }
       label { font-size: 0.92rem; color: var(--faint); }
+
       input, select, textarea {
         width: 100%;
         padding: 13px 12px;
         border-radius: 16px;
         border: 1px solid rgba(255,255,255,0.12);
-        background: rgba(0,0,0,0.22);
+        background: rgba(0,0,0,0.28);
         color: rgba(255,255,255,0.92);
         outline: none;
         font-size: 1rem;
       }
-      textarea { resize: vertical; min-height: 110px; }
+      textarea { resize: vertical; min-height: 120px; }
+
       input:focus, select:focus, textarea:focus {
         border-color: rgba(196,162,92,0.42);
         box-shadow: 0 0 0 4px rgba(196,162,92,0.11);
       }
 
+      /* Fix select dropdown colors */
+      select {
+        appearance: none;
+        -webkit-appearance: none;
+        background-image:
+          linear-gradient(45deg, transparent 50%, rgba(255,255,255,0.55) 50%),
+          linear-gradient(135deg, rgba(255,255,255,0.55) 50%, transparent 50%),
+          linear-gradient(to right, transparent, transparent);
+        background-position:
+          calc(100% - 18px) calc(1em + 4px),
+          calc(100% - 13px) calc(1em + 4px),
+          calc(100% - 2.6em) 0.5em;
+        background-size:
+          5px 5px,
+          5px 5px,
+          1px 1.6em;
+        background-repeat: no-repeat;
+        padding-right: 40px;
+      }
+      option {
+        background: #0b0e16;
+        color: rgba(255,255,255,0.92);
+      }
+
       .step-view { display: none; opacity: 0; transform: translateY(10px); }
       .step-view.active { display: block; opacity: 1; transform: translateY(0); transition: opacity 260ms ease, transform 260ms ease; }
 
-      /* Stepper (clean) */
-      .studio-stepper { display: grid; gap: 10px; margin-top: 14px; }
-      .stepper-top {
+      /* Step header inside card */
+      .step-meta {
         display: flex;
         align-items: baseline;
         justify-content: space-between;
         gap: 10px;
         flex-wrap: wrap;
+        margin-top: 6px;
       }
-      .stepper-title { color: var(--muted); font-size: 0.95rem; }
-      .stepper-title strong { color: var(--text); font-family: var(--serif); font-weight: 600; }
+      .step-meta .left { color: var(--muted); font-size: 0.95rem; }
+      .step-meta .left strong { color: var(--text); font-family: var(--serif); font-weight: 600; }
+      .step-meta .right { color: var(--faint); font-size: 0.9rem; }
+      .kbd { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; font-size: 0.88em; color: rgba(255,255,255,0.70); }
+
       .progressbar {
+        margin-top: 10px;
         width: 100%;
         height: 9px;
         border-radius: 999px;
@@ -343,168 +369,20 @@
         transition: width 240ms ease;
       }
 
-      /* Bottom bar controls (only relevant for Reading; we toggle it) */
-      .bottom-bar {
-        position: fixed;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        z-index: 90;
-        padding: 10px calc(14px + var(--sal)) calc(10px + var(--sab)) calc(14px + var(--sar));
-        background: linear-gradient(to top, rgba(7,9,15,0.96), rgba(7,9,15,0.55));
-        border-top: 1px solid rgba(255,255,255,0.10);
-        backdrop-filter: blur(14px);
-      }
-      .bottom-inner {
-        max-width: 980px;
-        margin: 0 auto;
+      /* Inline nav inside card (no far-away buttons) */
+      .card-actions {
+        margin-top: 14px;
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: 10px;
-        align-items: center;
+        position: sticky;
+        bottom: 0;
+        padding-top: 10px;
+        background: linear-gradient(to top, rgba(7,9,15,0.85), rgba(7,9,15,0.0));
+        backdrop-filter: blur(10px);
       }
-      .bottom-inner .btn { width: 100%; }
-      .bottom-meta {
-        grid-column: span 2;
-        display: flex;
-        justify-content: space-between;
-        gap: 10px;
-        color: var(--faint);
-        font-size: 0.88rem;
-        margin-top: 6px;
-      }
-      .kbd { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; font-size: 0.88em; color: rgba(255,255,255,0.70); }
-
-      /* Results */
-      .hidden { display: none !important; }
-      .results { display: grid; gap: 16px; margin-top: 14px; }
-      .cards { display: grid; grid-template-columns: 1fr; gap: 12px; }
-
-      .card {
-        border-radius: var(--radius2);
-        border: 1px solid rgba(255,255,255,0.10);
-        background: linear-gradient(180deg, rgba(255,255,255,0.055), rgba(255,255,255,0.03));
-        padding: 14px;
-        box-shadow: var(--shadow);
-        position: relative;
-        overflow: hidden;
-      }
-      .card::after {
-        content: "";
-        position: absolute;
-        inset: -45%;
-        background:
-          radial-gradient(circle at 25% 25%, rgba(218,226,240,0.06), transparent 52%),
-          radial-gradient(circle at 70% 70%, rgba(196,162,92,0.06), transparent 55%);
-        pointer-events: none;
-      }
-      .card > * { position: relative; z-index: 1; }
-      .card-top { display: grid; gap: 8px; margin-bottom: 10px; }
-      .prose { color: var(--muted); line-height: 1.68; }
-      .big { font-family: var(--serif); font-size: 1.28rem; margin-bottom: 8px; color: var(--text); }
-
-      .tags, .axis { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
-      .badge {
-        padding: 8px 10px;
-        border-radius: 999px;
-        border: 1px solid rgba(255,255,255,0.12);
-        background: rgba(255,255,255,0.04);
-        color: var(--faint);
-        font-size: 0.88rem;
-      }
-
-      .mini-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 12px; }
-      .mini {
-        padding: 10px 10px;
-        border-radius: 18px;
-        border: 1px solid rgba(255,255,255,0.10);
-        background: rgba(0,0,0,0.14);
-      }
-      .mini-k { font-size: 0.82rem; color: var(--faint); }
-      .mini-v { margin-top: 6px; font-family: var(--serif); color: var(--text); line-height: 1.25; }
-
-      /* Wheel */
-      .wheel-wrap {
-        padding: 14px;
-        border-radius: var(--radius2);
-        border: 1px solid rgba(255,255,255,0.10);
-        background: rgba(255,255,255,0.03);
-      }
-      .wheel-head { display: grid; gap: 10px; margin-bottom: 12px; }
-      .wheel-grid { display: grid; grid-template-columns: 1fr; gap: 12px; }
-      .wheel-shell {
-        border-radius: var(--radius2);
-        border: 1px solid rgba(255,255,255,0.10);
-        background: radial-gradient(circle at 50% 40%, rgba(255,255,255,0.07), rgba(0,0,0,0.12));
-        box-shadow: 0 20px 80px rgba(0,0,0,0.40);
-        overflow: hidden;
-      }
-      #wheelSvg { width: 100%; height: auto; display: block; }
-      .wheel-detail {
-        border-radius: var(--radius2);
-        border: 1px solid rgba(255,255,255,0.10);
-        background: rgba(0,0,0,0.14);
-        padding: 14px;
-      }
-      .detail-top { display: grid; gap: 8px; margin-bottom: 10px; }
-      .detail-actions { margin-top: 12px; display: flex; gap: 10px; flex-wrap: wrap; }
-
-      /* Reflection */
-      .reveal-grid { display: grid; gap: 12px; }
-      .reveal-card {
-        border-radius: 22px;
-        border: 1px solid rgba(255,255,255,0.10);
-        background: rgba(0,0,0,0.14);
-        padding: 14px;
-        opacity: 0;
-        transform: translateY(10px);
-      }
-      .reveal-card.show { opacity: 1; transform: translateY(0); transition: opacity 360ms ease, transform 360ms ease; }
-      .reveal-q { font-family: var(--serif); font-size: 1.02rem; color: var(--text); line-height: 1.38; }
-      .reveal-hint { margin-top: 6px; color: var(--muted); line-height: 1.62; }
-
-      /* Export */
-      .export-actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 12px; }
-      .export-sheet {
-        margin-top: 12px;
-        border-radius: var(--radius2);
-        border: 1px solid rgba(255,255,255,0.10);
-        background: rgba(255,255,255,0.03);
-        padding: 14px;
-      }
-      .export-hero { display: flex; gap: 12px; align-items: center; margin-bottom: 14px; }
-      .export-mark {
-        width: 44px;
-        height: 44px;
-        border-radius: 18px;
-        border: 1px solid rgba(255,255,255,0.14);
-        background:
-          radial-gradient(circle at 30% 30%, rgba(255,255,255,0.22), rgba(255,255,255,0.06)),
-          linear-gradient(160deg, rgba(196,162,92,0.55), rgba(218,226,240,0.10));
-        flex: 0 0 auto;
-      }
-      .export-title { font-family: var(--serif); font-size: 1.28rem; }
-      .export-sub { margin-top: 4px; color: var(--muted); }
-
-      .export-grid { display: grid; grid-template-columns: 1fr; gap: 10px; margin-bottom: 12px; }
-      .export-block {
-        border-radius: 18px;
-        border: 1px solid rgba(255,255,255,0.10);
-        background: rgba(0,0,0,0.14);
-        padding: 12px;
-      }
-      .export-h { color: var(--faint); text-transform: uppercase; letter-spacing: 0.18em; font-size: 0.74rem; }
-      .export-v { margin-top: 8px; font-family: var(--serif); color: var(--text); line-height: 1.3; }
-      .note-box {
-        min-height: 120px;
-        padding: 12px;
-        border-radius: 18px;
-        border: 1px solid rgba(255,255,255,0.10);
-        background: rgba(0,0,0,0.14);
-        color: var(--text);
-        outline: none;
-      }
-      .divider { height: 1px; background: rgba(255,255,255,0.08); margin: 14px 0; }
+      .card-actions .btn { width: 100%; }
+      .card-actions .btn[disabled] { opacity: 0.55; cursor: not-allowed; transform: none !important; }
 
       /* Calibrating */
       .calibrating { display: grid; gap: 10px; align-content: start; padding: 10px 0 0; }
@@ -527,7 +405,174 @@
         100% { width: 12%; transform: translateX(120%); }
       }
 
-      /* Soundless-Chime overlay */
+      /* Results layout: accordions */
+      .results { display: grid; gap: 14px; margin-top: 10px; }
+      .summary-strip {
+        border-radius: var(--radius2);
+        border: 1px solid rgba(255,255,255,0.10);
+        background: rgba(0,0,0,0.14);
+        padding: 14px;
+      }
+      .summary-title { font-family: var(--serif); font-size: 1.18rem; }
+      .summary-sub { margin-top: 8px; color: var(--muted); line-height: 1.55; }
+      .badges { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
+      .badge {
+        padding: 8px 10px;
+        border-radius: 999px;
+        border: 1px solid rgba(255,255,255,0.12);
+        background: rgba(255,255,255,0.04);
+        color: var(--faint);
+        font-size: 0.88rem;
+      }
+
+      details.acc {
+        border-radius: var(--radius2);
+        border: 1px solid rgba(255,255,255,0.10);
+        background: linear-gradient(180deg, rgba(255,255,255,0.055), rgba(255,255,255,0.03));
+        box-shadow: var(--shadow);
+        overflow: hidden;
+      }
+      details.acc > summary {
+        list-style: none;
+        cursor: pointer;
+        padding: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        user-select: none;
+      }
+      details.acc > summary::-webkit-details-marker { display: none; }
+      .acc-left { display: grid; gap: 4px; }
+      .acc-chip { width: fit-content; }
+      .acc-title { font-family: var(--serif); font-size: 1.12rem; }
+      .acc-teaser { color: var(--muted); font-size: 0.95rem; line-height: 1.35; }
+      .acc-icon {
+        width: 34px;
+        height: 34px;
+        border-radius: 14px;
+        border: 1px solid rgba(255,255,255,0.10);
+        background: rgba(0,0,0,0.16);
+        display: grid;
+        place-items: center;
+        color: rgba(255,255,255,0.72);
+        flex: 0 0 auto;
+      }
+      .acc-body { padding: 0 14px 14px; color: var(--muted); line-height: 1.7; }
+      .acc-body strong { color: rgba(255,255,255,0.92); font-weight: 600; }
+
+      /* Wheel */
+      .wheel-wrap {
+        padding: 14px;
+        border-radius: var(--radius2);
+        border: 1px solid rgba(255,255,255,0.10);
+        background: rgba(255,255,255,0.03);
+      }
+      .wheel-head { display: grid; gap: 8px; margin-bottom: 12px; }
+      .wheel-shell {
+        border-radius: var(--radius2);
+        border: 1px solid rgba(255,255,255,0.10);
+        background: radial-gradient(circle at 50% 40%, rgba(255,255,255,0.07), rgba(0,0,0,0.12));
+        box-shadow: 0 20px 80px rgba(0,0,0,0.40);
+        overflow: hidden;
+      }
+      #wheelSvg { width: 100%; height: auto; display: block; }
+      .wheel-legend {
+        margin-top: 10px;
+        border-radius: 18px;
+        border: 1px solid rgba(255,255,255,0.10);
+        background: rgba(0,0,0,0.14);
+        padding: 12px;
+        color: var(--muted);
+        line-height: 1.55;
+        font-size: 0.96rem;
+      }
+      .wheel-legend strong { color: rgba(255,255,255,0.92); }
+      .wheel-legend .row { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 10px; }
+      .pill {
+        padding: 8px 10px;
+        border-radius: 999px;
+        border: 1px solid rgba(255,255,255,0.12);
+        background: rgba(255,255,255,0.04);
+        color: rgba(255,255,255,0.74);
+        font-size: 0.88rem;
+      }
+      .wheel-detail {
+        margin-top: 12px;
+        border-radius: var(--radius2);
+        border: 1px solid rgba(255,255,255,0.10);
+        background: rgba(0,0,0,0.14);
+        padding: 14px;
+      }
+      .wheel-detail h3 { margin: 0; }
+      .wheel-detail .prose { margin-top: 8px; color: var(--muted); line-height: 1.65; }
+
+      /* Reflection deck (one card at a time + swipe) */
+      .deck {
+        border-radius: var(--radius2);
+        border: 1px solid rgba(255,255,255,0.10);
+        background: rgba(0,0,0,0.14);
+        padding: 14px;
+        overflow: hidden;
+      }
+      .deck-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+      .deck-count { color: var(--muted); font-size: 0.95rem; }
+      .deck-card {
+        margin-top: 12px;
+        border-radius: 22px;
+        border: 1px solid rgba(255,255,255,0.10);
+        background: rgba(0,0,0,0.14);
+        padding: 14px;
+        box-shadow: 0 16px 50px rgba(0,0,0,0.35);
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      .deck-card.show { opacity: 1; transform: translateY(0); transition: opacity 320ms ease, transform 320ms ease; }
+      .deck-q { font-family: var(--serif); font-size: 1.08rem; line-height: 1.35; }
+      .deck-h { margin-top: 8px; color: var(--muted); line-height: 1.65; }
+      .deck-actions { margin-top: 12px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+      .deck-actions .btn { width: 100%; }
+
+      /* Export */
+      .export-sheet {
+        margin-top: 10px;
+        border-radius: var(--radius2);
+        border: 1px solid rgba(255,255,255,0.10);
+        background: rgba(255,255,255,0.03);
+        padding: 14px;
+      }
+      .export-hero { display: flex; gap: 12px; align-items: center; margin-bottom: 14px; }
+      .export-mark {
+        width: 44px;
+        height: 44px;
+        border-radius: 18px;
+        border: 1px solid rgba(255,255,255,0.14);
+        background:
+          radial-gradient(circle at 30% 30%, rgba(255,255,255,0.22), rgba(255,255,255,0.06)),
+          linear-gradient(160deg, rgba(196,162,92,0.55), rgba(218,226,240,0.10));
+        flex: 0 0 auto;
+      }
+      .export-title { font-family: var(--serif); font-size: 1.28rem; }
+      .export-sub { margin-top: 4px; color: var(--muted); }
+      .export-actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 12px; }
+      .divider { height: 1px; background: rgba(255,255,255,0.08); margin: 14px 0; }
+      .note-box {
+        min-height: 120px;
+        padding: 12px;
+        border-radius: 18px;
+        border: 1px solid rgba(255,255,255,0.10);
+        background: rgba(0,0,0,0.14);
+        color: var(--text);
+        outline: none;
+      }
+
+      /* Soundless-Chime */
       .chime {
         position: fixed;
         inset: 0;
@@ -556,28 +601,25 @@
         100% { opacity: 0; transform: translateX(-50%) scale(1.55); box-shadow: 0 0 0 18px rgba(196,162,92,0.0), 0 0 0 34px rgba(140,180,255,0.0); }
       }
 
-      /* Desktop */
+      .hidden { display: none !important; }
+
       @media (min-width: 920px) {
-        main { padding: 22px 20px 120px 20px; }
+        main { padding: 22px 20px 22px 20px; }
         .field-grid { grid-template-columns: 1fr 1fr; }
-        .export-grid { grid-template-columns: 1fr 1fr; }
-        .wheel-grid { grid-template-columns: 1.2fr 0.8fr; }
-        .cards { grid-template-columns: repeat(12, 1fr); }
-        .card { grid-column: span 4; }
+        .deck-actions { grid-template-columns: 1fr 1fr; }
       }
 
       @media (prefers-reduced-motion: reduce) {
-        * { scroll-behavior: auto !important; }
         .step-view.active { transition: none !important; }
-        .reveal-card.show { transition: none !important; }
+        .deck-card.show { transition: none !important; }
+        .nav-indicator { transition: none !important; }
         .navbtn::after, .btn::after { display: none !important; }
         .chime { display: none !important; }
-        .nav-indicator { transition: none !important; }
       }
 
       @media print {
         body { background: #ffffff !important; color: #111111 !important; }
-        .topbar, .bottom-bar, .bg-orbit, .chime { display: none !important; }
+        .topbar, .bg-orbit, .chime { display: none !important; }
         main { max-width: none; padding: 0; }
       }
     </style>
@@ -599,7 +641,7 @@
     </header>
 
     <main>
-      <!-- START (Fenster 1) -->
+      <!-- START -->
       <section class="view active" id="view-start" aria-label="Start">
         <div class="kicker">premium · ruhig · klar</div>
         <h1>Venture Resonance Studio</h1>
@@ -614,22 +656,14 @@
 
         <div class="hero-card">
           <div class="prompt-body">
-            <strong>Ein Reading, das dich trifft.</strong><br />
-            Nicht mit Lärm — sondern mit Ordnung: Wo ist der Kern? Wo ist die Spannung? Was ist jetzt reif?
+            <strong>Du spürst, dass etwas „dran“ ist?</strong><br />
+            Dieses Reading macht aus diffusem Druck eine klare Landkarte: Kern · Spannung · Timing · nächster Schritt.
           </div>
         </div>
       </section>
 
-      <!-- READING (Fenster 2) -->
+      <!-- READING -->
       <section class="view" id="view-reading" aria-label="Reading">
-        <div class="studio-stepper" id="studioStepper">
-          <div class="stepper-top">
-            <div class="stepper-title"><strong id="stepTitle">Schritt</strong> · <span id="stepCount">1 / 16</span></div>
-            <div class="muted" style="font-size:0.9rem;"><span class="kbd">Enter</span></div>
-          </div>
-          <div class="progressbar"><div id="progressFill"></div></div>
-        </div>
-
         <div class="wizard-shell">
           <div class="wizard-stage">
             <div id="stepsMount"></div>
@@ -651,7 +685,7 @@
         </div>
       </section>
 
-      <!-- ERGEBNIS (Fenster 3) -->
+      <!-- ERGEBNIS -->
       <section class="view" id="view-ergebnis" aria-label="Ergebnis">
         <div id="ergebnisEmpty" class="wizard-card">
           <div class="chip">Noch nicht</div>
@@ -660,124 +694,143 @@
         </div>
 
         <div id="ergebnisWrap" class="results hidden">
-          <div class="cards">
-            <article class="card">
-              <div class="card-top">
-                <div class="chip">Signatur</div>
-                <h3>Gründung</h3>
-              </div>
-              <div class="prose" id="originText"></div>
-              <div class="mini-grid">
-                <div class="mini"><div class="mini-k">Rhythmus</div><div class="mini-v" id="rhythmTag">—</div></div>
-                <div class="mini"><div class="mini-k">Feld</div><div class="mini-v" id="fieldTag">—</div></div>
-              </div>
-            </article>
+          <section class="summary-strip">
+            <div class="summary-title" id="sumTitle">Dein Reading</div>
+            <div class="summary-sub" id="sumSub">
+              Eine kompakte Skizze – damit du sofort weißt, worum es gerade wirklich geht.
+            </div>
+            <div class="badges" id="sumBadges"></div>
+          </section>
 
-            <article class="card">
-              <div class="card-top">
-                <div class="chip">Chart</div>
-                <h3>Sonne · Mond · Aszendent</h3>
+          <details class="acc" open>
+            <summary>
+              <div class="acc-left">
+                <div class="chip acc-chip">Signatur</div>
+                <div class="acc-title">Gründung</div>
+                <div class="acc-teaser" id="teaserOrigin">—</div>
               </div>
-              <div class="prose" id="smaText"></div>
-              <div class="tags" id="smaBadges"></div>
-            </article>
+              <div class="acc-icon">⌄</div>
+            </summary>
+            <div class="acc-body" id="originText"></div>
+          </details>
 
-            <article class="card">
-              <div class="card-top">
-                <div class="chip">Archetypen</div>
-                <h3>Dominant & Sekundär</h3>
+          <details class="acc">
+            <summary>
+              <div class="acc-left">
+                <div class="chip acc-chip">Chart</div>
+                <div class="acc-title">Sonne · Mond · Aszendent</div>
+                <div class="acc-teaser" id="teaserSMA">—</div>
               </div>
-              <div class="big" id="archNames">—</div>
-              <div class="prose" id="archText"></div>
-              <div class="tags" id="archTags"></div>
-            </article>
+              <div class="acc-icon">⌄</div>
+            </summary>
+            <div class="acc-body">
+              <div id="smaText"></div>
+              <div class="badges" id="smaBadges"></div>
+            </div>
+          </details>
 
-            <article class="card">
-              <div class="card-top">
-                <div class="chip">Achsen</div>
-                <h3>Spannung</h3>
+          <details class="acc">
+            <summary>
+              <div class="acc-left">
+                <div class="chip acc-chip">Archetypen</div>
+                <div class="acc-title">Dominant & Sekundär</div>
+                <div class="acc-teaser" id="teaserArch">—</div>
               </div>
-              <div class="big" id="axisName">—</div>
-              <div class="prose" id="axisText"></div>
-              <div class="axis" id="axisBadges"></div>
-            </article>
+              <div class="acc-icon">⌄</div>
+            </summary>
+            <div class="acc-body">
+              <div id="archText"></div>
+              <div class="badges" id="archBadges"></div>
+            </div>
+          </details>
 
-            <article class="card">
-              <div class="card-top">
-                <div class="chip">Führung</div>
-                <h3>Dynamik</h3>
+          <details class="acc">
+            <summary>
+              <div class="acc-left">
+                <div class="chip acc-chip">Achsen</div>
+                <div class="acc-title">Spannung & Hebel</div>
+                <div class="acc-teaser" id="teaserAxis">—</div>
               </div>
-              <div class="prose" id="leadText"></div>
-              <div class="mini-grid">
-                <div class="mini"><div class="mini-k">Risiko</div><div class="mini-v" id="riskTag">—</div></div>
-                <div class="mini"><div class="mini-k">Hebel</div><div class="mini-v" id="leverTag">—</div></div>
-              </div>
-            </article>
+              <div class="acc-icon">⌄</div>
+            </summary>
+            <div class="acc-body">
+              <div id="axisText"></div>
+              <div class="badges" id="axisBadges"></div>
+              <div style="margin-top:12px;" id="leadText"></div>
+              <div class="badges" id="leadBadges"></div>
+            </div>
+          </details>
 
-            <article class="card">
-              <div class="card-top">
-                <div class="chip">Timing</div>
-                <h3>Zyklus</h3>
+          <details class="acc">
+            <summary>
+              <div class="acc-left">
+                <div class="chip acc-chip">Timing</div>
+                <div class="acc-title">Zyklus</div>
+                <div class="acc-teaser" id="teaserCycle">—</div>
               </div>
-              <div class="prose" id="cycleText"></div>
-              <div class="tags" id="cycleBadges"></div>
-            </article>
-          </div>
+              <div class="acc-icon">⌄</div>
+            </summary>
+            <div class="acc-body">
+              <div id="cycleText"></div>
+              <div class="badges" id="cycleBadges"></div>
+            </div>
+          </details>
 
-          <div class="wheel-wrap">
+          <section class="wheel-wrap">
             <div class="wheel-head">
               <h2>Resonanz-Rad</h2>
-              <p class="muted">Elemente (innen) · Achsen (mittel) · Marker (außen)</p>
+              <p class="muted">
+                Quick-Lesart: <strong>innen</strong> = Element-Ton · <strong>mittig</strong> = Haupt-Spannung · <strong>außen</strong> = Timing-Marker.
+              </p>
             </div>
 
-            <div class="wheel-grid">
+            <div class="wheel-shell">
+              <svg id="wheelSvg" viewBox="0 0 720 720" role="img" aria-label="Resonanz-Rad"></svg>
+            </div>
+
+            <div class="wheel-legend">
+              <strong>Wie du es liest (in 10 Sekunden):</strong><br />
+              Tippe ein Segment. Du bekommst eine kurze Notiz. Das Rad ist kein „Rätsel“ – es ist ein Interface, das dir Fokus gibt.
+              <div class="row">
+                <span class="pill">Innen: Element-Qualität</span>
+                <span class="pill">Mitte: Spannungsachse</span>
+                <span class="pill">Außen: Marker (Timing)</span>
+              </div>
+            </div>
+
+            <div class="wheel-detail">
+              <h3 id="wheelDetailTitle">Wähle ein Segment</h3>
+              <div class="prose" id="wheelDetailBody">Tippe ein Segment, um eine Notiz zu pinnen. Tippe erneut irgendwo anders, um zu wechseln.</div>
+              <div class="cta-row" style="margin-top:12px;">
+                <button class="btn ghost" id="unlockWheel">Pin lösen</button>
+              </div>
+            </div>
+          </section>
+
+          <section class="deck" id="deck">
+            <div class="deck-top">
+              <div class="chip">Reflexionskarten</div>
+              <div class="deck-count" id="deckCount">0 / 0</div>
+            </div>
+
+            <div class="deck-card" id="deckCard">
+              <div class="deck-q" id="deckQ">—</div>
+              <div class="deck-h" id="deckH">—</div>
+            </div>
+
+            <div class="deck-actions">
+              <button class="btn ghost" id="deckBack">Zurück</button>
+              <button class="btn primary" id="deckNext">Weiter</button>
+            </div>
+          </section>
+
+          <section class="export-sheet" id="exportSheet">
+            <div class="export-hero">
+              <div class="export-mark" aria-hidden="true"></div>
               <div>
-                <div class="wheel-shell">
-                  <svg id="wheelSvg" viewBox="0 0 720 720" role="img" aria-label="Resonanz-Rad"></svg>
-                </div>
+                <div class="export-title" id="exportTitle">—</div>
+                <div class="export-sub" id="exportSub">Reading-Summary</div>
               </div>
-
-              <aside class="wheel-detail">
-                <div class="detail-top">
-                  <div class="chip">Detail</div>
-                  <h3 id="wheelDetailTitle">Wähle ein Segment</h3>
-                </div>
-                <div id="wheelDetailBody" class="prose muted">Tippe ein Segment, um eine Notiz zu pinnen.</div>
-                <div class="detail-actions">
-                  <button class="btn ghost" id="unlockWheel">Pin lösen</button>
-                </div>
-              </aside>
-            </div>
-          </div>
-
-          <div class="wheel-wrap">
-            <div class="wheel-head">
-              <h2>Reflexionskarten</h2>
-              <p class="muted">Nacheinander. Ruhig. Klar.</p>
-            </div>
-
-            <div class="wheel-grid">
-              <div class="wheel-detail">
-                <div class="detail-top">
-                  <div class="chip">Sequenz</div>
-                  <h3 id="revealStatus">0 / 10 sichtbar</h3>
-                </div>
-                <div class="detail-actions">
-                  <button class="btn primary" id="revealNext">Nächste Karte</button>
-                  <button class="btn ghost" id="revealAll">Alle</button>
-                </div>
-              </div>
-
-              <div class="wheel-detail">
-                <div id="revealGrid" class="reveal-grid"></div>
-              </div>
-            </div>
-          </div>
-
-          <div class="wheel-wrap">
-            <div class="wheel-head">
-              <h2>Export</h2>
-              <p class="muted">PDF (Druck) oder Zusammenfassung kopieren</p>
             </div>
 
             <div class="export-actions">
@@ -785,69 +838,35 @@
               <button class="btn ghost" id="copyBtn">Kopieren</button>
             </div>
 
-            <article class="export-sheet" id="exportSheet">
-              <div class="export-hero">
-                <div class="export-mark" aria-hidden="true"></div>
-                <div>
-                  <div class="export-title" id="exportTitle">—</div>
-                  <div class="export-sub" id="exportSub">Reading-Summary</div>
-                </div>
-              </div>
+            <div class="divider"></div>
 
-              <div class="export-grid">
-                <div class="export-block"><div class="export-h">Unternehmen</div><div id="exportVenture" class="export-v muted">—</div></div>
-                <div class="export-block"><div class="export-h">Sonne/Mond/Asc</div><div id="exportSMA" class="export-v muted">—</div></div>
-                <div class="export-block"><div class="export-h">Archetypen</div><div id="exportArch" class="export-v muted">—</div></div>
-                <div class="export-block"><div class="export-h">Achsen</div><div id="exportAxes" class="export-v muted">—</div></div>
-              </div>
+            <div class="chip">Zusammenfassung</div>
+            <p id="exportSummary" class="muted" style="margin-top:10px; line-height:1.65;">—</p>
 
-              <div class="divider"></div>
+            <div class="divider"></div>
 
-              <div class="export-h">Zusammenfassung</div>
-              <p id="exportSummary" class="prose muted">—</p>
-
-              <div class="divider"></div>
-
-              <div class="export-h">Reflexionskarten</div>
-              <ul id="exportPrompts" class="prose muted" style="margin:10px 0 0; padding-left: 18px; line-height: 1.6;"></ul>
-
-              <div class="divider"></div>
-
-              <div class="export-h">Notizen</div>
-              <div class="note-box" contenteditable="true" aria-label="Notizen"></div>
-            </article>
-          </div>
+            <div class="chip">Notizen</div>
+            <div class="note-box" contenteditable="true" aria-label="Notizen" style="margin-top:10px;"></div>
+          </section>
         </div>
       </section>
     </main>
 
-    <div class="bottom-bar" id="bottomBar">
-      <div class="bottom-inner">
-        <button class="btn" id="btnBack">Zurück</button>
-        <button class="btn primary" id="btnNext">Weiter</button>
-        <div class="bottom-meta">
-          <div id="bottomLeft">Schritt 1/16</div>
-          <div id="bottomRight"><span class="kbd">Enter</span></div>
-        </div>
-      </div>
-    </div>
-
     <script type="module">
       /* ===========================
-         Plan (pseudocode)
-         1) Drei Views: start / reading / ergebnis (display toggle)
-         2) Top-Nav Tabs -> switchView(viewId)
-         3) Active-Glow Pill: measure active tab -> set indicator width + translateX
-         4) CTA "Reading beginnen" -> switchView("reading") + reset wizard to step 0
-         5) Reading: 16-step Wizard (Enter & swipe) -> generateProfile()
-         6) Ergebnis: only shows after profile; nav enabled then
-         =========================== */
+         TL;DR (pseudocode)
+         - 3 Views: start / reading / ergebnis
+         - Wizard buttons INSIDE card (sticky within card)
+         - Nav glow aligned via offsetLeft math (fix misalignment)
+         - Select dropdown dark options
+         - Questions redesigned: only 4 free-text fields total
+         - Ergebnis: accordions + “Quick Summary” + Rad explained + Karten-Deck (one-at-a-time)
+      =========================== */
 
       const $ = (sel) => document.querySelector(sel);
       const clamp = (n, a, b) => Math.max(a, Math.min(b, n));
       const safe = (v) => String(v ?? "").trim();
 
-      /* ---------- Soundless-Chime ---------- */
       function chime() {
         const el = $("#chime");
         if (!el) return;
@@ -864,12 +883,12 @@
         Object.assign(t.style, {
           position: "fixed",
           left: "50%",
-          bottom: `calc(92px + env(safe-area-inset-bottom))`,
+          bottom: `calc(18px + env(safe-area-inset-bottom))`,
           transform: "translateX(-50%)",
           padding: "10px 12px",
           borderRadius: "14px",
           border: "1px solid rgba(255,255,255,0.14)",
-          background: "rgba(0,0,0,0.55)",
+          background: "rgba(0,0,0,0.58)",
           backdropFilter: "blur(10px)",
           color: "rgba(255,255,255,0.88)",
           zIndex: "140",
@@ -881,7 +900,6 @@
         setTimeout(() => t.remove(), 1200);
       }
 
-      /* ---------- Hash helpers (deterministic) ---------- */
       function hash32(str) {
         let h = 2166136261 >>> 0;
         for (let i = 0; i < str.length; i++) {
@@ -896,7 +914,16 @@
       }
       function sleep(ms) { return new Promise((r) => setTimeout(r, ms)); }
 
-      /* ---------- SVG helpers ---------- */
+      function escapeHtml(s) {
+        return String(s)
+          .replaceAll("&", "&amp;")
+          .replaceAll("<", "&lt;")
+          .replaceAll(">", "&gt;")
+          .replaceAll('"', "&quot;")
+          .replaceAll("'", "&#039;");
+      }
+
+      /* SVG helpers */
       function elSvg(name) { return document.createElementNS("http://www.w3.org/2000/svg", name); }
       function polar(cx, cy, r, deg) {
         const a = (deg * Math.PI) / 180;
@@ -908,7 +935,6 @@
         const p2 = polar(cx, cy, r0, a1);
         const p3 = polar(cx, cy, r0, a0);
         const largeArc = Math.abs(a1 - a0) > 180 ? 1 : 0;
-
         const f = (n) => n.toFixed(2);
         return [
           `M ${f(p0.x)} ${f(p0.y)}`,
@@ -970,19 +996,9 @@
       }
 
       /* ===========================
-         DATA (same model, refined UX)
+         DATA (more intuitive flow, 4 free-text fields total)
+         Free-text: ventureName, foundingPlace, mainChallenge, desiredDirection
       =========================== */
-      const ARCHETYPES = [
-        { id: "builder", name: "Die Builderin", tone: ["Struktur","Wiederholbarkeit","Handwerk"], strengths: ["Operative Klarheit","Routinen, die tragen","Liefern unter Constraints"], shadow: ["Überkontrolle","Lokale Optimierung","Bewegung statt Wirkung"], lever: "Definiere die kleinste wiederholbare Einheit von Wert – und schütze sie wie ein Ritual." },
-        { id: "catalyst", name: "Die Katalysatorin", tone: ["Momentum","Aktivierung","Tempo"], strengths: ["Energie entfachen","Iterieren mit Mut","Barrieren durchbrechen"], shadow: ["Zerstreuung","Überspringen von Integration","Novelty-Jagd"], lever: "Schneide zwei Baustellen, damit ein Strahl entsteht: ein Fokus, eine Kadenz, ein Proof." },
-        { id: "steward", name: "Die Hüterin", tone: ["Fürsorge","Kontinuität","Vertrauen"], strengths: ["Langfristigkeit","Zuverlässigkeit","Kultur als Infrastruktur"], shadow: ["Konfliktvermeidung","Langsame Entscheidungen","Schutz der alten Identität"], lever: "Benenne Trade-offs offen – so wird Fürsorge zu Führung, nicht zu Stillstand." },
-        { id: "challenger", name: "Die Challengerin", tone: ["Kante","Differenzierung","Druck"], strengths: ["Klarer Standpunkt","Wahrheitssprache","Kategorie neu schneiden"], shadow: ["Unnötige Kämpfe","Allianzen verbrennen","Gegen-Modus als Identität"], lever: "Wähle eine Reibung, die du transformierst – und baue danach Brücken." },
-        { id: "magnet", name: "Die Magnetin", tone: ["Anziehung","Signal","Story"], strengths: ["Marken-Gravitation","Community-Zug","Narrative Hebel"], shadow: ["Diffuses Angebot","Hype-Abhängigkeit","Inkonsistente Lieferung"], lever: "Verankere Versprechen in Beweis: weniger Story – mehr wiederholbarer Proof." },
-        { id: "integrator", name: "Die Integratorin", tone: ["Ausrichtung","Kohärenz","Übersetzung"], strengths: ["Sinn über Silos","Reibung reduzieren","Komplexität entwirren"], shadow: ["Entscheidungsaufschub","Zu viele Stimmen","Politur vor Fortschritt"], lever: "Ein Owner, eine Entscheidung, eine Woche: Shippe die Brücke – auch wenn sie noch roh ist." },
-        { id: "pioneer", name: "Die Pionierin", tone: ["Exploration","Vision","Frontier"], strengths: ["Originale Richtung","Neue Sprache","Neues Terrain"], shadow: ["Execution-Kosten unterschätzen","Einsame Strategie","Ungeprüfte Annahmen"], lever: "Kleinere Experimente. Kürzere Loops. Ein messbarer Proxy pro Vision." },
-        { id: "oracle", name: "Die Orakel-Strategin", tone: ["Insight","Pattern","Intuition"], strengths: ["Systemblick","Foresight","Hidden Constraint benennen"], shadow: ["Abstraktionsdrift","Über-Interpretation","Commitment vermeiden"], lever: "Übersetze Insight in eine irreversible Entscheidung – dann baue ein Feedback-Instrument." },
-      ];
-
       const AXES = [
         { id: "wachstum_vs_stabilitaet", name: "Wachstum ↔ Stabilität", poles: ["Beschleunigung","Containment"], description: "Skalierung ohne Selbstverlust. Nicht mehr machen – mehr tragen können." },
         { id: "vision_vs_umsetzung", name: "Vision ↔ Umsetzbarkeit", poles: ["Imagination","Lieferfähigkeit"], description: "Wenn Sprache schneller ist als das operative System. Vision braucht Tests." },
@@ -992,20 +1008,31 @@
         { id: "innovation_vs_struktur", name: "Innovation ↔ Struktur", poles: ["Neuheit","System"], description: "Innovation wird stark, wenn sie Struktur wird. Zu wenig = Impro-Schuld." },
       ];
 
+      const ARCHETYPES = [
+        { id: "builder", name: "Die Builderin", tone: ["Struktur","Wiederholbarkeit"], strengths: ["Liefern unter Constraints","Klarheit in Abläufen"], shadow: ["Überkontrolle","lokale Optimierung"], lever: "Definiere ein Signature-Ritual (1×/Woche), das Delivery stabil hält." },
+        { id: "catalyst", name: "Die Katalysatorin", tone: ["Momentum","Aktivierung"], strengths: ["Bewegung erzeugen","Hürden brechen"], shadow: ["Zerstreuung","Novelty-Jagd"], lever: "Reduziere auf 1 Fokus + 1 Kadenz + 1 Proof-Moment." },
+        { id: "steward", name: "Die Hüterin", tone: ["Fürsorge","Kontinuität"], strengths: ["Vertrauen aufbauen","Kultur tragen"], shadow: ["Konflikt vermeiden","zu langsam entscheiden"], lever: "Benenne Trade-offs offen. Dann wird Fürsorge zu Führung." },
+        { id: "challenger", name: "Die Challengerin", tone: ["Kante","Differenzierung"], strengths: ["Schärfe im Standpunkt","Kategorie schneiden"], shadow: ["Unnötige Kämpfe","Allianzen verbrennen"], lever: "Wähle genau eine Reibung, die du transformierst – nicht zehn." },
+        { id: "magnet", name: "Die Magnetin", tone: ["Signal","Anziehung"], strengths: ["Story zieht","Marke wird spürbar"], shadow: ["Diffus","Signal ohne Proof"], lever: "Verankere Signal in Beweis: weniger erzählen, mehr zeigen." },
+        { id: "integrator", name: "Die Integratorin", tone: ["Ausrichtung","Übersetzung"], strengths: ["Sinn über Silos","Komplexität entwirren"], shadow: ["Entscheidungen verschieben","zu viele Stimmen"], lever: "Ein Owner, eine Entscheidung, eine Woche: Brücke shippen." },
+        { id: "pioneer", name: "Die Pionierin", tone: ["Vision","Frontier"], strengths: ["Originale Richtung","Neue Sprache"], shadow: ["Execution unterschätzen","einsam führen"], lever: "Kürzere Loops: 1 Hypothese → 1 Test → 1 Mess-Proxy." },
+        { id: "oracle", name: "Die Orakel-Strategin", tone: ["Insight","Pattern"], strengths: ["Systemblick","Foresight"], shadow: ["Abstraktion","Commitment vermeiden"], lever: "Übersetze Insight in eine klare Entscheidung + Feedback-Instrument." },
+      ];
+
       const CYCLES = {
-        start: { name: "Start", signals: ["Identität formt sich","Ambiguität hoch","Energie ist Asset"], friction: ["Overscoping","Reaktivität","Unklare Angebotskanten"], hint: "Schütze Klarheit. Reduziere Optionalität – ohne Neugier zu töten." },
-        konsolidierung: { name: "Konsolidierung", signals: ["Angebot stabilisiert","erste Wiederholbarkeit","Constraints erscheinen"], friction: ["Prozess-Schuld","Rollen-Unklarheit","Ops ohne Owner"], hint: "Codifiziere, was funktioniert. Intuition braucht Routinen, bevor Komplexität wächst." },
-        reibung: { name: "Reibung", signals: ["Wachstum zeigt Risse","Teamspannung sichtbar","Entscheidungen hängen"], friction: ["Kontrolle↔Vertrauen","Vision↔Umsetzung","Prioritäten kollidieren"], hint: "Benenne die Spannung. Entscheide, was geschützt wird – und was neu geschrieben werden muss." },
-        umbruch: { name: "Umbruch / Pivot", signals: ["Altes Modell zieht","Neues will Form","Momentum ändert Gestalt"], friction: ["Identitäts-Trauer","Ausrichtung fehlt","Halb-Commitments"], hint: "Triff eine klare Entscheidung. Dann baue die kleinste Struktur, die sie trägt." },
-        expansion: { name: "Expansion", signals: ["Skalierung verlangt Struktur","System wird Strategie","Hiring verändert Kultur"], friction: ["Komplexitäts-Drag","Signal-Verdünnung","Leadership-Bandwidth"], hint: "Installiere Constraints, die die Signatur schützen. Skaliere das System – nicht das Chaos." },
-        neuordnung: { name: "Neuordnung", signals: ["Second-order Optimierung","Portfolio-Denken","Erneuerungszyklen"], friction: ["Komfort","Innovation friert","Kultur versteinert"], hint: "Erneuere die Story mit Proof. Halte eine Frontier-Funktion lebendig." },
+        start: { name: "Start", signals: ["Identität formt sich","Ambiguität hoch"], friction: ["Overscoping","Reaktivität"], hint: "Schütze Klarheit. Reduziere Optionalität – ohne Neugier zu töten." },
+        konsolidierung: { name: "Konsolidierung", signals: ["Wiederholbarkeit entsteht","Constraints erscheinen"], friction: ["Rollen-Unklarheit","Ops ohne Owner"], hint: "Codifiziere, was funktioniert. Intuition braucht Routinen." },
+        reibung: { name: "Reibung", signals: ["Wachstum zeigt Risse","Entscheidungen hängen"], friction: ["Kontrolle↔Vertrauen","Vision↔Umsetzung"], hint: "Benenne die Spannung. Entscheide, was geschützt wird." },
+        umbruch: { name: "Umbruch / Pivot", signals: ["Formwechsel","neue Richtung"], friction: ["Identitäts-Trauer","Halb-Commitments"], hint: "Triff eine klare Entscheidung. Dann baue die kleinste Struktur, die sie trägt." },
+        expansion: { name: "Expansion", signals: ["System wird Strategie","Hiring verändert Kultur"], friction: ["Komplexitäts-Drag","Bandwidth"], hint: "Installiere Constraints, die die Signatur schützen." },
+        neuordnung: { name: "Neuordnung", signals: ["Portfolio-Denken","Erneuerung"], friction: ["Komfort","Innovation friert"], hint: "Erneuere Story mit Proof. Halte Frontier lebendig." },
       };
 
       const ELEMENTE = [
-        { id: "feuer", name: "Feuer", cue: "Mut, Vorwärts, Risiko", note: "Feuer bringt Schub – braucht klare Containment-Grenzen." },
-        { id: "wasser", name: "Wasser", cue: "Empfinden, Bindung, Tiefe", note: "Wasser trägt Kultur – braucht klare Sprache für Bedürfnisse." },
-        { id: "luft", name: "Luft", cue: "Sinn, Austausch, Perspektive", note: "Luft klärt – braucht Entscheidungen, sonst wird sie Nebel." },
-        { id: "erde", name: "Erde", cue: "Wirklichkeit, Ritual, Stabilität", note: "Erde liefert – braucht Raum, sonst wird sie Starrheit." },
+        { id: "feuer", name: "Feuer", cue: "Mut, Vorwärts, Risiko", note: "Feuer bringt Schub – braucht Containment." },
+        { id: "wasser", name: "Wasser", cue: "Bindung, Tiefe, Kultur", note: "Wasser trägt Teams – braucht Sprache für Bedürfnisse." },
+        { id: "luft", name: "Luft", cue: "Sinn, Austausch, Klarheit", note: "Luft klärt – braucht Entscheidungen, sonst wird sie Nebel." },
+        { id: "erde", name: "Erde", cue: "Ritual, Wirklichkeit, Stabilität", note: "Erde liefert – braucht Raum, sonst wird sie Starrheit." },
       ];
 
       const SMA_SIGNS = [
@@ -1019,22 +1046,238 @@
         { id: "verdant", label: "Verdant", meaning: "Wachstum & Pflege", tone: "kultivierend" },
       ];
 
+      const TONE_OPTIONS = [
+        { v: "klar", t: "Klar" },
+        { v: "magnetisch", t: "Magnetisch" },
+        { v: "ruhig", t: "Ruhig" },
+        { v: "mutig", t: "Mutig" },
+        { v: "tragend", t: "Tragend" },
+        { v: "leicht", t: "Leicht" },
+        { v: "konsequent", t: "Konsequent" },
+      ];
+
       const STEPS = [
-        { id: "intention", chip: "Einstieg", title: "Wie soll sich dieses Unternehmen anfühlen, wenn es ganz in seiner Kraft ist?", body: "2–6 Wörter. Dein Resonanz-Anker.", fields: [{ key: "zielGefuehl", label: "Zielgefühl", type: "text", placeholder: "z.B. klar, magnetisch, tragend", required: true }] },
-        { id: "venture", chip: "Identität", title: "Wie heißt das Unternehmen?", body: "Der Name ist Signal.", fields: [{ key: "ventureName", label: "Unternehmensname", type: "text", placeholder: "z.B. Lumen Atelier", required: true }, { key: "tagline", label: "Tagline (optional)", type: "text", placeholder: "Ein Satz, der die Essenz trägt", required: false }] },
-        { id: "date", chip: "Ursprung", title: "Gründung: Wann wurde der Impuls verbindlich?", body: "Datum & Ort setzen die Signatur.", fields: [{ key: "foundingDate", label: "Gründungsdatum", type: "date", required: true }, { key: "foundingPlace", label: "Gründungsort", type: "text", placeholder: "Stadt, Land", required: true }] },
-        { id: "time", chip: "Aszendent", title: "Kennst du die Uhrzeit?", body: "Optional. Metapher für den Eintritt nach außen.", fields: [{ key: "foundingTime", label: "Uhrzeit (optional)", type: "time", required: false }, { key: "startQualitaet", label: "Tagesqualität", type: "select", required: true, options: [{ v: "morgen", t: "Morgen" }, { v: "mittag", t: "Mittag" }, { v: "abend", t: "Abend" }, { v: "nacht", t: "Nacht" }] }] },
-        { id: "industry", chip: "Feld", title: "In welchem Feld wirkt ihr?", body: "Und wie hoch ist der Proof-Druck?", fields: [{ key: "industry", label: "Branche", type: "select", required: true, options: [{ v: "saas", t: "Software / SaaS" }, { v: "brand", t: "Consumer / Brand" }, { v: "creative", t: "Creative Studio" }, { v: "services", t: "Agentur / Services" }, { v: "marketplace", t: "Marketplace" }, { v: "fintech", t: "FinTech" }, { v: "health", t: "Health" }, { v: "climate", t: "Climate / Energy" }, { v: "hardware", t: "Hardware" }, { v: "edu", t: "Education" }, { v: "other", t: "Andere" }] }, { key: "proofDemand", label: "Proof-Druck", type: "select", required: true, options: [{ v: "hoch", t: "hoch" }, { v: "mittel", t: "mittel" }, { v: "niedrig", t: "niedrig" }] }] },
-        { id: "team", chip: "System", title: "Wie groß ist euer System – und wo reibt es?", body: "Teamgröße + Reibungszone.", fields: [{ key: "teamSize", label: "Teamgröße", type: "select", required: true, options: [{ v: "solo", t: "Solo" }, { v: "tiny", t: "2–5" }, { v: "small", t: "6–15" }, { v: "mid", t: "16–50" }, { v: "scale", t: "51–200" }, { v: "large", t: "200+" }] }, { key: "frictionZone", label: "Reibung", type: "select", required: true, options: [{ v: "kommunikation", t: "Kommunikation" }, { v: "ownership", t: "Ownership" }, { v: "energie", t: "Energie" }, { v: "struktur", t: "Struktur" }, { v: "strategie", t: "Strategie" }] }] },
-        { id: "stage", chip: "Zyklus", title: "Welche Phase ist gerade wahr?", body: "Zyklus = Timing.", fields: [{ key: "currentStage", label: "Phase", type: "select", required: true, options: [{ v: "start", t: "Start" }, { v: "konsolidierung", t: "Konsolidierung" }, { v: "reibung", t: "Reibung" }, { v: "umbruch", t: "Umbruch / Pivot" }, { v: "expansion", t: "Expansion" }, { v: "neuordnung", t: "Neuordnung" }] }] },
-        { id: "challenge", chip: "Problem", title: "Was ist gerade das teuerste Problem im System?", body: "Konkreter = schärfer.", fields: [{ key: "mainChallenge", label: "Hauptproblem", type: "textarea", required: true, placeholder: "Was wiederholt sich? Was ist stuck?" }] },
-        { id: "axis", chip: "Achse", title: "Welche Spannung beschreibt es am besten?", body: "Frei oder Preset.", fields: [{ key: "axisFree", label: "Deine Achse (optional)", type: "text", required: false, placeholder: "z.B. Freiheit ↔ Verbindlichkeit" }, { key: "axisPreset", label: "Preset", type: "select", required: true, options: [{ v: "auto", t: "Auto" }, ...AXES.map(a => ({ v: a.id, t: a.name }))] }] },
-        { id: "leak", chip: "Energie", title: "Wo versickert Energie?", body: "Leak + 1 Satz Kontext.", fields: [{ key: "energyLeak", label: "Leak", type: "select", required: true, options: [{ v: "komplexitaet", t: "Komplexität" }, { v: "unklarheit", t: "Unklarheit" }, { v: "perfektion", t: "Perfektion" }, { v: "zuviel", t: "Zu vieles" }, { v: "konflikt", t: "Konflikt" }] }, { key: "leakNote", label: "Kontext (1 Satz)", type: "text", required: true, placeholder: "Wie zeigt sich das?" }] },
-        { id: "direction", chip: "Richtung", title: "Was soll sich in 90 Tagen spürbar verändern?", body: "Stimmiger, nicht mehr.", fields: [{ key: "desiredDirection", label: "Richtung", type: "textarea", required: true, placeholder: "Was ist anders – im Team/Angebot/Markt?" }] },
-        { id: "leadership", chip: "Führung", title: "Welche Führungsqualität braucht es jetzt?", body: "Qualität + ehrlicher Satz.", fields: [{ key: "leadQuality", label: "Qualität", type: "select", required: true, options: [{ v: "fokus", t: "Fokus" }, { v: "containment", t: "Containment" }, { v: "mut", t: "Mut" }, { v: "sanftheit", t: "Sanftheit" }, { v: "konsequenz", t: "Konsequenz" }, { v: "vertrauen", t: "Vertrauen" }] }, { key: "leadHard", label: "Was ist daran schwer?", type: "text", required: true, placeholder: "Ein Satz" }] },
-        { id: "culture", chip: "Beziehung", title: "Wo kippt Nähe in Unklarheit?", body: "Nähe + Grenze.", fields: [{ key: "closeness", label: "Nähe", type: "select", required: true, options: [{ v: "hoch", t: "hoch" }, { v: "mittel", t: "mittel" }, { v: "niedrig", t: "niedrig" }] }, { key: "boundary", label: "Welche Grenze fehlt?", type: "text", required: true, placeholder: "z.B. Scope, Rollen, Zeit" }] },
-        { id: "decision", chip: "Entscheidung", title: "Welche Entscheidung wird aufgeschoben?", body: "Formuliere sie entscheidbar.", fields: [{ key: "delayedDecision", label: "Entscheidung", type: "textarea", required: true, placeholder: "Worum geht’s – und was wird vermieden?" }] },
-        { id: "closing", chip: "Intention", title: "Wofür nutzt du dieses Reading?", body: "Dann Ergebnis erzeugen.", fields: [{ key: "useFor", label: "Ich nutze es für…", type: "select", required: true, options: [{ v: "klarheit", t: "Klarheit" }, { v: "mut", t: "Mut" }, { v: "fokus", t: "Fokus" }, { v: "entlastung", t: "Entlastung" }, { v: "richtung", t: "Richtung" }, { v: "entscheid", t: "Entscheidung" }] }] },
+        {
+          id: "tone",
+          chip: "Einstieg",
+          title: "Welcher Ton soll euer Unternehmen in den nächsten 90 Tagen tragen?",
+          body: "Wähle einen Ton. Das wird dein Resonanz-Anker im Ergebnis.",
+          fields: [{ key: "tone", label: "Ton", type: "select", required: true, options: TONE_OPTIONS }],
+        },
+        {
+          id: "venture",
+          chip: "Identität",
+          title: "Wie heißt das Unternehmen?",
+          body: "Ein Name ist ein Signal – wir lesen ihn als „Ursprungston“ im System.",
+          fields: [{ key: "ventureName", label: "Unternehmensname", type: "text", placeholder: "z.B. Lumen Atelier", required: true }],
+        },
+        {
+          id: "origin",
+          chip: "Gründung",
+          title: "Wann und wo wurde es verbindlich?",
+          body: "Gründungstag + Ort setzen die Signatur. Uhrzeit ist optional, aber stark, wenn vorhanden.",
+          fields: [
+            { key: "foundingDate", label: "Gründungsdatum", type: "date", required: true },
+            { key: "foundingPlace", label: "Gründungsort", type: "text", placeholder: "Stadt, Land", required: true },
+            { key: "foundingTime", label: "Uhrzeit (optional)", type: "time", required: false },
+          ],
+        },
+        {
+          id: "day",
+          chip: "Zeitqualität",
+          title: "Welche Tagesqualität passt zum Start-Moment?",
+          body: "Das ist kein Fakt-Beweis, sondern eine Lesart: Welche Qualität hat diesen Start getragen?",
+          fields: [
+            {
+              key: "startQualitaet",
+              label: "Tagesqualität",
+              type: "select",
+              required: true,
+              options: [
+                { v: "morgen", t: "Morgen (klar, initiierend)" },
+                { v: "mittag", t: "Mittag (sichtbar, präsent)" },
+                { v: "abend", t: "Abend (verdichtend, mutig)" },
+                { v: "nacht", t: "Nacht (intuitiv, transformierend)" },
+              ],
+            },
+          ],
+        },
+        {
+          id: "field",
+          chip: "Feld",
+          title: "In welchem Feld spielt ihr?",
+          body: "Feld bestimmt: Proof-Druck, Erwartung, Timing-Reibung.",
+          fields: [
+            {
+              key: "industry",
+              label: "Branche",
+              type: "select",
+              required: true,
+              options: [
+                { v: "saas", t: "Software / SaaS" },
+                { v: "brand", t: "Consumer / Brand" },
+                { v: "creative", t: "Creative Studio" },
+                { v: "services", t: "Agentur / Services" },
+                { v: "marketplace", t: "Marketplace" },
+                { v: "fintech", t: "FinTech" },
+                { v: "health", t: "Health" },
+                { v: "climate", t: "Climate / Energy" },
+                { v: "hardware", t: "Hardware" },
+                { v: "edu", t: "Education" },
+                { v: "other", t: "Andere" },
+              ],
+            },
+            {
+              key: "proofDemand",
+              label: "Proof-Druck",
+              type: "select",
+              required: true,
+              options: [
+                { v: "hoch", t: "Hoch (Beweis ist Pflicht)" },
+                { v: "mittel", t: "Mittel (Proof & Signal im Gleichgewicht)" },
+                { v: "niedrig", t: "Niedrig (Signal/Community trägt stark)" },
+              ],
+            },
+          ],
+        },
+        {
+          id: "system",
+          chip: "System",
+          title: "Wie groß ist euer System – und was reibt gerade am meisten?",
+          body: "Hier wird oft der eigentliche Engpass sichtbar.",
+          fields: [
+            {
+              key: "teamSize",
+              label: "Teamgröße",
+              type: "select",
+              required: true,
+              options: [
+                { v: "solo", t: "Solo" },
+                { v: "tiny", t: "2–5" },
+                { v: "small", t: "6–15" },
+                { v: "mid", t: "16–50" },
+                { v: "scale", t: "51–200" },
+                { v: "large", t: "200+" },
+              ],
+            },
+            {
+              key: "frictionZone",
+              label: "Reibungszone",
+              type: "select",
+              required: true,
+              options: [
+                { v: "kommunikation", t: "Kommunikation" },
+                { v: "ownership", t: "Ownership / Zuständigkeit" },
+                { v: "energie", t: "Energie / Überlast" },
+                { v: "struktur", t: "Struktur / Prozesse" },
+                { v: "strategie", t: "Strategie / Prioritäten" },
+              ],
+            },
+          ],
+        },
+        {
+          id: "cycle",
+          chip: "Zyklus",
+          title: "Welche Phase ist gerade wahr?",
+          body: "Phase = Timing. Nicht schönreden – nur wahr.",
+          fields: [
+            {
+              key: "currentStage",
+              label: "Phase",
+              type: "select",
+              required: true,
+              options: [
+                { v: "start", t: "Start" },
+                { v: "konsolidierung", t: "Konsolidierung" },
+                { v: "reibung", t: "Reibung" },
+                { v: "umbruch", t: "Umbruch / Pivot" },
+                { v: "expansion", t: "Expansion" },
+                { v: "neuordnung", t: "Neuordnung" },
+              ],
+            },
+          ],
+        },
+        {
+          id: "axis",
+          chip: "Spannung",
+          title: "Welche Achse beschreibt eure Situation am besten?",
+          body: "Eine gute Achse macht alles sofort einfacher.",
+          fields: [
+            { key: "axisPreset", label: "Spannungsachse", type: "select", required: true, options: [{ v: "auto", t: "Auto (aus Kontext)" }, ...AXES.map(a => ({ v: a.id, t: a.name }))] },
+          ],
+        },
+        {
+          id: "challenge",
+          chip: "Kernproblem",
+          title: "Was ist gerade das teuerste Problem im System?",
+          body: "3–6 Sätze. So, dass jemand aus dem Team sofort nickt.",
+          fields: [{ key: "mainChallenge", label: "Kernproblem", type: "textarea", required: true, placeholder: "Was wiederholt sich? Wo bleibt ihr hängen? Wo geht Energie drauf?" }],
+        },
+        {
+          id: "direction",
+          chip: "Richtung",
+          title: "Was soll in 90 Tagen spürbar anders sein?",
+          body: "Nicht „mehr“ – sondern „stimmiger“: Welche Veränderung würdest du wirklich merken?",
+          fields: [{ key: "desiredDirection", label: "90-Tage-Verschiebung", type: "textarea", required: true, placeholder: "Was ist anders in Delivery, Team, Angebot, Markt?" }],
+        },
+        {
+          id: "lead",
+          chip: "Führung",
+          title: "Welche Führungsqualität ist jetzt der Schlüssel?",
+          body: "Wähle eine Qualität. Daraus bauen wir Hebel + Risiko.",
+          fields: [
+            {
+              key: "leadQuality",
+              label: "Qualität",
+              type: "select",
+              required: true,
+              options: [
+                { v: "fokus", t: "Fokus (weniger, aber wahrer)" },
+                { v: "containment", t: "Containment (Grenzen, Rahmen)" },
+                { v: "mut", t: "Mut (klare Schnitte)" },
+                { v: "konsequenz", t: "Konsequenz (Kadenz, Commitment)" },
+                { v: "vertrauen", t: "Vertrauen (Delegation)" },
+                { v: "sanftheit", t: "Sanftheit (Würde halten)" },
+              ],
+            },
+            {
+              key: "leadBlocker",
+              label: "Was blockiert sie am meisten?",
+              type: "select",
+              required: true,
+              options: [
+                { v: "zu_viele_optionen", t: "Zu viele Optionen gleichzeitig" },
+                { v: "unklare_rollen", t: "Unklare Rollen / Ownership" },
+                { v: "angst_vor_verlust", t: "Angst vor Verlust (Scope, Kunden, Identität)" },
+                { v: "fehlender_proof", t: "Fehlender Proof / Vertrauen" },
+                { v: "tempo_zu_hoch", t: "Tempo ist höher als Reife" },
+                { v: "konflikt_avoid", t: "Konflikte werden vermieden" },
+              ],
+            },
+          ],
+        },
+        {
+          id: "close",
+          chip: "Abschluss",
+          title: "Wofür nutzt du dieses Reading?",
+          body: "Ein Wort reicht. Dann erzeugen wir das Ergebnis.",
+          fields: [
+            {
+              key: "useFor",
+              label: "Ich nutze es für…",
+              type: "select",
+              required: true,
+              options: [
+                { v: "klarheit", t: "Klarheit" },
+                { v: "entscheidung", t: "Entscheidung" },
+                { v: "fokus", t: "Fokus" },
+                { v: "mut", t: "Mut" },
+                { v: "entlastung", t: "Entlastung" },
+                { v: "richtung", t: "Richtung" },
+              ],
+            },
+          ],
+        },
       ];
 
       /* ===========================
@@ -1046,11 +1289,13 @@
         values: {},
         profile: null,
         wheelPinned: false,
-        reveal: { prompts: [], shown: 0 },
+        wheelPin: null,
+        deckIndex: 0,
+        deck: [],
       };
 
       /* ===========================
-         NAV + VIEW
+         VIEW SWITCH
       =========================== */
       const viewMap = {
         start: $("#view-start"),
@@ -1060,21 +1305,15 @@
 
       function switchView(viewKey, opts = {}) {
         state.view = viewKey;
-
         Object.entries(viewMap).forEach(([k, el]) => el.classList.toggle("active", k === viewKey));
 
-        // bottom bar only on reading
-        $("#bottomBar").style.display = viewKey === "reading" ? "block" : "none";
-
-        // set active nav class
         document.querySelectorAll(".navbtn").forEach((b) => b.classList.remove("active"));
         const activeBtn = document.querySelector(`.navbtn[data-view="${viewKey}"]`);
         if (activeBtn) activeBtn.classList.add("active");
 
-        // move indicator
-        requestAnimationFrame(() => moveNavIndicator());
+        requestAnimationFrame(moveNavIndicator);
 
-        if (opts.focusStep) {
+        if (opts.resetWizard) {
           setStep(0);
           focusFirstInput();
         }
@@ -1086,19 +1325,15 @@
         const active = nav.querySelector(".navbtn.active");
         if (!active) return;
 
-        const navRect = nav.getBoundingClientRect();
-        const aRect = active.getBoundingClientRect();
-
-        const x = (aRect.left - navRect.left);
-        const w = aRect.width;
-
-        // account for nav internal padding (6px)
-        const xAdjusted = x;
+        // offsetLeft is inside the nav padding box; indicator starts at padding too -> subtract padding once.
+        const pad = parseFloat(getComputedStyle(nav).paddingLeft) || 0;
+        const x = (active.offsetLeft - pad);
+        const w = active.offsetWidth;
         indicator.style.width = `${w}px`;
-        indicator.style.transform = `translateX(${xAdjusted}px)`;
+        indicator.style.transform = `translateX(${x}px)`;
       }
 
-      window.addEventListener("resize", () => moveNavIndicator());
+      window.addEventListener("resize", () => requestAnimationFrame(moveNavIndicator));
 
       /* ===========================
          WIZARD UI
@@ -1118,6 +1353,17 @@
           const chip = document.createElement("div");
           chip.className = "chip";
           chip.textContent = `Schritt ${idx + 1} · ${s.chip}`;
+
+          const meta = document.createElement("div");
+          meta.className = "step-meta";
+          meta.innerHTML = `
+            <div class="left"><strong>${idx + 1}</strong> / ${STEPS.length}</div>
+            <div class="right"><span class="kbd">Enter</span> weiter · Swipe</div>
+          `;
+
+          const progress = document.createElement("div");
+          progress.className = "progressbar";
+          progress.innerHTML = `<div data-progress></div>`;
 
           const title = document.createElement("div");
           title.className = "prompt-title";
@@ -1180,7 +1426,8 @@
               const isTA = input.tagName.toLowerCase() === "textarea";
               if (e.key === "Enter" && !e.shiftKey) {
                 if (isTA) { e.preventDefault(); nextStep(); return; }
-                e.preventDefault(); nextStep();
+                e.preventDefault();
+                nextStep();
               }
             });
 
@@ -1189,10 +1436,23 @@
             grid.appendChild(field);
           }
 
+          const actions = document.createElement("div");
+          actions.className = "card-actions";
+          actions.innerHTML = `
+            <button class="btn ghost" data-action="back">Zurück</button>
+            <button class="btn primary" data-action="next">Weiter</button>
+          `;
+
+          actions.querySelector('[data-action="back"]').addEventListener("click", prevStep);
+          actions.querySelector('[data-action="next"]').addEventListener("click", nextStep);
+
           card.appendChild(chip);
+          card.appendChild(meta);
+          card.appendChild(progress);
           card.appendChild(title);
           card.appendChild(body);
           card.appendChild(grid);
+          card.appendChild(actions);
 
           wrap.appendChild(card);
           mount.appendChild(wrap);
@@ -1207,8 +1467,7 @@
         if (active) active.classList.add("active");
 
         hydrateStepInputs();
-        updateStepper();
-        updateBottomBar();
+        updateStepUi();
       }
 
       function hydrateStepInputs() {
@@ -1220,6 +1479,23 @@
           if (v) el.value = v;
           else el.value = "";
         }
+      }
+
+      function updateStepUi() {
+        const idx = state.stepIndex + 1;
+        const total = STEPS.length;
+
+        const activeWrap = document.querySelector(`.step-view[data-step="${state.stepIndex}"]`);
+        if (!activeWrap) return;
+
+        const fill = activeWrap.querySelector("[data-progress]");
+        if (fill) fill.style.width = `${((idx / total) * 100).toFixed(1)}%`;
+
+        const backBtn = activeWrap.querySelector('[data-action="back"]');
+        const nextBtn = activeWrap.querySelector('[data-action="next"]');
+
+        if (backBtn) backBtn.disabled = state.stepIndex === 0;
+        if (nextBtn) nextBtn.textContent = state.stepIndex === total - 1 ? "Ergebnis erzeugen" : "Weiter";
       }
 
       function focusFirstInput() {
@@ -1259,40 +1535,29 @@
         focusFirstInput();
       }
 
-      function updateStepper() {
-        const total = STEPS.length;
-        const idx = state.stepIndex + 1;
-        $("#stepTitle").textContent = "Schritt";
-        $("#stepCount").textContent = `${idx} / ${total}`;
-        $("#progressFill").style.width = `${((idx / total) * 100).toFixed(1)}%`;
-      }
-
-      function updateBottomBar() {
-        $("#btnBack").disabled = state.stepIndex === 0;
-        $("#btnNext").textContent = state.stepIndex === STEPS.length - 1 ? "Ergebnis erzeugen" : "Weiter";
-        $("#bottomLeft").textContent = `Schritt ${state.stepIndex + 1}/${STEPS.length}`;
-      }
-
-      function bindSwipe() {
-        const area = document.querySelector(".wizard-shell");
-        if (!area) return;
+      function bindSwipeWizard() {
+        const shell = document.querySelector(".wizard-shell");
+        if (!shell) return;
 
         let sx = 0, sy = 0, st = 0;
-        area.addEventListener("touchstart", (e) => {
+        shell.addEventListener("touchstart", (e) => {
           if (!e.touches || e.touches.length !== 1) return;
           sx = e.touches[0].clientX;
           sy = e.touches[0].clientY;
           st = Date.now();
         }, { passive: true });
 
-        area.addEventListener("touchend", (e) => {
+        shell.addEventListener("touchend", (e) => {
+          if (state.view !== "reading") return;
           const dt = Date.now() - st;
           if (dt > 650) return;
           const t = e.changedTouches && e.changedTouches[0];
           if (!t) return;
+
           const dx = t.clientX - sx;
           const dy = t.clientY - sy;
           if (Math.abs(dx) < 56 || Math.abs(dy) > 80) return;
+
           if (dx < 0) nextStep();
           else prevStep();
         }, { passive: true });
@@ -1330,7 +1595,7 @@
       }
 
       function computeSMA(v) {
-        const seed = [v.ventureName, v.foundingDate, v.foundingTime || "00:00", v.foundingPlace, v.industry, v.zielGefuehl].join("|");
+        const seed = [v.ventureName, v.foundingDate, v.foundingTime || "00:00", v.foundingPlace, v.industry, v.tone].join("|");
         const h = hash32(seed);
 
         const sun = pick(SMA_SIGNS, h);
@@ -1355,37 +1620,28 @@
         if (stage === "expansion") { bump("wachstum_vs_stabilitaet", 2); bump("tempo_vs_reife", 2); bump("kontrolle_vs_vertrauen", 1); }
         if (stage === "neuordnung") { bump("innovation_vs_struktur", 2); bump("wachstum_vs_stabilitaet", 1); bump("gruender_vs_markt", 1); }
 
-        const leak = v.energyLeak;
-        if (leak === "unklarheit") bump("kontrolle_vs_vertrauen", 1);
-        if (leak === "komplexitaet") bump("innovation_vs_struktur", 1);
-        if (leak === "perfektion") bump("vision_vs_umsetzung", 1);
-        if (leak === "zuviel") bump("wachstum_vs_stabilitaet", 1);
-        if (leak === "konflikt") bump("kontrolle_vs_vertrauen", 1);
-
         const fr = v.frictionZone;
         if (fr === "ownership") bump("kontrolle_vs_vertrauen", 1);
         if (fr === "struktur") bump("innovation_vs_struktur", 1);
         if (fr === "strategie") bump("vision_vs_umsetzung", 1);
         if (fr === "energie") bump("tempo_vs_reife", 1);
 
-        const text = `${v.mainChallenge} ${v.desiredDirection} ${v.axisFree} ${v.delayedDecision}`.toLowerCase();
-        const kw = [
-          ["position", "gruender_vs_markt", 2], ["marke", "gruender_vs_markt", 1], ["pivot", "gruender_vs_markt", 2],
-          ["prozess", "innovation_vs_struktur", 2], ["struktur", "innovation_vs_struktur", 2],
-          ["delivery", "vision_vs_umsetzung", 2], ["umsetzen", "vision_vs_umsetzung", 2],
-          ["wachstum", "wachstum_vs_stabilitaet", 2], ["skal", "wachstum_vs_stabilitaet", 2],
-          ["vertrauen", "kontrolle_vs_vertrauen", 2], ["deleg", "kontrolle_vs_vertrauen", 2],
-          ["langsam", "tempo_vs_reife", 2], ["reif", "tempo_vs_reife", 2],
-        ];
-        for (const [frag, id, w] of kw) if (text.includes(frag)) bump(id, w);
+        const text = `${v.mainChallenge} ${v.desiredDirection}`.toLowerCase();
+        if (text.includes("position") || text.includes("marke")) bump("gruender_vs_markt", 2);
+        if (text.includes("prozess") || text.includes("struktur")) bump("innovation_vs_struktur", 2);
+        if (text.includes("umsetzen") || text.includes("delivery")) bump("vision_vs_umsetzung", 2);
+        if (text.includes("vertrauen") || text.includes("deleg")) bump("kontrolle_vs_vertrauen", 2);
+        if (text.includes("skal") || text.includes("wachstum")) bump("wachstum_vs_stabilitaet", 2);
 
-        if (v.axisPreset && v.axisPreset !== "auto") bump(v.axisPreset, 4);
+        if (v.axisPreset && v.axisPreset !== "auto") bump(v.axisPreset, 5);
 
         const sorted = [...weights.entries()].sort((a,b) => b[1]-a[1]);
         const primaryId = sorted[0]?.[0] ?? "wachstum_vs_stabilitaet";
         const secondaryId = sorted[1]?.[0] ?? "vision_vs_umsetzung";
-
-        return { primary: AXES.find(a => a.id === primaryId), secondary: AXES.find(a => a.id === secondaryId) };
+        return {
+          primary: AXES.find(a => a.id === primaryId),
+          secondary: AXES.find(a => a.id === secondaryId),
+        };
       }
 
       function computeArchetypes(v, sma, tensions) {
@@ -1411,6 +1667,7 @@
         if (p === "vision_vs_umsetzung") { bump("builder", 1); bump("pioneer", 1); }
         if (p === "gruender_vs_markt") { bump("challenger", 1); bump("magnet", 1); }
         if (p === "innovation_vs_struktur") bump("builder", 2);
+        if (p === "tempo_vs_reife") { bump("steward", 1); bump("integrator", 1); }
 
         if (sma.element.id === "feuer") { bump("catalyst", 1); bump("pioneer", 1); }
         if (sma.element.id === "wasser") { bump("steward", 1); bump("magnet", 1); }
@@ -1420,51 +1677,60 @@
         const sorted = [...scores.entries()].sort((a,b) => b[1]-a[1]);
         const domId = sorted[0]?.[0] ?? "builder";
         const secId = sorted[1]?.[0] ?? "integrator";
-
-        return { dominant: ARCHETYPES.find(a => a.id === domId), secondary: ARCHETYPES.find(a => a.id === secId) };
+        return {
+          dominant: ARCHETYPES.find(a => a.id === domId),
+          secondary: ARCHETYPES.find(a => a.id === secId),
+        };
       }
 
       function computeCycle(stage) { return CYCLES[stage] ?? CYCLES.start; }
 
       function computeRiskAndLever(v, arch, tensions) {
-        const text = `${v.mainChallenge} ${v.desiredDirection} ${v.delayedDecision}`.toLowerCase();
         let risk = "Halb-Commitment";
         if (tensions.primary.id === "gruender_vs_markt") risk = "Identitäts-Drag";
-        if (tensions.primary.id === "vision_vs_umsetzung") risk = "Abstraktions-Drift";
+        if (tensions.primary.id === "vision_vs_umsetzung") risk = "Vision ohne Träger";
         if (tensions.primary.id === "kontrolle_vs_vertrauen") risk = "Übersteuerung";
-        if (text.includes("team") || text.includes("rollen") || text.includes("hire")) risk = "People-System-Mismatch";
+        if (tensions.primary.id === "tempo_vs_reife") risk = "Tempo > Reife";
+        if (arch.dominant.id === "magnet") risk = "Signal-Proof-Lücke";
         if (arch.dominant.id === "catalyst") risk = "Zerstreute Wetten";
-        if (arch.dominant.id === "magnet") risk = "Signal→Proof-Gap";
 
-        const axisLever = {
+        const lever = {
           wachstum_vs_stabilitaet: "Schütze den Kern: Angebot · Kadenz · Ownership.",
-          vision_vs_umsetzung: "Übersetze Vision in einen testbaren Commit – diese Woche.",
-          kontrolle_vs_vertrauen: "Instrumentiere Vertrauen: Rollen, Regeln, Feedback.",
-          tempo_vs_reife: "Finde den Engpass – designe Tempo um ihn herum.",
-          gruender_vs_markt: "Lass den Ursprung reifen: gleiche Handschrift, neue Form.",
-          innovation_vs_struktur: "Konvertiere Neuheit in Struktur – bevor sie zu Impro-Schuld wird.",
-        }[tensions.primary.id] ?? "Benenne den Trade-off – committe bewusst.";
+          vision_vs_umsetzung: "Übersetze Vision in 1 Test + 1 Output – diese Woche.",
+          kontrolle_vs_vertrauen: "Instrumentiere Vertrauen: Rollen, Regeln, Feedback-Loop.",
+          tempo_vs_reife: "Finde den Engpass. Designe Tempo um ihn herum.",
+          gruender_vs_markt: "Lass Ursprung reifen: gleiche Handschrift, neue Form.",
+          innovation_vs_struktur: "Konvertiere Neuheit in Struktur – bevor sie Impro-Schuld wird.",
+        }[tensions.primary.id] ?? "Benenne den Trade-off. Entscheide bewusst.";
 
-        return { risk, lever: `${axisLever} ${arch.dominant.lever}` };
+        const blockerLine = {
+          zu_viele_optionen: "Blocker: zu viele Optionen gleichzeitig.",
+          unklare_rollen: "Blocker: Rollen/Ownership sind nicht hart genug gesetzt.",
+          angst_vor_verlust: "Blocker: der Schnitt fühlt sich nach Verlust an (ist aber oft Schutz).",
+          fehlender_proof: "Blocker: Proof fehlt – Vertrauen wird nervös.",
+          tempo_zu_hoch: "Blocker: Tempo überholt das System.",
+          konflikt_avoid: "Blocker: Konflikte werden umgangen – Spannung bleibt im Raum.",
+        }[v.leadBlocker] ?? "Blocker: unklar.";
+
+        return {
+          risk,
+          lever: `${lever} ${arch.dominant.lever}`,
+          blockerLine,
+        };
       }
 
-      function escapeHtml(s) {
-        return String(s)
-          .replaceAll("&", "&amp;")
-          .replaceAll("<", "&lt;")
-          .replaceAll(">", "&gt;")
-          .replaceAll('"', "&quot;")
-          .replaceAll("'", "&#039;");
-      }
-
+      /* ===========================
+         TEXT (short + readable)
+      =========================== */
       function composeOriginText(v, rhythmTag, fieldTag, cycle) {
         const qual = { morgen: "morgendlich-klar", mittag: "sichtbar-tragend", abend: "verdichtend-mutig", nacht: "intuitiv-tief" }[v.startQualitaet] ?? "klar";
+        const tone = v.tone ? v.tone : "—";
         return [
-          `Ein <strong>${qual}</strong>er Eintritt: Der Ursprung will Form – nicht nur Start.`,
-          `Rhythmus: <strong>${rhythmTag}</strong>.`,
-          `Feld: <strong>${fieldTag}</strong>.`,
-          `Zyklus: <strong>${cycle.name}</strong> · ${cycle.hint}`,
-        ].join(" ");
+          `Ursprungston: <strong>${escapeHtml(v.ventureName)}</strong> · Ton: <strong>${escapeHtml(tone)}</strong>.`,
+          `Ein <strong>${qual}</strong>er Eintritt: Start als Entscheidung, nicht als Idee.`,
+          `Rhythmus: <strong>${rhythmTag}</strong> · Feld: <strong>${fieldTag}</strong>.`,
+          `Zyklus: <strong>${cycle.name}</strong> — ${cycle.hint}`,
+        ].join("<br/>");
       }
 
       function composeSMAText(sma) {
@@ -1479,19 +1745,17 @@
       function composeArchetypeText(arch) {
         const d = arch.dominant, s = arch.secondary;
         return [
-          `Dominant: <strong>${d.name}</strong> · ${d.strengths.slice(0,2).join(" · ")}.`,
-          `Sekundär: <strong>${s.name}</strong> · ${s.strengths.slice(0,2).join(" · ")}.`,
-          `Schatten-Hinweis: ${d.shadow[0]}.`,
-        ].join(" ");
+          `<strong>Dominant:</strong> ${d.name} — ${d.strengths.join(" · ")}.`,
+          `<br/><strong>Sekundär:</strong> ${s.name} — ${s.strengths.join(" · ")}.`,
+          `<br/><strong>Schatten (sanft):</strong> ${d.shadow[0]}.`,
+        ].join("");
       }
 
       function composeAxisText(v, primary, secondary) {
-        const extra = v.axisFree ? `Deine Achse („${escapeHtml(v.axisFree)}“) färbt zusätzlich.` : "";
         return [
-          `Primär: <strong>${primary.name}</strong> (${primary.poles[0]} ↔ ${primary.poles[1]}). ${primary.description}`,
-          `Sekundär: <strong>${secondary.name}</strong> (${secondary.poles[0]} ↔ ${secondary.poles[1]}). ${secondary.description}`,
-          extra,
-        ].join(" ");
+          `<strong>Primär:</strong> ${primary.name} (${primary.poles[0]} ↔ ${primary.poles[1]}) — ${primary.description}`,
+          `<br/><strong>Sekundär:</strong> ${secondary.name} (${secondary.poles[0]} ↔ ${secondary.poles[1]})`,
+        ].join("");
       }
 
       function composeLeadText(v, riskLever) {
@@ -1499,121 +1763,69 @@
           fokus: "Fokus",
           containment: "Containment",
           mut: "Mut",
-          sanftheit: "Sanftheit",
           konsequenz: "Konsequenz",
           vertrauen: "Vertrauen",
+          sanftheit: "Sanftheit",
         };
         return [
-          `Qualität: <strong>${qMap[v.leadQuality] ?? "Klarheit"}</strong>.`,
-          `Schwierigkeit: „${escapeHtml(v.leadHard)}“`,
-          `Hebel: ${escapeHtml(riskLever.lever)}`,
-          `Risiko: <strong>${riskLever.risk}</strong>`,
-        ].join(" ");
+          `<strong>Führungsschlüssel:</strong> ${qMap[v.leadQuality] ?? "Klarheit"}. ${escapeHtml(riskLever.blockerLine)}`,
+          `<br/><strong>Hebel:</strong> ${escapeHtml(riskLever.lever)}`,
+          `<br/><strong>Risiko:</strong> ${escapeHtml(riskLever.risk)}`,
+        ].join("");
       }
 
-      function buildPrompts(v, sma, tensions) {
-        const t1 = tensions.primary.id;
-        const t2 = tensions.secondary.id;
-
-        const base = [
-          { q: "Welches Bedürfnis des Systems wird gerade überhört – und wo zeigt es sich (Meetings, Delivery, Entscheidungen)?", h: "Suche nach der Stelle, an der Energie unbemerkt bezahlt wird." },
-          { q: "Welche Entscheidung würde sofort Ordnung schaffen, obwohl sie kurz unbequem ist?", h: "Klarheit entlastet schneller als neue Aufgaben." },
-        ];
-
-        const axisPrompts = {
-          wachstum_vs_stabilitaet: [{ q: "Was schützt du in den nächsten 90 Tagen, damit Wachstum nicht zum Selbstverlust wird?", h: "Kern: Angebot · Kadenz · Ownership." }],
-          vision_vs_umsetzung: [{ q: "Welche Vision braucht einen Test – und was ist der kleinste Schritt in 7 Tagen?", h: "Ein Test hat Output." }],
-          kontrolle_vs_vertrauen: [{ q: "Wo wird übersteuert – und welches Instrument macht Vertrauen sicher (Rolle, Regel, Feedback)?", h: "Instrumente entdramatisieren Führung." }],
-          tempo_vs_reife: [{ q: "Welcher Engpass entscheidet das Tempo – und wie würdet ihr Tempo designen statt fordern?", h: "Engpass zuerst." }],
-          gruender_vs_markt: [{ q: "Welche Handschrift ist kostbar – und welche ist gerade ein Gefängnis?", h: "Reifung: gleiche Handschrift, neue Form." }],
-          innovation_vs_struktur: [{ q: "Welche Neuheit muss Struktur werden, damit sie wiederholbar wirkt?", h: "Struktur trägt Kreativität." }],
-        };
-
-        const smaPrompts = [
-          { q: `Sonne („${sma.sun.label}“): Was ist euer Fokus – und was tut ihr dafür bewusst nicht?`, h: "Fokus ist Richtung." },
-          { q: `Mond („${sma.moon.label}“): Was beruhigt das System (Ritual, Rhythmus, Grenze, Sprache)?`, h: "Regulation statt Sedierung." },
-          { q: `Aszendent („${sma.asc.label}“): Wo ist euer Signal stärker als euer Proof – oder umgekehrt?`, h: "Signal + Proof = Magnetismus." },
-        ];
-
-        const list = [
-          ...base,
-          ...(axisPrompts[t1] ?? []),
-          ...(axisPrompts[t2] ?? []),
-          ...smaPrompts,
-          { q: `Welche Grenze („${escapeHtml(v.boundary)}“) würde euch würdevoll entlasten?`, h: "Grenzen halten Verbindung im System." },
-          { q: `Welche Praxis setzt du in 7 Tagen wirklich um – im Dienst von „${escapeHtml(v.zielGefuehl)}“?`, h: "Klein. Konsequent. Wiederholbar." },
-        ];
-
-        const out = [];
-        const seen = new Set();
-        for (const p of list) {
-          if (seen.has(p.q)) continue;
-          seen.add(p.q);
-          out.push(p);
-          if (out.length >= 10) break;
-        }
-        return out;
+      function composeCycleText(cycle) {
+        return [
+          `<strong>${cycle.name}</strong>`,
+          `<br/>Signale: ${cycle.signals.join(" · ")}`,
+          `<br/>Reibung: ${cycle.friction.join(" · ")}`,
+          `<br/><strong>Timing-Hinweis:</strong> ${cycle.hint}`,
+        ].join("");
       }
 
       /* ===========================
-         RESULT RENDER
+         PROMPTS (deck: 8 cards, very readable)
       =========================== */
-      function renderBadges(sel, items) {
-        const wrap = document.querySelector(sel);
-        wrap.innerHTML = "";
-        for (const t of items) {
-          const b = document.createElement("span");
-          b.className = "badge";
-          b.textContent = t;
-          wrap.appendChild(b);
-        }
-      }
+      function buildDeckPrompts(v, sma, tensions, arch, riskLever) {
+        const a = tensions.primary;
+        const b = tensions.secondary;
 
-      function updateRevealStatus() {
-        $("#revealStatus").textContent = `${state.reveal.shown} / ${state.reveal.prompts.length} sichtbar`;
-      }
+        const cards = [
+          {
+            q: "Wenn du alles weglässt: Was ist der Kern, den ihr schützen müsst, damit alles andere wieder leicht wird?",
+            h: "Tipp: Kern ist meist Angebot · Kadenz · Ownership – nicht ein weiteres Feature.",
+          },
+          {
+            q: `Eure Hauptspannung ist: ${a.name}. Wo kippt ihr aktuell auf eine Seite – und was wäre die kleinste Gegenbewegung?`,
+            h: `Pole: ${a.poles[0]} ↔ ${a.poles[1]}. Gegenbewegung = 1 Entscheidung, 1 Ritual, 1 Proof.`,
+          },
+          {
+            q: `Sonne („${sma.sun.label}“): Was ist euer Fokus – und was macht ihr dafür diese Woche bewusst nicht?`,
+            h: "Fokus wird erst sichtbar durch Weglassen.",
+          },
+          {
+            q: `Mond („${sma.moon.label}“): Was braucht das System, um ruhig zu bleiben, während ihr wächst?`,
+            h: "Regulation ist Design: Rhythmus, Grenzen, klare Zuständigkeiten.",
+          },
+          {
+            q: `Aszendent („${sma.asc.label}“): Wie wirkt ihr im Markt – und wo passt Signal nicht zum Proof?`,
+            h: "Wenn Signal + Proof zusammenfallen, entsteht natürliche Anziehung.",
+          },
+          {
+            q: `Dominanter Archetyp: ${arch.dominant.name}. Was ist die Stärke – und wo wird sie zur Übertreibung?`,
+            h: `Schatten-Hinweis: ${arch.dominant.shadow[0]}.`,
+          },
+          {
+            q: `Führungsschlüssel: ${v.leadQuality}. Welche eine Praxis setzt du in 7 Tagen – wirklich?`,
+            h: `Hebel: ${riskLever.lever}`,
+          },
+          {
+            q: "Welche Entscheidung würde euch sofort entlasten, obwohl sie kurz unbequem ist?",
+            h: "Das System weiß meist längst, was fällig ist – es wartet nur auf Sprache + Commitment.",
+          },
+        ];
 
-      function syncExportPrompts() {
-        if (!state.profile) return;
-        const ul = $("#exportPrompts");
-        ul.innerHTML = "";
-        for (const p of state.profile.prompts.slice(0, 8)) {
-          const li = document.createElement("li");
-          li.textContent = p.q;
-          ul.appendChild(li);
-        }
-      }
-
-      function revealNextPrompt() {
-        const idx = state.reveal.shown;
-        if (idx >= state.reveal.prompts.length) { toast("Alle Karten sichtbar"); return; }
-
-        const p = state.reveal.prompts[idx];
-        const card = document.createElement("div");
-        card.className = "reveal-card";
-
-        const q = document.createElement("div");
-        q.className = "reveal-q";
-        q.textContent = p.q;
-
-        const h = document.createElement("div");
-        h.className = "reveal-hint";
-        h.textContent = p.h;
-
-        card.appendChild(q);
-        card.appendChild(h);
-
-        $("#revealGrid").appendChild(card);
-        requestAnimationFrame(() => card.classList.add("show"));
-
-        state.reveal.shown += 1;
-        updateRevealStatus();
-        syncExportPrompts();
-        chime();
-      }
-
-      function revealAllPrompts() {
-        while (state.reveal.shown < state.reveal.prompts.length) revealNextPrompt();
+        return cards;
       }
 
       /* ===========================
@@ -1621,6 +1833,7 @@
       =========================== */
       function renderWheelEmpty() {
         const svg = $("#wheelSvg");
+        if (!svg) return;
         svg.innerHTML = "";
         const defs = elSvg("defs");
         defs.appendChild(svgGlowFilter("softGlow", 3.0, 0.36));
@@ -1675,20 +1888,27 @@
       function setWheelDetail(seg) {
         const title = $("#wheelDetailTitle");
         const body = $("#wheelDetailBody");
+        if (!title || !body) return;
 
-        if (!state.profile) { title.textContent = "Wähle ein Segment"; body.textContent = "Erzeuge zuerst ein Ergebnis."; return; }
+        if (!state.profile) {
+          title.textContent = "Wähle ein Segment";
+          body.textContent = "Erzeuge zuerst ein Ergebnis.";
+          return;
+        }
 
         if (!seg) {
           title.textContent = state.wheelPinned ? "Gepinnt" : "Wähle ein Segment";
-          body.textContent = state.wheelPinned ? "Pin lösen, um wieder frei zu wählen." : "Tippe ein Segment für eine Notiz.";
+          body.textContent = state.wheelPinned ? "Pin lösen, um wieder frei zu wählen." : "Tippe ein Segment: Innen = Element, Mitte = Achse, Außen = Timing.";
           return;
         }
+
         title.textContent = seg.label;
         body.textContent = seg.detail;
       }
 
       function renderWheel(profile) {
         const svg = $("#wheelSvg");
+        if (!svg) return;
         svg.innerHTML = "";
 
         const defs = elSvg("defs");
@@ -1702,6 +1922,7 @@
         svg.appendChild(svgCircle(cx, cy, 270, "rgba(255,255,255,0.08)", "rgba(0,0,0,0)"));
         svg.appendChild(svgCircle(cx, cy, 220, "rgba(255,255,255,0.06)", "rgba(0,0,0,0)"));
         svg.appendChild(svgCircle(cx, cy, 168, "rgba(255,255,255,0.05)", "rgba(0,0,0,0)"));
+
         svg.appendChild(svgLine(cx, 70, cx, 650, "rgba(255,255,255,0.06)", 1));
         svg.appendChild(svgLine(70, cy, 650, cy, "rgba(255,255,255,0.06)", 1));
 
@@ -1728,18 +1949,19 @@
         }));
 
         const outerLabels = [
-          { id: "marker_kern", label: "Kern schützen", detail: "Was muss stabil sein, damit Bewegung tragfähig bleibt?" },
-          { id: "marker_proof", label: "Proof setzen", detail: "Wo braucht ihr Beweis statt mehr Erzählung?" },
-          { id: "marker_ownership", label: "Ownership klären", detail: "Welche Verantwortung braucht eine eindeutige Besitzerin?" },
-          { id: "marker_ritual", label: "Ritual bauen", detail: "Welche Wiederholung entlastet sofort?" },
-          { id: "marker_kante", label: "Kante zeigen", detail: "Welche Abgrenzung macht euch verständlicher?" },
-          { id: "marker_schnitt", label: "Schnitt setzen", detail: "Welche Entscheidung darf irreversibel werden?" },
+          { id: "marker_kern", label: "Kern", detail: "Was muss stabil sein, damit Bewegung tragfähig bleibt?" },
+          { id: "marker_proof", label: "Proof", detail: "Wo braucht ihr Beweis statt mehr Erzählung?" },
+          { id: "marker_ownership", label: "Ownership", detail: "Welche Verantwortung braucht eine eindeutige Besitzerin?" },
+          { id: "marker_ritual", label: "Ritual", detail: "Welche Wiederholung entlastet sofort?" },
+          { id: "marker_kante", label: "Kante", detail: "Welche Abgrenzung macht euch verständlicher?" },
+          { id: "marker_schnitt", label: "Schnitt", detail: "Welche Entscheidung darf irreversibel werden?" },
           { id: "marker_regulation", label: "Regulation", detail: "Was beruhigt das System, ohne es zu sedieren?" },
-          { id: "marker_tempo", label: "Tempo designen", detail: "Wo entscheidet ein Engpass das Tempo – und wie passt ihr euch an?" },
+          { id: "marker_tempo", label: "Tempo", detail: "Wo entscheidet ein Engpass das Tempo – und wie passt ihr euch an?" },
         ];
+
         const oSegs = outerLabels.map((x, i) => ({
           id: x.id,
-          label: x.label,
+          label: `Marker: ${x.label}`,
           detail: x.detail,
           a0: -90 + i * 45,
           a1: -90 + (i + 1) * 45,
@@ -1760,7 +1982,13 @@
 
           path.addEventListener("mouseenter", () => { if (state.wheelPinned) return; setWheelDetail(seg); });
           path.addEventListener("mouseleave", () => { if (state.wheelPinned) return; setWheelDetail(null); });
-          path.addEventListener("click", () => { state.wheelPinned = true; setWheelDetail(seg); toast("Gepinnt"); chime(); });
+          path.addEventListener("click", () => {
+            state.wheelPinned = true;
+            state.wheelPin = seg.id;
+            setWheelDetail(seg);
+            toast("Segment gepinnt");
+            chime();
+          });
 
           svg.appendChild(path);
 
@@ -1783,57 +2011,17 @@
       }
 
       /* ===========================
-         EXPORT
+         PROFILE GENERATION
       =========================== */
-      function renderExport(p) {
-        const v = p.values;
-        $("#exportTitle").textContent = v.ventureName || "Reading";
-        $("#exportSub").textContent = "Reading-Summary";
-
-        $("#exportVenture").textContent = [
-          v.ventureName,
-          v.tagline ? `„${v.tagline}“` : null,
-          `${v.foundingPlace} · ${v.foundingDate}${v.foundingTime ? " " + v.foundingTime : ""}`,
-        ].filter(Boolean).join(" • ");
-
-        $("#exportSMA").textContent = `Sonne: ${p.sma.sun.label} · Mond: ${p.sma.moon.label} · Asc: ${p.sma.asc.label} · Elemente: ${p.sma.element.name}/${p.sma.element2.name}`;
-        $("#exportArch").textContent = `${p.arch.dominant.name} + ${p.arch.secondary.name}`;
-        $("#exportAxes").textContent = `${p.tensions.primary.name} · ${p.tensions.secondary.name}`;
-
-        const summary = [
-          `Zielgefühl: ${v.zielGefuehl}.`,
-          `Signatur: ${p.rhythmTag} · ${p.fieldTag}.`,
-          `Sonne/Mond/Asc: Fokus (${p.sma.sun.label}), Bedürfnis (${p.sma.moon.label}), Auftreten (${p.sma.asc.label}).`,
-          `Archetypen: ${p.arch.dominant.name} + ${p.arch.secondary.name}.`,
-          `Achsen: ${p.tensions.primary.name} / ${p.tensions.secondary.name}.`,
-          `Zyklus: ${p.cycle.name}.`,
-          `Hebel: ${p.riskLever.lever}`,
-        ].join(" ");
-
-        $("#exportSummary").textContent = summary;
-        syncExportPrompts();
+      function normalizeValues(values) {
+        const out = {};
+        for (const s of STEPS) for (const f of s.fields) out[f.key] = safe(values[f.key]);
+        if (!out.axisPreset) out.axisPreset = "auto";
+        if (!out.startQualitaet) out.startQualitaet = "morgen";
+        if (!out.foundingTime) out.foundingTime = "";
+        return out;
       }
 
-      function buildCopySummary() {
-        if (!state.profile) return "Noch kein Ergebnis.";
-        const p = state.profile;
-        const v = p.values;
-        return [
-          `Unternehmen: ${v.ventureName}${v.tagline ? " — " + v.tagline : ""}`,
-          `Ursprung: ${v.foundingDate}${v.foundingTime ? " " + v.foundingTime : ""} • ${v.foundingPlace}`,
-          `Zielgefühl: ${v.zielGefuehl}`,
-          `Signatur: ${p.rhythmTag} • ${p.fieldTag}`,
-          `Sonne/Mond/Asc: ${p.sma.sun.label} / ${p.sma.moon.label} / ${p.sma.asc.label}`,
-          `Archetypen: ${p.arch.dominant.name} + ${p.arch.secondary.name}`,
-          `Achsen: ${p.tensions.primary.name} / ${p.tensions.secondary.name}`,
-          `Zyklus: ${p.cycle.name}`,
-          `Hebel: ${p.riskLever.lever}`,
-        ].join("\n");
-      }
-
-      /* ===========================
-         GENERATE
-      =========================== */
       async function generateProfile() {
         $("#calibrating").classList.remove("hidden");
         document.querySelectorAll(".step-view").forEach((v) => v.classList.remove("active"));
@@ -1848,14 +2036,16 @@
         const arch = computeArchetypes(v, sma, tensions);
         const cycle = computeCycle(v.currentStage);
         const riskLever = computeRiskAndLever(v, arch, tensions);
-        const prompts = buildPrompts(v, sma, tensions);
+        const deck = buildDeckPrompts(v, sma, tensions, arch, riskLever);
 
-        state.profile = { values: v, rhythmTag, fieldTag, sma, tensions, arch, cycle, riskLever, prompts };
+        state.profile = { values: v, rhythmTag, fieldTag, sma, tensions, arch, cycle, riskLever };
+        state.deck = deck;
+        state.deckIndex = 0;
 
         await sleep(520);
         $("#calibrating").classList.add("hidden");
 
-        renderResult(state.profile);
+        renderResult();
 
         $("#navErgebnis").disabled = false;
         switchView("ergebnis");
@@ -1863,109 +2053,220 @@
         chime();
       }
 
-      function normalizeValues(values) {
-        const out = {};
-        for (const s of STEPS) for (const f of s.fields) out[f.key] = safe(values[f.key]);
-        if (!out.axisPreset) out.axisPreset = "auto";
-        if (!out.startQualitaet) out.startQualitaet = "morgen";
-        if (!out.foundingTime) out.foundingTime = "";
-        return out;
+      /* ===========================
+         RESULT RENDER
+      =========================== */
+      function setBadges(el, items) {
+        const wrap = $(el);
+        wrap.innerHTML = "";
+        for (const t of items) {
+          const b = document.createElement("span");
+          b.className = "badge";
+          b.textContent = t;
+          wrap.appendChild(b);
+        }
       }
 
-      function renderResult(p) {
+      function renderResult() {
+        const p = state.profile;
+        if (!p) return;
+
         $("#ergebnisEmpty").classList.add("hidden");
         $("#ergebnisWrap").classList.remove("hidden");
 
-        $("#originText").innerHTML = composeOriginText(p.values, p.rhythmTag, p.fieldTag, p.cycle);
-        $("#rhythmTag").textContent = p.rhythmTag;
-        $("#fieldTag").textContent = p.fieldTag;
+        $("#sumTitle").textContent = p.values.ventureName || "Dein Reading";
+        $("#sumSub").textContent =
+          "Du bekommst eine klare Struktur: Wo ist der Kern, welche Spannung ist aktiv, und was ist jetzt reif zu entscheiden – ohne Overload.";
 
-        $("#smaText").innerHTML = composeSMAText(p.sma);
-        renderBadges("#smaBadges", [
+        setBadges("#sumBadges", [
+          `Ton: ${p.values.tone}`,
+          `Primär: ${p.tensions.primary.name}`,
+          `Zyklus: ${p.cycle.name}`,
+          `Sonne: ${p.sma.sun.label}`,
+        ]);
+
+        const origin = composeOriginText(p.values, p.rhythmTag, p.fieldTag, p.cycle);
+        $("#originText").innerHTML = origin;
+        $("#teaserOrigin").textContent = `${p.rhythmTag} · ${p.fieldTag}`;
+
+        const smaText = composeSMAText(p.sma);
+        $("#smaText").innerHTML = smaText;
+        $("#teaserSMA").textContent = `${p.sma.sun.label} · ${p.sma.moon.label} · ${p.sma.asc.label}`;
+        setBadges("#smaBadges", [
           `Sonne: ${p.sma.sun.label}`,
           `Mond: ${p.sma.moon.label}`,
           `Asc: ${p.sma.asc.label}`,
           `Element: ${p.sma.element.name}`,
-          `Sek.: ${p.sma.element2.name}`,
         ]);
 
-        $("#archNames").textContent = `${p.arch.dominant.name} + ${p.arch.secondary.name}`;
-        $("#archText").innerHTML = composeArchetypeText(p.arch);
-        renderBadges("#archTags", [...p.arch.dominant.tone, ...p.arch.secondary.tone].slice(0, 6));
+        const archText = composeArchetypeText(p.arch);
+        $("#archText").innerHTML = archText;
+        $("#teaserArch").textContent = `${p.arch.dominant.name} + ${p.arch.secondary.name}`;
+        setBadges("#archBadges", [...p.arch.dominant.tone, ...p.arch.secondary.tone].slice(0, 6));
 
-        $("#axisName").textContent = p.tensions.primary.name;
         $("#axisText").innerHTML = composeAxisText(p.values, p.tensions.primary, p.tensions.secondary);
-        renderBadges("#axisBadges", [
+        $("#teaserAxis").textContent = p.tensions.primary.name;
+        setBadges("#axisBadges", [
           `${p.tensions.primary.poles[0]} ↔ ${p.tensions.primary.poles[1]}`,
           `${p.tensions.secondary.poles[0]} ↔ ${p.tensions.secondary.poles[1]}`,
         ]);
 
         $("#leadText").innerHTML = composeLeadText(p.values, p.riskLever);
-        $("#riskTag").textContent = p.riskLever.risk;
-        $("#leverTag").textContent = p.riskLever.lever;
+        setBadges("#leadBadges", [`Risiko: ${p.riskLever.risk}`]);
 
-        $("#cycleText").innerHTML = [
-          `<div class="big">${p.cycle.name}</div>`,
-          `<div class="prose">Signale: ${p.cycle.signals.join(" · ")}</div>`,
-          `<div class="prose">Reibung: ${p.cycle.friction.join(" · ")}</div>`,
-          `<div class="prose"><strong>Timing:</strong> ${p.cycle.hint}</div>`,
-        ].join("");
-        renderBadges("#cycleBadges", [p.cycle.name, `Reibung: ${p.values.frictionZone}`, `Leak: ${p.values.energyLeak}`]);
+        $("#cycleText").innerHTML = composeCycleText(p.cycle);
+        $("#teaserCycle").textContent = p.cycle.hint;
+        setBadges("#cycleBadges", [`Phase: ${p.cycle.name}`, `Reibung: ${p.values.frictionZone}`, `Proof: ${p.values.proofDemand}`]);
 
         renderWheel(p);
+        renderDeck();
 
-        state.reveal.prompts = p.prompts;
-        state.reveal.shown = 0;
-        $("#revealGrid").innerHTML = "";
-        updateRevealStatus();
-        revealNextPrompt();
-        setTimeout(() => revealNextPrompt(), 420);
+        renderExport();
+      }
 
-        renderExport(p);
+      function renderDeck() {
+        const deck = state.deck || [];
+        const i = clamp(state.deckIndex, 0, Math.max(0, deck.length - 1));
+        state.deckIndex = i;
+
+        $("#deckCount").textContent = `${deck.length ? i + 1 : 0} / ${deck.length}`;
+        const card = $("#deckCard");
+
+        if (!deck.length) {
+          $("#deckQ").textContent = "—";
+          $("#deckH").textContent = "—";
+          card.classList.remove("show");
+          return;
+        }
+
+        $("#deckQ").textContent = deck[i].q;
+        $("#deckH").textContent = deck[i].h;
+
+        card.classList.remove("show");
+        void card.offsetWidth;
+        card.classList.add("show");
+      }
+
+      function deckNext() {
+        if (!state.deck.length) return;
+        state.deckIndex = clamp(state.deckIndex + 1, 0, state.deck.length - 1);
+        renderDeck();
+        chime();
+      }
+
+      function deckBack() {
+        if (!state.deck.length) return;
+        state.deckIndex = clamp(state.deckIndex - 1, 0, state.deck.length - 1);
+        renderDeck();
+        chime();
+      }
+
+      function bindDeckSwipe() {
+        const deckEl = $("#deck");
+        if (!deckEl) return;
+
+        let sx = 0, sy = 0, st = 0;
+        deckEl.addEventListener("touchstart", (e) => {
+          if (!e.touches || e.touches.length !== 1) return;
+          sx = e.touches[0].clientX;
+          sy = e.touches[0].clientY;
+          st = Date.now();
+        }, { passive: true });
+
+        deckEl.addEventListener("touchend", (e) => {
+          if (state.view !== "ergebnis") return;
+          const dt = Date.now() - st;
+          if (dt > 650) return;
+          const t = e.changedTouches && e.changedTouches[0];
+          if (!t) return;
+
+          const dx = t.clientX - sx;
+          const dy = t.clientY - sy;
+          if (Math.abs(dx) < 56 || Math.abs(dy) > 80) return;
+
+          if (dx < 0) deckNext();
+          else deckBack();
+        }, { passive: true });
       }
 
       /* ===========================
-         INIT + EVENTS
+         EXPORT
+      =========================== */
+      function renderExport() {
+        const p = state.profile;
+        if (!p) return;
+
+        $("#exportTitle").textContent = p.values.ventureName || "Reading";
+        $("#exportSub").textContent = `${p.values.foundingPlace} · ${p.values.foundingDate}${p.values.foundingTime ? " " + p.values.foundingTime : ""}`;
+
+        const summary = [
+          `Ton: ${p.values.tone}.`,
+          `Signatur: ${p.rhythmTag} · ${p.fieldTag}.`,
+          `Sonne/Mond/Asc: ${p.sma.sun.label} / ${p.sma.moon.label} / ${p.sma.asc.label}.`,
+          `Archetypen: ${p.arch.dominant.name} + ${p.arch.secondary.name}.`,
+          `Achse: ${p.tensions.primary.name} (sekundär: ${p.tensions.secondary.name}).`,
+          `Zyklus: ${p.cycle.name}.`,
+          `Hebel: ${p.riskLever.lever}`,
+        ].join(" ");
+
+        $("#exportSummary").textContent = summary;
+      }
+
+      function buildCopySummary() {
+        const p = state.profile;
+        if (!p) return "Noch kein Ergebnis.";
+        const v = p.values;
+        return [
+          `Unternehmen: ${v.ventureName}`,
+          `Ursprung: ${v.foundingDate}${v.foundingTime ? " " + v.foundingTime : ""} • ${v.foundingPlace}`,
+          `Ton: ${v.tone}`,
+          `Signatur: ${p.rhythmTag} • ${p.fieldTag}`,
+          `Sonne/Mond/Asc: ${p.sma.sun.label} / ${p.sma.moon.label} / ${p.sma.asc.label}`,
+          `Archetypen: ${p.arch.dominant.name} + ${p.arch.secondary.name}`,
+          `Achse: ${p.tensions.primary.name} (sek.: ${p.tensions.secondary.name})`,
+          `Zyklus: ${p.cycle.name}`,
+          `Hebel: ${p.riskLever.lever}`,
+        ].join("\n");
+      }
+
+      /* ===========================
+         INIT
       =========================== */
       function init() {
         buildWizardUI();
         renderWheelEmpty();
-        setStep(0);
-        bindSwipe();
+        bindSwipeWizard();
+        bindDeckSwipe();
 
-        // Bottom bar only when Reading is active
-        $("#bottomBar").style.display = "none";
-
-        // Nav clicks
+        // Nav
         document.querySelectorAll(".navbtn[data-view]").forEach((btn) => {
           btn.addEventListener("click", () => {
-            const v = btn.dataset.view;
             if (btn.disabled) return;
-            switchView(v);
+            switchView(btn.dataset.view);
             chime();
           });
         });
 
-        // CTA -> reading
+        // CTA
         $("#ctaBegin").addEventListener("click", () => {
-          switchView("reading", { focusStep: true });
+          switchView("reading", { resetWizard: true });
           chime();
         });
 
-        // Bottom controls
-        $("#btnBack").addEventListener("click", prevStep);
-        $("#btnNext").addEventListener("click", nextStep);
-
-        // Ergebnis buttons
+        // Wheel pin
         $("#unlockWheel").addEventListener("click", () => {
           state.wheelPinned = false;
+          state.wheelPin = null;
           setWheelDetail(null);
           toast("Pin gelöst");
           chime();
         });
-        $("#revealNext").addEventListener("click", revealNextPrompt);
-        $("#revealAll").addEventListener("click", revealAllPrompts);
 
+        // Deck buttons
+        $("#deckNext").addEventListener("click", deckNext);
+        $("#deckBack").addEventListener("click", deckBack);
+
+        // Export actions
         $("#printBtn").addEventListener("click", () => window.print());
         $("#copyBtn").addEventListener("click", async () => {
           const txt = buildCopySummary();
@@ -1973,31 +2274,17 @@
           catch { toast("Copy nicht möglich"); }
         });
 
-        // Indicator initial position
-        requestAnimationFrame(() => moveNavIndicator());
+        // Indicator alignment (fonts settle)
+        requestAnimationFrame(moveNavIndicator);
+        setTimeout(() => requestAnimationFrame(moveNavIndicator), 320);
+        setTimeout(() => requestAnimationFrame(moveNavIndicator), 900);
+
+        // Wizard start state
+        setStep(0);
+        switchView("start");
       }
 
       init();
-
-      /* --------- keep nav indicator aligned if fonts settle --------- */
-      setTimeout(() => moveNavIndicator(), 320);
-      setTimeout(() => moveNavIndicator(), 900);
-
-      /* ===========================
-         Bottom bar meta updates (Enter is supported)
-      =========================== */
-      document.addEventListener("keydown", (e) => {
-        if (state.view !== "reading") return;
-        // allow Enter-to-next handled per-field; this is a fallback:
-        if (e.key === "Enter" && e.target && ["INPUT","SELECT"].includes(e.target.tagName)) return;
-      });
-
-      /* ===========================
-         Extra: ensure Ergebnis tab indicator moves when it gets enabled
-      =========================== */
-      const ergebnisBtn = $("#navErgebnis");
-      const obs = new MutationObserver(() => requestAnimationFrame(() => moveNavIndicator()));
-      obs.observe(ergebnisBtn, { attributes: true, attributeFilter: ["disabled", "class"] });
     </script>
   </body>
 </html>
