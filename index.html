@@ -1,11 +1,11 @@
-<!-- File: index.html (ÄNDERUNGEN: Resonanzrad entfernt • Reflexionskarten eigener Tab • 4–5 Astro-/Astronomie-nahe Fragen ergänzt • Buttons/Nav weiterhin fix & stabil) -->
+<!-- File: index.html (Single-File • Mobile-first • Farina-System • Modul-Auswahl • Geführte Analyse • Ergebnis als Bericht • Reflexionskarten eigener Tab • Kein Resonanzrad) -->
 <!doctype html>
 <html lang="de">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
     <meta name="color-scheme" content="dark light" />
-    <title>Venture Resonance Studio</title>
+    <title>Farinas Venture Resonance Studio</title>
 
     <style>
       :root {
@@ -16,6 +16,7 @@
 
         --gold: rgba(196, 162, 92, 0.95);
         --sand: rgba(233, 222, 199, 0.95);
+        --ice: rgba(140, 180, 255, 0.75);
 
         --shadow: 0 18px 55px rgba(0, 0, 0, 0.42);
         --shadow2: 0 28px 90px rgba(0, 0, 0, 0.60);
@@ -65,10 +66,11 @@
       }
 
       h1, h2, h3 { font-family: var(--serif); letter-spacing: 0.08px; margin: 0; }
-      h1 { font-size: clamp(1.75rem, 5.8vw, 2.8rem); line-height: 1.06; }
-      h2 { font-size: clamp(1.30rem, 4.2vw, 2.05rem); line-height: 1.12; }
+      h1 { font-size: clamp(1.62rem, 6.2vw, 2.55rem); line-height: 1.06; }
+      h2 { font-size: clamp(1.22rem, 4.4vw, 1.95rem); line-height: 1.12; }
       h3 { font-size: 1.12rem; line-height: 1.2; }
       p { margin: 0; }
+      strong { font-weight: 650; }
 
       .muted { color: var(--muted); }
       .faint { color: var(--faint); }
@@ -97,7 +99,7 @@
         gap: 10px;
         align-items: center;
         justify-content: center;
-        width: min(720px, 100%);
+        width: min(760px, 100%);
         padding: var(--navPad);
         border-radius: 20px;
         border: 1px solid rgba(255,255,255,0.10);
@@ -113,9 +115,7 @@
         border-radius: 16px;
         background: linear-gradient(180deg, rgba(196,162,92,0.18), rgba(255,255,255,0.05));
         border: 1px solid rgba(196,162,92,0.20);
-        box-shadow:
-          0 10px 30px rgba(0,0,0,0.35),
-          0 0 0 1px rgba(255,255,255,0.06) inset;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.35), 0 0 0 1px rgba(255,255,255,0.06) inset;
         transition: transform 260ms ease, width 260ms ease, opacity 180ms ease;
         pointer-events: none;
         will-change: transform, width;
@@ -136,6 +136,7 @@
         user-select: none;
         -webkit-tap-highlight-color: transparent;
         z-index: 1;
+        white-space: nowrap;
       }
       .navbtn:hover { transform: translateY(-1px); background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.16); }
       .navbtn:active { transform: translateY(0); }
@@ -167,7 +168,7 @@
         width: 100%;
         max-width: 980px;
         margin: 0 auto;
-        padding: 16px calc(14px + var(--sal)) calc(18px + var(--sab)) calc(14px + var(--sar));
+        padding: 14px calc(14px + var(--sal)) calc(18px + var(--sab)) calc(14px + var(--sar));
       }
 
       .view { display: none; }
@@ -189,7 +190,8 @@
         margin-top: 12px;
         max-width: 70ch;
       }
-      .hero-card {
+
+      .card {
         margin-top: 14px;
         border: 1px solid rgba(255,255,255,0.10);
         border-radius: var(--radius2);
@@ -199,17 +201,17 @@
         position: relative;
         overflow: hidden;
       }
-      .hero-card::before {
+      .card::before {
         content: "";
         position: absolute;
         inset: -35% -35%;
         background:
           radial-gradient(circle at 30% 25%, rgba(196, 162, 92, 0.11), transparent 45%),
-          radial-gradient(circle at 70% 65%, rgba(218, 226, 240, 0.09), transparent 52%);
+          radial-gradient(circle at 70% 65%, rgba(140, 180, 255, 0.09), transparent 52%);
         transform: rotate(6deg);
         pointer-events: none;
       }
-      .hero-card > * { position: relative; z-index: 1; }
+      .card > * { position: relative; z-index: 1; }
 
       .btn {
         appearance: none;
@@ -234,7 +236,20 @@
         background: linear-gradient(180deg, rgba(196,162,92,0.20), rgba(255,255,255,0.05));
       }
       .btn.ghost { color: var(--muted); }
+
       .cta-row { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 14px; }
+
+      .chip {
+        width: fit-content;
+        padding: 6px 10px;
+        border-radius: 999px;
+        border: 1px solid rgba(255,255,255,0.12);
+        background: rgba(0,0,0,0.16);
+        color: var(--muted);
+        font-size: 0.76rem;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+      }
 
       /* Wizard */
       .wizard-shell {
@@ -246,6 +261,7 @@
         overflow: hidden;
       }
       .wizard-stage { padding: 14px; display: grid; gap: 12px; }
+
       .wizard-card {
         border-radius: var(--radius2);
         border: 1px solid rgba(255,255,255,0.10);
@@ -260,23 +276,11 @@
         position: absolute;
         inset: -45%;
         background:
-          radial-gradient(circle at 25% 25%, rgba(218,226,240,0.06), transparent 52%),
+          radial-gradient(circle at 25% 25%, rgba(140,180,255,0.06), transparent 52%),
           radial-gradient(circle at 70% 70%, rgba(196,162,92,0.06), transparent 55%);
         pointer-events: none;
       }
       .wizard-card > * { position: relative; z-index: 1; }
-
-      .chip {
-        width: fit-content;
-        padding: 6px 10px;
-        border-radius: 999px;
-        border: 1px solid rgba(255,255,255,0.12);
-        background: rgba(0,0,0,0.16);
-        color: var(--muted);
-        font-size: 0.76rem;
-        letter-spacing: 0.16em;
-        text-transform: uppercase;
-      }
 
       .prompt-title { font-family: var(--serif); font-size: 1.22rem; line-height: 1.18; margin-top: 10px; }
       .prompt-body { color: var(--muted); line-height: 1.68; margin-top: 10px; }
@@ -307,13 +311,11 @@
         -webkit-appearance: none;
         background-image:
           linear-gradient(45deg, transparent 50%, rgba(255,255,255,0.55) 50%),
-          linear-gradient(135deg, rgba(255,255,255,0.55) 50%, transparent 50%),
-          linear-gradient(to right, transparent, transparent);
+          linear-gradient(135deg, rgba(255,255,255,0.55) 50%, transparent 50%);
         background-position:
           calc(100% - 18px) calc(1em + 4px),
-          calc(100% - 13px) calc(1em + 4px),
-          calc(100% - 2.6em) 0.5em;
-        background-size: 5px 5px, 5px 5px, 1px 1.6em;
+          calc(100% - 13px) calc(1em + 4px);
+        background-size: 5px 5px, 5px 5px;
         background-repeat: no-repeat;
         padding-right: 40px;
       }
@@ -331,7 +333,7 @@
         margin-top: 6px;
       }
       .step-meta .left { color: var(--muted); font-size: 0.95rem; }
-      .step-meta .left strong { color: var(--text); font-family: var(--serif); font-weight: 600; }
+      .step-meta .left strong { color: var(--text); font-family: var(--serif); font-weight: 650; }
       .step-meta .right { color: var(--faint); font-size: 0.9rem; }
       .kbd { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; font-size: 0.88em; color: rgba(255,255,255,0.70); }
 
@@ -433,7 +435,7 @@
       }
       .tile h3 { font-size: 1.08rem; }
       .tile p { margin-top: 8px; color: var(--muted); line-height: 1.65; }
-      .tile strong { color: rgba(255,255,255,0.92); font-weight: 600; }
+      .tile strong { color: rgba(255,255,255,0.92); }
 
       .divider { height: 1px; background: rgba(255,255,255,0.08); margin: 8px 0; }
 
@@ -463,8 +465,6 @@
         font-size: 0.92rem;
         min-height: 42px;
         white-space: nowrap;
-        position: relative;
-        overflow: hidden;
         -webkit-tap-highlight-color: transparent;
       }
       .segbtn.active {
@@ -482,6 +482,7 @@
         padding: 14px;
       }
       .action h3 { font-size: 1.08rem; }
+
       .steps {
         margin: 12px 0 0;
         padding: 0;
@@ -509,7 +510,6 @@
       .slot p { margin-top: 8px; color: var(--muted); line-height: 1.65; }
       .slot .hint { margin-top: 10px; color: rgba(255,255,255,0.80); }
 
-      /* Reflexionskarten */
       .deck {
         border-radius: var(--radius2);
         border: 1px solid rgba(255,255,255,0.10);
@@ -549,7 +549,7 @@
         border: 1px solid rgba(255,255,255,0.14);
         background:
           radial-gradient(circle at 30% 30%, rgba(255,255,255,0.22), rgba(255,255,255,0.06)),
-          linear-gradient(160deg, rgba(196,162,92,0.55), rgba(218,226,240,0.10));
+          linear-gradient(160deg, rgba(196,162,92,0.55), rgba(140,180,255,0.10));
         flex: 0 0 auto;
       }
       .export-title { font-family: var(--serif); font-size: 1.28rem; }
@@ -588,15 +588,15 @@
       }
       .chime.show .chime-ring { animation: chimePulse 520ms ease-out 1; }
       @keyframes chimePulse {
-        0% { opacity: 0; transform: translateX(-50%) scale(0.85); box-shadow: 0 0 0 0 rgba(196,162,92,0.20), 0 0 0 0 rgba(140,180,255,0.18); }
+        0% { opacity: 0; transform: translateX(-50%) scale(0.85); }
         25% { opacity: 1; transform: translateX(-50%) scale(1.0); }
-        100% { opacity: 0; transform: translateX(-50%) scale(1.55); box-shadow: 0 0 0 18px rgba(196,162,92,0.0), 0 0 0 34px rgba(140,180,255,0.0); }
+        100% { opacity: 0; transform: translateX(-50%) scale(1.55); }
       }
 
       .hidden { display: none !important; }
 
       @media (min-width: 920px) {
-        main { padding: 22px 20px 22px 20px; }
+        main { padding: 18px 20px 22px 20px; }
         .field-grid { grid-template-columns: 1fr 1fr; }
         .grid-tiles { grid-template-columns: 1fr 1fr; }
         .timing-grid { grid-template-columns: 1fr 1fr; }
@@ -626,9 +626,9 @@
       <div class="topbar-inner">
         <nav class="topnav" id="topnav" aria-label="Navigation">
           <div class="nav-indicator" id="navIndicator" aria-hidden="true"></div>
-          <button class="navbtn active" id="navStart" data-view="start" type="button">Start</button>
-          <button class="navbtn" id="navReading" data-view="reading" type="button">Reading</button>
-          <button class="navbtn" id="navErgebnis" data-view="ergebnis" type="button" disabled>Ergebnis</button>
+          <button class="navbtn active" data-view="start" type="button">Start</button>
+          <button class="navbtn" data-view="reading" type="button">Analyse</button>
+          <button class="navbtn" id="navErgebnis" data-view="ergebnis" type="button" disabled>Bericht</button>
         </nav>
       </div>
     </header>
@@ -637,41 +637,44 @@
       <!-- START -->
       <section class="view active" id="view-start" aria-label="Start">
         <div class="kicker">premium · ruhig · klar</div>
-        <h1>Venture Resonance Studio</h1>
+        <h1>Farinas Venture Resonance Studio</h1>
         <p class="lead">
-          Unternehmens-Chart als Reflexionsraum: <strong>Signatur</strong>, <strong>Zeitqualität</strong>, <strong>Teamdynamik</strong> —
-          Sonne, Mond und Aszendent als Sprache für Fokus, Bedürfnis und Auftreten.
+          Ein Arbeitsinstrument für Farina: <strong>Unternehmens-Potenzialanalyse auf astrologischer Basis</strong> —
+          Deutung <span class="faint">+</span> Einordnung <span class="faint">+</span> Richtung <span class="faint">+</span> Empfehlung.
         </p>
 
         <div class="cta-row">
-          <button class="btn primary" id="ctaBegin" type="button">Reading beginnen</button>
+          <button class="btn primary" id="ctaBegin" type="button">Analyse starten</button>
+          <button class="btn ghost" id="ctaLoadLast" type="button">Letzten Fall laden</button>
         </div>
 
-        <div class="hero-card">
+        <div class="card">
+          <div class="chip">Resonance Reading</div>
+          <div class="prompt-title" style="margin-top:10px;">Deine Resonance ist unser Reading.</div>
           <div class="prompt-body">
-            <strong>Wenn du spürst, dass „etwas dran“ ist:</strong><br />
-            Dieses Reading macht daraus Struktur — Kern · Spannung · Timing · nächster Schritt.
+            Du bringst das Anliegen. Wir übersetzen es in ein klares Profil: <strong>DNA</strong> · <strong>Muster</strong> ·
+            <strong>Entscheidungen</strong> · <strong>Timing</strong> · <strong>Handlung</strong>.
           </div>
         </div>
       </section>
 
       <!-- READING -->
-      <section class="view" id="view-reading" aria-label="Reading">
+      <section class="view" id="view-reading" aria-label="Analyse">
         <div class="wizard-shell">
           <div class="wizard-stage">
             <div id="stepsMount"></div>
 
             <div id="calibrating" class="wizard-card hidden" aria-live="polite">
-              <div class="chip">Resonanz</div>
-              <div class="prompt-title">Kalibriere…</div>
-              <div class="prompt-body">Signatur, Achsen und Zeitqualität formen sich.</div>
+              <div class="chip">Kalibrierung</div>
+              <div class="prompt-title">Profil wird gebaut…</div>
+              <div class="prompt-body">DNA, Muster, Entscheidungsfelder, Timing und Empfehlungen werden zusammengeführt.</div>
               <div class="calibrating">
                 <div class="cal-line"><div></div></div>
-                <div class="muted">Orbital-Ton setzen…</div>
+                <div class="muted">Signatur schärfen…</div>
                 <div class="cal-line"><div></div></div>
-                <div class="muted">Zyklen ordnen…</div>
+                <div class="muted">Muster ordnen…</div>
                 <div class="cal-line"><div></div></div>
-                <div class="muted">Module kuratieren…</div>
+                <div class="muted">Empfehlungen ableiten…</div>
               </div>
             </div>
           </div>
@@ -679,11 +682,11 @@
       </section>
 
       <!-- ERGEBNIS -->
-      <section class="view" id="view-ergebnis" aria-label="Ergebnis">
+      <section class="view" id="view-ergebnis" aria-label="Bericht">
         <div id="ergebnisEmpty" class="wizard-card">
           <div class="chip">Noch nicht</div>
-          <div class="prompt-title">Ergebnis erscheint nach dem Reading.</div>
-          <div class="prompt-body">Starte mit „Reading beginnen“ und gehe die Schritte durch.</div>
+          <div class="prompt-title">Der Bericht erscheint nach der Analyse.</div>
+          <div class="prompt-body">Starte mit „Analyse starten“ und gehe die Schritte durch.</div>
         </div>
 
         <div id="ergebnisWrap" class="report hidden">
@@ -693,12 +696,12 @@
             <div class="badges" id="rBadges"></div>
           </section>
 
-          <!-- Ergebnis-Navigation (NEU: Reflexionskarten als eigener Tab) -->
-          <nav class="segmented" id="reportTabs" aria-label="Report Tabs">
-            <button class="segbtn active" data-panel="p_overview" type="button">Überblick</button>
-            <button class="segbtn" data-panel="p_timing" type="button">Terminwahl</button>
-            <button class="segbtn" data-panel="p_team" type="button">Team & Hiring</button>
-            <button class="segbtn" data-panel="p_expand" type="button">Expansion</button>
+          <nav class="segmented" id="reportTabs" aria-label="Bericht Tabs">
+            <button class="segbtn active" data-panel="p_overview" type="button">Signatur</button>
+            <button class="segbtn" data-panel="p_patterns" type="button">Muster</button>
+            <button class="segbtn" data-panel="p_decision" type="button">Entscheidung</button>
+            <button class="segbtn" data-panel="p_timing" type="button">Timing</button>
+            <button class="segbtn" data-panel="p_team" type="button">Team & Rollen</button>
             <button class="segbtn" data-panel="p_cards" type="button">Reflexionskarten</button>
             <button class="segbtn" data-panel="p_export" type="button">Export</button>
           </nav>
@@ -706,48 +709,95 @@
           <section class="panel active" id="p_overview">
             <div class="grid-tiles">
               <article class="tile">
-                <h3>Ursprungs-Signatur</h3>
-                <p id="tOrigin">—</p>
+                <h3>A. Unternehmenssignatur</h3>
+                <p id="tSignature">—</p>
                 <div class="divider"></div>
-                <div class="badges" id="tOriginBadges"></div>
+                <div class="badges" id="tSignatureBadges"></div>
               </article>
 
               <article class="tile">
-                <h3>Hauptspannung</h3>
-                <p id="tAxis">—</p>
+                <h3>B. Gründer-Spiegel</h3>
+                <p id="tFounder">—</p>
                 <div class="divider"></div>
-                <div class="badges" id="tAxisBadges"></div>
+                <div class="badges" id="tFounderBadges"></div>
               </article>
 
               <article class="tile">
-                <h3>Führung & Hebel</h3>
-                <p id="tLead">—</p>
+                <h3>C. Aktuelle Phase</h3>
+                <p id="tPhase">—</p>
                 <div class="divider"></div>
-                <div class="badges" id="tLeadBadges"></div>
+                <div class="badges" id="tPhaseBadges"></div>
               </article>
 
               <article class="tile">
-                <h3>Zyklus & Zeitqualität</h3>
-                <p id="tCycle">—</p>
-                <div class="divider"></div>
-                <div class="badges" id="tCycleBadges"></div>
+                <h3>G. Handlungsempfehlungen</h3>
+                <p class="muted" style="line-height:1.65;">Fünf Moves, die du sofort anwenden kannst.</p>
+                <ul class="steps" id="actionPlan"></ul>
               </article>
             </div>
+          </section>
 
+          <section class="panel" id="p_patterns">
             <section class="action">
-              <h3>Dein nächster Schritt (konkret)</h3>
+              <h3>D. Wiederkehrende Muster</h3>
               <p class="muted" style="margin-top:8px; line-height:1.65;">
-                Kein Overload. Fünf klare Moves, die sich aus eurem Ton, eurer Achse und eurer Phase ergeben.
+                Nicht nur „Problem benennen“, sondern: Muster → Wirkung → Entwicklungsweg.
               </p>
-              <ul class="steps" id="actionPlan"></ul>
             </section>
+            <div class="grid-tiles">
+              <article class="tile">
+                <h3>Knoten & Blockaden</h3>
+                <p id="patKnoten">—</p>
+              </article>
+              <article class="tile">
+                <h3>Unternehmerische Auswirkung</h3>
+                <p id="patImpact">—</p>
+              </article>
+              <article class="tile">
+                <h3>Entwicklungspfad</h3>
+                <p id="patPath">—</p>
+              </article>
+              <article class="tile">
+                <h3>Warnsignal</h3>
+                <p id="patSignal">—</p>
+              </article>
+            </div>
+          </section>
+
+          <section class="panel" id="p_decision">
+            <section class="action">
+              <h3>E. Entscheidungsdeutung</h3>
+              <p class="muted" style="margin-top:8px; line-height:1.65;">
+                Kein Ja/Nein. Eine strategisch-astrologische Einordnung mit Chancen, Risiken und Richtung.
+              </p>
+            </section>
+            <div class="grid-tiles">
+              <article class="tile">
+                <h3>Entscheidung</h3>
+                <p id="decCore">—</p>
+                <div class="divider"></div>
+                <div class="badges" id="decBadges"></div>
+              </article>
+              <article class="tile">
+                <h3>Einordnung</h3>
+                <p id="decReading">—</p>
+              </article>
+              <article class="tile">
+                <h3>Chancen</h3>
+                <p id="decUpside">—</p>
+              </article>
+              <article class="tile">
+                <h3>Risiken</h3>
+                <p id="decDownside">—</p>
+              </article>
+            </div>
           </section>
 
           <section class="panel" id="p_timing">
             <section class="action">
-              <h3>Terminwahl (symbolisch, praktisch)</h3>
+              <h3>F. Terminfenster & Timing</h3>
               <p class="muted" style="margin-top:8px; line-height:1.65;">
-                Für Kick-offs, Aussendungen, Launches und heikle Gespräche: Wir setzen eine Zeitqualität, die zu eurer Phase passt.
+                Drei Ebenen: günstige Phase · sensible Phase · Phase erhöhter Vorsicht — plus Begründung.
               </p>
             </section>
             <div class="timing-grid" id="timingGrid"></div>
@@ -755,12 +805,11 @@
 
           <section class="panel" id="p_team">
             <section class="action">
-              <h3>Team-Entwicklung · Führung · Hiring (als Reflexion)</h3>
+              <h3>Team, Rollen & Personal</h3>
               <p class="muted" style="margin-top:8px; line-height:1.65;">
-                Keine Bewertung von Menschen. Hier geht es um Rollen, Bedürfnisse, Dynamik und gute Fragen für Gespräche.
+                Orientierung für Rollen, Reibung, nächste Besetzungen — ohne Menschen zu „scoren“.
               </p>
             </section>
-
             <div class="grid-tiles">
               <article class="tile">
                 <h3>Team-Dynamik</h3>
@@ -770,45 +819,28 @@
               </article>
 
               <article class="tile">
-                <h3>Interview-Fragen (resonant)</h3>
-                <p class="muted" style="line-height:1.65;">Nutze diese Fragen als Gesprächsführung – nicht als „Score“.</p>
+                <h3>Interview-Fragen</h3>
+                <p class="muted" style="line-height:1.65;">Nutze es als Gesprächsführung – nicht als Urteil.</p>
                 <ul class="steps" id="interviewQs"></ul>
               </article>
 
               <article class="tile">
-                <h3>Personalentwicklung</h3>
-                <p id="peopleDev">—</p>
+                <h3>Delegationshinweis</h3>
+                <p id="delegHint">—</p>
               </article>
 
               <article class="tile">
-                <h3>Führungskräfte-Coaching</h3>
-                <p id="leadCoach">—</p>
+                <h3>Team-Energie, die fehlt</h3>
+                <p id="missingEnergy">—</p>
               </article>
             </div>
           </section>
 
-          <section class="panel" id="p_expand">
-            <section class="action">
-              <h3>Expansion („go international“) als Resonanz-Check</h3>
-              <p class="muted" style="margin-top:8px; line-height:1.65;">
-                Kein Orakel. Eine Struktur: Orte, Märkte, Teams – und welche Risiken ihr bewusst mitnehmt.
-              </p>
-            </section>
-
-            <div class="grid-tiles">
-              <article class="tile"><h3>Neue Orte</h3><p id="geo">—</p></article>
-              <article class="tile"><h3>Markt-Einstieg</h3><p id="marketEntry">—</p></article>
-              <article class="tile"><h3>Standorte & Rollen</h3><p id="rolesPlaces">—</p></article>
-              <article class="tile"><h3>Risiko-Check</h3><p id="riskCheck">—</p></article>
-            </div>
-          </section>
-
-          <!-- NEU: Reflexionskarten eigener Panel -->
           <section class="panel" id="p_cards">
             <section class="action">
               <h3>Reflexionskarten</h3>
               <p class="muted" style="margin-top:8px; line-height:1.65;">
-                Karten wie ein Symbol-Deck: ruhig lesen, kurz notieren, dann erst handeln.
+                Karten wie ein Deck: lesen, 30 Sekunden sitzen lassen, dann eine Entscheidung.
               </p>
             </section>
 
@@ -843,6 +875,7 @@
               <div class="export-actions">
                 <button class="btn primary" id="printBtn" type="button">Drucken / PDF</button>
                 <button class="btn ghost" id="copyBtn" type="button">Kopieren</button>
+                <button class="btn ghost" id="saveCaseBtn" type="button">Fall speichern</button>
               </div>
 
               <div class="divider"></div>
@@ -853,12 +886,12 @@
               <div class="divider"></div>
 
               <div class="chip">Notizen</div>
-              <div class="note-box" contenteditable="true" aria-label="Notizen" style="margin-top:10px;"></div>
+              <div class="note-box" id="noteBox" contenteditable="true" aria-label="Notizen" style="margin-top:10px;"></div>
 
               <div class="divider"></div>
 
               <div class="muted" style="font-size:0.92rem; line-height:1.55;">
-                Hinweis: Dieses Reading ist eine interpretative Reflexion. Nutze es als Gesprächs- und Denkstruktur – nicht als formales Gutachten.
+                Hinweis: Dieses Reading ist eine interpretative Reflexion. Es ersetzt keine rechtliche/finanzielle/medizinische Beratung und ist nicht für Einstellungs- oder Kündigungsentscheidungen gedacht.
               </div>
             </section>
           </section>
@@ -871,8 +904,10 @@
         "use strict";
 
         const $ = (sel) => document.querySelector(sel);
+        const $$ = (sel) => Array.from(document.querySelectorAll(sel));
         const clamp = (n, a, b) => Math.max(a, Math.min(b, n));
         const safe = (v) => String(v ?? "").trim();
+        const LS_KEY = "frs_last_case_v1";
 
         function chime() {
           const el = $("#chime");
@@ -917,6 +952,7 @@
         }
         function pick(arr, seed) { return arr.length ? arr[seed % arr.length] : null; }
         function sleep(ms) { return new Promise((r) => setTimeout(r, ms)); }
+
         function escapeHtml(s) {
           return String(s)
             .replaceAll("&", "&amp;")
@@ -926,106 +962,411 @@
             .replaceAll("'", "&#039;");
         }
 
-        /* DATA */
-        const AXES = [
-          { id: "wachstum_vs_stabilitaet", name: "Wachstum ↔ Stabilität", poles: ["Beschleunigung","Containment"], description: "Skalierung ohne Selbstverlust. Nicht mehr machen – mehr tragen können." },
-          { id: "vision_vs_umsetzung", name: "Vision ↔ Umsetzbarkeit", poles: ["Imagination","Lieferfähigkeit"], description: "Wenn Sprache schneller ist als das operative System. Vision braucht Tests." },
-          { id: "kontrolle_vs_vertrauen", name: "Kontrolle ↔ Vertrauen", poles: ["Steuerung","Delegation"], description: "Wenn Unsicherheit zu Übersteuerung führt. Instrumente bauen: Rollen, Regeln, Rhythmus, Feedback." },
-          { id: "tempo_vs_reife", name: "Tempo ↔ Reife", poles: ["Speed","Readiness"], description: "Momentum kann das System überholen. Engpass finden und Tempo designen." },
-          { id: "gruender_vs_markt", name: "Ursprung ↔ Markt", poles: ["Handschrift","Kategorie-Realität"], description: "Ursprung reifen lassen: gleiche Handschrift, neue Form." },
-          { id: "innovation_vs_struktur", name: "Innovation ↔ Struktur", poles: ["Neuheit","System"], description: "Innovation wird stark, wenn sie Struktur wird. Zu wenig = Impro-Schuld." },
+        /* ===== Models ===== */
+        const GOALS = [
+          { v: "grundanalyse", t: "Unternehmens-Grundanalyse" },
+          { v: "zeitpunkt", t: "Günstiger Zeitpunkt für eine Entscheidung" },
+          { v: "team", t: "Team- und Personalthemen" },
+          { v: "fuehrung", t: "Führung und Rollenverteilung" },
+          { v: "expansion", t: "Expansion / neuer Standort" },
+          { v: "kooperation", t: "Kooperation / Geschäftspartner" },
+          { v: "probleme", t: "Wiederkehrende Probleme im Unternehmen" },
+          { v: "neuausrichtung", t: "Strategische Neuausrichtung" },
         ];
 
-        const ARCHETYPES = [
-          { id: "builder", name: "Die Builderin", tone: ["Struktur","Wiederholbarkeit"], strengths: ["Liefern unter Constraints","Klarheit in Abläufen"], shadow: ["Überkontrolle","lokale Optimierung"], lever: "Definiere ein Signature-Ritual (1×/Woche), das Delivery stabil hält." },
-          { id: "catalyst", name: "Die Katalysatorin", tone: ["Momentum","Aktivierung"], strengths: ["Bewegung erzeugen","Hürden brechen"], shadow: ["Zerstreuung","Novelty-Jagd"], lever: "Reduziere auf 1 Fokus + 1 Kadenz + 1 Proof-Moment." },
-          { id: "steward", name: "Die Hüterin", tone: ["Fürsorge","Kontinuität"], strengths: ["Vertrauen aufbauen","Kultur tragen"], shadow: ["Konflikt vermeiden","zu langsam entscheiden"], lever: "Benenne Trade-offs offen. Dann wird Fürsorge zu Führung." },
-          { id: "challenger", name: "Die Challengerin", tone: ["Kante","Differenzierung"], strengths: ["Schärfe im Standpunkt","Kategorie schneiden"], shadow: ["Unnötige Kämpfe","Allianzen verbrennen"], lever: "Wähle genau eine Reibung, die du transformierst – nicht zehn." },
-          { id: "magnet", name: "Die Magnetin", tone: ["Signal","Anziehung"], strengths: ["Story zieht","Marke wird spürbar"], shadow: ["Diffus","Signal ohne Proof"], lever: "Verankere Signal in Beweis: weniger erzählen, mehr zeigen." },
-          { id: "integrator", name: "Die Integratorin", tone: ["Ausrichtung","Übersetzung"], strengths: ["Sinn über Silos","Komplexität entwirren"], shadow: ["Entscheidungen verschieben","zu viele Stimmen"], lever: "Ein Owner, eine Entscheidung, eine Woche: Brücke shippen." },
-          { id: "pioneer", name: "Die Pionierin", tone: ["Vision","Frontier"], strengths: ["Originale Richtung","Neue Sprache"], shadow: ["Execution unterschätzen","einsam führen"], lever: "Kürzere Loops: 1 Hypothese → 1 Test → 1 Mess-Proxy." },
-          { id: "oracle", name: "Die Orakel-Strategin", tone: ["Insight","Pattern"], strengths: ["Systemblick","Foresight"], shadow: ["Abstraktion","Commitment vermeiden"], lever: "Übersetze Insight in eine klare Entscheidung + Feedback-Instrument." },
+        const PLANET_TONES = [
+          { v: "mars", t: "Mars (Drive, Durchsetzung, Risiko)" },
+          { v: "venus", t: "Venus (Anziehung, Beziehungen, Marke)" },
+          { v: "saturn", t: "Saturn (Struktur, Grenzen, Reife)" },
+          { v: "merkur", t: "Merkur (Kommunikation, Vertrieb, Feedback)" },
+          { v: "neptun", t: "Neptun (Vision, Sehnsucht, Nebel/Ent-Täuschung)" },
+          { v: "sonne", t: "Sonne (Kern, Richtung, Sichtbarkeit)" },
+          { v: "mond", t: "Mond (Bedürfnisse, Sicherheit, Rhythmus)" },
         ];
 
         const CYCLES = {
-          start: { name: "Start", signals: ["Identität formt sich","Ambiguität hoch"], friction: ["Overscoping","Reaktivität"], hint: "Schütze Klarheit. Reduziere Optionalität – ohne Neugier zu töten." },
-          konsolidierung: { name: "Konsolidierung", signals: ["Wiederholbarkeit entsteht","Constraints erscheinen"], friction: ["Rollen-Unklarheit","Ops ohne Owner"], hint: "Codifiziere, was funktioniert. Intuition braucht Routinen." },
-          reibung: { name: "Reibung", signals: ["Wachstum zeigt Risse","Entscheidungen hängen"], friction: ["Kontrolle↔Vertrauen","Vision↔Umsetzung"], hint: "Benenne die Spannung. Entscheide, was geschützt wird." },
-          umbruch: { name: "Umbruch / Pivot", signals: ["Formwechsel","neue Richtung"], friction: ["Identitäts-Trauer","Halb-Commitments"], hint: "Triff eine klare Entscheidung. Dann baue die kleinste Struktur, die sie trägt." },
-          expansion: { name: "Expansion", signals: ["System wird Strategie","Hiring verändert Kultur"], friction: ["Komplexitäts-Drag","Bandwidth"], hint: "Installiere Constraints, die die Signatur schützen." },
-          neuordnung: { name: "Neuordnung", signals: ["Portfolio-Denken","Erneuerung"], friction: ["Komfort","Innovation friert"], hint: "Erneuere Story mit Proof. Halte Frontier lebendig." },
+          start: { name: "Start", hint: "Identität schützen. Optionalität reduzieren, ohne Neugier zu töten." },
+          konsolidierung: { name: "Konsolidierung", hint: "Codifizieren, was funktioniert. Intuition braucht Routinen." },
+          reibung: { name: "Reibung", hint: "Spannung benennen. Trade-offs entscheiden. Rollen härten." },
+          umbruch: { name: "Umbruch / Pivot", hint: "Eine klare Entscheidung. Dann die kleinste Struktur, die sie trägt." },
+          expansion: { name: "Expansion", hint: "Constraints installieren, die die Signatur schützen." },
+          neuordnung: { name: "Neuordnung", hint: "Erneuerung mit Proof. Frontier lebendig halten." },
         };
 
+        const AXES = [
+          { id: "wachstum_stabilitaet", name: "Wachstum ↔ Stabilität", a: "Beschleunigung", b: "Containment" },
+          { id: "vision_umsetzung", name: "Vision ↔ Umsetzbarkeit", a: "Imagination", b: "Lieferfähigkeit" },
+          { id: "kontrolle_vertrauen", name: "Kontrolle ↔ Vertrauen", a: "Steuerung", b: "Delegation" },
+          { id: "tempo_reife", name: "Tempo ↔ Reife", a: "Speed", b: "Readiness" },
+          { id: "ursprung_markt", name: "Ursprung ↔ Markt", a: "Handschrift", b: "Kategorie-Realität" },
+          { id: "innovation_struktur", name: "Innovation ↔ Struktur", a: "Neuheit", b: "System" },
+        ];
+
         const SMA_SIGNS = [
-          { id: "solaris", label: "Solaris", meaning: "Fokus & Richtung", tone: "klar, initiierend" },
-          { id: "luna", label: "Luna", meaning: "Bedürfnis & Regulation", tone: "weich, fühlend" },
-          { id: "asc", label: "Ascend", meaning: "Auftreten & Interface", tone: "signalgebend" },
-          { id: "aurora", label: "Aurora", meaning: "Kreativer Aufbruch", tone: "magnetisch" },
-          { id: "saturna", label: "Saturna", meaning: "Containment & Reife", tone: "tragend" },
-          { id: "meridia", label: "Meridia", meaning: "Ausrichtung & Übersetzung", tone: "verbindend" },
-          { id: "ferox", label: "Ferox", meaning: "Kante & Differenzierung", tone: "konsequent" },
-          { id: "verdant", label: "Verdant", meaning: "Wachstum & Pflege", tone: "kultivierend" },
+          { id: "solaris", label: "Solaris", meaning: "Fokus & Richtung" },
+          { id: "luna", label: "Luna", meaning: "Bedürfnis & Regulation" },
+          { id: "asc", label: "Ascend", meaning: "Auftreten & Interface" },
+          { id: "saturna", label: "Saturna", meaning: "Containment & Reife" },
+          { id: "aurora", label: "Aurora", meaning: "Kreativer Aufbruch" },
+          { id: "meridia", label: "Meridia", meaning: "Ausrichtung & Übersetzung" },
+          { id: "ferox", label: "Ferox", meaning: "Kante & Differenzierung" },
+          { id: "verdant", label: "Verdant", meaning: "Wachstum & Pflege" },
         ];
 
-        const TONE_OPTIONS = [
-          { v: "klar", t: "Klar" },
-          { v: "magnetisch", t: "Magnetisch" },
-          { v: "ruhig", t: "Ruhig" },
-          { v: "mutig", t: "Mutig" },
-          { v: "tragend", t: "Tragend" },
-          { v: "leicht", t: "Leicht" },
-          { v: "konsequent", t: "Konsequent" },
-        ];
+        /* ===== Steps: modulare Strecke (8 Bereiche, aber V1-fokussiert, ohne Overkill) ===== */
+        function buildSteps(values) {
+          const steps = [];
 
-        /* READING STEPS (NEU: 5 astro/astronomie-nahe Fragen ergänzt) */
-        const STEPS = [
-          { id: "tone", chip: "Einstieg", title: "Welcher Ton soll euer Unternehmen in den nächsten 90 Tagen tragen?", body: "Wähle einen Ton. Das wird dein Resonanz-Anker im Ergebnis.", fields: [{ key: "tone", label: "Ton", type: "select", required: true, options: TONE_OPTIONS }] },
-          { id: "venture", chip: "Identität", title: "Wie heißt das Unternehmen?", body: "Ein Name ist ein Signal – wir lesen ihn als Ursprungston im System.", fields: [{ key: "ventureName", label: "Unternehmensname", type: "text", placeholder: "z.B. Lumen Atelier", required: true }] },
-          { id: "origin", chip: "Gründung", title: "Wann und wo wurde es verbindlich?", body: "Gründungstag + Ort setzen die Signatur. Uhrzeit ist optional, aber stark, wenn vorhanden.", fields: [{ key: "foundingDate", label: "Gründungsdatum", type: "date", required: true }, { key: "foundingPlace", label: "Gründungsort", type: "text", placeholder: "Stadt, Land", required: true }, { key: "foundingTime", label: "Uhrzeit (optional)", type: "time", required: false }] },
-          { id: "day", chip: "Zeitqualität", title: "Welche Tagesqualität passt zum Start-Moment?", body: "Wähle die Qualität, die sich für den Start stimmig anfühlt.", fields: [{ key: "startQualitaet", label: "Tagesqualität", type: "select", required: true, options: [{ v: "morgen", t: "Morgen (klar, initiierend)" }, { v: "mittag", t: "Mittag (sichtbar, präsent)" }, { v: "abend", t: "Abend (verdichtend, mutig)" }, { v: "nacht", t: "Nacht (intuitiv, transformierend)" }] }] },
+          // 1) Einstieg / Anliegen
+          steps.push({
+            id: "goal",
+            chip: "Einstieg",
+            title: "Wobei soll dich die Unternehmensastrologie unterstützen?",
+            body: "Wir starten mit dem Anliegen – nicht mit Daten. So fühlt es sich direkt passend an.",
+            fields: [{ key: "goal", label: "Anliegen", type: "select", required: true, options: GOALS }],
+          });
 
-          /* NEU 1 */
-          { id: "transit", chip: "Zeitfenster", title: "Welche Zeitqualität liegt gerade über euch wie ein Transit?", body: "Symbolische Lesart: Was ist im Feld – Aufbau, Prüfung, Umbruch oder Integration?", fields: [{ key: "transitTone", label: "Aktueller Transit-Ton", type: "select", required: true, options: [{ v: "aufbau", t: "Aufbau (Material sammeln, Basis)" }, { v: "pruefung", t: "Prüfung (Grenzen, Realität, Verantwortung)" }, { v: "umbruch", t: "Umbruch (Schnitt, Richtungswechsel)" }, { v: "integration", t: "Integration (Stabilisieren, wiederholbar machen)" }] }] },
+          // 2) Unternehmens-DNA (Kern)
+          steps.push({
+            id: "dna1",
+            chip: "Unternehmens-DNA",
+            title: "Basisdaten: Wann und wo wurde das Unternehmen gegründet?",
+            body: "Das ist die Grundlage für die Unternehmenssignatur.",
+            fields: [
+              { key: "ventureName", label: "Unternehmensname", type: "text", required: true, placeholder: "z.B. Lumen Atelier" },
+              { key: "foundingDate", label: "Gründungstag", type: "date", required: true },
+              { key: "foundingTime", label: "Gründungszeit (optional)", type: "time", required: false },
+              { key: "foundingPlace", label: "Gründungsort", type: "text", required: true, placeholder: "Stadt, Land" },
+            ],
+          });
 
-          { id: "field", chip: "Feld", title: "In welchem Feld spielt ihr?", body: "Feld bestimmt: Proof-Druck, Erwartung, Timing-Reibung.", fields: [{ key: "industry", label: "Branche", type: "select", required: true, options: [{ v: "saas", t: "Software / SaaS" }, { v: "brand", t: "Consumer / Brand" }, { v: "creative", t: "Creative Studio" }, { v: "services", t: "Agentur / Services" }, { v: "marketplace", t: "Marketplace" }, { v: "fintech", t: "FinTech" }, { v: "health", t: "Health" }, { v: "climate", t: "Climate / Energy" }, { v: "hardware", t: "Hardware" }, { v: "edu", t: "Education" }, { v: "other", t: "Andere" }] }, { key: "proofDemand", label: "Proof-Druck", type: "select", required: true, options: [{ v: "hoch", t: "Hoch (Beweis ist Pflicht)" }, { v: "mittel", t: "Mittel (Proof & Signal im Gleichgewicht)" }, { v: "niedrig", t: "Niedrig (Signal/Community trägt stark)" }] }] },
+          steps.push({
+            id: "dna2",
+            chip: "Unternehmens-DNA",
+            title: "Schlüsselzeitpunkte: Was war der erste „wirtschaftliche Impuls“?",
+            body: "Optional – aber oft sehr aussagekräftig für Wachstumsmuster.",
+            fields: [
+              { key: "firstRevenueDate", label: "Datum erster Umsatz (optional)", type: "date", required: false },
+              { key: "registerDate", label: "Gewerbe/Handelsregister (optional)", type: "date", required: false },
+              {
+                key: "industry",
+                label: "Branche",
+                type: "select",
+                required: true,
+                options: [
+                  { v: "saas", t: "Software / SaaS" },
+                  { v: "brand", t: "Consumer / Brand" },
+                  { v: "creative", t: "Creative Studio" },
+                  { v: "services", t: "Agentur / Services" },
+                  { v: "marketplace", t: "Marketplace" },
+                  { v: "fintech", t: "FinTech" },
+                  { v: "health", t: "Health" },
+                  { v: "climate", t: "Climate / Energy" },
+                  { v: "hardware", t: "Hardware" },
+                  { v: "edu", t: "Education" },
+                  { v: "other", t: "Andere" },
+                ],
+              },
+              { key: "offer", label: "Angebot / Leistung", type: "text", required: true, placeholder: "Was verkauft ihr konkret?" },
+            ],
+          });
 
-          /* NEU 2 */
-          { id: "planetTone", chip: "Planeten-Ton", title: "Welche Planetenqualität ist gerade am stärksten spürbar?", body: "Metapher: Mars = Drive, Venus = Anziehung, Saturn = Rahmen, Merkur = Kommunikation, Neptun = Nebel/Sehnsucht.", fields: [{ key: "planetTone", label: "Dominanter Ton", type: "select", required: true, options: [{ v: "mars", t: "Mars (Durchsetzung, Tempo, Risiko)" }, { v: "venus", t: "Venus (Anziehung, Beziehung, Marke)" }, { v: "saturn", t: "Saturn (Struktur, Grenzen, Reife)" }, { v: "merkur", t: "Merkur (Kommunikation, Vertrieb, Feedback)" }, { v: "neptun", t: "Neptun (Vision, Sehnsucht, Nebel/Ent-Täuschung)" }] }] },
+          steps.push({
+            id: "dna3",
+            chip: "Unternehmens-DNA",
+            title: "Kernfragen: Wofür steht das Unternehmen in seinem Innersten?",
+            body: "Diese Antworten bestimmen die Sprache im Bericht – ernsthaft, unternehmerisch, ohne Astro-Fachjargon.",
+            fields: [
+              { key: "selfUnderstanding", label: "Selbstverständnis (1–2 Sätze)", type: "textarea", required: true, placeholder: "Wer seid ihr – wenn niemand zuschaut?" },
+              { key: "whyImpact", label: "Was will das Unternehmen in der Welt bewirken?", type: "textarea", required: true, placeholder: "Welche Wirkung soll entstehen?" },
+              { key: "originDrive", label: "Ursprünglicher Antrieb der Gründung", type: "textarea", required: true, placeholder: "Was war damals die echte Motivation?" },
+            ],
+          });
 
-          { id: "system", chip: "System", title: "Wie groß ist euer System – und was reibt gerade am meisten?", body: "Hier wird oft der eigentliche Engpass sichtbar.", fields: [{ key: "teamSize", label: "Teamgröße", type: "select", required: true, options: [{ v: "solo", t: "Solo" }, { v: "tiny", t: "2–5" }, { v: "small", t: "6–15" }, { v: "mid", t: "16–50" }, { v: "scale", t: "51–200" }, { v: "large", t: "200+" }] }, { key: "frictionZone", label: "Reibungszone", type: "select", required: true, options: [{ v: "kommunikation", t: "Kommunikation" }, { v: "ownership", t: "Ownership / Zuständigkeit" }, { v: "energie", t: "Energie / Überlast" }, { v: "struktur", t: "Struktur / Prozesse" }, { v: "strategie", t: "Strategie / Prioritäten" }] }] },
+          // 3) Gründer/Führung (optional, aber in V1 enthalten)
+          steps.push({
+            id: "founder0",
+            chip: "Gründer-Ebene",
+            title: "Soll ein Gründer-/Führungsprofil einbezogen werden?",
+            body: "Viele Unternehmen sind eng mit der Gründerenergie gekoppelt.",
+            fields: [
+              {
+                key: "includeFounder",
+                label: "Gründerprofil",
+                type: "select",
+                required: true,
+                options: [
+                  { v: "ja", t: "Ja (einbeziehen)" },
+                  { v: "nein", t: "Nein (nur Unternehmen)" },
+                ],
+              },
+            ],
+          });
 
-          /* NEU 3 */
-          { id: "pattern", chip: "Wiederkehr", title: "Gibt es ein Thema, das immer wieder auftaucht – egal, wie viel ihr schon versucht habt?", body: "Kurz benennen. Das ist oft der „harte Knoten“ in der Signatur.", fields: [{ key: "recurringTheme", label: "Wiederkehrendes Thema", type: "textarea", required: true, placeholder: "Blockade, Konflikt, Muster, das sich durchzieht (3–6 Sätze)..." }] },
+          if (values.includeFounder !== "nein") {
+            steps.push({
+              id: "founder1",
+              chip: "Gründer-Ebene",
+              title: "Gründerprofil: Basisdaten",
+              body: "Wenn Geburtszeit fehlt, lassen wir es bewusst offen – die Struktur funktioniert trotzdem.",
+              fields: [
+                { key: "founderName", label: "Name (optional)", type: "text", required: false, placeholder: "—" },
+                { key: "birthDate", label: "Geburtsdatum", type: "date", required: true },
+                { key: "birthTime", label: "Geburtszeit (optional)", type: "time", required: false },
+                { key: "birthPlace", label: "Geburtsort", type: "text", required: true, placeholder: "Stadt, Land" },
+              ],
+            });
 
-          { id: "cycle", chip: "Zyklus", title: "In welcher Phase befindet ihr euch aktuell?", body: "Wähle die Phase, die eure Realität am besten beschreibt.", fields: [{ key: "currentStage", label: "Phase", type: "select", required: true, options: [{ v: "start", t: "Start" }, { v: "konsolidierung", t: "Konsolidierung" }, { v: "reibung", t: "Reibung" }, { v: "umbruch", t: "Umbruch / Pivot" }, { v: "expansion", t: "Expansion" }, { v: "neuordnung", t: "Neuordnung" }] }] },
+            steps.push({
+              id: "founder2",
+              chip: "Gründer-Ebene",
+              title: "Führung: Wie führst du – wirklich?",
+              body: "Wähle deinen dominanten Stil. Daraus ergeben sich Rolle, Delegation und Risiko.",
+              fields: [
+                {
+                  key: "leadStyle",
+                  label: "Entscheidungsstil",
+                  type: "select",
+                  required: true,
+                  options: [
+                    { v: "vision", t: "Vision (Richtung, Sinn, Bild)" },
+                    { v: "struktur", t: "Struktur (Rahmen, Systeme, Stabilität)" },
+                    { v: "naehe", t: "Nähe (Kultur, Bindung, Menschen)" },
+                    { v: "leistung", t: "Leistung (Tempo, Output, Druck)" },
+                  ],
+                },
+                { key: "founderStrength", label: "Größte Stärke (1–2 Sätze)", type: "textarea", required: true, placeholder: "Worin bist du unternehmerisch zuverlässig stark?" },
+                { key: "founderLoad", label: "Größte innere Belastung (1–2 Sätze)", type: "textarea", required: true, placeholder: "Was kostet dich wiederkehrend Energie?" },
+              ],
+            });
+          }
 
-          /* NEU 4 */
-          { id: "astrogeo", chip: "Orte", title: "Wenn ihr an Orte/Märkte denkt: Wo fühlt es sich leichter an – wo „zieht“ es eher Energie?", body: "Astrogeografie als Metapher: Sonne = Sichtbarkeit, Venus = Anziehung, Mars = Druck, Neptun = Nebel.", fields: [{ key: "geoTone", label: "Orts-/Markt-Ton", type: "select", required: true, options: [{ v: "sonne", t: "Sonne (Sichtbarkeit, Mitte, Strahlen)" }, { v: "venus", t: "Venus (Anziehung, Beziehungen, Marke)" }, { v: "mars", t: "Mars (Drive, Kampf, Risiko)" }, { v: "neptun", t: "Neptun (Vision, Sehnsucht, Unklarheit)" }, { v: "saturn", t: "Saturn (Reife, Regeln, Verantwortung)" }] }, { key: "geoPlace", label: "Ort/Region (optional)", type: "text", required: false, placeholder: "z.B. DACH, Dubai, Remote, …" }] },
+          // 4) Muster/Blockaden (Gänsehaut-Teil)
+          steps.push({
+            id: "patterns1",
+            chip: "Muster",
+            title: "Welche Themen kehren im Unternehmen immer wieder zurück?",
+            body: "Hier entsteht oft die „Gänsehaut-Wirkung“: Muster erkennen, einordnen, Entwicklung ableiten.",
+            fields: [
+              { key: "recurringTheme", label: "Wiederkehrendes Thema", type: "textarea", required: true, placeholder: "Blockaden, Konflikte, Schwellen, Wiederholungen (3–6 Sätze)..." },
+            ],
+          });
 
-          { id: "axis", chip: "Spannung", title: "Welche Spannungsachse ist gerade am aktivsten?", body: "Eine gute Achse macht Entscheidungen plötzlich einfacher.", fields: [{ key: "axisPreset", label: "Spannungsachse", type: "select", required: true, options: [{ v: "auto", t: "Auto (aus Kontext)" }, ...AXES.map(a => ({ v: a.id, t: a.name }))] }] },
+          steps.push({
+            id: "patterns2",
+            chip: "Muster",
+            title: "Wo fühlt es sich an, als würdet ihr „im Kreis drehen“?",
+            body: "Was wird vertagt, obwohl es eigentlich fällig ist?",
+            fields: [
+              { key: "stuckLoop", label: "Drehschleife", type: "textarea", required: true, placeholder: "Welche Entscheidung / welches Thema rutscht immer wieder weg?" },
+              {
+                key: "loopTrigger",
+                label: "Auslöser",
+                type: "select",
+                required: true,
+                options: [
+                  { v: "kunden", t: "Kunden / Markt" },
+                  { v: "team", t: "Team / Rollen" },
+                  { v: "angebot", t: "Angebot / Positionierung" },
+                  { v: "prozesse", t: "Prozesse / Struktur" },
+                  { v: "gruender", t: "Gründer-Fokus / Übersteuerung" },
+                ],
+              },
+            ],
+          });
 
-          { id: "challenge", chip: "Kernproblem", title: "Was kostet euch gerade am meisten Energie?", body: "3–6 Sätze. So konkret, dass jemand aus dem Team sofort nickt.", fields: [{ key: "mainChallenge", label: "Kernproblem", type: "textarea", required: true, placeholder: "Was wiederholt sich? Wo bleibt ihr hängen? Wo geht Energie drauf?" }] },
+          // 5) Aktuelle Herausforderung + Kontext
+          steps.push({
+            id: "now1",
+            chip: "Aktuell",
+            title: "Was ist die aktuelle Herausforderung – ganz konkret?",
+            body: "So konkret, dass jemand aus dem Team sofort nickt.",
+            fields: [
+              { key: "mainChallenge", label: "Aktuelle Herausforderung", type: "textarea", required: true, placeholder: "Was ist gerade der Engpass? Woran merkt ihr es?" },
+              { key: "desiredDirection", label: "Was soll in 90 Tagen spürbar anders sein?", type: "textarea", required: true, placeholder: "Welche Verschiebung würdet ihr wirklich merken?" },
+            ],
+          });
 
-          { id: "direction", chip: "Richtung", title: "Was soll in 90 Tagen spürbar anders sein?", body: "Nicht „mehr“ – sondern „stimmiger“. Welche Verschiebung würdest du wirklich merken?", fields: [{ key: "desiredDirection", label: "90-Tage-Verschiebung", type: "textarea", required: true, placeholder: "Was ist anders in Delivery, Team, Angebot, Markt?" }] },
+          // 6) Entscheidungs-Navigation (nur wenn Goal passt)
+          const goal = values.goal || "";
+          const wantsDecision = ["zeitpunkt", "expansion", "kooperation", "neuausrichtung"].includes(goal);
+          const wantsTeam = ["team", "fuehrung"].includes(goal);
 
-          /* NEU 5 */
-          { id: "ephemeris", chip: "Signale", title: "Welche Signale wollt ihr künftig ernster nehmen?", body: "„Ephemeriden“ als Metapher: kleine Marker, die früh zeigen, ob ihr auf Kurs seid.", fields: [{ key: "signals", label: "Frühe Marker", type: "select", required: true, options: [{ v: "energie", t: "Energie (Team wirkt schwer/leicht)" }, { v: "entscheidungen", t: "Entscheidungen (hängen/fallen)" }, { v: "kunden", t: "Kunden (ziehen/irritieren)" }, { v: "delivery", t: "Delivery (fließt/staut)" }, { v: "konflikt", t: "Konflikt (klar/umgangen)" }] }] },
+          steps.push({
+            id: "decision0",
+            chip: "Entscheidung",
+            title: "Bringt ihr eine konkrete Entscheidung mit?",
+            body: "Wenn ja: wir ordnen sie strategisch-astrologisch ein – ohne Orakel.",
+            fields: [
+              {
+                key: "includeDecision",
+                label: "Entscheidungsanalyse",
+                type: "select",
+                required: true,
+                options: [
+                  { v: wantsDecision ? "ja" : "nein", t: wantsDecision ? "Ja (empfohlen)" : "Ja" },
+                  { v: wantsDecision ? "nein" : "ja", t: wantsDecision ? "Nein" : "Nein (empfohlen)" },
+                ],
+              },
+            ],
+          });
 
-          { id: "lead", chip: "Führung", title: "Welche Führungsqualität ist jetzt der Schlüssel?", body: "Wähle eine Qualität. Daraus bauen wir Hebel + Risiko.", fields: [{ key: "leadQuality", label: "Qualität", type: "select", required: true, options: [{ v: "fokus", t: "Fokus (weniger, aber wahrer)" }, { v: "containment", t: "Containment (Grenzen, Rahmen)" }, { v: "mut", t: "Mut (klare Schnitte)" }, { v: "konsequenz", t: "Konsequenz (Kadenz, Commitment)" }, { v: "vertrauen", t: "Vertrauen (Delegation)" }, { v: "sanftheit", t: "Sanftheit (Würde halten)" }] }, { key: "leadBlocker", label: "Was blockiert sie am meisten?", type: "select", required: true, options: [{ v: "zu_viele_optionen", t: "Zu viele Optionen gleichzeitig" }, { v: "unklare_rollen", t: "Unklare Rollen / Ownership" }, { v: "angst_vor_verlust", t: "Angst vor Verlust (Scope, Kunden, Identität)" }, { v: "fehlender_proof", t: "Fehlender Proof / Vertrauen" }, { v: "tempo_zu_hoch", t: "Tempo ist höher als Reife" }, { v: "konflikt_avoid", t: "Konflikte werden vermieden" }] }] },
+          if (values.includeDecision === "ja") {
+            steps.push({
+              id: "decision1",
+              chip: "Entscheidung",
+              title: "Welche Entscheidung steht an?",
+              body: "Je klarer der Satz, desto besser die Einordnung.",
+              fields: [
+                { key: "decisionText", label: "Entscheidung", type: "textarea", required: true, placeholder: "z.B. „Neuen Standort eröffnen“, „Rebranding“, „Kooperation“ …" },
+                { key: "decisionGoal", label: "Ziel der Entscheidung", type: "textarea", required: true, placeholder: "Was soll dadurch möglich werden?" },
+              ],
+            });
 
-          { id: "close", chip: "Abschluss", title: "Wofür nutzt du dieses Reading?", body: "Ein Wort reicht. Dann erzeugen wir das Ergebnis.", fields: [{ key: "useFor", label: "Ich nutze es für…", type: "select", required: true, options: [{ v: "klarheit", t: "Klarheit" }, { v: "entscheidung", t: "Entscheidung" }, { v: "fokus", t: "Fokus" }, { v: "mut", t: "Mut" }, { v: "entlastung", t: "Entlastung" }, { v: "richtung", t: "Richtung" }] }] },
-        ];
+            steps.push({
+              id: "decision2",
+              chip: "Entscheidung",
+              title: "Optionen & Zeitrahmen",
+              body: "Wir lesen den Zeitraum als Zeitqualität-Fenster.",
+              fields: [
+                { key: "decisionOptions", label: "Optionen (kurz)", type: "textarea", required: true, placeholder: "A / B / C …" },
+                { key: "decisionWindow", label: "Geplanter Zeitraum (frei)", type: "text", required: true, placeholder: "z.B. „nächste 6 Wochen“, „Q3“, „im Mai“" },
+                { key: "decisionRisks", label: "Gefühlte Risiken", type: "textarea", required: true, placeholder: "Was macht euch vorsichtig?" },
+              ],
+            });
+          }
 
+          // 7) Timing & Zeitqualität (immer)
+          steps.push({
+            id: "timing1",
+            chip: "Timing",
+            title: "Welche Zeitqualität liegt gerade über euch (Transit-Ton)?",
+            body: "Symbolische Lesart: Aufbau, Prüfung, Umbruch oder Integration.",
+            fields: [
+              {
+                key: "transitTone",
+                label: "Aktueller Transit-Ton",
+                type: "select",
+                required: true,
+                options: [
+                  { v: "aufbau", t: "Aufbau (Basis, Material, System)" },
+                  { v: "pruefung", t: "Prüfung (Grenzen, Realität, Verantwortung)" },
+                  { v: "umbruch", t: "Umbruch (Schnitt, Richtungswechsel)" },
+                  { v: "integration", t: "Integration (stabilisieren, wiederholbar)" },
+                ],
+              },
+              {
+                key: "cycleStage",
+                label: "Unternehmensphase",
+                type: "select",
+                required: true,
+                options: [
+                  { v: "start", t: "Start" },
+                  { v: "konsolidierung", t: "Konsolidierung" },
+                  { v: "reibung", t: "Reibung" },
+                  { v: "umbruch", t: "Umbruch / Pivot" },
+                  { v: "expansion", t: "Expansion" },
+                  { v: "neuordnung", t: "Neuordnung" },
+                ],
+              },
+            ],
+          });
+
+          steps.push({
+            id: "timing2",
+            chip: "Timing",
+            title: "Welche Planetenqualität ist gerade am stärksten spürbar?",
+            body: "Mars/Venus/Saturn/Merkur/Neptun als klare Übersetzung: Drive, Anziehung, Rahmen, Kommunikation, Nebel.",
+            fields: [{ key: "planetTone", label: "Dominanter Ton", type: "select", required: true, options: PLANET_TONES }],
+          });
+
+          // 8) Team & Rollen (nur wenn goal passt, sonst kurz)
+          steps.push({
+            id: "team0",
+            chip: "Team",
+            title: "Wie groß ist das System – und wo reibt es aktuell?",
+            body: "Damit werden Rollen- und Prozessrisiken sichtbar.",
+            fields: [
+              {
+                key: "teamSize",
+                label: "Teamgröße",
+                type: "select",
+                required: true,
+                options: [
+                  { v: "solo", t: "Solo" },
+                  { v: "tiny", t: "2–5" },
+                  { v: "small", t: "6–15" },
+                  { v: "mid", t: "16–50" },
+                  { v: "scale", t: "51–200" },
+                  { v: "large", t: "200+" },
+                ],
+              },
+              {
+                key: "frictionZone",
+                label: "Reibungszone",
+                type: "select",
+                required: true,
+                options: [
+                  { v: "kommunikation", t: "Kommunikation" },
+                  { v: "ownership", t: "Ownership / Zuständigkeit" },
+                  { v: "energie", t: "Energie / Überlast" },
+                  { v: "struktur", t: "Struktur / Prozesse" },
+                  { v: "strategie", t: "Strategie / Prioritäten" },
+                ],
+              },
+            ],
+          });
+
+          steps.push({
+            id: "team1",
+            chip: "Team",
+            title: wantsTeam ? "Welche Rolle soll gerade besetzt oder geklärt werden?" : "Optional: Gibt es eine Rolle, die gerade wackelt?",
+            body: "Kurz – damit wir im Bericht eine klare Team-Übersetzung liefern.",
+            fields: [
+              { key: "roleFocus", label: "Rolle/Position (optional)", type: "text", required: false, placeholder: "z.B. COO, Sales Lead, Projektleitung…" },
+              { key: "roleIssue", label: "Was funktioniert dort nicht (optional)?", type: "textarea", required: false, placeholder: "Was ist das Muster?" },
+            ],
+          });
+
+          // Abschluss
+          steps.push({
+            id: "close",
+            chip: "Abschluss",
+            title: "Wofür nutzt du diesen Bericht am Ende am meisten?",
+            body: "Ein Wort reicht. Das schärft die Empfehlungssprache.",
+            fields: [
+              {
+                key: "useFor",
+                label: "Ich nutze es für…",
+                type: "select",
+                required: true,
+                options: [
+                  { v: "klarheit", t: "Klarheit" },
+                  { v: "entscheidung", t: "Entscheidung" },
+                  { v: "fokus", t: "Fokus" },
+                  { v: "mut", t: "Mut" },
+                  { v: "entlastung", t: "Entlastung" },
+                  { v: "richtung", t: "Richtung" },
+                ],
+              },
+            ],
+          });
+
+          return steps;
+        }
+
+        /* ===== State ===== */
         const state = {
           view: "start",
           stepIndex: 0,
           values: {},
+          steps: [],
           profile: null,
           deckIndex: 0,
           deck: [],
         };
 
-        const viewMap = {
+        const views = {
           start: $("#view-start"),
           reading: $("#view-reading"),
           ergebnis: $("#view-ergebnis"),
@@ -1033,19 +1374,17 @@
 
         function switchView(viewKey, opts = {}) {
           state.view = viewKey;
+          Object.entries(views).forEach(([k, el]) => el && el.classList.toggle("active", k === viewKey));
 
-          Object.entries(viewMap).forEach(([k, el]) => {
-            if (!el) return;
-            el.classList.toggle("active", k === viewKey);
-          });
-
-          document.querySelectorAll(".navbtn").forEach((b) => b.classList.remove("active"));
+          $$(".navbtn").forEach((b) => b.classList.remove("active"));
           const activeBtn = document.querySelector(`.navbtn[data-view="${viewKey}"]`);
           if (activeBtn) activeBtn.classList.add("active");
 
           requestAnimationFrame(moveNavIndicator);
 
           if (opts.resetWizard) {
+            state.values = {};
+            rebuildStepsAndUI();
             setStep(0);
             focusFirstInput();
           }
@@ -1061,8 +1400,8 @@
 
           const navRect = nav.getBoundingClientRect();
           const aRect = active.getBoundingClientRect();
-
           const pad = parseFloat(getComputedStyle(nav).paddingLeft) || 0;
+
           const x = (aRect.left - navRect.left) - pad;
           const w = aRect.width;
 
@@ -1071,12 +1410,18 @@
           indicator.style.opacity = "1";
         }
 
+        /* ===== Wizard UI ===== */
+        function rebuildStepsAndUI() {
+          state.steps = buildSteps(state.values);
+          buildWizardUI();
+        }
+
         function buildWizardUI() {
           const mount = $("#stepsMount");
           if (!mount) return;
           mount.innerHTML = "";
 
-          STEPS.forEach((s, idx) => {
+          state.steps.forEach((s, idx) => {
             const wrap = document.createElement("div");
             wrap.className = "step-view";
             wrap.dataset.step = String(idx);
@@ -1091,7 +1436,7 @@
             const meta = document.createElement("div");
             meta.className = "step-meta";
             meta.innerHTML = `
-              <div class="left"><strong>${idx + 1}</strong> / ${STEPS.length}</div>
+              <div class="left"><strong>${idx + 1}</strong> / ${state.steps.length}</div>
               <div class="right"><span class="kbd">Enter</span> weiter · Swipe</div>
             `;
 
@@ -1154,7 +1499,24 @@
               if (f.required) input.dataset.required = "1";
 
               input.addEventListener("input", () => { state.values[f.key] = safe(input.value); });
-              input.addEventListener("change", () => { state.values[f.key] = safe(input.value); });
+              input.addEventListener("change", () => {
+                state.values[f.key] = safe(input.value);
+
+                // dynamic step-rebuild triggers
+                if (f.key === "includeFounder" || f.key === "goal" || f.key === "includeDecision") {
+                  const currentId = s.id;
+                  const currentIndex = state.stepIndex;
+                  rebuildStepsAndUI();
+
+                  // try to keep user on same logical step
+                  const newIndex = Math.min(currentIndex, state.steps.length - 1);
+                  setStep(newIndex);
+                  // ensure same id if exists
+                  const match = state.steps.findIndex(st => st.id === currentId);
+                  if (match >= 0) setStep(match);
+                  focusFirstInput();
+                }
+              });
 
               input.addEventListener("keydown", (e) => {
                 const isTA = input.tagName.toLowerCase() === "textarea";
@@ -1190,21 +1552,23 @@
             wrap.appendChild(card);
             mount.appendChild(wrap);
           });
-        }
-
-        function setStep(i) {
-          state.stepIndex = clamp(i, 0, STEPS.length - 1);
-
-          document.querySelectorAll(".step-view").forEach((v) => v.classList.remove("active"));
-          const active = document.querySelector(`.step-view[data-step="${state.stepIndex}"]`);
-          if (active) active.classList.add("active");
 
           hydrateStepInputs();
           updateStepUi();
         }
 
+        function setStep(i) {
+          state.stepIndex = clamp(i, 0, state.steps.length - 1);
+          $$(".step-view").forEach((v) => v.classList.remove("active"));
+          const active = document.querySelector(`.step-view[data-step="${state.stepIndex}"]`);
+          if (active) active.classList.add("active");
+          hydrateStepInputs();
+          updateStepUi();
+        }
+
         function hydrateStepInputs() {
-          const s = STEPS[state.stepIndex];
+          const s = state.steps[state.stepIndex];
+          if (!s) return;
           for (const f of s.fields) {
             const el = document.getElementById(`${s.id}_${f.key}`);
             if (!el) continue;
@@ -1215,7 +1579,7 @@
 
         function updateStepUi() {
           const idx = state.stepIndex + 1;
-          const total = STEPS.length;
+          const total = state.steps.length;
 
           const activeWrap = document.querySelector(`.step-view[data-step="${state.stepIndex}"]`);
           if (!activeWrap) return;
@@ -1227,7 +1591,7 @@
           const nextBtn = activeWrap.querySelector('[data-action="next"]');
 
           if (backBtn) backBtn.disabled = state.stepIndex === 0;
-          if (nextBtn) nextBtn.textContent = state.stepIndex === total - 1 ? "Ergebnis erzeugen" : "Weiter";
+          if (nextBtn) nextBtn.textContent = state.stepIndex === total - 1 ? "Bericht erzeugen" : "Weiter";
         }
 
         function focusFirstInput() {
@@ -1238,7 +1602,7 @@
         }
 
         function validateStep() {
-          const s = STEPS[state.stepIndex];
+          const s = state.steps[state.stepIndex];
           for (const f of s.fields) {
             if (!f.required) continue;
             if (!safe(state.values[f.key])) { toast(`Bitte: ${f.label}`); return false; }
@@ -1255,7 +1619,7 @@
 
         async function nextStep() {
           if (!validateStep()) return;
-          if (state.stepIndex >= STEPS.length - 1) {
+          if (state.stepIndex >= state.steps.length - 1) {
             await generateProfile();
             return;
           }
@@ -1292,222 +1656,240 @@
           }, { passive: true });
         }
 
-        function computeRhythmTag(dateISO) {
-          const dt = new Date(dateISO);
-          const day = dt.getUTCDate();
-          const month = dt.getUTCMonth() + 1;
-          const dayTone = ["Puls","Vektor","Anker","Spirale"][day % 4];
-          const monthTone = ["Initiation","Containment","Transmutation"][month % 3];
-          return `${dayTone} · ${monthTone}`;
-        }
-
-        function computeFieldTag(industry, proofDemand) {
-          const base = {
-            saas: "System & Leverage",
-            brand: "Signal & Desire",
-            creative: "Ästhetik & Bedeutung",
-            services: "Delivery & Vertrauen",
-            marketplace: "Austausch & Netzwerk",
-            fintech: "Risiko & Integrität",
-            health: "Care & Proof",
-            climate: "Transition & Constraint",
-            hardware: "Material & Präzision",
-            edu: "Transformation & Praxis",
-            other: "Meaning & Mechanism",
-          }[industry] ?? "Meaning & Mechanism";
-
-          const proof = { hoch: "hoher Proof-Druck", mittel: "balancierter Proof-Druck", niedrig: "signal-getragener Proof" }[proofDemand] ?? "Proof-Druck";
-          return `${base} · ${proof}`;
-        }
-
-        function computeSMA(v) {
-          const seed = [
-            v.ventureName, v.foundingDate, v.foundingTime || "00:00",
-            v.foundingPlace, v.industry, v.tone, v.transitTone, v.planetTone, v.geoTone
-          ].join("|");
+        /* ===== Engine (symbolisch-professionell) ===== */
+        function computeSignatureTag(v) {
+          const seed = [v.ventureName, v.foundingDate, v.foundingTime || "00:00", v.foundingPlace, v.firstRevenueDate || "-", v.registerDate || "-", v.industry, v.offer].join("|");
           const h = hash32(seed);
-
           const sun = pick(SMA_SIGNS, h);
           const moon = pick(SMA_SIGNS.filter(x => x.id !== sun.id), h >>> 3);
           const asc = pick(SMA_SIGNS.filter(x => x.id !== sun.id && x.id !== moon.id), h >>> 7);
-
-          return { sun, moon, asc };
+          return { sun, moon, asc, h };
         }
 
-        function computeCycle(stage) { return CYCLES[stage] ?? CYCLES.start; }
-
-        function computeTensions(v) {
+        function chooseAxis(v, h) {
           const weights = new Map(AXES.map(a => [a.id, 0]));
           const bump = (id, by) => weights.set(id, (weights.get(id) ?? 0) + by);
 
-          const stage = v.currentStage;
-          if (stage === "start") { bump("vision_vs_umsetzung", 2); bump("innovation_vs_struktur", 1); }
-          if (stage === "konsolidierung") { bump("innovation_vs_struktur", 2); bump("wachstum_vs_stabilitaet", 1); bump("kontrolle_vs_vertrauen", 1); }
-          if (stage === "reibung") { bump("kontrolle_vs_vertrauen", 2); bump("tempo_vs_reife", 2); bump("gruender_vs_markt", 1); }
-          if (stage === "umbruch") { bump("gruender_vs_markt", 2); bump("vision_vs_umsetzung", 2); }
-          if (stage === "expansion") { bump("wachstum_vs_stabilitaet", 2); bump("tempo_vs_reife", 2); bump("kontrolle_vs_vertrauen", 1); }
-          if (stage === "neuordnung") { bump("innovation_vs_struktur", 2); bump("wachstum_vs_stabilitaet", 1); bump("gruender_vs_markt", 1); }
+          // phase influence
+          const stage = v.cycleStage;
+          if (stage === "start") { bump("vision_umsetzung", 2); bump("innovation_struktur", 1); }
+          if (stage === "konsolidierung") { bump("innovation_struktur", 2); bump("wachstum_stabilitaet", 1); }
+          if (stage === "reibung") { bump("kontrolle_vertrauen", 2); bump("tempo_reife", 2); }
+          if (stage === "umbruch") { bump("ursprung_markt", 2); bump("vision_umsetzung", 1); }
+          if (stage === "expansion") { bump("wachstum_stabilitaet", 2); bump("tempo_reife", 2); }
+          if (stage === "neuordnung") { bump("innovation_struktur", 2); bump("ursprung_markt", 1); }
 
-          const fr = v.frictionZone;
-          if (fr === "ownership") bump("kontrolle_vs_vertrauen", 1);
-          if (fr === "struktur") bump("innovation_vs_struktur", 1);
-          if (fr === "strategie") bump("vision_vs_umsetzung", 1);
-          if (fr === "energie") bump("tempo_vs_reife", 1);
+          // friction
+          if (v.frictionZone === "ownership") bump("kontrolle_vertrauen", 2);
+          if (v.frictionZone === "struktur") bump("innovation_struktur", 2);
+          if (v.frictionZone === "strategie") bump("vision_umsetzung", 2);
+          if (v.frictionZone === "energie") bump("tempo_reife", 2);
 
-          const text = `${v.mainChallenge} ${v.desiredDirection} ${v.recurringTheme}`.toLowerCase();
-          if (text.includes("position") || text.includes("marke")) bump("gruender_vs_markt", 2);
-          if (text.includes("prozess") || text.includes("struktur")) bump("innovation_vs_struktur", 2);
-          if (text.includes("umsetzen") || text.includes("delivery")) bump("vision_vs_umsetzung", 2);
-          if (text.includes("vertrauen") || text.includes("deleg")) bump("kontrolle_vs_vertrauen", 2);
-          if (text.includes("skal") || text.includes("wachstum")) bump("wachstum_vs_stabilitaet", 2);
+          const txt = `${v.recurringTheme} ${v.stuckLoop} ${v.mainChallenge} ${v.desiredDirection}`.toLowerCase();
+          if (txt.includes("position") || txt.includes("marke")) bump("ursprung_markt", 2);
+          if (txt.includes("prozess") || txt.includes("struktur")) bump("innovation_struktur", 2);
+          if (txt.includes("vertrauen") || txt.includes("deleg")) bump("kontrolle_vertrauen", 2);
+          if (txt.includes("wachstum") || txt.includes("skal")) bump("wachstum_stabilitaet", 2);
+          if (txt.includes("umsetzen") || txt.includes("delivery")) bump("vision_umsetzung", 2);
 
-          // leichte astro-tönung
-          if (v.planetTone === "saturn") bump("innovation_vs_struktur", 1);
-          if (v.planetTone === "mars") bump("tempo_vs_reife", 1);
-          if (v.planetTone === "venus") bump("gruender_vs_markt", 1);
-          if (v.planetTone === "merkur") bump("vision_vs_umsetzung", 1);
-          if (v.planetTone === "neptun") bump("kontrolle_vs_vertrauen", 1);
+          // planet tone influence
+          if (v.planetTone === "saturn") bump("innovation_struktur", 2);
+          if (v.planetTone === "mars") bump("tempo_reife", 2);
+          if (v.planetTone === "venus") bump("ursprung_markt", 1);
+          if (v.planetTone === "merkur") bump("vision_umsetzung", 1);
+          if (v.planetTone === "neptun") bump("kontrolle_vertrauen", 1);
 
-          if (v.axisPreset && v.axisPreset !== "auto") bump(v.axisPreset, 5);
+          // fallback deterministic
+          bump(AXES[h % AXES.length].id, 1);
 
           const sorted = [...weights.entries()].sort((a,b) => b[1]-a[1]);
-          const primaryId = sorted[0]?.[0] ?? "wachstum_vs_stabilitaet";
-          const secondaryId = sorted[1]?.[0] ?? "vision_vs_umsetzung";
-          return { primary: AXES.find(a => a.id === primaryId), secondary: AXES.find(a => a.id === secondaryId) };
+          const primaryId = sorted[0]?.[0] ?? AXES[0].id;
+          const secondaryId = sorted[1]?.[0] ?? AXES[1].id;
+
+          return {
+            primary: AXES.find(a => a.id === primaryId),
+            secondary: AXES.find(a => a.id === secondaryId),
+          };
         }
 
-        function computeArchetypes(v, sma, tensions) {
-          const scores = new Map(ARCHETYPES.map(a => [a.id, 0]));
-          const bump = (id, by) => scores.set(id, (scores.get(id) ?? 0) + by);
+        function computeFounderFit(v, sig) {
+          if (v.includeFounder === "nein") return { fit: "—", hint: "Kein Gründerprofil einbezogen." };
 
-          const st = v.currentStage;
-          if (st === "start") { bump("pioneer", 3); bump("catalyst", 2); bump("oracle", 1); }
-          if (st === "konsolidierung") { bump("builder", 3); bump("integrator", 2); bump("steward", 1); }
-          if (st === "reibung") { bump("integrator", 2); bump("steward", 2); bump("challenger", 1); }
-          if (st === "umbruch") { bump("challenger", 2); bump("pioneer", 2); bump("oracle", 1); }
-          if (st === "expansion") { bump("builder", 2); bump("steward", 2); bump("integrator", 1); }
-          if (st === "neuordnung") { bump("steward", 2); bump("oracle", 2); bump("builder", 1); }
+          const seed = [v.birthDate, v.birthTime || "00:00", v.birthPlace, v.leadStyle, v.founderStrength, v.founderLoad].join("|");
+          const h = hash32(seed + "|" + sig.h);
+          const fit = (h % 3 === 0) ? "hoch" : (h % 3 === 1) ? "mittel" : "spannend";
 
-          const ind = v.industry;
-          if (ind === "brand") { bump("magnet", 3); bump("challenger", 1); }
-          if (ind === "creative") { bump("magnet", 2); bump("oracle", 1); }
-          if (ind === "services") { bump("integrator", 2); bump("steward", 1); }
-          if (ind === "saas" || ind === "fintech") { bump("builder", 2); bump("pioneer", 1); }
+          const hints = {
+            hoch: "Gründerenergie und Unternehmenssignatur ziehen in die gleiche Richtung. Achte darauf, die Stärke nicht zu überdrehen.",
+            mittel: "Es gibt Passung – aber auch Reibung. Klare Rollen, klare Grenzen, klare Kadenz wirken hier wie Magie.",
+            spannend: "Hier entsteht Power durch Unterschied. Entscheidend ist Delegation: was du nicht tragen musst, sollte nicht an dir hängen.",
+          };
 
-          const p = tensions.primary.id;
-          if (p === "kontrolle_vs_vertrauen") bump("integrator", 2);
-          if (p === "vision_vs_umsetzung") { bump("builder", 1); bump("pioneer", 1); }
-          if (p === "gruender_vs_markt") { bump("challenger", 1); bump("magnet", 1); }
-          if (p === "innovation_vs_struktur") bump("builder", 2);
-          if (p === "tempo_vs_reife") { bump("steward", 1); bump("integrator", 1); }
-
-          // extra: planet tone
-          if (v.planetTone === "saturn") bump("builder", 2);
-          if (v.planetTone === "mars") bump("challenger", 1);
-          if (v.planetTone === "venus") bump("magnet", 2);
-          if (v.planetTone === "merkur") bump("integrator", 1);
-          if (v.planetTone === "neptun") bump("oracle", 2);
-
-          const sorted = [...scores.entries()].sort((a,b) => b[1]-a[1]);
-          const domId = sorted[0]?.[0] ?? "builder";
-          const secId = sorted[1]?.[0] ?? "integrator";
-          return { dominant: ARCHETYPES.find(a => a.id === domId), secondary: ARCHETYPES.find(a => a.id === secId) };
+          return { fit, hint: hints[fit] };
         }
 
-        function computeRiskAndLever(v, arch, tensions) {
-          let risk = "Halb-Commitment";
-          if (tensions.primary.id === "gruender_vs_markt") risk = "Identitäts-Drag";
-          if (tensions.primary.id === "vision_vs_umsetzung") risk = "Vision ohne Träger";
-          if (tensions.primary.id === "kontrolle_vs_vertrauen") risk = "Übersteuerung";
-          if (tensions.primary.id === "tempo_vs_reife") risk = "Tempo > Reife";
-          if (arch.dominant.id === "magnet") risk = "Signal-Proof-Lücke";
-          if (arch.dominant.id === "catalyst") risk = "Zerstreute Wetten";
-
-          if (v.planetTone === "neptun") risk = "Nebel / Ent-Täuschung";
-          if (v.planetTone === "saturn") risk = "Überlast durch Rahmen";
-          if (v.planetTone === "mars") risk = "Druck / Reibung";
-
-          const lever = {
-            wachstum_vs_stabilitaet: "Schütze den Kern: Angebot · Kadenz · Ownership.",
-            vision_vs_umsetzung: "Übersetze Vision in 1 Test + 1 Output – diese Woche.",
-            kontrolle_vs_vertrauen: "Instrumentiere Vertrauen: Rollen, Regeln, Feedback-Loop.",
-            tempo_vs_reife: "Finde den Engpass. Designe Tempo um ihn herum.",
-            gruender_vs_markt: "Lass Ursprung reifen: gleiche Handschrift, neue Form.",
-            innovation_vs_struktur: "Konvertiere Neuheit in Struktur – bevor sie Impro-Schuld wird.",
-          }[tensions.primary.id] ?? "Benenne den Trade-off. Entscheide bewusst.";
-
-          const blockerLine = {
-            zu_viele_optionen: "Blocker: zu viele Optionen gleichzeitig.",
-            unklare_rollen: "Blocker: Rollen/Ownership sind nicht hart genug gesetzt.",
-            angst_vor_verlust: "Blocker: ein Schnitt fühlt sich nach Verlust an (ist oft Schutz).",
-            fehlender_proof: "Blocker: Proof fehlt – Vertrauen wird nervös.",
-            tempo_zu_hoch: "Blocker: Tempo überholt das System.",
-            konflikt_avoid: "Blocker: Konflikte werden umgangen – Spannung bleibt im Raum.",
-          }[v.leadBlocker] ?? "Blocker: unklar.";
-
-          return { risk, lever: `${lever} ${arch.dominant.lever}`, blockerLine };
+        function computePatternInterpretation(v, axis) {
+          const knot = v.recurringTheme || "—";
+          const impactMap = {
+            wachstum_stabilitaet: "Wachstum wird schneller geplant als es getragen werden kann. Ergebnis: Überlast, Qualitätsschwankung, Druck.",
+            vision_umsetzung: "Vision ist stark – Umsetzung verliert Tempo oder Fokus. Ergebnis: viele Richtungen, wenig Wiederholung.",
+            kontrolle_vertrauen: "Entscheidungen hängen an wenigen Personen oder werden übersteuert. Ergebnis: Reibung, Frust, Mikromanagement-Risiko.",
+            tempo_reife: "Tempo überholt die Systemreife. Ergebnis: ständige Brände, kaum Stabilisierung.",
+            ursprung_markt: "Ursprungston passt nicht sauber in die Marktform. Ergebnis: Positionierung wirkt diffus oder zu eng.",
+            innovation_struktur: "Innovation bleibt Idee statt System. Ergebnis: Impro-Schuld, Prozesse fehlen, Delivery knirscht.",
+          };
+          const pathMap = {
+            wachstum_stabilitaet: "Stabilisiere Kern (Angebot, Delivery, Ownership), dann skaliere. Nicht umgekehrt.",
+            vision_umsetzung: "Übersetze Vision in 1 Test + 1 Output pro Woche. Wiederholung ist der Hebel.",
+            kontrolle_vertrauen: "Instrumentiere Vertrauen: Rollen, Entscheidungsspielräume, Feedback-Rhythmus.",
+            tempo_reife: "Finde den Engpass. Designe Tempo um ihn herum. Ruhe ist ein Systemfeature.",
+            ursprung_markt: "Lass Ursprung reifen: gleiche Handschrift, neue Form. Schärfe Kategorie, nicht Seele.",
+            innovation_struktur: "Template/Prozess bauen, dann neue Ideen. Innovation wird stark, wenn sie Struktur wird.",
+          };
+          const signalMap = {
+            wachstum_stabilitaet: "Warnsignal: Team wirkt dauerhaft „zu voll“, Qualität kippt, Prioritäten wechseln häufig.",
+            vision_umsetzung: "Warnsignal: Meetings erzeugen Ideen – aber keine klaren Deliverables.",
+            kontrolle_vertrauen: "Warnsignal: Entscheidungen werden vermieden oder nachträglich revidiert.",
+            tempo_reife: "Warnsignal: Notfälle werden normal, Ruhe wird selten.",
+            ursprung_markt: "Warnsignal: Kunden verstehen euch falsch oder nur über eure Person.",
+            innovation_struktur: "Warnsignal: Jede Woche wird neu erfunden, kaum Wiederholung entsteht.",
+          };
+          return {
+            knot,
+            impact: impactMap[axis.primary.id] ?? "—",
+            path: pathMap[axis.primary.id] ?? "—",
+            signal: signalMap[axis.primary.id] ?? "—",
+          };
         }
 
-        function computeQualWord(startQualitaet) {
-          return { morgen: "klar / initiierend", mittag: "sichtbar / präsent", abend: "verdichtend / mutig", nacht: "intuitiv / transformierend" }[startQualitaet] ?? "klar";
+        function decisionReading(v, axis) {
+          if (v.includeDecision !== "ja") {
+            return {
+              core: "Keine konkrete Entscheidung eingebracht.",
+              badges: ["Modus: Signatur & Muster"],
+              reading: "Der Bericht fokussiert auf DNA, wiederkehrende Muster und die nächste tragfähige Bewegung.",
+              upside: "Du bekommst Klarheit, wo Energie gebunden ist – und wie du sie wieder freisetzt.",
+              downside: "Wenn eine konkrete Entscheidung drückt, bring sie beim nächsten Durchlauf mit.",
+            };
+          }
+
+          const phr = {
+            aufbau: "Diese Phase begünstigt Vorbereitung und Systemaufbau – nicht aggressives Vollgas.",
+            pruefung: "Diese Phase liebt klare Grenzen, Verträge, Verantwortungen – und straft Nebel.",
+            umbruch: "Diese Phase kann mutige Schnitte tragen – solange du einen klaren Kern schützt.",
+            integration: "Diese Phase stärkt Stabilisierung, Wiederholung und saubere Übergaben.",
+          }[v.transitTone] ?? "Zeitqualität ist gemischt.";
+
+          const axisHint = {
+            wachstum_stabilitaet: "Wenn du expandierst: zuerst Stabilität im Kern, dann skalieren. Test > Vollausbau.",
+            vision_umsetzung: "Wenn du launchst: ein Proof-Proxy muss stehen. Sonst ist es nur Story.",
+            kontrolle_vertrauen: "Wenn du Kooperationen schließt: Zuständigkeiten schriftlich, Entscheidungsketten klar.",
+            tempo_reife: "Wenn du pushst: Engpass zuerst. Sonst skaliert ihr Stress.",
+            ursprung_markt: "Wenn du rebrandest: Kategorie & Sprache zuerst. Dann Kampagne.",
+            innovation_struktur: "Wenn du neue Angebote öffnest: Template/Prozess vorher. Dann Wachstum.",
+          }[axis.primary.id] ?? "Setze zuerst Klarheit, dann Bewegung.";
+
+          const planetHint = {
+            mars: "Mars-Ton: gut für Durchsetzung – Risiko: Kampf & Schnellschüsse. Klare Kriterien setzen.",
+            venus: "Venus-Ton: gut für Partnerschaft & Marke – Risiko: Charme ohne Proof. Beweise sichern.",
+            saturn: "Saturn-Ton: gut für Verträge & Struktur – Risiko: Schwere. Fokus klein, sauber, verbindlich.",
+            merkur: "Merkur-Ton: gut für Verhandlung & Kommunikation – Risiko: Überreden. Fakten + Feedback-Loops.",
+            neptun: "Neptun-Ton: gut für Vision – Risiko: Nebel. Begriffe definieren, Scope festziehen.",
+            sonne: "Sonne-Ton: gut für Sichtbarkeit – Risiko: zu früh zu groß. Kern halten.",
+            mond: "Mond-Ton: gut für Team & Sicherheit – Risiko: Konfliktvermeidung. Wahrheit sanft aussprechen.",
+          }[v.planetTone] ?? "Planetenton gemischt.";
+
+          return {
+            core: `${v.decisionText}`,
+            badges: [`Zeitraum: ${v.decisionWindow}`, `Transit: ${v.transitTone}`, `Planet: ${v.planetTone}`],
+            reading: `${phr} ${axisHint} ${planetHint}`,
+            upside: `Chancen: Wenn du den Kern schützt, kann diese Entscheidung Momentum erzeugen, ohne das System zu reißen.`,
+            downside: `Risiko: Wenn Zuständigkeiten/Proof fehlen, kippt die Entscheidung in Reibung oder teure Korrekturen.`,
+          };
         }
 
-        function buildActionPlan(p) {
-          const v = p.values;
-          const a = p.tensions.primary;
-          const c = p.cycle;
-          const tone = v.tone;
-
-          return [
-            { k: "1 · Kern", v: `Definiere euren Kern in einem Satz. Wenn ihr nur eine Sache schützen dürftet: was ist es? (Ton: ${tone})` },
-            { k: "2 · Achse", v: `Formuliere die Spannung als Entscheidung: ${a.poles[0]} ↔ ${a.poles[1]}. Welche Seite ist gerade überzogen?` },
-            { k: "3 · Rhythmus", v: `Setze ein Wochen-Ritual (30–45 Min): Priorität · Ownership · Proof. Keine Diskussion ohne Entscheidung.` },
-            { k: "4 · Zeitqualität", v: `Transit-Ton: ${v.transitTone}. In diesem Fenster wirkt „richtiger Rahmen“ stärker als „mehr Output“.` },
-            { k: "5 · Marker", v: `Ephemeriden-Marker: ${v.signals}. Entscheidet 1 Mess-/Beobachtungspunkt, der früh warnt.` },
+        function buildTimingGrid(v, axis) {
+          const base = [
+            {
+              title: "Günstige Phase",
+              body: "Wenn ihr Klarheit wollt: kurze Entscheidungen, klare Owner, sichtbare Proof-Momente.",
+              hint: "Gut für: Alignment, kleine Launches, klare Zusagen (mit Rahmen).",
+            },
+            {
+              title: "Sensible Phase",
+              body: "Wenn Emotion/Reibung hoch ist: Gespräche führen, Achsen benennen, Erwartungen kalibrieren.",
+              hint: "Gut für: Klärung, interne Neuordnung, Rollen sauber ziehen.",
+            },
+            {
+              title: "Phase erhöhter Vorsicht",
+              body: "Wenn Nebel oder Druck dominiert: Verträge prüfen, Scope festziehen, nichts „aus dem Bauch“ binden.",
+              hint: "Vorsicht bei: großen, irreversiblen Bindungen ohne Proof.",
+            },
+            {
+              title: "Begründung",
+              body: `Transit: ${v.transitTone}. Planetenton: ${v.planetTone}. Hauptachse: ${axis.primary.name}.`,
+              hint: "Das ist keine Uhrzeit-Orakel-Logik, sondern eine strukturierte Zeitqualitäts-Übersetzung.",
+            },
           ];
+
+          const nudgeByAxis = {
+            wachstum_stabilitaet: "Timing-Tipp: Erst Stabilität prüfen (Delivery/Prozess), dann Sichtbarkeit skalieren.",
+            vision_umsetzung: "Timing-Tipp: Launch nur, wenn Proof-Proxy steht. Sonst ist es zu früh.",
+            kontrolle_vertrauen: "Timing-Tipp: Vor Vertrags- oder Hiring-Entscheidungen Zuständigkeiten glasklar.",
+            tempo_reife: "Timing-Tipp: Tempo senken, Engpass lösen, dann wirkt alles schneller.",
+            ursprung_markt: "Timing-Tipp: Messaging schärfen, dann erst Kampagnen oder Expansion.",
+            innovation_struktur: "Timing-Tipp: Struktur bauen, dann kreative Wetten öffnen.",
+          }[axis.primary.id];
+
+          base.unshift({
+            title: "Premium-Hinweis",
+            body: nudgeByAxis || "Timing-Tipp: Klarheit zuerst – dann Bewegung.",
+            hint: "Ein guter Zeitpunkt ist ein Zeitpunkt mit tragfähigem Rahmen.",
+          });
+
+          // Planet hint
+          const planet = v.planetTone;
+          const planetExtra = {
+            mars: "Mars: gut für Durchsetzung. Vorsicht: Konflikt/Übermut.",
+            venus: "Venus: gut für Marke/Beziehungen. Vorsicht: Charme ohne Vertrag/Proof.",
+            saturn: "Saturn: gut für Struktur/Verträge. Vorsicht: Schwere, wenn Fokus fehlt.",
+            merkur: "Merkur: gut für Gespräche/Verhandlungen. Vorsicht: Überreden statt Prüfen.",
+            neptun: "Neptun: gut für Vision. Vorsicht: Nebel/Ent-Täuschung.",
+            sonne: "Sonne: gut für Sichtbarkeit. Vorsicht: zu groß zu früh.",
+            mond: "Mond: gut für Team/Sicherheit. Vorsicht: Konfliktvermeidung.",
+          }[planet] || "—";
+
+          base.push({ title: "Planeten-Ton", body: planetExtra, hint: "Als Metapher – nicht als Diagnose." });
+
+          return base;
         }
 
-        function buildTimingPlanner(p) {
-          const v = p.values;
-          const cycle = p.cycle.name;
-          const qual = computeQualWord(v.startQualitaet);
+        function teamModule(v, axis) {
+          const dynMap = {
+            kommunikation: "Kommunikation ist der Hebel: Begriffe klären, Entscheidungen festhalten, Feedback rhythmisch machen.",
+            ownership: "Ownership ist der Hebel: klare Besitzer:innen, klare Entscheidungsspielräume, klare Übergaben.",
+            energie: "Energie ist der Hebel: weniger parallele Baustellen, klare Priorität, mehr Ruhe im System.",
+            struktur: "Struktur ist der Hebel: Templates, Prozesse, Done-Definition, wiederholbare Rituale.",
+            strategie: "Strategie ist der Hebel: ein Fokus, eine Kadenz, ein Proof-Moment – diese Woche.",
+          };
+          const missingMap = {
+            mars: "Es fehlt oft Erdung/Containment: jemand, der Stabilität baut, während andere pushen.",
+            venus: "Es fehlt oft Proof/Struktur: Signal ist da – Umsetzung muss tragen können.",
+            saturn: "Es fehlt oft Leichtigkeit/Flow: Struktur ist da – Kreativität muss atmen.",
+            merkur: "Es fehlt oft Entscheidungskraft: Kommunikation ist da – Commitments müssen fallen.",
+            neptun: "Es fehlt oft Klarheit: Vision ist da – Begriffe/Scope müssen definiert werden.",
+            sonne: "Es fehlt oft Delegation: Sichtbarkeit zieht – System muss mitwachsen.",
+            mond: "Es fehlt oft Kante: Fürsorge ist da – Wahrheit muss ausgesprochen werden.",
+          };
 
-          const slots = [
-            { title: "Kick-off / Alignment", body: `In eurer Phase (${cycle}) ist ein Kick-off stark, wenn er mit 3 Entscheidungen endet: Fokus, Ownership, Kadenz.`, hint: `Zeitqualität: ${qual} · Output: 3 Entscheidungen` },
-            { title: "Aussendung / Launch", body: `Wenn Proof-Druck hoch ist: zuerst Beweis, dann Story. Wenn Proof-Druck niedrig ist: Story + klare nächste Handlung.`, hint: `Zeitqualität: ${qual} · Fokus: Signal + Proof` },
-            { title: "Heikles Gespräch", body: `Benennt die Achse zuerst. Dann wird das Gespräch weich UND klar.`, hint: `Start: „Wir kippen gerade…“` },
-            { title: "Hiring / Rollen-Definition", body: `Rollen klar machen: Verantwortung, Entscheidungsspielraum, Feedback-Rhythmus. Erst dann Persönlichkeit.`, hint: `Rolle: Owner/Scope · Feedback` },
-          ];
-
-          const extraPlanet = {
-            mars: "Planetenton: Mars → Termine kurz, klar, entscheidungsfähig (keine Endlos-Runden).",
-            venus: "Planetenton: Venus → Termine beziehungs- und signalbewusst (Sprache, Marke, Kultur).",
-            saturn: "Planetenton: Saturn → Termine rahmenstark (Regeln, Ownership, Done-Definition).",
-            merkur: "Planetenton: Merkur → Termine kommunikationsstark (Briefings, Sales, Feedback-Loops).",
-            neptun: "Planetenton: Neptun → Termine mit Klarheitsanker (Agenda, Output, Begriffe definieren).",
-          }[v.planetTone] ?? "Planetenton: —";
-
-          return { slots, extra: extraPlanet };
-        }
-
-        function buildTeamModule(p) {
-          const v = p.values;
-          const a = p.tensions.primary.id;
-
-          const dyn = {
-            kontrolle_vs_vertrauen: "Team-Dynamik: Delegation ist gerade der Nerv. Ohne instrumentiertes Ownership kippt es in Mikromanagement oder diffuse Verantwortung.",
-            vision_vs_umsetzung: "Team-Dynamik: Vision und Delivery laufen auseinander. Ihr braucht Übersetzung: Scope-Grenzen + Proof-Rituale.",
-            tempo_vs_reife: "Team-Dynamik: Tempo ist hoch. Das Team braucht Reife-Container: Regeln, Rhythmus, Done-Definition.",
-            gruender_vs_markt: "Team-Dynamik: Identität ist Thema. Ihr braucht Sprache, die Ursprung + Markt gleichzeitig hält.",
-            wachstum_vs_stabilitaet: "Team-Dynamik: Das System wächst. Ohne stabilen Kern wird alles teuer.",
-            innovation_vs_struktur: "Team-Dynamik: Kreativität braucht Struktur. Sonst wird’s Dauersprint ohne Wiederholung.",
-          }[a] ?? "Team-Dynamik: Klarheit über Rollen und Rhythmus ist jetzt der Hebel.";
-
-          const badges = [
-            `Reibung: ${v.frictionZone}`,
-            `Team: ${v.teamSize}`,
-            `Planetenton: ${v.planetTone}`,
-          ];
+          const deleg = {
+            vision_umsetzung: "Delegation: Vision darf bleiben – aber Delivery braucht Owner, die Nein sagen dürfen.",
+            kontrolle_vertrauen: "Delegation: Vertrauen ist nicht Gefühl, sondern Instrument: Rollen + Rechte + Feedback.",
+            tempo_reife: "Delegation: Tempo nicht über Personen drücken – über Systemdesign steuern.",
+            innovation_struktur: "Delegation: Kreative Ideen nicht im Team parken – in Templates übersetzen.",
+            ursprung_markt: "Delegation: Founder-Story entlasten, indem Positionierung in Sprache + Proof gegossen wird.",
+            wachstum_stabilitaet: "Delegation: Wachstum braucht Stabilitätsrollen (Ops/Finance/QA) früh genug.",
+          }[axis.primary.id];
 
           const interview = [
             { k: "Frage", v: "Welche Verantwortung hast du zuletzt wirklich owned – und wie hast du sie sichtbar gemacht?" },
@@ -1516,47 +1898,72 @@
             { k: "Frage", v: "Was ist für dich ein guter „Done“-Standard – und wie hältst du ihn unter Druck?" },
           ];
 
-          const dev = "Personalentwicklung: 1×/Monat Resonanz-Review: (1) Was hat Energie gegeben? (2) Was hat Energie gezogen? (3) Welche Regel/Rolle würde entlasten?";
-          const coach = "Führungskräfte-Coaching: „sanft UND klar“: Spannung benennen, Grenzen setzen, Entscheidungen halten. Ohne Drama. Ohne Ausrede.";
-
-          return { dyn, badges, interview, dev, coach };
+          return {
+            dyn: dynMap[v.frictionZone] || "Team-Dynamik: Klarheit über Rollen und Rhythmus ist der Hebel.",
+            badges: [`Team: ${v.teamSize}`, `Reibung: ${v.frictionZone}`, `Planet: ${v.planetTone}`],
+            deleg: deleg || "Delegation: Klar trennen – was gehört zur Führung, was gehört ins System.",
+            missing: missingMap[v.planetTone] || "Es fehlt oft eine klare Ausgleichsqualität (Containment vs. Drive).",
+            interview,
+          };
         }
 
-        function buildExpansionModule(p) {
-          const v = p.values;
-          const cycle = p.cycle.name;
-          const geo = `Neue Orte: Ton „${v.geoTone}“. Wo wird es leichter – wo wird es teuer? (Phase: ${cycle})${v.geoPlace ? ` · Fokus-Ort: ${v.geoPlace}` : ""}`;
-          const marketEntry = `Markt-Einstieg: Übersetze eure Signatur in eine klare Kategorie. Erst Sprache, dann Skalierung.`;
-          const rolesPlaces = `Standorte & Rollen: Pro Standort ein Owner für Signal, Delivery, Feedback. Ohne Owner wird Expansion teuer.`;
-          const riskCheck = `Risiko-Check: Welche Achse wird beim Wachstum schlimmer? (${p.tensions.primary.name}) Plant Gegenbewegungen ein: Regeln, Kadenz, Proof.`;
-          return { geo, marketEntry, rolesPlaces, riskCheck };
+        function buildActionPlan(v, axis, cycle, founderFit) {
+          const focusLine = {
+            klarheit: "Ein Satz Klarheit: Kern, Achse, nächste Entscheidung.",
+            entscheidung: "Entscheidung: Kriterien festlegen → Test statt Vollbindung.",
+            fokus: "Fokus: eine Priorität, ein Proof, eine Woche.",
+            mut: "Mut: eine klare Grenze setzen, die Energie freisetzt.",
+            entlastung: "Entlastung: weniger Baustellen, mehr Rhythmus.",
+            richtung: "Richtung: Kern schützen, Form an Markt anpassen.",
+          }[v.useFor] || "Kern schützen, Bewegung designen.";
+
+          const moves = [
+            { k: "1 · Kern", v: `Schreibe euren Kern in einen Satz. (Nicht Marketing – Wahrheit.)` },
+            { k: "2 · Achse", v: `Hauptachse: ${axis.primary.name}. Wo kippt ihr gerade: ${axis.primary.a} ↔ ${axis.primary.b}?` },
+            { k: "3 · Phase", v: `Phase: ${cycle.name}. ${cycle.hint}` },
+            { k: "4 · Führungshebel", v: v.includeFounder === "nein" ? "Fokushebel: Rollen und Rhythmus im Unternehmen schärfen." : `Gründer-Fit: ${founderFit.fit}. ${founderFit.hint}` },
+            { k: "5 · Jetzt", v: `${focusLine} Entscheidet heute 1 Proof-Moment für die nächsten 14 Tage.` },
+          ];
+          return moves;
         }
 
-        function buildDeckPrompts(p) {
-          const v = p.values;
-          const a = p.tensions.primary;
-          const sma = p.sma;
-          const arch = p.arch;
-          const rl = p.riskLever;
-
+        function buildDeck(v, axis, sig, founderFit) {
           const planetLine = {
             mars: "Mars: Wo ist Drive gut – und wo wird er zu Kampf?",
             venus: "Venus: Wo entsteht echte Anziehung – und wo fehlt Proof?",
             saturn: "Saturn: Welche Grenze würde sofort entlasten?",
             merkur: "Merkur: Welche Information fehlt, damit Entscheidungen fallen?",
             neptun: "Neptun: Wo ist Sehnsucht – und wo ist Nebel?",
-          }[v.planetTone] ?? "Planet: Welche Qualität dominiert – und was kostet sie?";
+            sonne: "Sonne: Was ist euer Kern – und was blendet ihr aus?",
+            mond: "Mond: Was braucht das System, um ruhig zu bleiben?",
+          }[v.planetTone] || "Planet: Welche Qualität dominiert – und was kostet sie?";
 
           return [
             { q: "Was ist euer Kern, den ihr schützen müsst, damit alles andere wieder leicht wird?", h: "Kern ist oft Angebot · Kadenz · Ownership — nicht ein weiteres Feature." },
-            { q: `Wiederkehrender Knoten: Was will dieses Thema (${v.recurringTheme ? "aus eurer Beschreibung" : "—"}) euch eigentlich beibringen?`, h: "Nicht lösen durch mehr Arbeit – oft durch bessere Grenze oder klarere Entscheidung." },
-            { q: `Hauptspannung: ${a.name}. Wo kippt ihr aktuell — und was wäre die kleinste Gegenbewegung?`, h: `Pole: ${a.poles[0]} ↔ ${a.poles[1]}. Gegenbewegung = 1 Entscheidung + 1 Ritual.` },
-            { q: `Sonne („${sma.sun.label}“): Was ist euer Fokus — und was lasst ihr diese Woche bewusst weg?`, h: "Fokus wird sichtbar durch Weglassen." },
-            { q: `Mond („${sma.moon.label}“): Was braucht das System, um ruhig zu bleiben, während ihr wächst?`, h: "Regulation ist Design: Rhythmus, Grenzen, Zuständigkeiten." },
-            { q: `Aszendent („${sma.asc.label}“): Wo passt Signal nicht zum Proof — oder Proof nicht zum Signal?`, h: "Wenn beides zusammenfällt, entsteht natürliche Anziehung." },
-            { q: `Planeten-Ton: ${planetLine}`, h: `Hebel: ${rl.lever}` },
-            { q: `Dominanter Archetyp: ${arch.dominant.name}. Wo ist eure Stärke — und wo wird sie zur Übertreibung?`, h: `Schatten: ${arch.dominant.shadow[0]}.` },
+            { q: `Wiederkehrender Knoten: Was will dieses Thema euch eigentlich beibringen?`, h: "Nicht lösen durch mehr Arbeit – oft durch Grenze, Rolle oder Entscheidung." },
+            { q: `Signatur: Sonne/Mond/Asc = ${sig.sun.label} / ${sig.moon.label} / ${sig.asc.label}. Was heißt das als Verhalten im Alltag?`, h: "Fokus (Sonne) · Bedürfnis (Mond) · Auftreten (Asc) – als Sprache, nicht als Urteil." },
+            { q: `Hauptachse: ${axis.primary.name}. Welche Seite ist überzogen – und welche Seite fehlt?`, h: `Pole: ${axis.primary.a} ↔ ${axis.primary.b}. Gegenbewegung = 1 Entscheidung + 1 Ritual.` },
+            { q: planetLine, h: "Nutze es als Marker: Was begünstigt es – und was macht es riskant?" },
+            { q: v.includeFounder === "nein" ? "Welche Rolle im Unternehmen trägt zu viel – und müsste entlastet werden?" : "Wo bremst die Gründerenergie – und was sollte delegiert werden?", h: founderFit.hint },
+            { q: "Welche Entscheidung wird aufgeschoben, obwohl sie längst fällig ist?", h: "Wenn du sie formulierst, wird sie kleiner." },
+            { q: "Was ist der kleinste Proof-Moment, der euch in 14 Tagen wieder Selbstvertrauen gibt?", h: "Proof ist nicht Lautstärke. Proof ist Wiederholung." },
           ];
+        }
+
+        function renderTimingGrid(slots) {
+          const grid = $("#timingGrid");
+          if (!grid) return;
+          grid.innerHTML = "";
+          for (const s of slots) {
+            const card = document.createElement("div");
+            card.className = "slot";
+            card.innerHTML = `
+              <div class="slot-title">${escapeHtml(s.title)}</div>
+              <p>${escapeHtml(s.body)}</p>
+              <div class="hint">${escapeHtml(s.hint)}</div>
+            `;
+            grid.appendChild(card);
+          }
         }
 
         function setBadges(el, items) {
@@ -1580,29 +1987,6 @@
             li.className = "step";
             li.innerHTML = `<div class="k">${escapeHtml(it.k)}</div><div class="v">${escapeHtml(it.v)}</div>`;
             ul.appendChild(li);
-          }
-        }
-
-        function renderTimingGrid(p) {
-          const t = buildTimingPlanner(p);
-          const grid = $("#timingGrid");
-          if (!grid) return;
-          grid.innerHTML = "";
-
-          const extra = document.createElement("div");
-          extra.className = "slot";
-          extra.innerHTML = `<div class="slot-title">Zusatz-Hinweis</div><p>${escapeHtml(t.extra)}</p>`;
-          grid.appendChild(extra);
-
-          for (const s of t.slots) {
-            const card = document.createElement("div");
-            card.className = "slot";
-            card.innerHTML = `
-              <div class="slot-title">${escapeHtml(s.title)}</div>
-              <p>${escapeHtml(s.body)}</p>
-              <div class="hint">${escapeHtml(s.hint)}</div>
-            `;
-            grid.appendChild(card);
           }
         }
 
@@ -1672,256 +2056,159 @@
             st = Date.now();
           }, { passive: true });
 
-          deckEl.addEventListener("touchend", (e) => {
+          deckEl.addEventListener("touchend", () => {
             if (state.view !== "ergebnis") return;
             const dt = Date.now() - st;
             if (dt > 650) return;
-            const t = e.changedTouches && e.changedTouches[0];
-            if (!t) return;
-
-            const dx = t.clientX - sx;
-            const dy = t.clientY - sy;
-            if (Math.abs(dx) < 56 || Math.abs(dy) > 80) return;
-
-            if (dx < 0) deckNext();
-            else deckBack();
+            // swipe optional kept minimal; buttons are primary
           }, { passive: true });
-        }
-
-        function renderExport(p) {
-          const t = $("#exportTitle");
-          const s = $("#exportSub");
-          const sum = $("#exportSummary");
-          if (t) t.textContent = p.values.ventureName || "Reading";
-          if (s) s.textContent = `${p.values.foundingPlace} · ${p.values.foundingDate}${p.values.foundingTime ? " " + p.values.foundingTime : ""}`;
-          if (sum) {
-            sum.textContent = [
-              `Ton: ${p.values.tone}.`,
-              `Signatur: ${p.rhythmTag} · ${p.fieldTag}.`,
-              `Sonne/Mond/Asc: ${p.sma.sun.label} / ${p.sma.moon.label} / ${p.sma.asc.label}.`,
-              `Archetypen: ${p.arch.dominant.name} + ${p.arch.secondary.name}.`,
-              `Achse: ${p.tensions.primary.name} (sek.: ${p.tensions.secondary.name}).`,
-              `Zyklus: ${p.cycle.name}.`,
-              `Transit: ${p.values.transitTone} · Planetenton: ${p.values.planetTone} · Orts-Ton: ${p.values.geoTone}.`,
-              `Hebel: ${p.riskLever.lever}`,
-            ].join(" ");
-          }
         }
 
         function buildCopySummary(p) {
           const v = p.values;
           return [
+            `Farinas Venture Resonance Studio — Bericht`,
+            ``,
+            `Anliegen: ${v.goal}`,
             `Unternehmen: ${v.ventureName}`,
-            `Ursprung: ${v.foundingDate}${v.foundingTime ? " " + v.foundingTime : ""} • ${v.foundingPlace}`,
-            `Ton: ${v.tone}`,
-            `Zeitqualität: Transit=${v.transitTone} • Planet=${v.planetTone} • Ort=${v.geoTone}${v.geoPlace ? " (" + v.geoPlace + ")" : ""}`,
+            `Gründung: ${v.foundingDate}${v.foundingTime ? " " + v.foundingTime : ""} • ${v.foundingPlace}`,
+            `Erster Umsatz: ${v.firstRevenueDate || "—"} • Register: ${v.registerDate || "—"}`,
+            `Branche: ${v.industry} • Angebot: ${v.offer}`,
+            ``,
+            `Signatur: Sonne/Mond/Asc = ${p.sig.sun.label}/${p.sig.moon.label}/${p.sig.asc.label}`,
+            `Phase: ${p.cycle.name} • Transit: ${v.transitTone} • Planet: ${v.planetTone}`,
+            `Hauptachse: ${p.axis.primary.name} (sek.: ${p.axis.secondary.name})`,
+            ``,
+            `Kern: ${v.selfUnderstanding}`,
+            `Wirkung: ${v.whyImpact}`,
+            `Ursprung: ${v.originDrive}`,
+            ``,
             `Wiederkehr: ${v.recurringTheme}`,
-            `Signatur: ${p.rhythmTag} • ${p.fieldTag}`,
-            `Sonne/Mond/Asc: ${p.sma.sun.label} / ${p.sma.moon.label} / ${p.sma.asc.label}`,
-            `Archetypen: ${p.arch.dominant.name} + ${p.arch.secondary.name}`,
-            `Achse: ${p.tensions.primary.name} (sek.: ${p.tensions.secondary.name})`,
-            `Zyklus: ${p.cycle.name}`,
-            `Hebel: ${p.riskLever.lever}`,
+            `Drehschleife: ${v.stuckLoop} (Trigger: ${v.loopTrigger})`,
+            ``,
+            `Aktuell: ${v.mainChallenge}`,
+            `90 Tage: ${v.desiredDirection}`,
+            ``,
+            v.includeDecision === "ja"
+              ? `Entscheidung: ${v.decisionText}\nZiel: ${v.decisionGoal}\nOptionen: ${v.decisionOptions}\nZeitraum: ${v.decisionWindow}\nRisiken: ${v.decisionRisks}`
+              : `Entscheidung: —`,
+            ``,
+            `Notizen:`,
           ].join("\n");
         }
 
-        function normalizeValues(values) {
-          const out = {};
-          for (const s of STEPS) for (const f of s.fields) out[f.key] = safe(values[f.key]);
-          if (!out.axisPreset) out.axisPreset = "auto";
-          if (!out.startQualitaet) out.startQualitaet = "morgen";
-          if (!out.foundingTime) out.foundingTime = "";
-          if (!out.geoPlace) out.geoPlace = "";
-          return out;
+        function saveLastCase() {
+          const payload = {
+            values: state.values,
+            note: $("#noteBox")?.innerText ?? "",
+            savedAt: new Date().toISOString(),
+          };
+          try {
+            localStorage.setItem(LS_KEY, JSON.stringify(payload));
+            toast("Fall gespeichert");
+            chime();
+          } catch {
+            toast("Speichern nicht möglich");
+          }
         }
 
-        async function generateProfile() {
-          const cal = $("#calibrating");
-          if (cal) cal.classList.remove("hidden");
-          document.querySelectorAll(".step-view").forEach((v) => v.classList.remove("active"));
-          chime();
-          await sleep(650);
-
-          const v = normalizeValues(state.values);
-          const rhythmTag = computeRhythmTag(v.foundingDate);
-          const fieldTag = computeFieldTag(v.industry, v.proofDemand);
-          const sma = computeSMA(v);
-          const tensions = computeTensions(v);
-          const arch = computeArchetypes(v, sma, tensions);
-          const cycle = computeCycle(v.currentStage);
-          const riskLever = computeRiskAndLever(v, arch, tensions);
-
-          state.profile = { values: v, rhythmTag, fieldTag, sma, tensions, arch, cycle, riskLever };
-
-          await sleep(520);
-          if (cal) cal.classList.add("hidden");
-
-          renderReport(state.profile);
-
-          const navErg = $("#navErgebnis");
-          if (navErg) navErg.disabled = false;
-
-          switchView("ergebnis");
-          toast("Ergebnis erzeugt");
-          chime();
+        function loadLastCase() {
+          try {
+            const raw = localStorage.getItem(LS_KEY);
+            if (!raw) { toast("Kein gespeicherter Fall"); return; }
+            const payload = JSON.parse(raw);
+            state.values = payload.values || {};
+            rebuildStepsAndUI();
+            setStep(0);
+            switchView("reading");
+            if ($("#noteBox") && payload.note) $("#noteBox").innerText = payload.note;
+            toast("Fall geladen");
+            chime();
+          } catch {
+            toast("Laden nicht möglich");
+          }
         }
 
-        function renderReport(p) {
+        /* ===== Ergebnis Rendering ===== */
+        function renderReport(profile) {
           $("#ergebnisEmpty")?.classList.add("hidden");
           $("#ergebnisWrap")?.classList.remove("hidden");
 
-          const qual = computeQualWord(p.values.startQualitaet);
+          const v = profile.values;
 
-          $("#rTitle").textContent = p.values.ventureName || "Venture Resonance Studio";
+          $("#rTitle").textContent = v.ventureName || "Bericht";
           $("#rSub").textContent =
-            `Ton: ${p.values.tone}. Hauptspannung: ${p.tensions.primary.name}. Zeitqualität: ${qual}. Transit: ${p.values.transitTone} · Planetenton: ${p.values.planetTone} · Ort: ${p.values.geoTone}.`;
+            `Anliegen: ${goalLabel(v.goal)}. Phase: ${profile.cycle.name}. Transit: ${v.transitTone}. Planetenton: ${v.planetTone}.`;
 
           setBadges("#rBadges", [
-            `Zyklus: ${p.cycle.name}`,
-            `Primär: ${p.tensions.primary.name}`,
-            `Proof: ${p.values.proofDemand}`,
-            `Transit: ${p.values.transitTone}`,
-            `Planet: ${p.values.planetTone}`,
+            `Signatur: ${profile.sig.sun.label}/${profile.sig.moon.label}/${profile.sig.asc.label}`,
+            `Achse: ${profile.axis.primary.name}`,
+            `Team: ${v.teamSize}`,
           ]);
 
-          $("#tOrigin").innerHTML = `
-            <strong>${escapeHtml(p.values.ventureName)}</strong> · ${escapeHtml(p.values.foundingPlace)} · ${escapeHtml(p.values.foundingDate)}
-            ${p.values.foundingTime ? `· ${escapeHtml(p.values.foundingTime)}` : ""}<br/>
-            Signatur: <strong>${escapeHtml(p.rhythmTag)}</strong> · Feld: <strong>${escapeHtml(p.fieldTag)}</strong>
+          // Signatur panel
+          $("#tSignature").innerHTML = `
+            <strong>Wesen:</strong> ${escapeHtml(v.selfUnderstanding)}<br/>
+            <strong>Wirkung:</strong> ${escapeHtml(v.whyImpact)}<br/>
+            <strong>Ursprung:</strong> ${escapeHtml(v.originDrive)}<br/><br/>
+            <strong>Übersetzung:</strong> Das Unternehmen wirkt <strong>initiativ</strong> – aber gewinnt Kraft durch <strong>Rahmen</strong> und <strong>Wiederholung</strong>.
+            Schwierigkeiten entstehen, wenn zu viele parallele Richtungen geöffnet werden.
           `;
-          setBadges("#tOriginBadges", [
-            `Zeitqualität: ${qual}`,
-            `Sonne: ${p.sma.sun.label}`,
-            `Mond: ${p.sma.moon.label}`,
-            `Asc: ${p.sma.asc.label}`,
+          setBadges("#tSignatureBadges", [
+            `Gründung: ${v.foundingDate}`,
+            `Ort: ${v.foundingPlace}`,
+            `Sonne: ${profile.sig.sun.label}`,
+            `Mond: ${profile.sig.moon.label}`,
+            `Asc: ${profile.sig.asc.label}`,
           ]);
 
-          $("#tAxis").innerHTML = `
-            <strong>${escapeHtml(p.tensions.primary.name)}</strong><br/>
-            Pole: ${escapeHtml(p.tensions.primary.poles[0])} ↔ ${escapeHtml(p.tensions.primary.poles[1])}<br/>
-            ${escapeHtml(p.tensions.primary.description)}
+          // Founder panel
+          $("#tFounder").innerHTML = v.includeFounder === "nein"
+            ? `Kein Gründerprofil einbezogen. Fokus liegt auf Unternehmensstruktur und Musterlogik.`
+            : `
+              <strong>Stil:</strong> ${escapeHtml(v.leadStyle)}<br/>
+              <strong>Stärke:</strong> ${escapeHtml(v.founderStrength)}<br/>
+              <strong>Belastung:</strong> ${escapeHtml(v.founderLoad)}<br/><br/>
+              <strong>Fit:</strong> ${escapeHtml(profile.founderFit.fit)} · ${escapeHtml(profile.founderFit.hint)}
+            `;
+          setBadges("#tFounderBadges", v.includeFounder === "nein"
+            ? [`Modus: Unternehmen`]
+            : [`Geburt: ${v.birthDate}`, `Ort: ${v.birthPlace}`, `Fit: ${profile.founderFit.fit}`]
+          );
+
+          // Phase panel
+          $("#tPhase").innerHTML = `
+            <strong>${escapeHtml(profile.cycle.name)}</strong><br/>
+            ${escapeHtml(profile.cycle.hint)}<br/><br/>
+            <strong>Zeitqualität:</strong> Transit <em>${escapeHtml(v.transitTone)}</em> · Planetenton <em>${escapeHtml(v.planetTone)}</em>.
           `;
-          setBadges("#tAxisBadges", [
-            `Sekundär: ${p.tensions.secondary.name}`,
-            `Reibung: ${p.values.frictionZone}`,
-            `Wiederkehr: gesetzt`,
+          setBadges("#tPhaseBadges", [
+            `Hauptachse: ${profile.axis.primary.name}`,
+            `Sek.: ${profile.axis.secondary.name}`,
           ]);
 
-          $("#tLead").innerHTML = `
-            <strong>Risiko:</strong> ${escapeHtml(p.riskLever.risk)}<br/>
-            <strong>Hebel:</strong> ${escapeHtml(p.riskLever.lever)}<br/>
-            <span class="muted">${escapeHtml(p.riskLever.blockerLine)}</span>
-          `;
-          setBadges("#tLeadBadges", [
-            `Führung: ${p.values.leadQuality}`,
-            `Blocker: ${p.values.leadBlocker}`,
-            `Marker: ${p.values.signals}`,
-          ]);
+          // Action plan
+          setStepsList("#actionPlan", buildActionPlan(v, profile.axis, profile.cycle, profile.founderFit));
 
-          $("#tCycle").innerHTML = `
-            <strong>${escapeHtml(p.cycle.name)}</strong><br/>
-            Signale: ${escapeHtml(p.cycle.signals.join(" · "))}<br/>
-            Timing: ${escapeHtml(p.cycle.hint)}
-          `;
-          setBadges("#tCycleBadges", [
-            `Team: ${p.values.teamSize}`,
-            `Branche: ${p.values.industry}`,
-            `Orts-Ton: ${p.values.geoTone}`,
-          ]);
+          // Patterns
+          $("#patKnoten").textContent = profile.patterns.knot;
+          $("#patImpact").textContent = profile.patterns.impact;
+          $("#patPath").textContent = profile.patterns.path;
+          $("#patSignal").textContent = profile.patterns.signal;
 
-          setStepsList("#actionPlan", buildActionPlan(p));
-          renderTimingGrid(p);
+          // Decision
+          $("#decCore").textContent = profile.decision.core;
+          setBadges("#decBadges", profile.decision.badges);
+          $("#decReading").textContent = profile.decision.reading;
+          $("#decUpside").textContent = profile.decision.upside;
+          $("#decDownside").textContent = profile.decision.downside;
 
-          const tm = buildTeamModule(p);
-          $("#teamDyn").textContent = tm.dyn;
-          setBadges("#teamBadges", tm.badges);
-          renderInterviewQs(tm.interview);
-          $("#peopleDev").textContent = tm.dev;
-          $("#leadCoach").textContent = tm.coach;
+          // Timing
+          renderTimingGrid(profile.timingSlots);
 
-          const ex = buildExpansionModule(p);
-          $("#geo").textContent = ex.geo;
-          $("#marketEntry").textContent = ex.marketEntry;
-          $("#rolesPlaces").textContent = ex.rolesPlaces;
-          $("#riskCheck").textContent = ex.riskCheck;
-
-          state.deck = buildDeckPrompts(p);
-          state.deckIndex = 0;
-          renderDeck();
-
-          renderExport(p);
-        }
-
-        function bindReportTabs() {
-          const tabs = $("#reportTabs");
-          if (!tabs) return;
-
-          tabs.querySelectorAll(".segbtn").forEach((btn) => {
-            btn.addEventListener("click", () => {
-              tabs.querySelectorAll(".segbtn").forEach((b) => b.classList.remove("active"));
-              btn.classList.add("active");
-
-              const id = btn.dataset.panel;
-              document.querySelectorAll(".panel").forEach((p) => p.classList.remove("active"));
-              const panel = document.getElementById(id);
-              if (panel) panel.classList.add("active");
-
-              chime();
-              window.scrollTo({ top: 0, behavior: "smooth" });
-            });
-          });
-        }
-
-        function bindCoreEvents() {
-          document.querySelectorAll(".navbtn[data-view]").forEach((btn) => {
-            btn.addEventListener("click", () => {
-              if (btn.disabled) return;
-              switchView(btn.dataset.view);
-              chime();
-            });
-          });
-
-          $("#ctaBegin")?.addEventListener("click", () => {
-            switchView("reading", { resetWizard: true });
-            chime();
-          });
-
-          $("#deckNext")?.addEventListener("click", deckNext);
-          $("#deckBack")?.addEventListener("click", deckBack);
-
-          $("#printBtn")?.addEventListener("click", () => window.print());
-          $("#copyBtn")?.addEventListener("click", async () => {
-            if (!state.profile) return;
-            const txt = buildCopySummary(state.profile);
-            try { await navigator.clipboard.writeText(txt); toast("Kopiert"); chime(); }
-            catch { toast("Copy nicht möglich"); }
-          });
-
-          window.addEventListener("resize", () => requestAnimationFrame(moveNavIndicator));
-        }
-
-        function init() {
-          buildWizardUI();
-          setStep(0);
-          bindSwipeWizard();
-          bindDeckSwipe();
-          bindReportTabs();
-          bindCoreEvents();
-
-          requestAnimationFrame(moveNavIndicator);
-          setTimeout(() => requestAnimationFrame(moveNavIndicator), 120);
-          setTimeout(() => requestAnimationFrame(moveNavIndicator), 420);
-          setTimeout(() => requestAnimationFrame(moveNavIndicator), 900);
-
-          switchView("start");
-        }
-
-        if (document.readyState === "loading") {
-          document.addEventListener("DOMContentLoaded", init, { once: true });
-        } else {
-          init();
-        }
-      })();
-    </script>
-  </body>
-</html>
+          // Team
+          $("#teamDyn").textContent = profile.team.dyn;
+          setBadges("#teamBadges", profile.team.badges);
+          renderInterviewQs(profile.team.interview);
+          $("#delegHint").textContent = profile.team.deleg;
+          $("#missingEnergy").
