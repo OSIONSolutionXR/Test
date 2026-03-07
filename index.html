@@ -24,7 +24,8 @@
         --radius2: 26px;
 
         --serif: ui-serif, "Iowan Old Style", "Palatino Linotype", Palatino, Garamond, serif;
-        --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+        --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji",
+          "Segoe UI Emoji";
 
         --sat: env(safe-area-inset-top);
         --sab: env(safe-area-inset-bottom);
@@ -90,7 +91,8 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        padding: 8px calc(12px + var(--sal)) 10px calc(12px + var(--sar));
+        /* FIX: left/right safe-area padding was swapped */
+        padding: 8px calc(12px + var(--sar)) 10px calc(12px + var(--sal));
       }
       .topnav {
         position: relative;
@@ -639,7 +641,7 @@
         <div class="kicker">premium · ruhig · klar</div>
         <h1>Farinas Venture Resonance Studio</h1>
         <p class="lead">
-          Ein Arbeitsinstrument für Farina: <strong>Unternehmens-Potenzialanalyse auf astrologischer Basis</strong> —
+          <strong>Unternehmensastrologische Analyse</strong> —
           Deutung <span class="faint">+</span> Einordnung <span class="faint">+</span> Richtung <span class="faint">+</span> Empfehlung.
         </p>
 
@@ -1013,11 +1015,15 @@
           { id: "verdant", label: "Verdant", meaning: "Wachstum & Pflege" },
         ];
 
-        /* ===== Steps: modulare Strecke (8 Bereiche, aber V1-fokussiert, ohne Overkill) ===== */
+        function goalLabel(goalV) {
+          const it = GOALS.find((g) => g.v === goalV);
+          return it ? it.t : (goalV || "—");
+        }
+
+        /* ===== Steps ===== */
         function buildSteps(values) {
           const steps = [];
 
-          // 1) Einstieg / Anliegen
           steps.push({
             id: "goal",
             chip: "Einstieg",
@@ -1026,7 +1032,6 @@
             fields: [{ key: "goal", label: "Anliegen", type: "select", required: true, options: GOALS }],
           });
 
-          // 2) Unternehmens-DNA (Kern)
           steps.push({
             id: "dna1",
             chip: "Unternehmens-DNA",
@@ -1083,7 +1088,6 @@
             ],
           });
 
-          // 3) Gründer/Führung (optional, aber in V1 enthalten)
           steps.push({
             id: "founder0",
             chip: "Gründer-Ebene",
@@ -1141,7 +1145,6 @@
             });
           }
 
-          // 4) Muster/Blockaden (Gänsehaut-Teil)
           steps.push({
             id: "patterns1",
             chip: "Muster",
@@ -1175,7 +1178,6 @@
             ],
           });
 
-          // 5) Aktuelle Herausforderung + Kontext
           steps.push({
             id: "now1",
             chip: "Aktuell",
@@ -1187,10 +1189,8 @@
             ],
           });
 
-          // 6) Entscheidungs-Navigation (nur wenn Goal passt)
           const goal = values.goal || "";
           const wantsDecision = ["zeitpunkt", "expansion", "kooperation", "neuausrichtung"].includes(goal);
-          const wantsTeam = ["team", "fuehrung"].includes(goal);
 
           steps.push({
             id: "decision0",
@@ -1236,7 +1236,6 @@
             });
           }
 
-          // 7) Timing & Zeitqualität (immer)
           steps.push({
             id: "timing1",
             chip: "Timing",
@@ -1280,7 +1279,6 @@
             fields: [{ key: "planetTone", label: "Dominanter Ton", type: "select", required: true, options: PLANET_TONES }],
           });
 
-          // 8) Team & Rollen (nur wenn goal passt, sonst kurz)
           steps.push({
             id: "team0",
             chip: "Team",
@@ -1320,7 +1318,7 @@
           steps.push({
             id: "team1",
             chip: "Team",
-            title: wantsTeam ? "Welche Rolle soll gerade besetzt oder geklärt werden?" : "Optional: Gibt es eine Rolle, die gerade wackelt?",
+            title: "Optional: Gibt es eine Rolle, die gerade wackelt?",
             body: "Kurz – damit wir im Bericht eine klare Team-Übersetzung liefern.",
             fields: [
               { key: "roleFocus", label: "Rolle/Position (optional)", type: "text", required: false, placeholder: "z.B. COO, Sales Lead, Projektleitung…" },
@@ -1328,7 +1326,6 @@
             ],
           });
 
-          // Abschluss
           steps.push({
             id: "close",
             chip: "Abschluss",
@@ -1502,18 +1499,17 @@
               input.addEventListener("change", () => {
                 state.values[f.key] = safe(input.value);
 
-                // dynamic step-rebuild triggers
                 if (f.key === "includeFounder" || f.key === "goal" || f.key === "includeDecision") {
                   const currentId = s.id;
                   const currentIndex = state.stepIndex;
                   rebuildStepsAndUI();
 
-                  // try to keep user on same logical step
                   const newIndex = Math.min(currentIndex, state.steps.length - 1);
                   setStep(newIndex);
-                  // ensure same id if exists
+
                   const match = state.steps.findIndex(st => st.id === currentId);
                   if (match >= 0) setStep(match);
+
                   focusFirstInput();
                 }
               });
@@ -1656,9 +1652,12 @@
           }, { passive: true });
         }
 
-        /* ===== Engine (symbolisch-professionell) ===== */
+        /* ===== Engine ===== */
         function computeSignatureTag(v) {
-          const seed = [v.ventureName, v.foundingDate, v.foundingTime || "00:00", v.foundingPlace, v.firstRevenueDate || "-", v.registerDate || "-", v.industry, v.offer].join("|");
+          const seed = [
+            v.ventureName, v.foundingDate, v.foundingTime || "00:00", v.foundingPlace,
+            v.firstRevenueDate || "-", v.registerDate || "-", v.industry, v.offer
+          ].join("|");
           const h = hash32(seed);
           const sun = pick(SMA_SIGNS, h);
           const moon = pick(SMA_SIGNS.filter(x => x.id !== sun.id), h >>> 3);
@@ -1670,7 +1669,6 @@
           const weights = new Map(AXES.map(a => [a.id, 0]));
           const bump = (id, by) => weights.set(id, (weights.get(id) ?? 0) + by);
 
-          // phase influence
           const stage = v.cycleStage;
           if (stage === "start") { bump("vision_umsetzung", 2); bump("innovation_struktur", 1); }
           if (stage === "konsolidierung") { bump("innovation_struktur", 2); bump("wachstum_stabilitaet", 1); }
@@ -1679,7 +1677,6 @@
           if (stage === "expansion") { bump("wachstum_stabilitaet", 2); bump("tempo_reife", 2); }
           if (stage === "neuordnung") { bump("innovation_struktur", 2); bump("ursprung_markt", 1); }
 
-          // friction
           if (v.frictionZone === "ownership") bump("kontrolle_vertrauen", 2);
           if (v.frictionZone === "struktur") bump("innovation_struktur", 2);
           if (v.frictionZone === "strategie") bump("vision_umsetzung", 2);
@@ -1692,14 +1689,12 @@
           if (txt.includes("wachstum") || txt.includes("skal")) bump("wachstum_stabilitaet", 2);
           if (txt.includes("umsetzen") || txt.includes("delivery")) bump("vision_umsetzung", 2);
 
-          // planet tone influence
           if (v.planetTone === "saturn") bump("innovation_struktur", 2);
           if (v.planetTone === "mars") bump("tempo_reife", 2);
           if (v.planetTone === "venus") bump("ursprung_markt", 1);
           if (v.planetTone === "merkur") bump("vision_umsetzung", 1);
           if (v.planetTone === "neptun") bump("kontrolle_vertrauen", 1);
 
-          // fallback deterministic
           bump(AXES[h % AXES.length].id, 1);
 
           const sorted = [...weights.entries()].sort((a,b) => b[1]-a[1]);
@@ -1847,8 +1842,6 @@
             hint: "Ein guter Zeitpunkt ist ein Zeitpunkt mit tragfähigem Rahmen.",
           });
 
-          // Planet hint
-          const planet = v.planetTone;
           const planetExtra = {
             mars: "Mars: gut für Durchsetzung. Vorsicht: Konflikt/Übermut.",
             venus: "Venus: gut für Marke/Beziehungen. Vorsicht: Charme ohne Vertrag/Proof.",
@@ -1857,7 +1850,7 @@
             neptun: "Neptun: gut für Vision. Vorsicht: Nebel/Ent-Täuschung.",
             sonne: "Sonne: gut für Sichtbarkeit. Vorsicht: zu groß zu früh.",
             mond: "Mond: gut für Team/Sicherheit. Vorsicht: Konfliktvermeidung.",
-          }[planet] || "—";
+          }[v.planetTone] || "—";
 
           base.push({ title: "Planeten-Ton", body: planetExtra, hint: "Als Metapher – nicht als Diagnose." });
 
@@ -1917,14 +1910,13 @@
             richtung: "Richtung: Kern schützen, Form an Markt anpassen.",
           }[v.useFor] || "Kern schützen, Bewegung designen.";
 
-          const moves = [
+          return [
             { k: "1 · Kern", v: `Schreibe euren Kern in einen Satz. (Nicht Marketing – Wahrheit.)` },
             { k: "2 · Achse", v: `Hauptachse: ${axis.primary.name}. Wo kippt ihr gerade: ${axis.primary.a} ↔ ${axis.primary.b}?` },
             { k: "3 · Phase", v: `Phase: ${cycle.name}. ${cycle.hint}` },
             { k: "4 · Führungshebel", v: v.includeFounder === "nein" ? "Fokushebel: Rollen und Rhythmus im Unternehmen schärfen." : `Gründer-Fit: ${founderFit.fit}. ${founderFit.hint}` },
             { k: "5 · Jetzt", v: `${focusLine} Entscheidet heute 1 Proof-Moment für die nächsten 14 Tage.` },
           ];
-          return moves;
         }
 
         function buildDeck(v, axis, sig, founderFit) {
@@ -1940,7 +1932,7 @@
 
           return [
             { q: "Was ist euer Kern, den ihr schützen müsst, damit alles andere wieder leicht wird?", h: "Kern ist oft Angebot · Kadenz · Ownership — nicht ein weiteres Feature." },
-            { q: `Wiederkehrender Knoten: Was will dieses Thema euch eigentlich beibringen?`, h: "Nicht lösen durch mehr Arbeit – oft durch Grenze, Rolle oder Entscheidung." },
+            { q: "Wiederkehrender Knoten: Was will dieses Thema euch eigentlich beibringen?", h: "Nicht lösen durch mehr Arbeit – oft durch Grenze, Rolle oder Entscheidung." },
             { q: `Signatur: Sonne/Mond/Asc = ${sig.sun.label} / ${sig.moon.label} / ${sig.asc.label}. Was heißt das als Verhalten im Alltag?`, h: "Fokus (Sonne) · Bedürfnis (Mond) · Auftreten (Asc) – als Sprache, nicht als Urteil." },
             { q: `Hauptachse: ${axis.primary.name}. Welche Seite ist überzogen – und welche Seite fehlt?`, h: `Pole: ${axis.primary.a} ↔ ${axis.primary.b}. Gegenbewegung = 1 Entscheidung + 1 Ritual.` },
             { q: planetLine, h: "Nutze es als Marker: Was begünstigt es – und was macht es riskant?" },
@@ -1966,8 +1958,8 @@
           }
         }
 
-        function setBadges(el, items) {
-          const wrap = $(el);
+        function setBadges(sel, items) {
+          const wrap = $(sel);
           if (!wrap) return;
           wrap.innerHTML = "";
           for (const t of items) {
@@ -1978,8 +1970,8 @@
           }
         }
 
-        function setStepsList(el, items) {
-          const ul = $(el);
+        function setStepsList(sel, items) {
+          const ul = $(sel);
           if (!ul) return;
           ul.innerHTML = "";
           for (const it of items) {
@@ -2044,32 +2036,12 @@
           chime();
         }
 
-        function bindDeckSwipe() {
-          const deckEl = $("#deck");
-          if (!deckEl) return;
-
-          let sx = 0, sy = 0, st = 0;
-          deckEl.addEventListener("touchstart", (e) => {
-            if (!e.touches || e.touches.length !== 1) return;
-            sx = e.touches[0].clientX;
-            sy = e.touches[0].clientY;
-            st = Date.now();
-          }, { passive: true });
-
-          deckEl.addEventListener("touchend", () => {
-            if (state.view !== "ergebnis") return;
-            const dt = Date.now() - st;
-            if (dt > 650) return;
-            // swipe optional kept minimal; buttons are primary
-          }, { passive: true });
-        }
-
         function buildCopySummary(p) {
           const v = p.values;
           return [
             `Farinas Venture Resonance Studio — Bericht`,
             ``,
-            `Anliegen: ${v.goal}`,
+            `Anliegen: ${goalLabel(v.goal)}`,
             `Unternehmen: ${v.ventureName}`,
             `Gründung: ${v.foundingDate}${v.foundingTime ? " " + v.foundingTime : ""} • ${v.foundingPlace}`,
             `Erster Umsatz: ${v.firstRevenueDate || "—"} • Register: ${v.registerDate || "—"}`,
@@ -2146,7 +2118,6 @@
             `Team: ${v.teamSize}`,
           ]);
 
-          // Signatur panel
           $("#tSignature").innerHTML = `
             <strong>Wesen:</strong> ${escapeHtml(v.selfUnderstanding)}<br/>
             <strong>Wirkung:</strong> ${escapeHtml(v.whyImpact)}<br/>
@@ -2162,7 +2133,6 @@
             `Asc: ${profile.sig.asc.label}`,
           ]);
 
-          // Founder panel
           $("#tFounder").innerHTML = v.includeFounder === "nein"
             ? `Kein Gründerprofil einbezogen. Fokus liegt auf Unternehmensstruktur und Musterlogik.`
             : `
@@ -2176,7 +2146,6 @@
             : [`Geburt: ${v.birthDate}`, `Ort: ${v.birthPlace}`, `Fit: ${profile.founderFit.fit}`]
           );
 
-          // Phase panel
           $("#tPhase").innerHTML = `
             <strong>${escapeHtml(profile.cycle.name)}</strong><br/>
             ${escapeHtml(profile.cycle.hint)}<br/><br/>
@@ -2187,28 +2156,168 @@
             `Sek.: ${profile.axis.secondary.name}`,
           ]);
 
-          // Action plan
           setStepsList("#actionPlan", buildActionPlan(v, profile.axis, profile.cycle, profile.founderFit));
 
-          // Patterns
           $("#patKnoten").textContent = profile.patterns.knot;
           $("#patImpact").textContent = profile.patterns.impact;
           $("#patPath").textContent = profile.patterns.path;
           $("#patSignal").textContent = profile.patterns.signal;
 
-          // Decision
           $("#decCore").textContent = profile.decision.core;
           setBadges("#decBadges", profile.decision.badges);
           $("#decReading").textContent = profile.decision.reading;
           $("#decUpside").textContent = profile.decision.upside;
           $("#decDownside").textContent = profile.decision.downside;
 
-          // Timing
           renderTimingGrid(profile.timingSlots);
 
-          // Team
           $("#teamDyn").textContent = profile.team.dyn;
           setBadges("#teamBadges", profile.team.badges);
           renderInterviewQs(profile.team.interview);
           $("#delegHint").textContent = profile.team.deleg;
-          $("#missingEnergy").
+          $("#missingEnergy").textContent = profile.team.missing;
+
+          state.deck = profile.deck;
+          state.deckIndex = 0;
+          renderDeck();
+
+          $("#exportTitle").textContent = v.ventureName || "Export";
+          $("#exportSub").textContent = `Signatur: ${profile.sig.sun.label}/${profile.sig.moon.label}/${profile.sig.asc.label} · Achse: ${profile.axis.primary.name}`;
+          $("#exportSummary").textContent = `Kern: ${v.selfUnderstanding} — Phase: ${profile.cycle.name} — Nächster Hebel: ${profile.axis.primary.name}.`;
+        }
+
+        function bindReportTabs() {
+          const tabs = $("#reportTabs");
+          if (!tabs) return;
+
+          tabs.addEventListener("click", (e) => {
+            const btn = e.target.closest(".segbtn");
+            if (!btn) return;
+
+            const panelId = btn.dataset.panel;
+            if (!panelId) return;
+
+            $$(".segbtn").forEach((b) => b.classList.toggle("active", b === btn));
+            $$(".panel").forEach((p) => p.classList.toggle("active", p.id === panelId));
+            chime();
+          });
+        }
+
+        function bindTopNav() {
+          $$(".navbtn").forEach((btn) => {
+            btn.addEventListener("click", () => {
+              if (btn.disabled) return;
+              const v = btn.dataset.view;
+              if (!v) return;
+              if (v === "ergebnis" && !state.profile) { toast("Bericht ist noch nicht verfügbar"); return; }
+              switchView(v);
+              chime();
+            });
+          });
+        }
+
+        function bindCTAs() {
+          $("#ctaBegin")?.addEventListener("click", () => {
+            if (!state.steps.length) rebuildStepsAndUI();
+            setStep(0);
+            switchView("reading");
+            focusFirstInput();
+            chime();
+          });
+          $("#ctaLoadLast")?.addEventListener("click", () => loadLastCase());
+        }
+
+        function bindDeckControls() {
+          $("#deckNext")?.addEventListener("click", deckNext);
+          $("#deckBack")?.addEventListener("click", deckBack);
+        }
+
+        function bindExport() {
+          $("#printBtn")?.addEventListener("click", () => {
+            if (!state.profile) { toast("Kein Bericht zum Drucken"); return; }
+            window.print();
+          });
+
+          $("#copyBtn")?.addEventListener("click", async () => {
+            if (!state.profile) { toast("Kein Bericht zum Kopieren"); return; }
+            const txt = buildCopySummary(state.profile);
+            try {
+              await navigator.clipboard.writeText(txt);
+              toast("Kopiert");
+              chime();
+            } catch {
+              toast("Kopieren nicht möglich");
+            }
+          });
+
+          $("#saveCaseBtn")?.addEventListener("click", () => {
+            if (!Object.keys(state.values).length) { toast("Nichts zu speichern"); return; }
+            saveLastCase();
+          });
+        }
+
+        async function generateProfile() {
+          const cal = $("#calibrating");
+          cal?.classList.remove("hidden");
+          try { cal?.scrollIntoView({ behavior: "smooth", block: "start" }); } catch {}
+
+          await sleep(650);
+
+          const v = { ...state.values };
+          const sig = computeSignatureTag(v);
+          const axis = chooseAxis(v, sig.h);
+          const cycle = CYCLES[v.cycleStage] || CYCLES.start;
+          const founderFit = computeFounderFit(v, sig);
+          const patterns = computePatternInterpretation(v, axis);
+          const decision = decisionReading(v, axis);
+          const timingSlots = buildTimingGrid(v, axis);
+          const team = teamModule(v, axis);
+          const deck = buildDeck(v, axis, sig, founderFit);
+
+          state.profile = {
+            values: v,
+            sig,
+            axis,
+            cycle,
+            founderFit,
+            patterns,
+            decision,
+            timingSlots,
+            team,
+            deck,
+          };
+
+          cal?.classList.add("hidden");
+
+          $("#navErgebnis")?.removeAttribute("disabled");
+          renderReport(state.profile);
+          switchView("ergebnis");
+          requestAnimationFrame(moveNavIndicator);
+          chime();
+        }
+
+        function bootstrap() {
+          rebuildStepsAndUI();
+          setStep(0);
+
+          bindSwipeWizard();
+          bindReportTabs();
+          bindTopNav();
+          bindCTAs();
+          bindDeckControls();
+          bindExport();
+
+          // indicator stability
+          window.addEventListener("resize", () => requestAnimationFrame(moveNavIndicator), { passive: true });
+          window.addEventListener("orientationchange", () => setTimeout(() => requestAnimationFrame(moveNavIndicator), 50), { passive: true });
+
+          // initial indicator placement
+          requestAnimationFrame(moveNavIndicator);
+          setTimeout(() => requestAnimationFrame(moveNavIndicator), 80);
+        }
+
+        bootstrap();
+      })();
+    </script>
+  </body>
+</html>
